@@ -7,7 +7,7 @@
           :model="form"
           label-width="80px"
           :rules="loginRules"
-          ref="form"
+          ref="formref"
           label-position="left"
         >
           <el-form-item label="用户名：" prop="username">
@@ -47,55 +47,70 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
+import {useRouter} from "vue-router"
+import {loginApi} from "./account"
 const form = reactive({
   username: "",
   password: "",
 });
+let showShadow = ref(false);
+const shadow = () => {
+  showShadow.value = true;
+};
+const hideShadow = () => {
+  showShadow.value = false;
+};
+const loginRules = reactive({
+  username: [{ required: true, message: "请输入用户名", trigger: "change" }],
+  password: [{ required: true, message: "请输入密码", trigger: "change" }],
+});
+const router = useRouter()
+
+// 获取refs
+let formref = ref();
+const login = async function () {
+  const valid = await formref.value.validate();
+  if (!valid) {
+    return;
+  }
+  let res = await loginApi(form);
+  if (res) {
+    localStorage.setItem("userInfo", JSON.stringify(res.data));
+    router.push({ path: "/home" });
+  }
+};
 </script>
 
-<style scoped>
-/* // .login {
-//   height: 100%;
+<style lang="scss" scoped>
+.login {
+  // background: url("../../assets/images/bg.jpg") no-repeat;
+  background-size: cover;
 
-//   background: url("../../assets/images/bg.jpg") no-repeat;
-//   background-size: cover;
-
-//   .login-container {
-//     border-radius: 3px;
-//     width: 320px;
-//     background: rgba(255, 255, 255, 1);
-//     padding: 40px 60px;
-//     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-//     .reg {
-//       cursor: pointer;
-//       font-size: 12px;
-//       text-decoration: underline;
-//     }
-//   }
-//   .show-container {
-//     width: 100%;
-//     height: 100%;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//   }
-//   .shadow {
-//     background: rgba(0, 0, 0, 0.6);
-//     transition: all 0.5s;
-//   }
-//   ::v-deep .el-tabs__header {
-//     // width: 184px;
-//     // margin: 0 auto;
-//     margin-bottom: 30px;
-//     .el-tabs__item {
-//       font-size: 18px;
-//     }
-//     .el-tabs__nav-wrap {
-//       display: flex;
-//       justify-content: center;
-//     }
-//   }
-// } */
+  .show-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .login-container {
+      border-radius: 3px;
+      width: 400px;
+      margin-top: 15vh;
+      background: rgba(255, 255, 255, 1);
+      padding: 40px 60px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      .reg {
+        cursor: pointer;
+        font-size: 12px;
+        text-decoration: underline;
+      }
+    }
+  }
+  .shadow {
+    background: rgba(0, 0, 0, 0.6);
+    transition: all 0.5s;
+  }
+}
 </style>
 

@@ -11,5 +11,16 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  server: {
+    host: '127.0.0.1',
+    port: 7910,
+    proxy: {
+      '/bootService': {
+        target: 'http://admin.dsiab.com/',
+        // target: 'http://localhost:8091/',
+        changeOrigin: true
+      }
+    }
   }
 })
