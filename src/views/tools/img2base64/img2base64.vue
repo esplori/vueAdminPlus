@@ -86,7 +86,7 @@ export default {
 };
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .img2base64 {
   .localPic {
     img {

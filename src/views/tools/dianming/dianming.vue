@@ -140,7 +140,7 @@ export default {
 };
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .dianming {
   background: #000;
   padding: 20px;

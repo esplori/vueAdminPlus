@@ -6,12 +6,12 @@
     <el-table :data="list" style="width: 100%">
       <el-table-column type="selection" width="55"> </el-table-column>
       <el-table-column label="商品名称">
-        <template slot-scope="scope">
+        <template #default="scope">
           <a :href="scope.row.url">{{ scope.row.title }}</a>
         </template>
       </el-table-column>
       <el-table-column label="图片">
-        <template slot-scope="scope">
+        <template #default="scope">
           <img :src="scope.row.pict_url" alt="" width="120px" height="120px" />
         </template>
       </el-table-column>
@@ -24,7 +24,7 @@
        <el-table-column prop="createDate" label="更新时间">
       </el-table-column>
       <el-table-column label="操作">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-button @click="del(scope.row.pid)" type="danger">删除</el-button>
         </template>
       </el-table-column>
@@ -88,7 +88,7 @@ export default {
 };
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .page-list {
   width: 100%;
   .content-item {
