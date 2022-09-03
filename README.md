@@ -10,9 +10,6 @@
 
 ### 项目介绍
 
-<br>
-
-
 - 主要技术栈: vuejs3.0 + vue-router + pinia + element-plus + typescript + scss
 
 - 使用到的插件： axios + wangeditor + echarts5 + countup.js
@@ -22,11 +19,7 @@
 - 该项目为另一个项目vueAdmin的升级版本。
 
 
-<br>
-
 ### 主要功能
-
-<br>
 
 
 - 首页看板：访问数据统计
@@ -40,29 +33,22 @@
 - 常用工具：json格式化，抽奖，在线点名，图片转base64，二维码在线生成等，持续更新中...
 
 
-<br>
-
 ### 关联项目1
-<br>
 
 - 博客首页: nuxt-web (https://gitee.com/wilkwo/nuxt-web.git) 
   
 - 体验地址：https://www.dsiab.com
 
-<br>
 
 ### 关联项目2
 
-<br>
 
 - vue2.0版本: vueAdmin (https://gitee.com/wilkwo/vueAdmin.git) 
-  
 
-<br>
 
 
 ### 体验地址
-<br>
+
 
 - 地址：http://admin.dsiab.com
 
@@ -70,19 +56,18 @@
   
 - 加qq群一起交流：744203401
 
-<br>
+
 
 ### 演示截图
 
-<br>
+
 <img src="./src/assets/images/screenshot.png" alt="赞赏" width="500px" />
 
-<br>
-<br>
+
 
 ### 运行项目
 
-<br>
+
 
 ``` bash
 
@@ -104,8 +89,7 @@ npm run build --report
 
 ### 感谢赞赏  
 
-<br>
+
  创作不易，你的赞赏和认可是持续更新的动力~
-<br>
-<br>
+
 <img src="./src/assets/images/zanshan.jpeg" alt="赞赏" width="200px" />
