@@ -48,35 +48,20 @@
         </el-menu>
       </div>
       <div class="right-content">
-        <!-- <keep-alive> -->
         <adminHeader :userInfoObj="userInfoObj"></adminHeader>
-        <el-tabs
-          class="eltabs"
-          v-model="activeName"
-          type="card"
-          @tab-click="handleClick"
-          closable
-          @tab-remove="removeTab"
-        >
-          <el-tab-pane
-            :label="item.title"
-            :name="item.path"
-            v-for="(item, index) in tabList"
-            :key="index"
-          ></el-tab-pane>
-        </el-tabs>
-
-        <router-view></router-view>
+        <RouterView />
         <commonFooter></commonFooter>
       </div>
     </div>
     <music class="global-music" v-if="false"></music>
   </div>
-  <RouterView />
+  
 </template>
 <script setup lang="ts">
 import { RouterView } from "vue-router";
 import { ref, reactive, computed } from "vue";
+import adminHeader from "./components/admin-header.vue"
+import commonFooter from "./components/footer.vue"
 const menuList = reactive([
   {
     title: "首页",
