@@ -7,14 +7,14 @@
       <el-table-column prop="role" label="角色Id"> </el-table-column>
       <el-table-column prop="email" label="邮箱"> </el-table-column>
       <el-table-column prop="valid" label="是否有效">
-        <template slot-scope="scope">
+        <template #default="scope">
           <span v-show="scope.row.valid === '1'">是</span>
           <span style="color: red" v-show="scope.row.valid === '0'">否</span>
         </template>
       </el-table-column>
       <el-table-column prop="createDate" label="创建时间"> </el-table-column>
       <el-table-column fixed="right" width="180" label="操作">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-button @click="edit(scope.row)" type="text">编辑</el-button>
           <!-- 不允许删除管理员 -->
           <el-button
@@ -42,7 +42,7 @@
     </div>
     <el-dialog
       :title="editObj.currUsername + '角色修改'"
-      :visible.sync="editObj.dialogVisible"
+      v-model="editObj.dialogVisible"
       width="30%"
     >
       <div>
@@ -57,17 +57,15 @@
           <el-table-column prop="roleId" label="角色ID"> </el-table-column>
         </el-table>
       </div>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="editObj.dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="submit">确 定</el-button>
-      </span>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="editObj.dialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="submit">确 定</el-button>
+        </span>
+      </template>
     </el-dialog>
 
-    <el-dialog
-      title="新增用户"
-      :visible.sync="insertObj.dialogVisible"
-      width="30%"
-    >
+    <el-dialog title="新增用户" v-model="insertObj.dialogVisible" width="30%">
       <div>
         <el-form :model="form" label-width="60px">
           <el-form-item label="用户名">
@@ -78,10 +76,12 @@
           </el-form-item>
         </el-form>
       </div>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="insertObj.dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="insert">确 定</el-button>
-      </span>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="insertObj.dialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="insert">确 定</el-button>
+        </span>
+      </template>
     </el-dialog>
   </div>
 </template>
@@ -209,7 +209,7 @@ export default {
 };
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .music {
   width: 100%;
   height: 100%;

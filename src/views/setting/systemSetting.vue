@@ -50,22 +50,22 @@
             width="55px"
           ></el-table-column>
           <el-table-column label="轮播图片地址" width="180">
-            <template slot-scope="scope">
+            <template #default="scope">
               <el-input v-model="scope.row.imgUrl"></el-input>
             </template>
           </el-table-column>
           <el-table-column prop="name" label="轮播描述" width="180">
-            <template slot-scope="scope">
+            <template #default="scope">
               <el-input v-model="scope.row.desc"></el-input>
             </template>
           </el-table-column>
           <el-table-column prop="address" label="跳转链接">
-            <template slot-scope="scope">
+            <template #default="scope">
               <el-input v-model="scope.row.url"></el-input>
             </template>
           </el-table-column>
           <el-table-column prop="address" label="操作">
-            <template slot-scope="scope">
+            <template #default="scope">
               <el-button
                 @click="add"
                 v-show="scope.$index === tableData.length - 1"
@@ -157,7 +157,7 @@ export default {
 };
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .user-info {
   padding: 20px 0;
   .setting-form {

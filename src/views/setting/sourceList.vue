@@ -14,7 +14,7 @@
       <el-table-column type="index" label="序号" width="55px"></el-table-column>
       <el-table-column type="selection" width="55"> </el-table-column>
       <el-table-column prop="" label="名称">
-        <template slot-scope="scope">
+        <template #default="scope">
           <div class="filename">
             <div
               v-if="typeConfig.music.includes(scope.row.filename.split('.')[1])"
@@ -44,13 +44,15 @@
           </div>
         </template>
       </el-table-column>
-       <el-table-column prop="" label="名称">
-        <template slot-scope="scope">
-          <a target="_blank" :href="sourceUrl + scope.row.filename">{{sourceUrl + scope.row.filename}}</a>
+      <el-table-column prop="" label="名称">
+        <template #default="scope">
+          <a target="_blank" :href="sourceUrl + scope.row.filename">{{
+            sourceUrl + scope.row.filename
+          }}</a>
         </template>
-       </el-table-column>
+      </el-table-column>
       <el-table-column fixed="right" width="120" label="操作">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-button @click="del(scope.row.filename)" type="text"
             >删除</el-button
           >
@@ -58,7 +60,7 @@
       </el-table-column>
     </el-table>
 
-    <el-dialog title="提示" :visible.sync="dialogVisible" width="30%">
+    <el-dialog title="提示" v-model="dialogVisible" width="30%">
       <el-upload
         class="upload-demo"
         drag
@@ -68,16 +70,18 @@
       >
         <i class="el-icon-upload"></i>
         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-        <div class="el-upload__tip" slot="tip">
-          只能上传jpg/png文件，且不超过500kb
-        </div>
+        <template #tip>
+          <div class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+        </template>
       </el-upload>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false"
-          >确 定</el-button
-        >
-      </span>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="dialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="dialogVisible = false"
+            >确 定</el-button
+          >
+        </span>
+      </template>
     </el-dialog>
   </div>
 </template>
@@ -145,7 +149,7 @@ export default {
 };
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .page-list {
   width: 100%;
   .content-item {

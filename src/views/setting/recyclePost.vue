@@ -4,7 +4,7 @@
       <el-table-column type="selection" width="55"> </el-table-column>
       <el-table-column type="index" label="序号" width="55px"></el-table-column>
       <el-table-column label="标题">
-        <template slot-scope="scope">
+        <template #default="scope">
           <a
             style="color: #333"
             :href="'https://www.dsiab.com/post/' + scope.row.id"
@@ -14,27 +14,27 @@
         </template>
       </el-table-column>
       <el-table-column label="分类" width="120px">
-        <template slot-scope="scope">
+        <template #default="scope">
           {{ scope.row.cateName }}
         </template>
       </el-table-column>
       <el-table-column label="作者" width="120px">
-        <template slot-scope="scope">
+        <template #default="scope">
           {{ scope.row.createBy }}
         </template>
       </el-table-column>
       <el-table-column label="阅读" width="120px">
-        <template slot-scope="scope">
+        <template #default="scope">
           {{ scope.row.views }}
         </template>
       </el-table-column>
       <el-table-column label="创建时间" width="180px">
-        <template slot-scope="scope">
+        <template #default="scope">
           {{ scope.row.createDate }}
         </template>
       </el-table-column>
       <el-table-column fixed="right" width="180" label="操作">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-button
             @click="delConfirm(scope.row.id)"
             type="text"
@@ -147,7 +147,7 @@ export default {
 };
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .page-list {
   width: 100%;
   .select-by-cate {

@@ -5,7 +5,7 @@
       <el-table-column prop="roleName" label="角色名称"> </el-table-column>
       <el-table-column prop="roleId" label="角色id"> </el-table-column>
       <el-table-column fixed="right" width="180" label="操作">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-button @click="edit(scope.row.id)" type="text">编辑</el-button>
           <!-- <el-button @click="del(scope.row.id)" type="danger">删除</el-button> -->
         </template>
@@ -38,7 +38,7 @@ export default {
 };
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .music {
   width: 100%;
   height: 100%;

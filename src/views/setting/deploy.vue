@@ -6,7 +6,7 @@
       <el-table-column prop="type" label="部署文件" width="180">
       </el-table-column>
       <el-table-column width="180" label="操作">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-button
             :type="scope.row.class"
             @click="deployAdmin(scope.row)"
@@ -18,7 +18,7 @@
         </template>
       </el-table-column>
       <el-table-column width="180" label="状态">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-button v-show="scope.row.success" type="success" icon="el-icon-check" circle></el-button>
         </template>
       </el-table-column>
@@ -69,7 +69,7 @@ export default {
 };
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .compressJs {
   width: 100%;
   .success {

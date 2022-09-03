@@ -54,7 +54,7 @@ export default {
 };
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .user-info {
   padding: 20px 0;
 }
