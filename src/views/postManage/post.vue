@@ -11,7 +11,7 @@
       </el-form-item>
       <el-form-item label="" label-width="0">
         <div>
-          <div style="min-height: 550px" id="wangeditor"></div>
+          <div style="min-height: 550px" id="wangeditor" ref="wangeditor"></div>
         </div>
         <div class="autosaveTip" v-show="showAutosaveTip">
           <el-alert
@@ -44,9 +44,9 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <!-- <el-form-item label="浏览量：">
+      <el-form-item label="浏览量：">
         <el-input v-model="form.views" disabled class="optionsWidth"></el-input>
-      </el-form-item> -->
+      </el-form-item>
       <el-form-item label="字数：">
         <div class="optionsWidth">{{ form.wordsNum }}</div>
       </el-form-item>
@@ -82,7 +82,7 @@
   </div>
 </template>
 <script>
-// import Wangeditor from "wangeditor";
+import Wangeditor from "wangeditor";
 import {
   postPageApi,
   editPageApi,
@@ -122,110 +122,110 @@ export default {
     // this.autoSave = setInterval(() => {
     //   this.submit(false);
     // }, 15000);
-    // let userinfo = localStorage.getItem("userInfo");
-    // if (userinfo) {
-    //   userinfo = JSON.parse(userinfo);
-    // } else {
-    //   userinfo = {};
-    // }
-    // this.editor = new Wangeditor("#wangeditor");
-    // // 配置 server 接口地址
-    // this.editor.config.uploadImgServer = "/bootService/account/upload";
-    // this.editor.config.uploadFileName = "file";
-    // this.editor.config.uploadImgHeaders = {
-    //   Authorization: userinfo.token,
-    // };
-    // this.editor.config.uploadImgTimeout = 100 * 1000;
-    // this.editor.config.uploadImgHooks = {
-    //   // 上传图片之前
-    //   before: function (xhr) {
-    //     // console.log(xhr);
-    //     // // 可阻止图片上传
-    //     // return {
-    //     //     prevent: true,
-    //     //     msg: '需要提示给用户的错误信息'
-    //     // }
-    //   },
-    //   // 图片上传并返回了结果，图片插入已成功
-    //   success: function (xhr) {
-    //     // console.log("success", xhr);
-    //   },
-    //   // 图片上传并返回了结果，但图片插入时出错了
-    //   fail: function (xhr, editor, resData) {
-    //     // console.log("fail", resData);
-    //   },
-    //   // 上传图片出错，一般为 http 请求的错误
-    //   error: function (xhr, editor, resData) {
-    //     // console.log("error", xhr, resData);
-    //   },
-    //   // 上传图片超时
-    //   timeout: function (xhr) {
-    //     // console.log("timeout");
-    //   },
-    //   // 图片上传并返回了结果，想要自己把图片插入到编辑器中
-    //   // 例如服务器端返回的不是 { errno: 0, data: [...] } 这种格式，可使用 customInsert
-    //   customInsert: function (insertImgFn, result) {
-    //     // result 即服务端返回的接口
-    //     // insertImgFn 可把图片插入到编辑器，传入图片 src ，执行函数即可
-    //     insertImgFn(result.data[0].url);
-    //   },
-    // };
-    // // 配置菜单栏，删减菜单，调整顺序
-    // this.editor.config.menus = [
-    //   "head",
-    //   "bold",
-    //   "fontSize",
-    //   "italic",
-    //   "underline",
-    //   "indent",
-    //   "lineHeight",
-    //   "foreColor",
-    //   "backColor",
-    //   "link",
-    //   "list",
-    //   "todo",
-    //   "justify",
-    //   "quote",
-    //   "image",
-    //   "video",
-    //   "code",
-    //   "undo",
-    //   "redo",
-    // ];
-    // // 插入代码语言配置
-    // this.editor.config.languageType = [
-    //   "JavaScript",
-    //   "CSS",
-    //   "Java",
-    //   "JSON",
-    //   "Html",
-    // ];
-    // let _this = this;
-    // // 配置 onchange 回调函数
-    // this.editor.config.onchange = function (newHtml) {
-    //   _this.form.wordsNum =
-    //     document.querySelector(".w-e-text").textContent.length;
-    // };
-    // // 配置触发 onchange 的时间频率，默认为 200ms
-    // // this.editor.config.onchangeTimeout = 5000; // 修改为 500ms
-    // this.editor.create();
+    let userinfo = localStorage.getItem("userInfo");
+    if (userinfo) {
+      userinfo = JSON.parse(userinfo);
+    } else {
+      userinfo = {};
+    }
+    this.editor = new Wangeditor(this.$refs.wangeditor);
+    // 配置 server 接口地址
+    this.editor.config.uploadImgServer = "/bootService/account/upload";
+    this.editor.config.uploadFileName = "file";
+    this.editor.config.uploadImgHeaders = {
+      Authorization: userinfo.token,
+    };
+    this.editor.config.uploadImgTimeout = 100 * 1000;
+    this.editor.config.uploadImgHooks = {
+      // 上传图片之前
+      before: function (xhr) {
+        // console.log(xhr);
+        // // 可阻止图片上传
+        // return {
+        //     prevent: true,
+        //     msg: '需要提示给用户的错误信息'
+        // }
+      },
+      // 图片上传并返回了结果，图片插入已成功
+      success: function (xhr) {
+        // console.log("success", xhr);
+      },
+      // 图片上传并返回了结果，但图片插入时出错了
+      fail: function (xhr, editor, resData) {
+        // console.log("fail", resData);
+      },
+      // 上传图片出错，一般为 http 请求的错误
+      error: function (xhr, editor, resData) {
+        // console.log("error", xhr, resData);
+      },
+      // 上传图片超时
+      timeout: function (xhr) {
+        // console.log("timeout");
+      },
+      // 图片上传并返回了结果，想要自己把图片插入到编辑器中
+      // 例如服务器端返回的不是 { errno: 0, data: [...] } 这种格式，可使用 customInsert
+      customInsert: function (insertImgFn, result) {
+        // result 即服务端返回的接口
+        // insertImgFn 可把图片插入到编辑器，传入图片 src ，执行函数即可
+        insertImgFn(result.data[0].url);
+      },
+    };
+    // 配置菜单栏，删减菜单，调整顺序
+    this.editor.config.menus = [
+      "head",
+      "bold",
+      "fontSize",
+      "italic",
+      "underline",
+      "indent",
+      "lineHeight",
+      "foreColor",
+      "backColor",
+      "link",
+      "list",
+      "todo",
+      "justify",
+      "quote",
+      "image",
+      "video",
+      "code",
+      "undo",
+      "redo",
+    ];
+    // 插入代码语言配置
+    this.editor.config.languageType = [
+      "JavaScript",
+      "CSS",
+      "Java",
+      "JSON",
+      "Html",
+    ];
+    let _this = this;
+    // 配置 onchange 回调函数
+    this.editor.config.onchange = function (newHtml) {
+      _this.form.wordsNum =
+        document.querySelector(".w-e-text").textContent.length;
+    };
+    // 配置触发 onchange 的时间频率，默认为 200ms
+    // this.editor.config.onchangeTimeout = 5000; // 修改为 500ms
+    this.editor.create();
   },
   computed: {
-    // userInfo() {
-    //   const userinfo = localStorage.getItem("userInfo");
-    //   if (userinfo) {
-    //     return JSON.parse(userinfo);
-    //   } else {
-    //     return "";
-    //   }
-    // },
+    userInfo() {
+      const userinfo = localStorage.getItem("userInfo");
+      if (userinfo) {
+        return JSON.parse(userinfo);
+      } else {
+        return "";
+      }
+    },
   },
   created() {
-    // const id = this.$route.query.id;
-    // if (id) {
-    //   this.getDetail(id);
-    // }
-    // this.getCate(id);
+    const id = this.$route.query.id;
+    if (id) {
+      this.getDetail(id);
+    }
+    this.getCate(id);
   },
   methods: {
     async getCate(id) {
@@ -307,7 +307,8 @@ export default {
           /-/g,
           "/"
         );
-        this.$set(this, "form", res.data.result);
+        // this.$set(this, "form", res.data.result);
+        this.form = res.data.result
         this.dynamicTags = this.form.keywords
           ? this.form.keywords.split(",")
           : [];
@@ -365,7 +366,7 @@ export default {
     padding: 0;
   }
   .title {
-    /deep/.el-input__inner {
+    ::deep(.el-input__inner) {
       border-top: none;
       border-left: none;
       border-right: none;
