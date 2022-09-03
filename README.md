@@ -16,7 +16,11 @@
 
 - 启动项目可直接看到效果，默认调用是官网的后台管理接口，使用体验账号登录即可。
   
-- 该项目为另一个项目vueAdmin的升级版本。
+
+### vueAdmin vue2.0版本
+
+ - 主要技术栈: vuejs2.0 + vue-router + vuex + element-ui + less
+ - 项目地址：https://gitee.com/wilkwo/vueAdmin.git
 
 
 ### 主要功能
