@@ -37,18 +37,11 @@
 - 常用工具：json格式化，抽奖，在线点名，图片转base64，二维码在线生成等，持续更新中...
 
 
-### 关联项目1
+### 关联项目
 
 - 博客首页: nuxt-web (https://gitee.com/wilkwo/nuxt-web.git) 
   
 - 体验地址：https://www.dsiab.com
-
-
-### 关联项目2
-
-
-- vue2.0版本: vueAdmin (https://gitee.com/wilkwo/vueAdmin.git) 
-
 
 
 ### 体验地址
