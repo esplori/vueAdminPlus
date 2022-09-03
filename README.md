@@ -1,46 +1,84 @@
-# vueAdminPlus
+<div><a href="https://gitee.com/wilkwo/vueAdmin/blob/master/README.md">中文</a>  |  <a href="https://gitee.com/wilkwo/vueAdmin/blob/master/README.en.md">english</a></div>
 
-This template should help get you started developing with Vue 3 in Vite.
 
-## Recommended IDE Setup
+<h1 align="center" style=" font-weight: bold;">vueAdminPlus</h1>
+<h5 align="center">基于vue开发的博客系统</h5>
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+<p align="center">
+	<a href="https://gitee.com/wilkwo/vue-admin-plus.git"><img src="https://gitee.com/wilkwo/vueAdmin/badge/star.svg?theme=dark"></a>
+	<a href="https://gitee.com/wilkwo/vue-admin-plus.git"><img src="https://gitee.com/wilkwo/vueAdmin/badge/fork.svg?theme=dark"></a>
+</p>
 
-## Type Support for `.vue` Imports in TS
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+### 项目介绍
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+- 基于vue、element-plus实现的的博客后台管理系统
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+- 主要技术: vuejs3.0 + element-plus
 
-## Customize configuration
+- 使用到的插件： axios + scss + wangeditor
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+- 拉取代码后可直接看到效果，默认调用是官网的后台管理接口，使用测试账号登录即可。
 
-## Project Setup
+### 主要功能
+- 首页看板：访问数据统计
+- 文章管理：新增、删除、查询、修改文章
+- 评论管理：评论查询、删除
+- 分类管理：新增、删除分类
+- 导航管理：查询导航、分类管理、新增导航
+- 用户管理：新增、删除、修改用户
+- 个人设置：用户个人信息修改
+- 系统设置：站点设置、资源管理、在线编译、回收站
+- 常用工具：json格式化，抽奖，在线点名，图片转base64，二维码在线生成等，持续更新中...
 
-```sh
+### 关联项目
+
+- 门户网站: nuxt-web (https://gitee.com/wilkwo/nuxt-web.git) 
+  
+- 体验地址：https://www.dsiab.com
+
+
+### 演示地址
+
+- 地址：http://admin.dsiab.com
+
+- 测试账号、密码： test/test
+  
+- 加qq群一起交流：744203401
+
+
+### 演示截图
+
+<img src="./src/assets/images/screenshot.png" alt="赞赏" width="400px" />
+
+
+### 运行项目
+
+``` bash
+
+#下载代码
+gitee: git clone https://gitee.com/wilkwo/vueAdmin.git
+
+或者
+
+github: git clone https://github.com/esplori/vueAdmin.git
+
+# 安装依赖
 npm install
-```
 
-### Compile and Hot-Reload for Development
-
-```sh
+# 启动应用 localhost:8081
 npm run dev
-```
 
-### Type-Check, Compile and Minify for Production
-
-```sh
+# 生成应用
 npm run build
+
+# 生成应用并查看报告
+npm run build --report
 ```
 
-### Lint with [ESLint](https://eslint.org/)
 
-```sh
-npm run lint
-```
+### 感谢赞赏
+
+创作不易，你的赞赏和认可是持续更新的动力！
+
+<img src="./src/assets/images/zanshan.jpeg" alt="赞赏" width="400px" />
