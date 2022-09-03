@@ -48,7 +48,7 @@
         </el-menu>
       </div>
       <div class="right-content">
-        <adminHeader :userInfoObj="userInfoObj"></adminHeader>
+        <admin-header :userInfoObj="userInfoObj"></admin-header>
         <RouterView />
         <commonFooter></commonFooter>
       </div>

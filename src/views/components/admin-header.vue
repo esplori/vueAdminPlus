@@ -10,17 +10,13 @@
         <div class="userInfo">
           <div v-if="userInfo" class="info-flex">
             <el-dropdown @command="handleCommand">
-              <span class="el-dropdown-link">
-                {{ userInfo.username }}<el-icon class="el-icon--right"><arrow-down /></el-icon>
-                <el-icon class="el-icon--right">
-                  <arrow-down />
-                </el-icon>
-              </span>
+              <div class="el-dropdown-link">
+                {{ userInfo.username
+                }}<el-icon class="el-icon--right"><arrow-down /></el-icon>
+              </div>
               <template #dropdown>
                 <el-dropdown-menu>
-                  <el-dropdown-item  command="logout"
-                    >退出</el-dropdown-item
-                  >
+                  <el-dropdown-item command="logout">退出</el-dropdown-item>
                 </el-dropdown-menu>
               </template>
             </el-dropdown>
@@ -32,61 +28,49 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import { delHtmlTag } from "@/utils/common.js";
 import { logoutApi } from "../API/common.js";
-export default {
-  name: "admin-header",
-  data() {
-    return {};
-  },
-  computed: {
-    dailySentence() {
-      return (
-        this.userInfoObj.dailySentence &&
-        delHtmlTag(this.userInfoObj.dailySentence)
-      );
-    },
-    userInfo() {
-      const userinfo = localStorage.getItem("userInfo");
-      if (userinfo) {
-        return JSON.parse(userinfo);
-      } else {
-        return false;
-      }
-    },
-  },
-  props: {
-    userInfoObj: {
-      type: Object,
-      default: () => {
-        return {};
-      },
-    },
-  },
-  components: {
-    userInfo: () => import("@/views/components/userInfo.vue"),
-  },
-  methods: {
-    handleCommand(command) {
-      debugger
-      switch (command) {
-        case "logout":
-          this.logout();
-          break;
-      }
-    },
-    toLogin() {
-      this.$router.push({ path: "/login" });
-    },
-    async logout() {
-      const res = await logoutApi({});
-      if (res) {
-        this.$router.push({ path: "/login" });
-      }
-    },
-  },
+import { ArrowDown } from "@element-plus/icons-vue";
+import { computed, defineProps, toRefs } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const dailySentence = computed(() => {
+  return userInfo.dailySentence && delHtmlTag(userInfo.dailySentence);
+});
+
+const userInfo = computed(() => {
+  const userinfo = localStorage.getItem("userInfo");
+  if (userinfo) {
+    return JSON.parse(userinfo);
+  } else {
+    return false;
+  }
+});
+
+const handleCommand = (command) => {
+  switch (command) {
+    case "logout":
+      logout();
+      break;
+  }
 };
+
+const toLogin = () => {
+  router.push("/login");
+};
+
+const logout = async () => {
+  const res = await logoutApi({});
+  if (res) {
+    toLogin();
+  }
+};
+const props = defineProps(["userInfoObj"]);
+const userInfoObj = toRefs(props.userInfoObj);
+console.log("userInfoObj", userInfoObj);
 </script>
 
 <style scoped lang="scss">
@@ -118,6 +102,10 @@ export default {
         // margin-left: 10px;
         font-size: 12px;
       }
+    }
+    .el-dropdown-link {
+      display: flex;
+      align-items: center;
     }
   }
 }
