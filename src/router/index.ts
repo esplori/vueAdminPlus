@@ -6,15 +6,15 @@ const router = createRouter({
   routes: [
     {
       path: '/login',
-      component: () => import(/* webpackChunkName: "login" */ '../views/account/login.vue')
+      component: () => import('../views/account/login.vue')
     },
     {
       path: '/reg',
-      component: () => import(/* webpackChunkName: "reg" */ '../views/account/reg.vue')
+      component: () => import('../views/account/reg.vue')
     },
     {
       path: '/regActive',
-      component: () => import(/* webpackChunkName: "regActive" */'../views/account/regActive.vue')
+      component: () => import('../views/account/regActive.vue')
     },
     {
       path: '/',
