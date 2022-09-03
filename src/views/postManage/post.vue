@@ -10,8 +10,8 @@
         ></el-input>
       </el-form-item>
       <el-form-item label="" label-width="0">
-        <div>
-          <div style="min-height: 550px" id="wangeditor" ref="wangeditor"></div>
+        <div style="width:100%">
+          <div style="min-height: 550px;" id="wangeditor" ref="wangeditor"></div>
         </div>
         <div class="autosaveTip" v-show="showAutosaveTip">
           <el-alert

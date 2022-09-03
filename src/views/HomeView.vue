@@ -67,7 +67,6 @@
         </el-tabs>
 
         <router-view></router-view>
-        <!-- </keep-alive> -->
         <commonFooter></commonFooter>
       </div>
     </div>
@@ -146,7 +145,7 @@ const menuList = reactive([
     children: [
       { title: "json格式化", path: "/tools/jsonviewer", id: "" },
       { title: "抽奖", path: "/tools/choujiang", id: "" },
-      { title: "点名", path: "", id: "", path: "/tools/dianming" },
+      { title: "点名", id: "", path: "/tools/dianming" },
       {
         title: "图片转成base64",
         path: "/tools/img2base64",
@@ -214,7 +213,6 @@ const userInfo = computed(() => {
   } else {
     userInfoObj = [];
   }
-  debugger;
   return userInfoObj;
 });
 </script>
