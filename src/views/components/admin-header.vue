@@ -44,10 +44,12 @@ const dailySentence = computed(() => {
 });
 
 const state = reactive({
-  userInfo: {},
+  userInfo: {
+    dailySentence: String
+  },
 });
 
-const handleCommand = (command) => {
+const handleCommand = (command:String) => {
   switch (command) {
     case "logout":
       logout();
@@ -65,9 +67,8 @@ const logout = async () => {
     toLogin();
   }
 };
-const props = defineProps(["userInfoObj"]);
 
-const propsState = props.userInfoObj;
+const propsState = defineProps(["userInfoObj"]);
 
 watchEffect(() => {
   state.userInfo = propsState.userInfoObj;
