@@ -2,29 +2,48 @@
   <div class="page-list">
     <el-button type="text" @click="insertCate">新增分类</el-button>
     <el-table :data="list" style="width: 100%">
-      <el-table-column  type="index" label="序号" width="55px"></el-table-column>
+      <el-table-column type="index" label="序号" width="55px"></el-table-column>
       <el-table-column label="标题">
-        <template slot-scope="scope">
+        <template #default="scope">
           {{ scope.row.name }}
         </template>
       </el-table-column>
       <el-table-column label="操作" width="180">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-button @click="edit(scope.row)" type="text">编辑</el-button>
-          <el-button @click="delConfirm(scope.row.id)" type="text"  class="cus-button-danger" v-if="scope.row.valid === 1 && scope.$index!== 0">删除</el-button>
-          <el-button @click="revertConfirm(scope.row.id)" type="text"  class="cus-button-info" v-if="scope.row.valid === 0">恢复</el-button>
+          <el-button
+            @click="delConfirm(scope.row.id)"
+            type="text"
+            class="cus-button-danger"
+            v-if="scope.row.valid === 1 && scope.$index !== 0"
+            >删除</el-button
+          >
+          <el-button
+            @click="revertConfirm(scope.row.id)"
+            type="text"
+            class="cus-button-info"
+            v-if="scope.row.valid === 0"
+            >恢复</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
 
-     <el-dialog :title="title" :visible.sync="dialogVisible" width="30%" @close="handleClose">
+    <el-dialog
+      :title="title"
+      v-model="dialogVisible"
+      width="30%"
+      @close="handleClose"
+    >
       <div>
         <el-input v-model="row.name" placeholder="请输入名称"></el-input>
       </div>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="submit(row)">确 定</el-button>
-      </span>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="dialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="submit(row)">确 定</el-button>
+        </span>
+      </template>
     </el-dialog>
   </div>
 </template>
@@ -35,7 +54,7 @@ import {
   getCateApi,
   updateCateApi,
   insertCateApi,
-  revertCateApi
+  revertCateApi,
 } from "@/views/API/admin.js";
 
 export default {
@@ -55,8 +74,8 @@ export default {
   },
   methods: {
     insertCate() {
-      this.dialogVisible = true
-      this.title = "新增"
+      this.dialogVisible = true;
+      this.title = "新增";
     },
     async getList() {
       let res = await getCateApi(this.params);
@@ -71,7 +90,7 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       }).then(() => {
-        this.revert(id)
+        this.revert(id);
       });
     },
     delConfirm(id) {
@@ -80,7 +99,7 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       }).then(() => {
-        this.del(id)
+        this.del(id);
       });
     },
     async del(id) {
@@ -101,7 +120,7 @@ export default {
      * 编辑
      */
     edit(row) {
-      this.title = "编辑"
+      this.title = "编辑";
       this.dialogVisible = true;
       this.row = row;
     },
@@ -131,13 +150,13 @@ export default {
       this.row = {
         id: "",
         name: "",
-      }
-    }
+      };
+    },
   },
 };
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .page-list {
   width: 100%;
   .content-item {

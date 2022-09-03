@@ -1,5 +1,5 @@
 import { post,get } from '@/utils/axios.js'
-import contextPath from '@/config/context-path.js'
+import contextPath from '@/utils/context-path.js'
 
 export async function loginApi(data) {
   const url = `${contextPath}/account/login`

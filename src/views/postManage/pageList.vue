@@ -24,7 +24,7 @@
     <el-table :data="list" @sort-change="sortCchange">
       <el-table-column type="index" label="序号" width="55px"></el-table-column>
       <el-table-column label="标题" width="200px">
-        <template slot-scope="scope">
+        <template #default="scope">
           <a
             style="color: #333; text-decoration: underline"
             :href="
@@ -44,7 +44,7 @@
       <el-table-column label="创建时间" sortable="custom" prop="createDate">
       </el-table-column>
       <el-table-column fixed="right" width="180" label="操作">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-button @click="edit(scope.row.id)" type="text">编辑</el-button>
           <el-button
             @click="delConfirm(scope.row.id)"
@@ -52,7 +52,10 @@
             class="cus-button-danger"
             >删除</el-button
           >
-          <el-button v-if="userInfo.includes('ROLE_admin')"  @click="addToTopic(scope.row)" type="text"
+          <el-button
+            v-if="userInfo.includes('ROLE_admin')"
+            @click="addToTopic(scope.row)"
+            type="text"
             >添加到专题</el-button
           >
         </template>
@@ -72,7 +75,7 @@
       </el-pagination>
     </div>
 
-    <el-dialog title="添加到专题" :visible.sync="dialogVisible" width="30%">
+    <el-dialog title="添加到专题" v-model="dialogVisible" width="30%">
       <div>
         <el-select v-model="form.topicId">
           <el-option
@@ -83,10 +86,12 @@
           ></el-option>
         </el-select>
       </div>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="submitTopic()">确 定</el-button>
-      </span>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="dialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="submitTopic()">确 定</el-button>
+        </span>
+      </template>
     </el-dialog>
   </div>
 </template>
@@ -241,7 +246,7 @@ export default {
 };
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .page-list {
   width: 100%;
   .select-by-cate {

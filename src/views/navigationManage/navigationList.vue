@@ -10,7 +10,7 @@
       <el-table-column prop="url" label="地址"> </el-table-column>
       <el-table-column prop="createDate" label="创建日期"> </el-table-column>
       <el-table-column label="操作" width="180">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-button @click="edit(scope.row.id)" type="text">编辑</el-button>
           <el-button
             @click="delConfirm(scope.row.id)"
@@ -96,7 +96,7 @@ export default {
 };
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .page-list {
   width: 100%;
   .content-item {

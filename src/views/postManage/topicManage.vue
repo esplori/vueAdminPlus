@@ -4,22 +4,22 @@
       <el-table-column type="index" label="序号">
       </el-table-column>
       <el-table-column label="标题">
-        <template slot-scope="scope">
+        <template #default="scope">
           {{ scope.row.name }}
         </template>
       </el-table-column>
       <el-table-column label="id">
-        <template slot-scope="scope">
+        <template #default="scope">
           {{ scope.row.postId }}
         </template>
       </el-table-column>
       <el-table-column label="时间">
-        <template slot-scope="scope">
+        <template #default="scope">
           {{ scope.row.createDate }}
         </template>
       </el-table-column>
       <el-table-column label="操作" width="180">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-button @click="delConfirm(scope.row.id)" type="text" class="cus-button-danger">删除</el-button>
         </template>
       </el-table-column>
@@ -70,7 +70,7 @@ export default {
 };
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .page-list {
   width: 100%;
   .content-item {

@@ -34,115 +34,115 @@ const router = createRouter({
         },
         {
           path: 'pageList',
-          component: () => import(/* webpackChunkName: "pageList" */'../views/postManage/pageList.vue')
+          component: () => import('../views/postManage/pageList.vue')
         },
         {
           path: 'post',
-          component: () => import(/* webpackChunkName: "post" */'../views/postManage/post.vue')
+          component: () => import('../views/postManage/post.vue')
         },
         {
           path: 'edit',
-          component: () => import(/* webpackChunkName: "post" */'../views/postManage/post.vue')
+          component: () => import('../views/postManage/post.vue')
         },
         {
           path: 'cateList',
-          component: () => import(/* webpackChunkName: "cateList" */'../views/postManage/cateList.vue')
+          component: () => import('../views/postManage/cateList.vue')
         },
         {
           path: 'topic',
-          component: () => import(/* webpackChunkName: "topic" */'../views/postManage/topic.vue')
+          component: () => import('../views/postManage/topic.vue')
         },
         {
           path: 'topicManage',
-          component: () => import(/* webpackChunkName: "cateList" */'../views/postManage/topicManage.vue')
+          component: () => import('../views/postManage/topicManage.vue')
         },
         {
           path: 'systemSetting',
-          component: () => import(/* webpackChunkName: "systemSetting" */'../views/setting/systemSetting.vue')
+          component: () => import('../views/setting/systemSetting.vue')
         },
         {
           path: 'mail',
-          component: () => import(/* webpackChunkName: "mail" */'../views/setting/sendMail.vue')
+          component: () => import('../views/setting/sendMail.vue')
         },
         {
           path: 'recycle',
-          component: () => import(/* webpackChunkName: "recycle" */'../views/setting/recyclePost.vue')
+          component: () => import('../views/setting/recyclePost.vue')
         },
         {
           path: 'userSetting',
-          component: () => import(/* webpackChunkName: "userSetting" */'../views/setting/userSetting.vue')
+          component: () => import('../views/setting/userSetting.vue')
         },
         {
           path: 'deploy',
-          component: () => import(/* webpackChunkName: "deploy" */'../views/setting/deploy.vue')
+          component: () => import('../views/setting/deploy.vue')
         },
         {
           path: 'navigationList',
-          component: () => import(/* webpackChunkName: "navigationList" */'../views/navigationManage/navigationList.vue')
+          component: () => import('../views/navigationManage/navigationList.vue')
         },
         {
           path: 'navigationCate',
-          component: () => import(/* webpackChunkName: "navigationCate" */'../views/navigationManage/navigationCate.vue')
+          component: () => import('../views/navigationManage/navigationCate.vue')
         },
         {
           path: 'navigationEdit',
-          component: () => import(/* webpackChunkName: "navigationEdit" */'../views/navigationManage/navigationEdit.vue')
+          component: () => import('../views/navigationManage/navigationEdit.vue')
         },
         {
           path: 'sourceList',
-          component: () => import(/* webpackChunkName: "sourceList" */'../views/setting/sourceList.vue')
+          component: () => import('../views/setting/sourceList.vue')
         },
         {
           path: 'caiji',
-          component: () => import(/* webpackChunkName: "caiji" */'../views/caiji/caiji.vue')
+          component: () => import('../views/caiji/caiji.vue')
         },
         {
           path: 'caijiList',
-          component: () => import(/* webpackChunkName: "caijiList" */'../views/caiji/caijiList.vue')
+          component: () => import('../views/caiji/caijiList.vue')
         },
         {
           path: 'tbkType',
-          component: () => import(/* webpackChunkName: "caijiList" */'../views/caiji/tbkCate.vue')
+          component: () => import('../views/caiji/tbkCate.vue')
         },
         {
           path: 'userManage',
-          component: () => import(/* webpackChunkName: "userManage" */'../views/userManage/userManage.vue')
+          component: () => import('../views/userManage/userManage.vue')
         },
         {
           path: 'roleManage',
-          component: () => import(/* webpackChunkName: "roleManage" */'../views/userManage/roleManage.vue')
+          component: () => import('../views/userManage/roleManage.vue')
         },
         {
           path: 'menuManage',
-          component: () => import(/* webpackChunkName: "roleManage" */'../views/userManage/menuManage.vue')
+          component: () => import('../views/userManage/menuManage.vue')
         },
         {
           path: 'commentList',
-          component: () => import(/* webpackChunkName: "comments" */'../views/postManage/commentList.vue')
+          component: () => import('../views/postManage/commentList.vue')
         },
         {
           path: 'tools',
-          component: () => import(/* webpackChunkName: "tools" */'../views/tools/index.vue'),
+          component: () => import('../views/tools/index.vue'),
           children: [
             {
               path: 'qrcode',
-              component: () => import(/* webpackChunkName: "qrcode" */'../views/tools/qrcode/index.vue')
+              component: () => import('../views/tools/qrcode/index.vue')
             },
             {
               path: 'dianming',
-              component: () => import(/* webpackChunkName: "dianming" */'../views/tools/dianming/dianming.vue')
+              component: () => import('../views/tools/dianming/dianming.vue')
             },
             {
               path: 'img2base64',
-              component: () => import(/* webpackChunkName: "img2base64" */'../views/tools/img2base64/img2base64.vue')
+              component: () => import('../views/tools/img2base64/img2base64.vue')
             },
             {
               path: 'jsonviewer',
-              component: () => import(/* webpackChunkName: "jsonviewer" */'../views/tools/jsonviewer/jsonviewer.vue')
+              component: () => import('../views/tools/jsonviewer/jsonviewer.vue')
             },
             {
               path: 'choujiang',
-              component: () => import(/* webpackChunkName: "choujiang" */'../views/tools/choujiang/choujiang.vue')
+              component: () => import('../views/tools/choujiang/choujiang.vue')
             },
           ]
         }

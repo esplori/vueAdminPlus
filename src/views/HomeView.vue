@@ -11,8 +11,6 @@
           class="el-menu-vertical"
           @open="handleOpen"
           @close="handleClose"
-          :collapse="isCollapse"
-          @select="handleSelect"
           router
         >
           <div v-for="(item, index) in menuList" :key="index">
@@ -25,10 +23,9 @@
               "
               :index="item.path"
             >
-              <i :class="item.icon"></i>
-              <span slot="title">{{ item.title }}</span>
+              <template #title>{{ item.title }}</template>
             </el-menu-item>
-            <el-submenu
+            <el-sub-menu
               :index="item.path"
               v-if="
                 item.children &&
@@ -37,24 +34,16 @@
                 })
               "
             >
-              <template slot="title">
-                <i :class="item.icon"></i>
-                <span slot="title">{{ item.title }}</span>
-              </template>
-              <!-- v-if="
-                  userInfo.some((role) => {
-                    return !it.auth || (it.auth && it.auth.includes(role));
-                  })
-                " -->
+              <template #title>{{ item.title }}</template>
               <el-menu-item
                 :index="it.path"
                 v-for="(it, idx) in item.children"
                 :key="idx"
                 
               >
-                <span slot="title">{{ it.title }}</span>
+                <template #title>{{ it.title }}</template>
               </el-menu-item>
-            </el-submenu>
+            </el-sub-menu>
           </div>
         </el-menu>
       </div>

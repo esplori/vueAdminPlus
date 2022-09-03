@@ -2,12 +2,12 @@
   <div class="comments-list">
     <el-table :data="list" style="width: 100%">
       <el-table-column label="用户">
-        <template slot-scope="scope">
+        <template #default="scope">
           {{ scope.row.username }}
         </template>
       </el-table-column>
       <el-table-column label="文章id">
-        <template slot-scope="scope">
+        <template #default="scope">
           <a
             :href="'http://www.dsiab.com/post/' + scope.row.postId"
             target="_blank"
@@ -16,17 +16,17 @@
         </template>
       </el-table-column>
       <el-table-column label="内容" show-overflow-tooltip>
-        <template slot-scope="scope">
+        <template #default="scope">
           {{ scope.row.content }}
         </template>
       </el-table-column>
       <el-table-column label="创建时间">
-        <template slot-scope="scope">
+        <template #default="scope">
           {{ scope.row.createDate }}
         </template>
       </el-table-column>
       <el-table-column label="操作" width="180">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-button
             @click="delConfirm(scope.row.id)"
             type="text"
@@ -78,7 +78,7 @@ export default {
 };
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .page-list {
   width: 100%;
   .content-item {
