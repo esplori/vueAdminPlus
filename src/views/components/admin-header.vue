@@ -8,10 +8,10 @@
       </div>
       <div class="user-info">
         <div class="userInfo">
-          <div v-if="userInfo" class="info-flex">
+          <div v-if="state.userInfo" class="info-flex">
             <el-dropdown @command="handleCommand">
               <div class="el-dropdown-link">
-                {{ userInfo.username
+                {{ state.userInfo.username
                 }}<el-icon class="el-icon--right"><arrow-down /></el-icon>
               </div>
               <template #dropdown>
@@ -32,22 +32,19 @@
 import { delHtmlTag } from "@/utils/common.js";
 import { logoutApi } from "../API/common.js";
 import { ArrowDown } from "@element-plus/icons-vue";
-import { computed, defineProps, toRefs } from "vue";
+import { computed, toRefs, toRef, watchEffect, reactive } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 
 const dailySentence = computed(() => {
-  return userInfo.dailySentence && delHtmlTag(userInfo.dailySentence);
+  return (
+    state.userInfo.dailySentence && delHtmlTag(state.userInfo.dailySentence)
+  );
 });
 
-const userInfo = computed(() => {
-  const userinfo = localStorage.getItem("userInfo");
-  if (userinfo) {
-    return JSON.parse(userinfo);
-  } else {
-    return false;
-  }
+const state = reactive({
+  userInfo: {},
 });
 
 const handleCommand = (command) => {
@@ -69,8 +66,12 @@ const logout = async () => {
   }
 };
 const props = defineProps(["userInfoObj"]);
-const userInfoObj = toRefs(props.userInfoObj);
-console.log("userInfoObj", userInfoObj);
+
+const propsState = props.userInfoObj;
+
+watchEffect(() => {
+  state.userInfo = propsState.userInfoObj;
+});
 </script>
 
 <style scoped lang="scss">
@@ -82,11 +83,9 @@ console.log("userInfoObj", userInfoObj);
   color: #71777c;
   border-bottom: 1px solid #ddd;
   .header-container {
-    // max-width: 1280px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    // margin: 0 20px;
     .user-info {
       display: flex;
       justify-content: flex-end;

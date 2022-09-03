@@ -39,7 +39,6 @@
                 :index="it.path"
                 v-for="(it, idx) in item.children"
                 :key="idx"
-                
               >
                 <template #title>{{ it.title }}</template>
               </el-menu-item>
@@ -48,20 +47,21 @@
         </el-menu>
       </div>
       <div class="right-content">
-        <admin-header :userInfoObj="userInfoObj"></admin-header>
+        <admin-header :userInfoObj="state"></admin-header>
         <RouterView />
         <commonFooter></commonFooter>
       </div>
     </div>
     <music class="global-music" v-if="false"></music>
   </div>
-  
 </template>
 <script setup lang="ts">
 import { RouterView } from "vue-router";
-import { ref, reactive, computed } from "vue";
-import adminHeader from "./components/admin-header.vue"
-import commonFooter from "./components/footer.vue"
+import { ref, reactive, computed, onMounted, toRefs, watchEffect } from "vue";
+import adminHeader from "./components/admin-header.vue";
+import commonFooter from "./components/footer.vue";
+import { getUserInfoApi } from "@/views/API/admin.js";
+
 const menuList = reactive([
   {
     title: "首页",
@@ -191,13 +191,27 @@ const menuList = reactive([
   },
 ]);
 const activeName = ref("/home");
+let state = reactive({
+  userInfoObj: {},
+});
+
 const userInfo = computed(() => {
-  let userInfoObj = localStorage.getItem("userInfo") || "";
-  if (userInfoObj) {
-    userInfoObj = JSON.parse(userInfoObj).role.split(",");
+  let userIn = localStorage.getItem("userInfo") || "";
+  if (userIn) {
+    userIn = JSON.parse(userIn).role.split(",");
   }
-  debugger
-  return userInfoObj;
+  return userIn;
+});
+watchEffect(() => {
+  console.log("userInfoObj-------parent", state.userInfoObj);
+});
+
+const getUserInfo = async () => {
+  let res = await getUserInfoApi({});
+  state.userInfoObj = res.data;
+};
+onMounted(() => {
+  getUserInfo();
 });
 </script>
 <style lang="scss" scoped>
@@ -254,7 +268,7 @@ const userInfo = computed(() => {
     // height: 80px;
     color: #fff;
   }
-  .eltabs{
+  .eltabs {
     width: 80%;
   }
 }
