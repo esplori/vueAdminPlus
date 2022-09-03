@@ -49,7 +49,7 @@
 
 ### 演示截图
 
-<img src="./src/assets/images/screenshot.png" alt="赞赏" width="400px" />
+<img src="./src/assets/images/screenshot.png" alt="赞赏" width="500px" />
 
 
 ### 运行项目
@@ -57,16 +57,13 @@
 ``` bash
 
 #下载代码
-gitee: git clone https://gitee.com/wilkwo/vueAdmin.git
+gitee: git clone https://gitee.com/wilkwo/vue-admin-plus.git
 
-或者
-
-github: git clone https://github.com/esplori/vueAdmin.git
 
 # 安装依赖
 npm install
 
-# 启动应用 localhost:8081
+# 启动应用 
 npm run dev
 
 # 生成应用
@@ -81,4 +78,4 @@ npm run build --report
 
 创作不易，你的赞赏和认可是持续更新的动力！
 
-<img src="./src/assets/images/zanshan.jpeg" alt="赞赏" width="400px" />
+<img src="./src/assets/images/zanshan.jpeg" alt="赞赏" width="200px" />
