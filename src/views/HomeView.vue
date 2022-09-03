@@ -192,12 +192,11 @@ const menuList = reactive([
 ]);
 const activeName = ref("/home");
 const userInfo = computed(() => {
-  let userInfoObj = localStorage.getItem("userInfo");
+  let userInfoObj = localStorage.getItem("userInfo") || "";
   if (userInfoObj) {
     userInfoObj = JSON.parse(userInfoObj).role.split(",");
-  } else {
-    userInfoObj = [];
   }
+  debugger
   return userInfoObj;
 });
 </script>
