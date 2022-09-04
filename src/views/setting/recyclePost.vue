@@ -1,6 +1,6 @@
 <template>
   <div class="page-list">
-    <el-table :data="list" @selection-change="handleSelectionChange">
+    <el-table :data="state.list" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"> </el-table-column>
       <el-table-column type="index" label="序号" width="55px"></el-table-column>
       <el-table-column label="标题">
@@ -51,100 +51,107 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page="params.page"
-        :page-size="params.pageSize"
+        :current-page="state.params.page"
+        :page-size="state.params.pageSize"
         :page-sizes="[10, 20, 30, 50]"
         :pager-count="5"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="total"
+        :total="state.total"
       >
       </el-pagination>
     </div>
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import {
   deletePostApi,
   getPostListByCateApi,
   getCateValidApi,
 } from "@/views/API/admin.js";
+import { reactive, onMounted } from "vue";
+import { useRoute } from "vue-router";
+import { ElMessageBox,ElMessage } from "element-plus";
 
-export default {
-  data() {
-    return {
-      list: [],
-      params: {
-        page: 1,
-        cate: "",
-        pageSize: 10,
-      },
-      total: 0,
-      cateList: [],
-      multipleSelection: [],
-    };
+const route = useRoute();
+const state = reactive({
+  list: [],
+  params: {
+    page: 1,
+    cate: "",
+    pageSize: 10,
   },
-  created() {
-    // 恢复之前查询的参数
-    const { page, cate, pageSize } = this.$route.query;
-    this.params.page = parseInt(page) || 1;
-    this.params.pageSize = parseInt(pageSize) || 10;
-    this.params.cate = parseInt(cate) || "";
-    this.getList();
-  },
-  methods: {
-    getList() {
-      this.getListByCate();
-    },
-    async getListByCate() {
-      const res = await getPostListByCateApi(this.params);
-      if (res) {
-        this.list = res.data.result;
-        this.total = res.data.total;
-      }
-    },
-    delConfirm(id) {
-      this.$confirm("此操作将删除该条数据, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      }).then(() => {
-        this.delMultiple([id]);
-      });
-    },
-    handleSizeChange(val) {
-      this.params.pageSize = val;
-      this.getList();
-    },
-    handleCurrentChange(val) {
-      this.params.page = val;
-      this.getList();
-    },
-    handleSelectionChange(val) {
-      this.multipleSelection = val;
-    },
-    delMul() {
-      this.$confirm("此操作将删除数据, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      }).then(() => {
-        this.delMultiple(
-          this.multipleSelection.map((item) => {
-            return item.id;
-          })
-        );
-      });
-    },
-    async delMultiple(ids) {
-      const res = await deletePostApi({ ids: ids });
-      if (res) {
-        this.$message.success("删除成功");
-        this.getList();
-      }
-    },
-  },
+  total: 0,
+  cateList: [],
+  multipleSelection: [],
+});
+onMounted(() => {
+  // 恢复之前查询的参数
+  const { page, cate, pageSize } = route.query;
+  state.params.page = parseInt(page) || 1;
+  state.params.pageSize = parseInt(pageSize) || 10;
+  state.params.cate = parseInt(cate) || "";
+  getList();
+});
+
+const getList = () => {
+  getListByCate();
 };
+
+const getListByCate = async () => {
+  const res = await getPostListByCateApi(state.params);
+  if (res) {
+    state.list = res.data.result;
+    state.total = res.data.total;
+  }
+};
+
+const delConfirm = async () => {
+  ElMessageBox.confirm("此操作将删除该条数据, 是否继续?", "提示", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning",
+  }).then(() => {
+    delMultiple([id]);
+  });
+};
+
+const handleSizeChange = (val: any) => {
+  state.params.pageSize = val;
+  getList();
+};
+
+const handleCurrentChange = (val: any) => {
+  state.params.page = val;
+  getList();
+};
+
+const handleSelectionChange = (val: any) => {
+  state.multipleSelection = val;
+};
+
+const delMul = (val: any) => {
+  ElMessageBox.confirm("此操作将删除数据, 是否继续?", "提示", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning",
+  }).then(() => {
+    delMultiple(
+      state.multipleSelection.map((item) => {
+        return item.id;
+      })
+    );
+  });
+};
+
+const delMultiple = async (ids:any)=>{
+  const res = await deletePostApi({ ids: ids });
+      if (res) {
+        ElMessage.success("删除成功");
+        getList();
+      }
+}
+
 </script>
 
 <style scoped lang="scss">

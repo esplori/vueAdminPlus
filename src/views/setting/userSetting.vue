@@ -1,17 +1,17 @@
 <template>
   <div class="user-info">
-    <el-form :model="form" label-width="80px" label-position="left">
+    <el-form :model="state.form" label-width="80px" label-position="left">
       <el-form-item label="昵称:">
-        <el-input v-model="form.nickname" type="textarea"></el-input>
+        <el-input v-model="state.form.nickname" type="textarea"></el-input>
       </el-form-item>
       <el-form-item label="个性签名:">
-        <el-input v-model="form.userdesc" type="textarea"></el-input>
+        <el-input v-model="state.form.userdesc" type="textarea"></el-input>
       </el-form-item>
       <el-form-item label="头像:">
-        <el-input v-model="form.avatar"> </el-input>
+        <el-input v-model="state.form.avatar"> </el-input>
       </el-form-item>
       <el-form-item label="邮箱:">
-        <el-input v-model="form.email"> </el-input>
+        <el-input v-model="state.form.email"> </el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submit">更新</el-button>
@@ -20,37 +20,33 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { updateUserInfoApi, getUserInfoApi } from "@/views/API/admin.js";
+import { reactive, onMounted } from "vue";
+import { ElMessage } from "element-plus";
+const state = reactive({
+  form: {
+    nickname: "",
+    userdesc: "",
+    avatar: "",
+    email: "",
+  },
+});
+onMounted(() => {
+  getUserInfo();
+});
+const submit = async () => {
+  const res = await updateUserInfoApi(state.form);
+  if (res) {
+    ElMessage.success("更新成功");
+  }
+};
 
-export default {
-  data() {
-    return {
-      form: {
-        nickname: "",
-        userdesc: "",
-        avatar: "",
-        email: "",
-      },
-    };
-  },
-  created() {
-    this.getUserInfo();
-  },
-  methods: {
-    async submit() {
-      const res = await updateUserInfoApi(this.form);
-      if (res) {
-        this.$message.success("更新成功");
-      }
-    },
-    async getUserInfo() {
-      const res = await getUserInfoApi({});
-      if (res) {
-        this.form = res.data;
-      }
-    },
-  },
+const getUserInfo = async () => {
+  const res = await getUserInfoApi({});
+  if (res) {
+    state.form = res.data;
+  }
 };
 </script>
 

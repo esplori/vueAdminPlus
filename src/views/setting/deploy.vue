@@ -1,6 +1,6 @@
 <template>
   <div class="compressJs">
-    <el-table :data="tableData" style="width: 100%">
+    <el-table :data="state.tableData" style="width: 100%">
       <el-table-column prop="name" label="部署名称" width="180">
       </el-table-column>
       <el-table-column prop="type" label="部署文件" width="180">
@@ -30,46 +30,41 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { deployApi } from "@/views/API/tools.js";
+import { reactive } from "vue";
 
-export default {
-  data() {
-    return {
-      tableData: [
-        {
-          name: "部署后台管理",
-          type: "/build.sh",
-          success: false,
-          loading: false,
-          btnDesc: "el-icon-caret-right",
-          class: "primary",
-        },
-        {
-          name: "部署前台应用",
-          type: "/build.nuxt.sh",
-          success: false,
-          loading: false,
-          btnDesc: "el-icon-caret-right",
-          class: "primary",
-        },
-      ],
-    };
-  },
-  created() {},
-  methods: {
-    async deployAdmin(row) {
-      row.loading = true;
-      row.class = "info";
-      const res = await deployApi({ type: row.type || "" });
-      if (res) {
-        row.success = true;
-      }
-      row.loading = false;
-      row.btnDesc = "el-icon-caret-right";
-      row.class = "primary";
+const state = reactive({
+  tableData: [
+    {
+      name: "部署后台管理",
+      type: "/build.sh",
+      success: false,
+      loading: false,
+      btnDesc: "el-icon-caret-right",
+      class: "primary",
     },
-  },
+    {
+      name: "部署前台应用",
+      type: "/build.nuxt.sh",
+      success: false,
+      loading: false,
+      btnDesc: "el-icon-caret-right",
+      class: "primary",
+    },
+  ],
+});
+
+const deployAdmin = async (row: any) => {
+  row.loading = true;
+  row.class = "info";
+  const res = await deployApi({ type: row.type || "" });
+  if (res) {
+    row.success = true;
+  }
+  row.loading = false;
+  row.btnDesc = "el-icon-caret-right";
+  row.class = "primary";
 };
 </script>
 

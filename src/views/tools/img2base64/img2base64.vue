@@ -1,12 +1,12 @@
 <template>
   <div id="img2base64">
     <h2 style="padding: 20px 0">方案一：网络图片生成base64</h2>
-    <div><el-input v-model="url"></el-input></div>
+    <div><el-input v-model="state.url"></el-input></div>
     <div style="padding: 20px 0">
       <el-button @click="generated" type="primary">生成base64</el-button>
     </div>
-    <div id="pic"></div>
-    <el-input type="textarea" v-model="base64Url1" :rows="8"></el-input>
+    <div id="pic" style="margin-bottom:20px"></div>
+    <el-input type="textarea" v-model="state.base64Url1" :rows="8"></el-input>
     <h2 style="padding: 20px 0">方案二：本地上传图片生成base64</h2>
     <div style="padding: 20px 0">
       <input type="file" id="imagefile" />
@@ -17,72 +17,64 @@
         @click="readAsDataURL"
       />
     </div>
-    <div id="localPic"></div>
-    <el-input type="textarea" v-model="base64Url2" :rows="8"></el-input>
+    <div id="localPic" style="margin-bottom:20px"></div>
+    <el-input type="textarea" v-model="state.base64Url2" :rows="8"></el-input>
   </div>
 </template>
 
-<script lang="ts">
-export default {
-  data() {
-    return {
-      url:
-        "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3922290090,3177876335&fm=26&gp=0.jpg?v=" +
-        Math.random(),
-      base64Url1: "",
-      base64Url2: "",
-    };
-  },
-  created() {},
+<script lang="ts" setup>
+import { reactive } from "vue";
 
-  methods: {
-    getBase64Image(img) {
-      const canvas = document.createElement("canvas");
-      canvas.width = img.width;
-      canvas.height = img.height;
-      const ctx = canvas.getContext("2d");
-      ctx.drawImage(img, 0, 0, img.width, img.height);
-      const dataURL = canvas.toDataURL("image/png");
-      return dataURL;
-      // return dataURL.replace("data:image/png;base64,", "");
-    },
-    generated() {
-      const img = document.createElement("img");
-      img.src = this.url;
-      // 此处自己替换本地图片的地址
-      img.crossOrigin = "anonymous";
-      const _this = this;
-      img.onload = function () {
-        const data = _this.getBase64Image(img);
-        const img1 = document.createElement("img");
-        img1.src = data;
-        _this.base64Url1 = data;
-        document.getElementById("pic").appendChild(img1);
-      };
-    },
-    readAsDataURL() {
-      const _this = this;
-      if (typeof FileReader === "undefined") {
-        // 判断浏览器是否支持filereader
-        document.body.innerHTML = "<p>抱歉，你的浏览器不支持 FileReader</p>";
-        return false;
-      }
-      const file = document.getElementById("imagefile").files[0];
-      if (!/image\/\w+/.test(file.type)) {
-        // 判断获取的是否为图片文件
-        alert("请确保文件为图像文件");
-        return false;
-      }
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = function (e) {
-        const result = document.getElementById("localPic");
-        result.innerHTML =
-          '<img style="width:400px" src="' + this.result + '" alt=""/>';
-        _this.base64Url2 = this.result;
-      };
-    },
-  },
+const state = reactive({
+  url: "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Ffile03.16sucai.com%2F2017%2F1100%2F16sucai_p567c138.JPG&refer=http%3A%2F%2Ffile03.16sucai.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1664888945&t=1d8aa77d380843401cd596f5573a8a84",
+  base64Url1: "",
+  base64Url2: "",
+});
+const getBase64Image = (img: any) => {
+  const canvas = document.createElement("canvas");
+  canvas.width = img.width;
+  canvas.height = img.height;
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(img, 0, 0, img.width, img.height);
+  const dataURL = canvas.toDataURL("image/png");
+  return dataURL;
+};
+
+const generated = () => {
+  const img = document.createElement("img");
+  img.src = state.url;
+  // 此处自己替换本地图片的地址
+  img.crossOrigin = "anonymous";
+  img.onload = function () {
+    const data = getBase64Image(img);
+    const img1 = document.createElement("img");
+    img1.src = data;
+    img1.width= "200";
+    state.base64Url1 = data;
+    document.getElementById("pic").appendChild(img1);
+  };
+};
+
+const readAsDataURL = () => {
+  if (typeof FileReader === "undefined") {
+    // 判断浏览器是否支持filereader
+    document.body.innerHTML = "<p>抱歉，你的浏览器不支持 FileReader</p>";
+    return false;
+  }
+  const file = document.getElementById("imagefile").files[0];
+  if (!/image\/\w+/.test(file.type)) {
+    // 判断获取的是否为图片文件
+    alert("请确保文件为图像文件");
+    return false;
+  }
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = function (e) {
+    const result = document.getElementById("localPic");
+    result.innerHTML =
+      '<img style="width:400px" src="' + this.result + '" alt=""/>';
+    state.base64Url2 = this.result;
+  };
 };
 </script>
 
