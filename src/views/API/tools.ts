@@ -1,13 +1,13 @@
 import { post } from "@/utils/axios.js";
 import contextPath from "@/utils/context-path.js";
 
-export async function deployApi(data) {
+export async function deployApi(data: Object) {
   const url = `${contextPath}/tools/deploy`;
   const options = {};
   return post(url, data, options);
 }
 
-export async function genereateQrcodeApi(data) {
+export async function genereateQrcodeApi(data: Object) {
   const url = `${contextPath}/tools/genereateQrcode`;
   const options = {};
   return post(url, data, options);
