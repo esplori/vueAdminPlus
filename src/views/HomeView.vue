@@ -47,7 +47,7 @@
         </el-menu>
       </div>
       <div class="right-content">
-        <adminHeader :userInfoObj="state.userInfoObj"></adminHeader>
+        <adminHeader :userInfoObj="userInfoObj"></adminHeader>
         <RouterView />
         <commonFooter></commonFooter>
       </div>
@@ -191,9 +191,7 @@ const menuList = reactive([
   },
 ]);
 const activeName = ref("/home");
-const state = reactive({
-  userInfoObj: {},
-});
+const userInfoObj = ref({});
 
 const userInfo = computed(() => {
   let userIn = localStorage.getItem("userInfo") || "";
@@ -202,13 +200,10 @@ const userInfo = computed(() => {
   }
   return userIn;
 });
-watchEffect(() => {
-  console.log("userInfoObj-------parent", state.userInfoObj);
-});
 
 const getUserInfo = async () => {
   const res = await getUserInfoApi({});
-  state.userInfoObj = res.data;
+  userInfoObj.value = res.data;
 };
 onMounted(() => {
   getUserInfo();
