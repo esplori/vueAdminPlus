@@ -10,8 +10,8 @@
         ></el-input>
       </el-form-item>
       <el-form-item label="" label-width="0">
-        <div style="width:100%">
-          <div style="min-height: 550px;" id="wangeditor" ref="wangeditor"></div>
+        <div style="width: 100%">
+          <div style="min-height: 550px" id="wangeditor" ref="wangeditor"></div>
         </div>
         <div class="autosaveTip" v-show="showAutosaveTip">
           <el-alert
@@ -24,10 +24,9 @@
       <el-form-item label="创建时间：">
         <el-date-picker
           type="datetime"
-          class="optionsWidth"
+          style="width: 250px"
           popper-class="select-zindex"
           v-model="form.createDate"
-          format="yyyy/MM/dd HH:mm:ss"
         ></el-date-picker>
       </el-form-item>
       <el-form-item label="分类：">
@@ -118,10 +117,10 @@ export default {
   },
   components: {},
   mounted() {
-    // 页签加载完成后每15秒调用保存接口，实现自动保存
-    // this.autoSave = setInterval(() => {
-    //   this.submit(false);
-    // }, 15000);
+    // 页签加载完成后每30秒调用保存接口，实现自动保存
+    this.autoSave = setInterval(() => {
+      this.submit(false);
+    }, 30000);
     let userinfo = localStorage.getItem("userInfo");
     if (userinfo) {
       userinfo = JSON.parse(userinfo);
@@ -257,6 +256,8 @@ export default {
         this.$message.warning("请选择分类");
         return false;
       }
+      // 同时保存到缓存
+      localStorage.setItem("postInfo", JSON.stringify(this.form));
       if (this.form.id) {
         this.editPage(jump);
       } else {
@@ -308,7 +309,7 @@ export default {
           "/"
         );
         // this.$set(this, "form", res.data.result);
-        this.form = res.data.result
+        this.form = res.data.result;
         this.dynamicTags = this.form.keywords
           ? this.form.keywords.split(",")
           : [];

@@ -217,9 +217,6 @@ onMounted(() => {
 <style lang="scss" scoped>
 .admin-home {
   height: 100%;
-  .logo {
-    font-size: 14px;
-  }
   .content-container {
     height: 100%;
     max-width: 1280px;
@@ -233,7 +230,7 @@ onMounted(() => {
     .logo {
       font-size: 14px;
       text-align: center;
-      padding: 15px 0;
+      padding: 20px 0;
       color: #fff;
       border-bottom: 1px solid #ddd;
     }
@@ -248,7 +245,7 @@ onMounted(() => {
     padding: 0 20px 20px 20px;
     padding-bottom: 20px;
     background: #fff;
-    margin-left: 10px;
+    margin-left: 5px;
     border-radius: 3px;
     height: fit-content;
   }
