@@ -40,98 +40,87 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import {
   delNavCateApi,
   getNavCateApi,
   updateNavCateApi,
   insertNavCateApi,
 } from "@/views/API/admin.js";
+import { ref, reactive, onMounted } from "vue";
+import { ElMessageBox, ElMessage } from "element-plus";
 
-export default {
-  data() {
-    return {
-      list: [],
-      dialogVisible: false,
-      title: "新增",
-      row: {
-        id: "",
-        name: "",
-      },
-    };
-  },
-  created() {
-    this.getList();
-  },
-  methods: {
-    insertCate() {
-      this.dialogVisible = true;
-      this.title = "新增";
-    },
-    async getList() {
-      const res = await getNavCateApi(this.params);
-      if (res) {
-        this.list = res.data;
-        this.total = res.data.total;
-      }
-    },
-    delConfirm(id) {
-      this.$confirm("此操作将删除该条数据, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      }).then(() => {
-        this.del(id);
-      });
-    },
-    async del(id) {
-      const res = await delNavCateApi({ id: id });
-      if (res) {
-        this.$message.success("删除成功");
-        this.getList();
-      }
-    },
-    /**
-     * 编辑
-     */
-    edit(row) {
-      this.title = "编辑";
-      this.dialogVisible = true;
-      this.row = row;
-    },
-    async submit(row) {
-      if (!row.name) {
-        this.$message.warning("请输入名称");
-        return;
-      }
-      if (row.id) {
-        const res = await updateNavCateApi(row);
-        if (res) {
-          this.getList();
-        }
-      } else {
-        const res = await insertNavCateApi(row);
-        if (res) {
-          this.getList();
-        }
-      }
-      this.dialogVisible = false;
-    },
-    handleSizeChange(val) {
-      this.params.pageSize = val;
-      this.getList();
-    },
-    handleCurrentChange(val) {
-      this.params.page = val;
-      this.getList();
-    },
-    handleClose() {
-      this.row = {
-        id: "",
-        name: "",
-      };
-    },
-  },
+let list = ref([]);
+let dialogVisible = ref(false);
+let title = ref("新增");
+let row = reactive({
+  id: "",
+  name: "",
+});
+onMounted(() => {
+  getList();
+});
+const insertCate = () => {
+  dialogVisible.value = true;
+  title.value = "新增";
+};
+
+const getList = async () => {
+  const res = await getNavCateApi({});
+  if (res) {
+    list.value = res.data;
+  }
+};
+
+const delConfirm = async (id: any) => {
+  ElMessageBox.confirm("此操作将删除该条数据, 是否继续?", "提示", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning",
+  }).then(() => {
+    del(id);
+  });
+};
+
+const del = async (id: any) => {
+  const res = await delNavCateApi({ id: id });
+  if (res) {
+    ElMessage.success("删除成功");
+    getList();
+  }
+};
+
+const edit = async (rowData: any) => {
+  title.value = "编辑";
+  dialogVisible.value = true;
+  row.id = rowData.id;
+  row.name = rowData.name;
+};
+
+const submit = async (row: any) => {
+  if (!row.name) {
+    ElMessage.warning("请输入名称");
+    return;
+  }
+  if (row.id) {
+    const res = await updateNavCateApi(row);
+    if (res) {
+      getList();
+    }
+  } else {
+    const res = await insertNavCateApi(row);
+    if (res) {
+      getList();
+    }
+  }
+  dialogVisible.value = false;
+};
+
+const handleClose = async (row: any) => {
+  row = {
+    id: "",
+    name: "",
+  };
 };
 </script>
 
