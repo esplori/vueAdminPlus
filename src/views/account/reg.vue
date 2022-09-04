@@ -53,7 +53,7 @@
 </template>
 
 <script lang="ts" setup>
-import { registerApi } from "./api.ts";
+import { registerApi } from "@/views/account/api";
 import { ref, reactive } from "vue";
 import { ElMessage } from "element-plus";
 import { useRouter } from "vue-router";

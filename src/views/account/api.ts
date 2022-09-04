@@ -1,5 +1,5 @@
-import { post, get } from "@/utils/axios.ts";
-import contextPath from "@/utils/context-path.ts";
+import { post, get } from "@/utils/axios";
+import contextPath from "@/utils/context-path";
 
 export async function loginApi(data: Object) {
   const url = `${contextPath}/account/login`;

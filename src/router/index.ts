@@ -120,10 +120,6 @@ const router = createRouter({
           component: () => import("../views/userManage/roleManage.vue"),
         },
         {
-          path: "menuManage",
-          component: () => import("../views/userManage/menuManage.vue"),
-        },
-        {
           path: "commentList",
           component: () => import("../views/postManage/commentList.vue"),
         },

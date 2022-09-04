@@ -4,37 +4,30 @@
       <el-table-column type="index" label="序号" width="55px"></el-table-column>
       <el-table-column prop="roleName" label="角色名称"> </el-table-column>
       <el-table-column prop="roleId" label="角色id"> </el-table-column>
-      <el-table-column fixed="right" width="180" label="操作">
-        <template #default="scope">
-          <el-button @click="edit(scope.row.id)" type="text">编辑</el-button>
+      <!-- <el-table-column fixed="right" width="180" label="操作"> -->
+        <!-- <template #default="scope"> -->
+          <!-- <el-button @click="edit(scope.row.id)" type="text">编辑</el-button> -->
           <!-- <el-button @click="del(scope.row.id)" type="danger">删除</el-button> -->
-        </template>
-      </el-table-column>
+        <!-- </template> -->
+      <!-- </el-table-column> -->
     </el-table>
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { getRoleListApi } from "../API/admin";
-export default {
-  data() {
-    return {
-      data: [],
-    };
-  },
-  created() {
-    this.getUserList();
-  },
-  methods: {
-    async getUserList() {
-      const res = await getRoleListApi({});
-      if (res) {
-        this.data = res.data.result;
-      }
-    },
-    edit() {},
-    del() {},
-  },
+import { reactive,ref, onMounted } from "vue";
+
+let data = ref([]);
+onMounted(() => {
+  getUserList();
+});
+
+const getUserList = async () => {
+  const res = await getRoleListApi({});
+  if (res) {
+    data.value = res.data.result;
+  }
 };
 </script>
 

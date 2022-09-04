@@ -86,7 +86,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import {
   getUserListApi,
   getRoleListApi,
@@ -94,118 +94,126 @@ import {
   insertUserApi,
   deleUserApi,
 } from "../API/admin";
-export default {
-  data() {
-    return {
-      data: [],
-      Roledata: [],
-      params: {
-        page: 1,
-        pageSize: 10,
-      },
-      total: 0,
-      editObj: {
-        dialogVisible: false,
-        currUsername: "",
-      },
-      insertObj: {
-        dialogVisible: false,
-      },
-      multipleSelection: [],
-      form: {
-        username: "",
-        password: "",
-      },
-    };
-  },
-  created() {
-    this.getUserList();
-  },
-  methods: {
-    async insert() {
-      const res = await insertUserApi({
-        ...this.form,
-      });
-      if (res) {
-        this.insertObj.dialogVisible = false;
-        this.getUserList();
-      }
-    },
-    insertUser() {
-      this.insertObj.dialogVisible = true;
-    },
-    async getUserList() {
-      const res = await getUserListApi({ page: this.params.page });
-      if (res) {
-        this.data = res.data.result;
-        this.total = res.data.total;
-      }
-    },
-    edit(row) {
-      this.editObj.dialogVisible = true;
-      this.editObj.currUsername = row.username;
-      this.getRoleList(row);
-    },
-    delConfirm(id, username) {
-      this.$confirm("此操作将删除该条数据, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      }).then(() => {
-        this.del(id, username);
-      });
-    },
-    del(id, username) {
-      this.delUser(id, username);
-    },
-    async delUser(id, username) {
-      const res = await deleUserApi({ id, username });
-      if (res) {
-        this.getUserList();
-      }
-    },
-    async getRoleList(row) {
-      const res = await getRoleListApi({});
-      if (res) {
-        this.Roledata = res.data.result;
-        this.Roledata.forEach((item, index) => {
-          if (row.role.indexOf(item.roleId) !== -1) {
-            this.$nextTick(() => {
-              this.$refs.RoleTable.toggleRowSelection(
-                this.Roledata[index],
-                true
-              );
-            });
-          }
+
+import { ref, reactive, onMounted, nextTick } from "vue";
+import { ElMessageBox } from "element-plus";
+
+let data = ref([]);
+let Roledata = ref([]);
+let params = reactive({
+  page: 1,
+  pageSize: 10,
+});
+let total = ref(0);
+let editObj = reactive({
+  dialogVisible: false,
+  currUsername: "",
+});
+let insertObj = reactive({
+  dialogVisible: false,
+});
+let multipleSelection = ref([]);
+let form = reactive({
+  username: "",
+  password: "",
+});
+onMounted(() => {
+  getUserList();
+});
+
+const getUserList = async () => {
+  const res = await getUserListApi({ page: params.page });
+  if (res) {
+    data.value = res.data.result;
+    total.value = res.data.total;
+  }
+};
+
+const insert = async () => {
+  const res = await insertUserApi({
+    ...form,
+  });
+  if (res) {
+    insertObj.dialogVisible = false;
+    getUserList();
+  }
+};
+
+const insertUser = () => {
+  insertObj.dialogVisible = true;
+};
+
+const edit = (row: any) => {
+  editObj.dialogVisible = true;
+  editObj.currUsername = row.username;
+  getRoleList(row);
+};
+
+const delConfirm = (id: String, username: String) => {
+  ElMessageBox.confirm("此操作将删除该条数据, 是否继续?", "提示", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning",
+  }).then(() => {
+    del(id, username);
+  });
+};
+const del = (id: String, username: String) => {
+  delUser(id, username);
+};
+
+const delUser = async (id: String, username: String) => {
+  const res = await deleUserApi({ id, username });
+  if (res) {
+    getUserList();
+  }
+};
+
+const RoleTable = ref();
+
+const getRoleList = async (row: any) => {
+  const res = await getRoleListApi({});
+  if (res) {
+    Roledata.value = res.data.result;
+    Roledata.value.forEach((item:any, index) => {
+      if (row.role.indexOf(item.roleId) !== -1) {
+        nextTick(() => {
+          RoleTable.value.toggleRowSelection(Roledata.value[index], true);
         });
       }
-    },
-    submit() {
-      this.updateRole();
-      this.dialogVisible = false;
-    },
-    async updateRole() {
-      const res = await updateRoleApi({
-        roleList: this.multipleSelection,
-        username: this.editObj.currUsername,
-      });
-      if (res) {
-        this.editObj.dialogVisible = false;
-        this.getUserList();
-      }
-    },
-    handleSelectionChange(val) {
-      this.multipleSelection = val;
-    },
-    handleSizeChange(val) {
-      this.params.pageSize = val;
-      this.getUserList();
-    },
-    handleCurrentChange(val) {
-      this.params.page = val;
-      this.getUserList();
-    },
-  },
+    });
+  }
+};
+
+const submit = () => {
+  updateRole();
+  // todo
+  editObj.dialogVisible = false;
+};
+
+const updateRole = async () => {
+  const res = await updateRoleApi({
+    roleList: multipleSelection.value,
+    username: editObj.currUsername,
+  });
+  if (res) {
+    editObj.dialogVisible = false;
+    getUserList();
+  }
+};
+
+const handleSelectionChange = (val: any) => {
+  multipleSelection.value = val;
+};
+
+const handleSizeChange = (val: any) => {
+  params.pageSize = val;
+  getUserList();
+};
+
+const handleCurrentChange = (val: any) => {
+  params.page = val;
+  getUserList();
 };
 </script>
 

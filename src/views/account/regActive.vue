@@ -3,29 +3,30 @@
     {{ successMsg }}
   </div>
 </template>
-<script lang="ts">
-import { getValidEmailEffectiveApi } from "@/views/account/api.ts";
-export default {
-  data() {
-    return {
-      successMsg: "",
-    };
-  },
-  created() {
-    const id = this.$route.query.id;
-    this.getValidEmailEffective(id);
-  },
-  methods: {
-    async getValidEmailEffective(id: String) {
-      const res = await getValidEmailEffectiveApi({ id: id });
-      if (res) {
-        this.successMsg = "激活成功，即将跳转到登录页面";
-        setTimeout(() => {
-          this.$router.push({ path: "/login" });
-        }, 3000);
-      }
-    },
-  },
+<script lang="ts" setup>
+import { getValidEmailEffectiveApi } from "@/views/account/api";
+import { ref, onMounted } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import { ElMessage } from "element-plus";
+
+const router = useRouter();
+const route = useRoute();
+const successMsg = ref("");
+
+onMounted(() => {
+  debugger
+  const id: any = route.query.id || "";
+  getValidEmailEffective(id);
+});
+
+const getValidEmailEffective = async (id: String) => {
+  const res = await getValidEmailEffectiveApi({ id: id });
+  if (res) {
+    successMsg.value = "激活成功，即将跳转到登录页面";
+    setTimeout(() => {
+      router.push({ path: "/login" });
+    }, 3000);
+  }
 };
 </script>
 
