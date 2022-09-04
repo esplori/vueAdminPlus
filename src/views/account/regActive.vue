@@ -4,7 +4,7 @@
   </div>
 </template>
 <script lang="ts">
-import { getValidEmailEffectiveApi } from "@/views/API/common.js";
+import { getValidEmailEffectiveApi } from "@/views/account/api.ts";
 export default {
   data() {
     return {
@@ -16,7 +16,7 @@ export default {
     this.getValidEmailEffective(id);
   },
   methods: {
-    async getValidEmailEffective(id) {
+    async getValidEmailEffective(id: String) {
       const res = await getValidEmailEffectiveApi({ id: id });
       if (res) {
         this.successMsg = "激活成功，即将跳转到登录页面";

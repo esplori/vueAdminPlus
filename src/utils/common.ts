@@ -1,4 +1,4 @@
-export function getCurrDate(val) {
+export function getCurrDate(val:any) {
   let currVal = val;
   if (!currVal) {
     currVal = new Date().getTime();
@@ -28,7 +28,7 @@ export function getCurrDate(val) {
   // 兼容safari
   return date.replace(/-/g, "/");
 }
-export function randomStr(type) {
+export function randomStr(type:String) {
   if (type === "numLetter") {
     return parseFloat(
       (Math.random() * 100).toString().replace(".", "")
@@ -37,7 +37,7 @@ export function randomStr(type) {
     return (Math.random() * 100).toString().replace(".", "");
   }
 }
-export function flatArr(arr) {
+export function flatArr(arr: Array<any>) {
   const returnArr = arr || [];
   return returnArr.flat();
 }
@@ -46,7 +46,7 @@ export function flatArr(arr) {
  * @param {*} str
  * @returns
  */
-export function delHtmlTag(str) {
+export function delHtmlTag(str:String) {
   return str
     .replace(/<\/?.+?>/g, "")
     .replace(/&nbsp;/g, "")

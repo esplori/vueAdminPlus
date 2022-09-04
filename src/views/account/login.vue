@@ -27,7 +27,7 @@
               v-model="form.password"
               type="password"
               placeholder="密码"
-              @keyup.enter.native="login"
+              @keyup.enter="login"
             ></el-input>
           </el-form-item>
           <el-form-item>
@@ -49,7 +49,7 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
-import { loginApi } from "./account";
+import { loginApi } from "./api.ts";
 const form = reactive({
   username: "",
   password: "",

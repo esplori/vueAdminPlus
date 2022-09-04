@@ -7,7 +7,7 @@
           :model="regform"
           label-width="80px"
           :rules="rules"
-          ref="regform"
+          ref="formref"
           label-position="left"
         >
           <el-form-item label="用户名:" prop="username">
@@ -52,80 +52,76 @@
   </div>
 </template>
 
-<script lang="ts">
-import { registerApi } from "@/views/API/common.js";
-export default {
-  data() {
-    return {
-      form: {
-        username: "",
-        password: "",
-      },
-      showShadow: false,
-      activeName: "login",
-      regform: {
-        username: "",
-        password: "",
-        email: "",
-      },
-      rules: {
-        username: [
-          { required: true, message: "请输入用户名", trigger: "change" },
-          {
-            min: 4,
-            max: 20,
-            message: "长度在 4 到 20 个字符",
-            trigger: "blur",
-          },
-        ],
-        password: [
-          { required: true, message: "请输入密码", trigger: "change" },
-          {
-            min: 4,
-            max: 20,
-            message: "长度在 4 到 20 个字符",
-            trigger: "blur",
-          },
-        ],
-        email: [
-          { required: true, message: "请输入邮箱", trigger: "change" },
-          {
-            type: "email",
-            message: "请输入正确的邮箱地址",
-            trigger: ["blur", "change"],
-          },
-        ],
-      },
-    };
-  },
-  methods: {
-    shadow() {
-      this.showShadow = true;
+<script lang="ts" setup>
+import { registerApi } from "./api.ts";
+import { ref, reactive } from "vue";
+import { ElMessage } from "element-plus";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+let form = reactive({
+  username: "",
+  password: "",
+});
+let showShadow = ref(false);
+let regform = reactive({
+  username: "",
+  password: "",
+  email: "",
+});
+const rules = reactive({
+  username: [
+    { required: true, message: "请输入用户名", trigger: "change" },
+    {
+      min: 4,
+      max: 20,
+      message: "长度在 4 到 20 个字符",
+      trigger: "blur",
     },
-    hideShadow() {
-      this.showShadow = false;
+  ],
+  password: [
+    { required: true, message: "请输入密码", trigger: "change" },
+    {
+      min: 4,
+      max: 20,
+      message: "长度在 4 到 20 个字符",
+      trigger: "blur",
     },
-    async register() {
-      if (!this.regform.username || !this.regform.password) {
-        this.$message.error("请输入账号和密码");
-        return;
-      }
-      const res = await registerApi(this.regform);
-      if (res) {
-        this.$message.success("注册成功，请登录");
-        this.$router.push({ path: "/login" });
-      }
+  ],
+  email: [
+    { required: true, message: "请输入邮箱", trigger: "change" },
+    {
+      type: "email",
+      message: "请输入正确的邮箱地址",
+      trigger: ["blur", "change"],
     },
-    valid() {
-      this.$refs["regform"].validate((valid) => {
-        if (valid) {
-          this.register();
-        } else {
-          return false;
-        }
-      });
-    },
-  },
+  ],
+});
+
+const shadow = () => {
+  showShadow.value = true;
+};
+
+const hideShadow = () => {
+  showShadow.value = false;
+};
+
+const register = async () => {
+  if (!regform.username || !regform.password) {
+    ElMessage.error("请输入账号和密码");
+    return;
+  }
+  const res = await registerApi(regform);
+  if (res) {
+    ElMessage.success("注册成功，请登录");
+    router.push({ path: "/login" });
+  }
+};
+const formref = ref();
+const valid = async () => {
+  let boolRes = await formref.value.validate();
+  boolRes && register();
 };
 </script>
 

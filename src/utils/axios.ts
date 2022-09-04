@@ -2,7 +2,7 @@ import axios from "axios";
 import { ElLoading, ElMessage } from "element-plus";
 
 let needLoadingRequestCount = 0;
-let loading = null;
+let loading: any = null;
 
 function startLoading() {
   loading = ElLoading.service({
@@ -74,7 +74,7 @@ axios.interceptors.response.use(
  * */
 
 // get请求
-export function get(url, params, options) {
+export function get(url:String, params: Object, options: Object) {
   if (options.showLoading) {
     showFullScreenLoading();
   }
@@ -93,7 +93,7 @@ export function get(url, params, options) {
 }
 
 // post请求
-export function post(url, param, options) {
+export function post(url:String, param:Object, options:Object) {
   if (options.showLoading) {
     showFullScreenLoading();
   }
@@ -110,7 +110,7 @@ export function post(url, param, options) {
   });
 }
 
-function handleData(res, resolve, reject) {
+function handleData(res:Object, resolve:any, reject:any) {
   tryHideFullScreenLoading();
   if (res.data.code === 0) {
     resolve(res.data);
@@ -119,7 +119,7 @@ function handleData(res, resolve, reject) {
     ElMessage.error(res.data.data || res.data.msg);
   }
 }
-function handleAuthenticated(res) {
+function handleAuthenticated(res:Object) {
   switch (res.response.status) {
     case 401:
       setTimeout(() => {
