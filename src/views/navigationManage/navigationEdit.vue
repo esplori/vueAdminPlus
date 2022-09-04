@@ -26,79 +26,78 @@
     </el-form>
   </div>
 </template>
-<script lang="ts">
+<script lang="ts" setup>
 import {
   postPageApi,
   editPageApi,
   getDetailApi,
 } from "@/views/API/navigation.js";
 import { getNavCateApi } from "@/views/API/admin.js";
-export default {
-  data() {
-    return {
-      form: {
-        id: "",
-        title: "",
-        content: "",
-        cate: "",
-        url: "",
-      },
-      cateList: [
-        { name: "开发工具", id: "1" },
-        { name: "网络资讯", id: "2" },
-        { name: "资源分享", id: "3" },
-        { name: "友情链接", id: "4" },
-      ],
-    };
-  },
-  components: {},
-  mounted() {},
-  computed: {},
-  created() {
-    const id = this.$route.query.id;
-    if (id) {
-      this.getDetail(id);
-    }
-    this.getNavCateList();
-  },
-  methods: {
-    async getNavCateList() {
-      const res = await getNavCateApi(this.params);
-      if (res) {
-        this.cateList = res.data.map((item) => {
-          item.id = String(item.id);
-          return item;
-        });
-      }
-    },
-    submit() {
-      if (this.form.id) {
-        this.editPage();
-      } else {
-        this.postPage();
-      }
-    },
-    async editPage() {
-      const res = await editPageApi({ ...this.form });
-      if (res) {
-        this.$message.success("修改成功");
-        this.$router.push({ path: "/navigationList" });
-      }
-    },
-    async postPage() {
-      const res = await postPageApi({ ...this.form });
-      if (res) {
-        this.$message.success("添加成功");
-        this.$router.push({ path: "/navigationList" });
-      }
-    },
-    async getDetail(id) {
-      const res = await getDetailApi({ id: id });
-      if (res) {
-        this.form = res.data.result;
-      }
-    },
-  },
+import { ref, reactive, onMounted, toRef } from "vue";
+import { ElMessage } from "element-plus";
+import { useRoute, useRouter } from "vue-router";
+let route = useRoute();
+let router = useRouter();
+let form = reactive({
+  id: "",
+  title: "",
+  content: "",
+  cate: "",
+  url: "",
+});
+let cateList = ref([]);
+onMounted(() => {
+  const id = route.query.id;
+  if (id) {
+    getDetail(id);
+  }
+  getNavCateList();
+});
+const getNavCateList = async () => {
+  const res = await getNavCateApi({});
+  if (res) {
+    cateList.value = res.data.map((item: any) => {
+      item.id = String(item.id);
+      return item;
+    });
+  }
+};
+
+const submit = async () => {
+  if (form.id) {
+    editPage();
+  } else {
+    postPage();
+  }
+};
+
+const editPage = async () => {
+  const res = await editPageApi({ ...form });
+  if (res) {
+    ElMessage.success("修改成功");
+    router.push({ path: "/navigationList" });
+  }
+};
+
+const postPage = async () => {
+  const res = await postPageApi({ ...form });
+  if (res) {
+    ElMessage.success("添加成功");
+    router.push({ path: "/navigationList" });
+  }
+};
+
+const getDetail = async (id: any) => {
+  const res = await getDetailApi({ id: id });
+  if (res) {
+    debugger;
+    let { cate, content, id, title, url } = res.data.result;
+    form.id = id;
+    form.cate = cate;
+    form.content = content;
+    form.title = title;
+    form.url = url;
+  }
 };
 </script>
 
