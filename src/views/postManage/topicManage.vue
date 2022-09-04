@@ -1,6 +1,6 @@
 <template>
   <div class="comments-list">
-    <el-table :data="list" style="width: 100%">
+    <el-table :data="state.list" style="width: 100%">
       <el-table-column type="index" label="序号"> </el-table-column>
       <el-table-column label="标题">
         <template #default="scope">
@@ -31,46 +31,46 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import {
   deleteTopicDetailApi,
   getTopicDetailListApi,
 } from "@/views/API/admin.js";
+import { reactive, onMounted } from "vue";
+import { useRoute } from "vue-router";
+import { ElMessageBox, ElMessage } from "element-plus";
 
-export default {
-  data() {
-    return {
-      list: [],
-    };
-  },
-  created() {
-    this.getList();
-  },
-  methods: {
-    async getList() {
-      const id = this.$route.query.id;
-      const res = await getTopicDetailListApi({ topicId: parseInt(id) });
-      if (res) {
-        this.list = res.data.result;
-      }
-    },
-    delConfirm(id) {
-      this.$confirm("此操作将删除该条数据, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      }).then(() => {
-        this.del(id);
-      });
-    },
-    async del(id) {
-      const res = await deleteTopicDetailApi({ id: id });
-      if (res) {
-        this.$message.success("删除成功");
-        this.getList();
-      }
-    },
-  },
+const route = useRoute();
+const state = reactive({
+  list: [],
+});
+onMounted(() => {
+  getList();
+});
+const getList = async () => {
+  const id = route.query.id;
+  const res = await getTopicDetailListApi({ topicId: parseInt(id) });
+  if (res) {
+    state.list = res.data.result;
+  }
+};
+
+const delConfirm = async (id: any) => {
+  ElMessageBox.confirm("此操作将删除该条数据, 是否继续?", "提示", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning",
+  }).then(() => {
+    del(id);
+  });
+};
+
+const del = async (id: any) => {
+  const res = await deleteTopicDetailApi({ id: id });
+  if (res) {
+    ElMessage.success("删除成功");
+    getList();
+  }
 };
 </script>
 
