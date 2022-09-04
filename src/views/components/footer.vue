@@ -4,7 +4,7 @@
     <span v-html="copyRight"></span> {{ currentDate }} javascript技术分享
   </div>
 </template>
-<script>
+<script lang="ts">
 export default {
   // 子组件
   components: {},

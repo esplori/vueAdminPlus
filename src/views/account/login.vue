@@ -48,13 +48,13 @@
 
 <script setup lang="ts">
 import { reactive, ref } from "vue";
-import {useRouter} from "vue-router"
-import {loginApi} from "./account"
+import { useRouter } from "vue-router";
+import { loginApi } from "./account";
 const form = reactive({
   username: "",
   password: "",
 });
-let showShadow = ref(false);
+const showShadow = ref(false);
 const shadow = () => {
   showShadow.value = true;
 };
@@ -65,16 +65,16 @@ const loginRules = reactive({
   username: [{ required: true, message: "请输入用户名", trigger: "change" }],
   password: [{ required: true, message: "请输入密码", trigger: "change" }],
 });
-const router = useRouter()
+const router = useRouter();
 
 // 获取refs
-let formref = ref();
+const formref = ref();
 const login = async function () {
   const valid = await formref.value.validate();
   if (!valid) {
     return;
   }
-  let res = await loginApi(form);
+  const res = await loginApi(form);
   if (res) {
     localStorage.setItem("userInfo", JSON.stringify(res.data));
     router.push({ path: "/home" });
@@ -113,4 +113,3 @@ const login = async function () {
   }
 }
 </style>
-

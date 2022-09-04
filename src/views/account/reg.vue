@@ -42,7 +42,9 @@
             >
           </el-form-item>
           <el-form-item>
-            <div>已有账号？<span><a href="/#/login">去登录</a></span></div>
+            <div>
+              已有账号？<span><a href="/#/login">去登录</a></span>
+            </div>
           </el-form-item>
         </el-form>
       </div>
@@ -50,7 +52,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { registerApi } from "@/views/API/common.js";
 export default {
   data() {

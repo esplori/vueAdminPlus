@@ -26,7 +26,7 @@
     </el-form>
   </div>
 </template>
-<script>
+<script lang="ts">
 import {
   postPageApi,
   editPageApi,
@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     async getNavCateList() {
-      let res = await getNavCateApi(this.params);
+      const res = await getNavCateApi(this.params);
       if (res) {
         this.cateList = res.data.map((item) => {
           item.id = String(item.id);

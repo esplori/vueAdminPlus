@@ -96,7 +96,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import {
   delApi,
   getListByCateApi,
@@ -131,7 +131,7 @@ export default {
   created() {
     this.getCate();
     // 恢复之前查询的参数
-    let { page, cate, pageSize } = this.$route.query;
+    const { page, cate, pageSize } = this.$route.query;
     this.params.page = parseInt(page) || 1;
     this.params.pageSize = parseInt(pageSize) || 10;
     this.params.cate = parseInt(cate) || "";
@@ -159,7 +159,7 @@ export default {
      * 通过关键字查询文章
      */
     async getListByTags(val) {
-      let res = await getListByTagsApi({ tag: val });
+      const res = await getListByTagsApi({ tag: val });
       if (res) {
         this.list = res.data.result;
         this.total = res.data.total;
@@ -173,7 +173,7 @@ export default {
       this.getList();
     },
     async getTopicList() {
-      let res = await getTopicListApi({});
+      const res = await getTopicListApi({});
       if (res) {
         this.topicList = res.data.result;
       }
@@ -236,7 +236,7 @@ export default {
       this.form.name = row.title;
     },
     async submitTopic() {
-      let res = await addPostToTopicApi(this.form);
+      const res = await addPostToTopicApi(this.form);
       if (res) {
         this.$message.success("添加成功");
         this.dialogVisible = false;

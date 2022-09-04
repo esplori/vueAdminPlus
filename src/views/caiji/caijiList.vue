@@ -15,14 +15,11 @@
           <img :src="scope.row.pict_url" alt="" width="120px" height="120px" />
         </template>
       </el-table-column>
-      <el-table-column  prop="volume" label="月销量">
-      </el-table-column>
-       <el-table-column  prop="cate" label="分类">
-      </el-table-column>
+      <el-table-column prop="volume" label="月销量"> </el-table-column>
+      <el-table-column prop="cate" label="分类"> </el-table-column>
       <el-table-column prop="reserve_price" label="原价"> </el-table-column>
       <el-table-column prop="zk_final_price" label="折扣价"> </el-table-column>
-       <el-table-column prop="createDate" label="更新时间">
-      </el-table-column>
+      <el-table-column prop="createDate" label="更新时间"> </el-table-column>
       <el-table-column label="操作">
         <template #default="scope">
           <el-button @click="del(scope.row.pid)" type="danger">删除</el-button>
@@ -43,7 +40,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { delTbkApi, getTbkListApi } from "@/views/API/tbk.js";
 
 export default {
@@ -62,14 +59,14 @@ export default {
   },
   methods: {
     async getList() {
-      let res = await getTbkListApi(this.params);
+      const res = await getTbkListApi(this.params);
       if (res) {
         this.list = res.data.result;
         this.total = res.data.total;
       }
     },
     async del(id) {
-      let res = await delTbkApi({ pid: id });
+      const res = await delTbkApi({ pid: id });
       if (res) {
         this.$message.success("删除成功");
         this.getList();

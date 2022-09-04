@@ -20,7 +20,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { genereateQrcodeApi } from "../../API/tools";
 export default {
   data() {
@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     async genereateQrcode() {
-      let res = await genereateQrcodeApi(this.form);
+      const res = await genereateQrcodeApi(this.form);
       if (res) {
         this.qrcodeUrl = res.data;
       }
@@ -44,5 +44,4 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

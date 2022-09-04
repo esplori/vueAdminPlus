@@ -40,7 +40,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import {
   delNavCateApi,
   getNavCateApi,
@@ -69,7 +69,7 @@ export default {
       this.title = "新增";
     },
     async getList() {
-      let res = await getNavCateApi(this.params);
+      const res = await getNavCateApi(this.params);
       if (res) {
         this.list = res.data;
         this.total = res.data.total;
@@ -85,7 +85,7 @@ export default {
       });
     },
     async del(id) {
-      let res = await delNavCateApi({ id: id });
+      const res = await delNavCateApi({ id: id });
       if (res) {
         this.$message.success("删除成功");
         this.getList();
@@ -105,12 +105,12 @@ export default {
         return;
       }
       if (row.id) {
-        let res = await updateNavCateApi(row);
+        const res = await updateNavCateApi(row);
         if (res) {
           this.getList();
         }
       } else {
-        let res = await insertNavCateApi(row);
+        const res = await insertNavCateApi(row);
         if (res) {
           this.getList();
         }

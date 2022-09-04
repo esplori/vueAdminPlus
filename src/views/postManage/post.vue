@@ -80,7 +80,7 @@
     </el-form>
   </div>
 </template>
-<script>
+<script lang="ts">
 import Wangeditor from "wangeditor";
 import {
   postPageApi,
@@ -199,7 +199,7 @@ export default {
       "JSON",
       "Html",
     ];
-    let _this = this;
+    const _this = this;
     // 配置 onchange 回调函数
     this.editor.config.onchange = function (newHtml) {
       _this.form.wordsNum =
@@ -278,7 +278,7 @@ export default {
         keywords: this.dynamicTags.join(","),
       });
       if (res) {
-        let { page, cate, pageSize } = this.$route.query;
+        const { page, cate, pageSize } = this.$route.query;
         // 保存列表查询参数,自动保存不跳转
         jump &&
           this.$router.push({
@@ -326,7 +326,7 @@ export default {
       });
     },
     handleInputConfirm() {
-      let inputValue = this.inputValue;
+      const inputValue = this.inputValue;
       if (inputValue) {
         this.dynamicTags.push(inputValue);
       }
@@ -334,7 +334,7 @@ export default {
       this.inputValue = "";
     },
   },
-  beforeDestroy() {
+  beforeUnmount() {
     // 页面销毁前清除定时器
     clearInterval(this.autoSave);
   },

@@ -191,7 +191,7 @@ const menuList = reactive([
   },
 ]);
 const activeName = ref("/home");
-let state = reactive({
+const state = reactive({
   userInfoObj: {},
 });
 
@@ -207,7 +207,7 @@ watchEffect(() => {
 });
 
 const getUserInfo = async () => {
-  let res = await getUserInfoApi({});
+  const res = await getUserInfoApi({});
   state.userInfoObj = res.data;
 };
 onMounted(() => {

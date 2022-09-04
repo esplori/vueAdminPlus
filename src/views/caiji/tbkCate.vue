@@ -45,7 +45,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import {
   delCateApi,
   getCateApi,
@@ -78,7 +78,7 @@ export default {
       this.title = "新增";
     },
     async getList() {
-      let res = await getCateApi(this.params);
+      const res = await getCateApi(this.params);
       if (res) {
         this.list = res.data;
         this.total = res.data.total;
@@ -94,7 +94,7 @@ export default {
       });
     },
     async del(id) {
-      let res = await delCateApi({ id: id });
+      const res = await delCateApi({ id: id });
       if (res) {
         this.$message.success("删除成功");
         this.getList();
@@ -114,12 +114,12 @@ export default {
         return;
       }
       if (row.id) {
-        let res = await updateCateApi(row);
+        const res = await updateCateApi(row);
         if (res) {
           this.getList();
         }
       } else {
-        let res = await insertCateApi(row);
+        const res = await insertCateApi(row);
         if (res) {
           this.getList();
         }

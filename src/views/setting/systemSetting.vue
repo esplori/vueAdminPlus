@@ -88,7 +88,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import {
   updateSiteInfoApi,
   getSiteInfoApi,
@@ -108,7 +108,7 @@ export default {
         beianNo: "",
         bakRealUrl: "",
         siteEmail: "",
-        carouselEnable: 'N'
+        carouselEnable: "N",
       },
       tableData: [{ imgUrl: "", desc: "", url: "" }],
     };
@@ -118,13 +118,13 @@ export default {
   },
   methods: {
     async generateKeywords() {
-      let res = await generateKeywordsApi({});
+      const res = await generateKeywordsApi({});
       if (res) {
         this.$message.success("重新生成成功");
       }
     },
     async clearCache() {
-      let res = await clearCacheApi({});
+      const res = await clearCacheApi({});
       if (res) {
         this.$message.success("清空成功");
       }
@@ -150,7 +150,7 @@ export default {
     add() {
       this.tableData.push({ imgUrl: "", desc: "", url: "" });
     },
-    del(index) {
+    del(index: number) {
       this.tableData.splice(index, 1);
     },
   },

@@ -10,7 +10,7 @@
       <el-form-item label="头像:">
         <el-input v-model="form.avatar"> </el-input>
       </el-form-item>
-       <el-form-item label="邮箱:">
+      <el-form-item label="邮箱:">
         <el-input v-model="form.email"> </el-input>
       </el-form-item>
       <el-form-item>
@@ -20,7 +20,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { updateUserInfoApi, getUserInfoApi } from "@/views/API/admin.js";
 
 export default {
@@ -30,7 +30,7 @@ export default {
         nickname: "",
         userdesc: "",
         avatar: "",
-        email: ''
+        email: "",
       },
     };
   },

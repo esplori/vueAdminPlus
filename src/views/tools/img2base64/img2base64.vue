@@ -22,7 +22,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   data() {
     return {
@@ -37,24 +37,24 @@ export default {
 
   methods: {
     getBase64Image(img) {
-      var canvas = document.createElement("canvas");
+      const canvas = document.createElement("canvas");
       canvas.width = img.width;
       canvas.height = img.height;
-      var ctx = canvas.getContext("2d");
+      const ctx = canvas.getContext("2d");
       ctx.drawImage(img, 0, 0, img.width, img.height);
-      var dataURL = canvas.toDataURL("image/png");
+      const dataURL = canvas.toDataURL("image/png");
       return dataURL;
       // return dataURL.replace("data:image/png;base64,", "");
     },
     generated() {
-      var img = document.createElement("img");
+      const img = document.createElement("img");
       img.src = this.url;
       // 此处自己替换本地图片的地址
       img.crossOrigin = "anonymous";
       const _this = this;
       img.onload = function () {
-        var data = _this.getBase64Image(img);
-        var img1 = document.createElement("img");
+        const data = _this.getBase64Image(img);
+        const img1 = document.createElement("img");
         img1.src = data;
         _this.base64Url1 = data;
         document.getElementById("pic").appendChild(img1);
@@ -67,16 +67,16 @@ export default {
         document.body.innerHTML = "<p>抱歉，你的浏览器不支持 FileReader</p>";
         return false;
       }
-      var file = document.getElementById("imagefile").files[0];
+      const file = document.getElementById("imagefile").files[0];
       if (!/image\/\w+/.test(file.type)) {
         // 判断获取的是否为图片文件
         alert("请确保文件为图像文件");
         return false;
       }
-      var reader = new FileReader();
+      const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = function (e) {
-        var result = document.getElementById("localPic");
+        const result = document.getElementById("localPic");
         result.innerHTML =
           '<img style="width:400px" src="' + this.result + '" alt=""/>';
         _this.base64Url2 = this.result;

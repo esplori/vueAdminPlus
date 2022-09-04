@@ -1,7 +1,7 @@
 <template>
   <div class="role-manage">
     <el-table :data="data">
-      <el-table-column  type="index" label="序号" width="55px"></el-table-column>
+      <el-table-column type="index" label="序号" width="55px"></el-table-column>
       <el-table-column prop="roleName" label="角色名称"> </el-table-column>
       <el-table-column prop="roleId" label="角色id"> </el-table-column>
       <el-table-column fixed="right" width="180" label="操作">
@@ -14,7 +14,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { getRoleListApi } from "../API/admin";
 export default {
   data() {
@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     async getUserList() {
-      let res = await getRoleListApi({});
+      const res = await getRoleListApi({});
       if (res) {
         this.data = res.data.result;
       }

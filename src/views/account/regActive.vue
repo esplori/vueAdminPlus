@@ -1,28 +1,28 @@
 <template>
   <div class="msg">
-    {{successMsg}}
+    {{ successMsg }}
   </div>
 </template>
-<script>
+<script lang="ts">
 import { getValidEmailEffectiveApi } from "@/views/API/common.js";
 export default {
   data() {
     return {
-      successMsg: ''
+      successMsg: "",
     };
   },
-  created(){
-    let id = this.$route.query.id
-    this.getValidEmailEffective(id)
+  created() {
+    const id = this.$route.query.id;
+    this.getValidEmailEffective(id);
   },
   methods: {
     async getValidEmailEffective(id) {
-      let res = await getValidEmailEffectiveApi({id: id});
+      const res = await getValidEmailEffectiveApi({ id: id });
       if (res) {
-        this.successMsg = "激活成功，即将跳转到登录页面"
-        setTimeout(() =>{
+        this.successMsg = "激活成功，即将跳转到登录页面";
+        setTimeout(() => {
           this.$router.push({ path: "/login" });
-        },3000)
+        }, 3000);
       }
     },
   },
@@ -31,7 +31,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.msg{
+.msg {
   height: 400px;
   display: flex;
   justify-content: center;

@@ -36,7 +36,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { delApi, getListApi } from "@/views/API/navigation.js";
 
 export default {
@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     async getList() {
-      let res = await getListApi(this.params);
+      const res = await getListApi(this.params);
       if (res) {
         this.list = res.data.result;
         this.total = res.data.total;
@@ -71,7 +71,7 @@ export default {
       });
     },
     async del(id) {
-      let res = await delApi({ id: id });
+      const res = await delApi({ id: id });
       if (res) {
         this.$message.success("删除成功");
         this.getList();

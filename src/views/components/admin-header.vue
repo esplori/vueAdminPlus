@@ -45,11 +45,11 @@ const dailySentence = computed(() => {
 
 const state = reactive({
   userInfo: {
-    dailySentence: String
+    dailySentence: String,
   },
 });
 
-const handleCommand = (command:String) => {
+const handleCommand = (command: string) => {
   switch (command) {
     case "logout":
       logout();

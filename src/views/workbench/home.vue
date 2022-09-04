@@ -121,7 +121,7 @@
     </div>
 
     <div v-if="userInfo.role.includes('ROLE_admin')">
-      <h2 style="padding: 20px 0">总字数：{{totalWordsNum}}</h2>
+      <h2 style="padding: 20px 0">总字数：{{ totalWordsNum }}</h2>
       <div>
         <h2>当天访问来源</h2>
       </div>
@@ -145,7 +145,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { getWebStatisticsApi } from "@/views/API/stats.js";
 import { CountUp } from "countup.js";
 import * as echarts from "echarts";
@@ -171,7 +171,7 @@ export default {
       list: [],
       referrerTableData: [],
       postViewTableData: [],
-      totalWordsNum: 0
+      totalWordsNum: 0,
     };
   },
   computed: {
@@ -197,21 +197,25 @@ export default {
      * 计数器动效
      */
     initCountUp() {
-      let cp = new CountUp(this.$refs.countupviews, this.views, this.options);
+      const cp = new CountUp(this.$refs.countupviews, this.views, this.options);
       if (!cp.error) {
         cp.start();
       } else {
         console.error(cp.error);
       }
 
-      let cp2 = new CountUp(this.$refs.countuppages, this.pages, this.options);
+      const cp2 = new CountUp(
+        this.$refs.countuppages,
+        this.pages,
+        this.options
+      );
       if (!cp2.error) {
         cp2.start();
       } else {
         console.error(cp2.error);
       }
 
-      let cp3 = new CountUp(
+      const cp3 = new CountUp(
         this.$refs.countupdayViews,
         this.dayViews,
         this.options
@@ -222,7 +226,11 @@ export default {
         console.error(cp3.error);
       }
 
-      let cp4 = new CountUp(this.$refs.countupdayIp, this.dayIp, this.options);
+      const cp4 = new CountUp(
+        this.$refs.countupdayIp,
+        this.dayIp,
+        this.options
+      );
       if (!cp4.error) {
         cp4.start();
       } else {
@@ -233,8 +241,8 @@ export default {
      * 设备类型
      */
     initDeviceType() {
-      let _this = this;
-      let myChart = echarts.init(document.getElementById("deviceType"));
+      const _this = this;
+      const myChart = echarts.init(document.getElementById("deviceType"));
       myChart.setOption({
         title: {
           text: "设备型号",
@@ -254,8 +262,8 @@ export default {
      * 浏览器类型
      */
     initBrowserType() {
-      let _this = this;
-      let myChart = echarts.init(document.getElementById("browserType"));
+      const _this = this;
+      const myChart = echarts.init(document.getElementById("browserType"));
       myChart.setOption({
         title: {
           text: "浏览器型号",
@@ -275,8 +283,8 @@ export default {
      * 设备分辨率
      */
     initDeiveRatio() {
-      let _this = this;
-      let myChart = echarts.init(document.getElementById("deiveRatio"));
+      const _this = this;
+      const myChart = echarts.init(document.getElementById("deiveRatio"));
       myChart.setOption({
         title: {
           text: "设备分辨率",
@@ -296,8 +304,8 @@ export default {
      * 最近30天访问量
      */
     initDayViews() {
-      let _this = this;
-      let myChart = echarts.init(document.getElementById("dayViews"));
+      const _this = this;
+      const myChart = echarts.init(document.getElementById("dayViews"));
       myChart.setOption({
         title: {
           text: "最近30天访问量",
@@ -327,7 +335,7 @@ export default {
             rotate: 45, // 倾斜度 -90 至 90 默认为0
             margin: 8,
             formatter: function (value) {
-              var str = value.slice(0, 10);
+              const str = value.slice(0, 10);
               return str;
             },
           },
@@ -399,7 +407,7 @@ export default {
         this.initCountUp();
         this.referrerTableData = res.data.referrer;
         this.postViewTableData = res.data.postView;
-        this.totalWordsNum = res.data.totalWordsNum || 0
+        this.totalWordsNum = res.data.totalWordsNum || 0;
       }
     },
     initCharts() {

@@ -35,10 +35,7 @@
       <div class="lottery-alert" v-if="showToast">
         <h1>恭喜您</h1>
         <p>
-          <img
-            src="@/assets/images/choujiang/j2.png"
-            alt=""
-          />
+          <img src="@/assets/images/choujiang/j2.png" alt="" />
         </p>
         <h2>获得{{ list[index].title }}</h2>
         <div class="btnsave" @click="showToast = false">确定</div>
@@ -47,7 +44,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   data() {
     return {
@@ -117,7 +114,7 @@ export default {
         this.times = 0;
         this.speed = 200;
         this.click = true;
-        var that = this;
+        const that = this;
         setTimeout((res) => {
           that.showToast = true;
         }, 500);
@@ -245,8 +242,7 @@ li {
   position: relative;
   text-align: center;
   overflow: hidden;
-  background: url(../../../assets/images/choujiang/bg2.png)
-    no-repeat center;
+  background: url(../../../assets/images/choujiang/bg2.png) no-repeat center;
   background-size: 100% 100%;
 }
 .lottery .lottery-item ul li .box img {
@@ -264,8 +260,7 @@ li {
   font-size: 14px;
 }
 .lottery .lottery-item ul li.on .box {
-  background: url(../../../assets/images/choujiang/bg1.png)
-    no-repeat center;
+  background: url(../../../assets/images/choujiang/bg1.png) no-repeat center;
   background-size: 100% 100%;
 }
 .lottery .lottery-item ul li.on .box p {
@@ -285,8 +280,7 @@ li {
   cursor: pointer;
   text-align: center;
   overflow: hidden;
-  background: url(../../../assets/images/choujiang/bg1.png)
-    no-repeat center;
+  background: url(../../../assets/images/choujiang/bg1.png) no-repeat center;
   background-size: 100% 100%;
 }
 .lottery .lottery-item .lottery-start .box p b {
@@ -300,8 +294,7 @@ li {
   opacity: 0.7;
 }
 .lottery .lottery-item .lottery-start .box.gray {
-  background: url(../../../assets/images/choujiang/bg3.png)
-    no-repeat center;
+  background: url(../../../assets/images/choujiang/bg3.png) no-repeat center;
   background-size: 100% 100%;
 }
 .lottery .lottery-item .lottery-start .box.gray p {

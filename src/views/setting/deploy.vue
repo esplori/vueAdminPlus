@@ -13,20 +13,24 @@
             :loading="scope.row.loading"
             :icon="scope.row.btnDesc"
             circle
-            ></el-button
-          >
+          ></el-button>
         </template>
       </el-table-column>
       <el-table-column width="180" label="状态">
         <template #default="scope">
-          <el-button v-show="scope.row.success" type="success" icon="el-icon-check" circle></el-button>
+          <el-button
+            v-show="scope.row.success"
+            type="success"
+            icon="el-icon-check"
+            circle
+          ></el-button>
         </template>
       </el-table-column>
     </el-table>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { deployApi } from "@/views/API/tools.js";
 
 export default {
@@ -57,7 +61,7 @@ export default {
     async deployAdmin(row) {
       row.loading = true;
       row.class = "info";
-      let res = await deployApi({ type: row.type || "" });
+      const res = await deployApi({ type: row.type || "" });
       if (res) {
         row.success = true;
       }

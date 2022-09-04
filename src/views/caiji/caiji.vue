@@ -9,7 +9,11 @@
           <el-input v-model.number="params.pageSize"></el-input>
         </el-form-item>
         <el-form-item label="分类:">
-          <el-select v-model="params.cate" placeholder="请选择" @change="optionChange">
+          <el-select
+            v-model="params.cate"
+            placeholder="请选择"
+            @change="optionChange"
+          >
             <el-option
               v-for="item in options"
               :key="item.id"
@@ -40,8 +44,8 @@
   </div>
 </template>
 
-<script>
-import { getCateApi, getTbkShopListApi,delTbkApi } from "@/views/API/tbk.js";
+<script lang="ts">
+import { getCateApi, getTbkShopListApi, delTbkApi } from "@/views/API/tbk.js";
 
 export default {
   data() {
@@ -51,39 +55,39 @@ export default {
         pageNo: 1,
         pageSize: 20,
         keyWords: "",
-        cate: ''
+        cate: "",
       },
-      options: []
+      options: [],
     };
   },
   created() {
-    this.getCate()
+    this.getCate();
   },
   methods: {
     optionChange(val) {
-      let filterArr = this.options.filter(item =>{
-        return item.id === val
-      })
+      const filterArr = this.options.filter((item) => {
+        return item.id === val;
+      });
       if (filterArr.length) {
-        this.params.keyWords = filterArr[0].name
+        this.params.keyWords = filterArr[0].name;
       }
     },
     async getCate() {
-      let res = await getCateApi({});
+      const res = await getCateApi({});
       if (res) {
         this.options = res.data;
       }
     },
     async getList() {
       if (!this.params.cate) {
-        this.$message.warning("请选择分类")
-        return
+        this.$message.warning("请选择分类");
+        return;
       }
-      let res = await getTbkShopListApi(this.params);
+      const res = await getTbkShopListApi(this.params);
       if (res) {
         this.list = res.data.result;
       }
-    }
+    },
   },
 };
 </script>

@@ -42,7 +42,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import {
   deleteTopicApi,
   getTopicListApi,
@@ -71,7 +71,7 @@ export default {
       this.title = "新增";
     },
     async getList() {
-      let res = await getTopicListApi(this.params);
+      const res = await getTopicListApi(this.params);
       if (res) {
         this.list = res.data.result;
         this.total = res.data.total;
@@ -87,7 +87,7 @@ export default {
       });
     },
     async del(id) {
-      let res = await deleteTopicApi({ id: id });
+      const res = await deleteTopicApi({ id: id });
       if (res) {
         this.$message.success("删除成功");
         this.getList();
@@ -106,12 +106,12 @@ export default {
     },
     async submit(row) {
       if (row.id) {
-        let res = await updateTopicApi(row);
+        const res = await updateTopicApi(row);
         if (res) {
           this.getList();
         }
       } else {
-        let res = await insertTopicApi(row);
+        const res = await insertTopicApi(row);
         if (res) {
           this.getList();
         }

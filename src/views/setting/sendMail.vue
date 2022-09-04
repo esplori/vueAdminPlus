@@ -14,7 +14,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { sendMailApi } from "@/views/API/admin.js";
 
 export default {
@@ -29,7 +29,7 @@ export default {
   created() {},
   methods: {
     async sendMail() {
-      let res = await sendMailApi(this.form);
+      const res = await sendMailApi(this.form);
       if (res) {
         this.$message.success("发送成功");
       }

@@ -86,7 +86,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { delFileApi, getSourceListApi } from "@/views/API/admin.js";
 
 export default {

@@ -63,7 +63,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import {
   deletePostApi,
   getPostListByCateApi,
@@ -86,7 +86,7 @@ export default {
   },
   created() {
     // 恢复之前查询的参数
-    let { page, cate, pageSize } = this.$route.query;
+    const { page, cate, pageSize } = this.$route.query;
     this.params.page = parseInt(page) || 1;
     this.params.pageSize = parseInt(pageSize) || 10;
     this.params.cate = parseInt(cate) || "";

@@ -39,7 +39,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { getCommentApi, delCommentApi } from "@/views/API/admin.js";
 
 export default {
@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     async getList() {
-      let res = await getCommentApi();
+      const res = await getCommentApi();
       if (res) {
         this.list = res.data.result;
       }
@@ -68,7 +68,7 @@ export default {
       });
     },
     async del(id) {
-      let res = await delCommentApi({ id: id });
+      const res = await delCommentApi({ id: id });
       if (res) {
         this.$message.success("删除成功");
         this.getList();
