@@ -16,7 +16,7 @@
 
 <script lang="ts" setup>
 import { getRoleListApi } from "../API/admin";
-import { reactive,ref, onMounted } from "vue";
+import { ref, onMounted } from "vue";
 
 let data = ref([]);
 onMounted(() => {

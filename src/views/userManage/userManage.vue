@@ -1,7 +1,7 @@
 <template>
   <div class="user-manage">
     <el-button @click="insertUser" type="text ">新增用户</el-button>
-    <el-table :data="data">
+    <el-table :data="state.data">
       <el-table-column type="index" label="序号" width="55px"></el-table-column>
       <el-table-column prop="username" label="用户名"> </el-table-column>
       <el-table-column prop="role" label="角色Id"> </el-table-column>
@@ -31,23 +31,23 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page="params.page"
-        :page-size="params.pageSize"
+        :current-page="state.params.page"
+        :page-size="state.params.pageSize"
         :page-sizes="[10, 20, 30, 50]"
         :pager-count="5"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="total"
+        :total="state.total"
       >
       </el-pagination>
     </div>
     <el-dialog
-      :title="editObj.currUsername + '角色修改'"
-      v-model="editObj.dialogVisible"
+      :title="state.editObj.currUsername + '角色修改'"
+      v-model="state.editObj.dialogVisible"
       width="30%"
     >
       <div>
         <el-table
-          :data="Roledata"
+          :data="state.Roledata"
           ref="RoleTable"
           row-key="id"
           @selection-change="handleSelectionChange"
@@ -59,26 +59,26 @@
       </div>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="editObj.dialogVisible = false">取 消</el-button>
+          <el-button @click="state.editObj.dialogVisible = false">取 消</el-button>
           <el-button type="primary" @click="submit">确 定</el-button>
         </span>
       </template>
     </el-dialog>
 
-    <el-dialog title="新增用户" v-model="insertObj.dialogVisible" width="30%">
+    <el-dialog title="新增用户" v-model="state.insertObj.dialogVisible" width="30%">
       <div>
-        <el-form :model="form" label-width="60px">
+        <el-form :model="state.form" label-width="60px">
           <el-form-item label="用户名">
-            <el-input v-model="form.username"></el-input>
+            <el-input v-model="state.form.username"></el-input>
           </el-form-item>
           <el-form-item label="密码">
-            <el-input v-model="form.password"></el-input>
+            <el-input v-model="state.form.password"></el-input>
           </el-form-item>
         </el-form>
       </div>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="insertObj.dialogVisible = false">取 消</el-button>
+          <el-button @click="state.insertObj.dialogVisible = false">取 消</el-button>
           <el-button type="primary" @click="insert">确 定</el-button>
         </span>
       </template>
@@ -98,54 +98,57 @@ import {
 import { ref, reactive, onMounted, nextTick } from "vue";
 import { ElMessageBox } from "element-plus";
 
-let data = ref([]);
-let Roledata = ref([]);
-let params = reactive({
-  page: 1,
-  pageSize: 10,
+let state = reactive({
+  data: [],
+  Roledata: [],
+  params: {
+    page: 1,
+    pageSize: 10,
+  },
+  total: 0,
+  editObj: {
+    dialogVisible: false,
+    currUsername: "",
+  },
+  insertObj: {
+    dialogVisible: false,
+  },
+  multipleSelection: [],
+  form: {
+    username: "",
+    password: "",
+  },
 });
-let total = ref(0);
-let editObj = reactive({
-  dialogVisible: false,
-  currUsername: "",
-});
-let insertObj = reactive({
-  dialogVisible: false,
-});
-let multipleSelection = ref([]);
-let form = reactive({
-  username: "",
-  password: "",
-});
+
 onMounted(() => {
   getUserList();
 });
 
 const getUserList = async () => {
-  const res = await getUserListApi({ page: params.page });
+  const res = await getUserListApi({ page: state.params.page });
   if (res) {
-    data.value = res.data.result;
-    total.value = res.data.total;
+    state.data = res.data.result;
+    state.total = res.data.total;
   }
 };
 
 const insert = async () => {
   const res = await insertUserApi({
-    ...form,
+    ...state.form,
   });
   if (res) {
-    insertObj.dialogVisible = false;
+    state.insertObj.dialogVisible = false;
     getUserList();
   }
 };
 
 const insertUser = () => {
-  insertObj.dialogVisible = true;
+  state.insertObj.dialogVisible = true;
 };
 
 const edit = (row: any) => {
-  editObj.dialogVisible = true;
-  editObj.currUsername = row.username;
+  state.editObj.dialogVisible = true;
+  state.editObj.currUsername = row.username;
   getRoleList(row);
 };
 
@@ -174,11 +177,11 @@ const RoleTable = ref();
 const getRoleList = async (row: any) => {
   const res = await getRoleListApi({});
   if (res) {
-    Roledata.value = res.data.result;
-    Roledata.value.forEach((item:any, index) => {
+    state.Roledata = res.data.result;
+    state.Roledata.forEach((item: any, index) => {
       if (row.role.indexOf(item.roleId) !== -1) {
         nextTick(() => {
-          RoleTable.value.toggleRowSelection(Roledata.value[index], true);
+          RoleTable.value.toggleRowSelection(state.Roledata[index], true);
         });
       }
     });
@@ -188,31 +191,31 @@ const getRoleList = async (row: any) => {
 const submit = () => {
   updateRole();
   // todo
-  editObj.dialogVisible = false;
+  state.editObj.dialogVisible = false;
 };
 
 const updateRole = async () => {
   const res = await updateRoleApi({
-    roleList: multipleSelection.value,
-    username: editObj.currUsername,
+    roleList: state.multipleSelection,
+    username: state.editObj.currUsername,
   });
   if (res) {
-    editObj.dialogVisible = false;
+    state.editObj.dialogVisible = false;
     getUserList();
   }
 };
 
 const handleSelectionChange = (val: any) => {
-  multipleSelection.value = val;
+  state.multipleSelection = val;
 };
 
 const handleSizeChange = (val: any) => {
-  params.pageSize = val;
+  state.params.pageSize = val;
   getUserList();
 };
 
 const handleCurrentChange = (val: any) => {
-  params.page = val;
+  state.params.page = val;
   getUserList();
 };
 </script>
