@@ -156,17 +156,5 @@ const valid = async () => {
     background: rgba(0, 0, 0, 0.6);
     transition: all 0.5s;
   }
-  ::v-deep .el-tabs__header {
-    // width: 184px;
-    // margin: 0 auto;
-    margin-bottom: 30px;
-    .el-tabs__item {
-      font-size: 18px;
-    }
-    .el-tabs__nav-wrap {
-      display: flex;
-      justify-content: center;
-    }
-  }
 }
 </style>

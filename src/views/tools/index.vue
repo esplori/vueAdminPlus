@@ -4,6 +4,6 @@
     <router-view></router-view>
   </div>
 </template>
-<script lang="ts">
+<script lang="ts" setup>
  import {RouterView} from "vue-router"
 </script>
