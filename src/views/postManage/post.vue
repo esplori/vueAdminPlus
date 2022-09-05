@@ -97,7 +97,7 @@ import {
   getAdminCateValidApi,
 } from "@/views/API/admin.js";
 import { getCurrDate } from "@/utils/common.js";
-import { reactive, ref, onMounted, computed, onBeforeUnmount } from "vue";
+import { reactive, onMounted, computed, onBeforeUnmount} from "vue";
 import { ElMessage } from "element-plus";
 import { useRouter, useRoute } from "vue-router";
 const router = useRouter();
@@ -284,6 +284,7 @@ const editPage = async (jump: any) => {
   const res = await editPageApi({
     ...state.form,
     createDate: getCurrDate(state.form.createDate),
+    createBy: userInfo && userInfo.value.username,
     keywords: state.dynamicTags.join(","),
   });
   if (res) {
@@ -300,7 +301,7 @@ const editPage = async (jump: any) => {
 const postPage = async (jump: any) => {
   const res = await postPageApi({
     ...state.form,
-    createBy: userInfo && userInfo.username,
+    createBy: userInfo && userInfo.value.username,
     createDate: getCurrDate(state.form.createDate),
     keywords: state.dynamicTags.join(","),
   });

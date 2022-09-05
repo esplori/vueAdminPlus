@@ -1,3 +1,8 @@
+#app {
+    min-height: 100vh;
+}
+
+
 /* 以后pre标签里面的内容自动换行 */
 
 pre {

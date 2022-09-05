@@ -84,19 +84,19 @@ const login = async function () {
 
 <style lang="scss" scoped>
 .login {
-  // background: url("../../assets/images/bg.jpg") no-repeat;
+  background: url("../../assets/images/bg.jpg") no-repeat;
   background-size: cover;
-
+  min-height: 100vh;
   .show-container {
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     .login-container {
       border-radius: 3px;
       width: 400px;
-      margin-top: 15vh;
+      margin-top: 0;
       background: rgba(255, 255, 255, 1);
       padding: 40px 60px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
