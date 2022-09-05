@@ -80,8 +80,6 @@ npm run dev
 # 生成应用
 npm run build
 
-# 生成应用并查看报告
-npm run build --report
 ```
 
 ### 感谢赞赏  
