@@ -9,7 +9,6 @@
 import { ref } from "vue";
 const copyRight = ref("&copy");
 const currentDate = ref(new Date().getFullYear());
-debugger
 </script>
 <style lang="scss" scoped>
 .footer {

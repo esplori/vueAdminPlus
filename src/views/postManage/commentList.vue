@@ -1,6 +1,6 @@
 <template>
   <div class="comments-list">
-    <el-table :data="list" style="width: 100%">
+    <el-table :data="state.list" style="width: 100%">
       <el-table-column label="用户">
         <template #default="scope">
           {{ scope.row.username }}
@@ -39,42 +39,38 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { getCommentApi, delCommentApi } from "@/views/API/admin.js";
+import { reactive, onMounted } from "vue";
+import { ElMessageBox, ElMessage } from "element-plus";
+const state = reactive({
+  list: [],
+});
+onMounted(() => {
+  getList();
+});
+const getList = async () => {
+  const res = await getCommentApi({});
+  if (res) {
+    state.list = res.data.result;
+  }
+};
+const delConfirm = async (id:any) => {
+  ElMessageBox.confirm("此操作将删除该条数据, 是否继续?", "提示", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning",
+  }).then(() => {
+    del(id);
+  });
+};
 
-export default {
-  data() {
-    return {
-      list: [],
-    };
-  },
-  created() {
-    this.getList();
-  },
-  methods: {
-    async getList() {
-      const res = await getCommentApi();
-      if (res) {
-        this.list = res.data.result;
-      }
-    },
-    delConfirm(id) {
-      this.$confirm("此操作将删除该条数据, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      }).then(() => {
-        this.del(id);
-      });
-    },
-    async del(id) {
-      const res = await delCommentApi({ id: id });
-      if (res) {
-        this.$message.success("删除成功");
-        this.getList();
-      }
-    },
-  },
+const del = async (id: any) => {
+  const res = await delCommentApi({ id: id });
+  if (res) {
+    ElMessage.success("删除成功");
+    getList();
+  }
 };
 </script>
 

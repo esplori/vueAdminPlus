@@ -3,10 +3,10 @@
     <div class="select-by-cate">
       <div>
         <span>按分类筛选：</span>
-        <el-select v-model="params.cate" @change="typeChange">
+        <el-select v-model="state.params.cate" @change="typeChange">
           <el-option label="全部" :value="null"></el-option>
           <el-option
-            v-for="(item, index) in cateList"
+            v-for="(item, index) in state.cateList"
             :key="index"
             :label="item.name"
             :value="item.id"
@@ -15,13 +15,13 @@
       </div>
       <div>
         <el-input
-          v-model="params.tag"
+          v-model="state.params.tag"
           placeholder="输入关键字搜索"
           @change="tagChange"
         ></el-input>
       </div>
     </div>
-    <el-table :data="list" @sort-change="sortCchange">
+    <el-table :data="state.list" @sort-change="sortCchange">
       <el-table-column type="index" label="序号" width="55px"></el-table-column>
       <el-table-column label="标题" width="200px">
         <template #default="scope">
@@ -65,21 +65,21 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page="params.page"
-        :page-size="params.pageSize"
+        :current-page="state.params.page"
+        :page-size="state.params.pageSize"
         :page-sizes="[10, 20, 30, 50]"
         :pager-count="5"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="total"
+        :total="state.total"
       >
       </el-pagination>
     </div>
 
-    <el-dialog title="添加到专题" v-model="dialogVisible" width="30%">
+    <el-dialog title="添加到专题" v-model="state.dialogVisible" width="30%">
       <div>
-        <el-select v-model="form.topicId">
+        <el-select v-model="state.form.topicId">
           <el-option
-            v-for="(item, index) in topicList"
+            v-for="(item, index) in state.topicList"
             :key="index"
             :label="item.name"
             :value="item.id"
@@ -88,7 +88,7 @@
       </div>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="dialogVisible = false">取 消</el-button>
+          <el-button @click="state.dialogVisible = false">取 消</el-button>
           <el-button type="primary" @click="submitTopic()">确 定</el-button>
         </span>
       </template>
@@ -96,7 +96,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import {
   delApi,
   getListByCateApi,
@@ -105,144 +105,143 @@ import {
   addPostToTopicApi,
   getListByTagsApi,
 } from "@/views/API/admin.js";
+import { reactive, onMounted, computed } from "vue";
+import { ElMessage, ElMessageBox } from "element-plus";
+import { useRoute, useRouter } from "vue-router";
+const route = useRoute();
+const router = useRouter();
+const state = reactive({
+  list: [],
+  params: {
+    page: 1,
+    cate: "",
+    pageSize: 10,
+    order: "desc",
+    orderBy: "createDate",
+  },
+  form: {
+    postId: "",
+    name: "",
+    topicId: "",
+  },
+  total: 0,
+  cateList: [],
+  dialogVisible: false,
+  topicList: [],
+});
+onMounted(() => {
+  getCate();
+  // 恢复之前查询的参数
+  const { page, cate, pageSize } = route.query;
+  state.params.page = parseInt(page) || 1;
+  state.params.pageSize = parseInt(pageSize) || 10;
+  state.params.cate = parseInt(cate) || "";
+  getList();
+});
+const userInfo = computed(() => {
+  let uinfo = localStorage.getItem("userInfo") || [];
+  if (uinfo) {
+    uinfo = JSON.parse(uinfo).role.split(",");
+  } else {
+    uinfo = [];
+  }
+  return uinfo;
+});
 
-export default {
-  data() {
-    return {
-      list: [],
-      params: {
-        page: 1,
-        cate: "",
-        pageSize: 10,
-        order: "desc",
-        orderBy: "createDate",
-      },
-      form: {
-        postId: "",
-        name: "",
-        topicId: "",
-      },
-      total: 0,
-      cateList: [],
-      dialogVisible: false,
-      topicList: [],
-    };
-  },
-  created() {
-    this.getCate();
-    // 恢复之前查询的参数
-    const { page, cate, pageSize } = this.$route.query;
-    this.params.page = parseInt(page) || 1;
-    this.params.pageSize = parseInt(pageSize) || 10;
-    this.params.cate = parseInt(cate) || "";
-    this.getList();
-  },
-  computed: {
-    userInfo() {
-      let userInfo = localStorage.getItem("userInfo");
-      if (userInfo) {
-        userInfo = JSON.parse(userInfo).role.split(",");
-      } else {
-        userInfo = [];
-      }
-      return userInfo;
-    },
-  },
-  methods: {
-    /**
-     *  tab切换后查询文章
-     */
-    tagChange(val) {
-      this.getListByTags(val);
-    },
-    /**
-     * 通过关键字查询文章
-     */
-    async getListByTags(val) {
-      const res = await getListByTagsApi({ tag: val });
-      if (res) {
-        this.list = res.data.result;
-        this.total = res.data.total;
-      }
-    },
-    sortCchange({ column, prop, order }) {
-      this.params.page = 1;
-      // 需要转换成sql对应的排序字段
-      this.params.order = order === "ascending" ? "asc" : "desc";
-      this.params.orderBy = prop;
-      this.getList();
-    },
-    async getTopicList() {
-      const res = await getTopicListApi({});
-      if (res) {
-        this.topicList = res.data.result;
-      }
-    },
-    typeChange() {
-      this.params.page = 1;
-      this.getList();
-    },
-    getList() {
-      this.getListByCate();
-    },
-    async getCate() {
-      const res = await getAdminCateValidApi({});
-      if (res) {
-        this.cateList = res.data.result;
-      }
-    },
-    async getListByCate() {
-      const res = await getListByCateApi(this.params);
-      if (res) {
-        this.list = res.data.result;
-        this.total = res.data.total;
-      }
-    },
-    delConfirm(id) {
-      this.$confirm("此操作将删除该条数据, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      }).then(() => {
-        this.del(id);
-      });
-    },
-    async del(id) {
-      const res = await delApi({ id: id });
-      if (res) {
-        this.$message.success("删除成功");
-        this.getList();
-      }
-    },
-    /**
-     * 编辑
-     */
-    edit(id) {
-      this.$router.push({ path: "post", query: { id: id, ...this.params } });
-    },
-    handleSizeChange(val) {
-      this.params.pageSize = val;
-      this.getList();
-    },
-    handleCurrentChange(val) {
-      this.params.page = val;
-      this.getList();
-    },
-    // 添加到专题
-    addToTopic(row) {
-      this.getTopicList();
-      this.dialogVisible = true;
-      this.form.postId = row.uid || row.id;
-      this.form.name = row.title;
-    },
-    async submitTopic() {
-      const res = await addPostToTopicApi(this.form);
-      if (res) {
-        this.$message.success("添加成功");
-        this.dialogVisible = false;
-      }
-    },
-  },
+const tagChange = (val: any) => {
+  getListByTags(val);
+};
+const getListByTags = async (val: any) => {
+  const res = await getListByTagsApi({ tag: val });
+  if (res) {
+    state.list = res.data.result;
+    state.total = res.data.total;
+  }
+};
+const sortCchange = ({ column, prop, order }) => {
+  state.params.page = 1;
+  // 需要转换成sql对应的排序字段
+  state.params.order = order === "ascending" ? "asc" : "desc";
+  state.params.orderBy = prop;
+  getList();
+};
+
+const getTopicList = async () => {
+  const res = await getTopicListApi({});
+  if (res) {
+    state.topicList = res.data.result;
+  }
+};
+
+const typeChange = async () => {
+  state.params.page = 1;
+  getList();
+};
+
+const getList = async () => {
+  getListByCate();
+};
+
+const getCate = async () => {
+  const res = await getAdminCateValidApi({});
+  if (res) {
+    state.cateList = res.data.result;
+  }
+};
+
+const getListByCate = async () => {
+  const res = await getListByCateApi(state.params);
+  if (res) {
+    state.list = res.data.result;
+    state.total = res.data.total;
+  }
+};
+
+const delConfirm = async (id: any) => {
+  ElMessageBox.confirm("此操作将删除该条数据, 是否继续?", "提示", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning",
+  }).then(() => {
+    del(id);
+  });
+};
+
+const del = async (id: any) => {
+  const res = await delApi({ id: id });
+  if (res) {
+    ElMessage.success("删除成功");
+    getList();
+  }
+};
+
+const edit = async (id: any) => {
+  router.push({ path: "post", query: { id: id, ...state.params } });
+};
+
+const handleSizeChange = async (val: any) => {
+  state.params.pageSize = val;
+  getList();
+};
+
+const handleCurrentChange = async (val: any) => {
+  state.params.page = val;
+  getList();
+};
+
+const addToTopic = async (row: any) => {
+  getTopicList();
+  state.dialogVisible = true;
+  state.form.postId = row.uid || row.id;
+  state.form.name = row.title;
+};
+
+const submitTopic = async (row: any) => {
+  const res = await addPostToTopicApi(state.form);
+  if (res) {
+    ElMessage.success("添加成功");
+    state.dialogVisible = false;
+  }
 };
 </script>
 

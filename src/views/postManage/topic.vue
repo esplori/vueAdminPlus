@@ -73,7 +73,6 @@ const getList = async () => {
   const res = await getTopicListApi(state.params);
   if (res) {
     state.list = res.data.result;
-    state.total = res.data.total;
   }
 };
 const delConfirm = async (id: any) => {
@@ -117,14 +116,6 @@ const submit = async (row: any) => {
     }
   }
   state.dialogVisible = false;
-};
-const handleSizeChange = async (val: any) => {
-  state.params.pageSize = val;
-  getList();
-};
-const handleCurrentChange = async (val: any) => {
-  state.params.page = val;
-  getList();
 };
 </script>
 
