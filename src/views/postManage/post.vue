@@ -376,12 +376,13 @@ onBeforeUnmount(() => {
   .el-alert {
     padding: 0;
   }
+  // 重置标题样式
   .title {
-    ::deep(.el-input__inner) {
-      border-top: none;
-      border-left: none;
-      border-right: none;
-      border-radius: 0;
+    ::v-deep .el-input__wrapper {
+      margin-top: 30px;
+      box-shadow: none;
+      font-size: 24px;
+      border-bottom: 1px solid var(--el-input-border-color);
     }
   }
 }

@@ -11,7 +11,7 @@
             :type="scope.row.class"
             @click="deployAdmin(scope.row)"
             :loading="scope.row.loading"
-            :icon="scope.row.btnDesc"
+            :icon="ArrowRight"
             circle
           ></el-button>
         </template>
@@ -21,7 +21,7 @@
           <el-button
             v-show="scope.row.success"
             type="success"
-            icon="el-icon-check"
+            :icon="Check"
             circle
           ></el-button>
         </template>
@@ -33,6 +33,7 @@
 <script lang="ts" setup>
 import { deployApi } from "@/views/API/tools.js";
 import { reactive } from "vue";
+import { ArrowRight,Check } from "@element-plus/icons-vue";
 
 const state = reactive({
   tableData: [

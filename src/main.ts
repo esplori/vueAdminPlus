@@ -7,7 +7,7 @@ import ElementPlus from "element-plus";
 import "./assets/styles/index.scss";
 
 const app = createApp(App);
-app.use(ElementPlus);
+app.use(ElementPlus,{size:"default"});
 app.use(createPinia());
 app.use(router);
 

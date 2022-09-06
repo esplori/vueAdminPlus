@@ -14,7 +14,7 @@
             <el-input
               @focus="shadow"
               @blur="hideShadow"
-              prefix-icon="el-icon-user"
+              :prefix-icon="User"
               v-model="form.username"
               placeholder="账号"
             ></el-input>
@@ -23,7 +23,7 @@
             <el-input
               @focus="shadow"
               @blur="hideShadow"
-              prefix-icon="el-icon-view"
+              :prefix-icon="Lock"
               v-model="form.password"
               type="password"
               placeholder="密码"
@@ -50,6 +50,7 @@
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import { loginApi } from "@/views/account/api";
+import { User,Lock } from "@element-plus/icons-vue";
 const form = reactive({
   username: "",
   password: "",
