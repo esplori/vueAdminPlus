@@ -378,7 +378,7 @@ onBeforeUnmount(() => {
   }
   // 重置标题样式
   .title {
-    ::v-deep .el-input__wrapper {
+    :deep(.el-input__wrapper) {
       margin-top: 30px;
       box-shadow: none;
       font-size: 24px;
