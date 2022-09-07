@@ -39,6 +39,7 @@
                 :index="it.path"
                 v-for="(it, idx) in item.children"
                 :key="idx"
+                v-show="it.auth && userInfo.some((role) => {return it.auth.includes(role)})"
               >
                 <template #title>{{ it.title }}</template>
               </el-menu-item>
@@ -129,15 +130,16 @@ const state = reactive({
       auth: "ROLE_admin,ROLE_author",
       icon: "el-icon-crop",
       children: [
-        { title: "json格式化", path: "/tools/jsonviewer", id: "" },
-        { title: "抽奖", path: "/tools/choujiang", id: "" },
-        { title: "点名", id: "", path: "/tools/dianming" },
+        { title: "json格式化", path: "/tools/jsonviewer", id: "",auth: "ROLE_admin,ROLE_author", },
+        { title: "抽奖", path: "/tools/choujiang", id: "",auth: "ROLE_admin,ROLE_author", },
+        { title: "点名", id: "", path: "/tools/dianming",auth: "ROLE_admin,ROLE_author", },
         {
           title: "图片转成base64",
           path: "/tools/img2base64",
           id: "",
+          auth: "ROLE_admin,ROLE_author",
         },
-        { title: "二维码生成", path: "/tools/qrcode", id: "" },
+        { title: "二维码生成", path: "/tools/qrcode", id: "",auth: "ROLE_admin,ROLE_author", },
       ],
     },
     {
@@ -149,7 +151,6 @@ const state = reactive({
       children: [
         { title: "用户管理", path: "/userManage", id: "" },
         { title: "角色管理", path: "/roleManage", id: "" },
-        // { title: "菜单管理", path: "/admin/menuManage", id: "" },
       ],
     },
     {
@@ -158,7 +159,7 @@ const state = reactive({
       id: "",
       auth: "ROLE_admin,ROLE_author",
       icon: "el-icon-user",
-      children: [{ title: "个人资料", path: "/userSetting", id: "" }],
+      children: [{ title: "个人资料", path: "/userSetting", id: "",auth: "ROLE_admin,ROLE_author", }],
     },
     {
       title: "推广",
