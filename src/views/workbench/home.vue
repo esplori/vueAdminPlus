@@ -9,7 +9,7 @@
           <el-card shadow="always">
             <div class="item-title">总访问量</div>
             <div class="item-amount" ref="countupviews">
-              {{ views }}
+              {{ state.views }}
             </div>
             <div class="item-compare">
               <span>今日新增</span>
