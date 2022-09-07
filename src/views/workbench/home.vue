@@ -17,7 +17,7 @@
             </div>
           </el-card>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="6" v-if="userInfo.role.includes('ROLE_admin')">
           <el-card shadow="always">
             <div class="item-title">文章总数</div>
             <div class="item-amount" ref="countuppages">
