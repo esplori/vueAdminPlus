@@ -39,7 +39,12 @@
                 :index="it.path"
                 v-for="(it, idx) in item.children"
                 :key="idx"
-                v-show="it.auth && userInfo.some((role) => {return it.auth.includes(role)})"
+                v-show="
+                  it.auth &&
+                  userInfo.some((role) => {
+                    return it.auth.includes(role);
+                  })
+                "
               >
                 <template #title>{{ it.title }}</template>
               </el-menu-item>
@@ -79,9 +84,24 @@ const state = reactive({
       auth: "ROLE_admin",
       icon: "el-icon-s-promotion",
       children: [
-        { title: "导航列表", path: "/navigationList", id: "" },
-        { title: "分类管理", path: "/navigationCate", id: "" },
-        { title: "新增导航", path: "/navigationEdit", id: "" },
+        {
+          title: "导航列表",
+          path: "/navigationList",
+          id: "",
+          auth: "ROLE_admin",
+        },
+        {
+          title: "分类管理",
+          path: "/navigationCate",
+          id: "",
+          auth: "ROLE_admin",
+        },
+        {
+          title: "新增导航",
+          path: "/navigationEdit",
+          id: "",
+          auth: "ROLE_admin",
+        },
       ],
     },
     {
@@ -130,16 +150,36 @@ const state = reactive({
       auth: "ROLE_admin,ROLE_author",
       icon: "el-icon-crop",
       children: [
-        { title: "json格式化", path: "/tools/jsonviewer", id: "",auth: "ROLE_admin,ROLE_author", },
-        { title: "抽奖", path: "/tools/choujiang", id: "",auth: "ROLE_admin,ROLE_author", },
-        { title: "点名", id: "", path: "/tools/dianming",auth: "ROLE_admin,ROLE_author", },
+        {
+          title: "json格式化",
+          path: "/tools/jsonviewer",
+          id: "",
+          auth: "ROLE_admin,ROLE_author",
+        },
+        {
+          title: "抽奖",
+          path: "/tools/choujiang",
+          id: "",
+          auth: "ROLE_admin,ROLE_author",
+        },
+        {
+          title: "点名",
+          id: "",
+          path: "/tools/dianming",
+          auth: "ROLE_admin,ROLE_author",
+        },
         {
           title: "图片转成base64",
           path: "/tools/img2base64",
           id: "",
           auth: "ROLE_admin,ROLE_author",
         },
-        { title: "二维码生成", path: "/tools/qrcode", id: "",auth: "ROLE_admin,ROLE_author", },
+        {
+          title: "二维码生成",
+          path: "/tools/qrcode",
+          id: "",
+          auth: "ROLE_admin,ROLE_author",
+        },
       ],
     },
     {
@@ -149,8 +189,8 @@ const state = reactive({
       auth: "ROLE_admin",
       icon: "el-icon-s-custom",
       children: [
-        { title: "用户管理", path: "/userManage", id: "" },
-        { title: "角色管理", path: "/roleManage", id: "" },
+        { title: "用户管理", path: "/userManage", id: "", auth: "ROLE_admin" },
+        { title: "角色管理", path: "/roleManage", id: "", auth: "ROLE_admin" },
       ],
     },
     {
@@ -159,7 +199,14 @@ const state = reactive({
       id: "",
       auth: "ROLE_admin,ROLE_author",
       icon: "el-icon-user",
-      children: [{ title: "个人资料", path: "/userSetting", id: "",auth: "ROLE_admin,ROLE_author", }],
+      children: [
+        {
+          title: "个人资料",
+          path: "/userSetting",
+          id: "",
+          auth: "ROLE_admin,ROLE_author",
+        },
+      ],
     },
     {
       title: "推广",
@@ -168,9 +215,9 @@ const state = reactive({
       auth: "ROLE_admin",
       icon: "el-icon-sell",
       children: [
-        { title: "采集", path: "/caiji", id: "" },
-        { title: "采集列表", path: "/caijiList", id: "" },
-        { title: "分类", path: "/tbkType", id: "" },
+        { title: "采集", path: "/caiji", id: "", auth: "ROLE_admin" },
+        { title: "采集列表", path: "/caijiList", id: "", auth: "ROLE_admin" },
+        { title: "分类", path: "/tbkType", id: "", auth: "ROLE_admin" },
       ],
     },
     {
@@ -180,14 +227,20 @@ const state = reactive({
       auth: "ROLE_admin",
       icon: "el-icon-setting",
       children: [
-        { title: "站点设置", path: "/systemSetting", id: "" },
-        { title: "资源管理", path: "/sourceList", id: "" },
-        { title: "编译部署", path: "/deploy", id: "" },
-        { title: "回收站", path: "/recycle", id: "" },
+        {
+          title: "站点设置",
+          path: "/systemSetting",
+          id: "",
+          auth: "ROLE_admin",
+        },
+        { title: "资源管理", path: "/sourceList", id: "", auth: "ROLE_admin" },
+        { title: "编译部署", path: "/deploy", id: "", auth: "ROLE_admin" },
+        { title: "回收站", path: "/recycle", id: "", auth: "ROLE_admin" },
         {
           title: "发送邮件",
           path: "/mail",
           id: "",
+          auth: "ROLE_admin",
         },
       ],
     },
