@@ -125,7 +125,7 @@
         <h2>当天访问来源</h2>
       </div>
       <el-table :data="state.referrerTableData" style="width: 100%">
-        <el-table-column type="index" label="序号" width="50">
+        <el-table-column type="index" label="序号" width="60" align="center">
         </el-table-column>
         <el-table-column prop="referrer" label="地址"> </el-table-column>
         <el-table-column prop="createDate" label="时间"> </el-table-column>
@@ -134,7 +134,7 @@
         <h3>当天访问地址</h3>
       </div>
       <el-table :data="state.postViewTableData" style="width: 100%">
-        <el-table-column type="index" label="序号" width="50">
+        <el-table-column type="index" label="序号" width="60" align="center">
         </el-table-column>
         <el-table-column prop="title" label="标题"> </el-table-column>
         <el-table-column prop="href" label="地址"> </el-table-column>
