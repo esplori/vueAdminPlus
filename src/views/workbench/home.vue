@@ -8,7 +8,7 @@
         <el-col :span="6">
           <el-card shadow="always">
             <div class="item-title">总访问量</div>
-            <div class="item-amount" ref="countupviews">
+            <div class="item-amount" ref="countupviews" id="countupviews">
               {{ state.views }}
             </div>
             <div class="item-compare">
@@ -20,7 +20,7 @@
         <el-col :span="6" v-if="userInfo.role.includes('ROLE_admin')">
           <el-card shadow="always">
             <div class="item-title">文章总数</div>
-            <div class="item-amount" ref="countuppages">
+            <div class="item-amount" ref="countuppages" id="countuppages">
               {{ state.pages }}
             </div>
             <div class="item-compare">
@@ -42,7 +42,7 @@
         <el-col :span="6">
           <el-card shadow="always">
             <div class="item-title">今日浏览量(PV)</div>
-            <div class="item-amount" ref="countupdayViews">
+            <div class="item-amount" ref="countupdayViews" id="countupdayViews">
               {{ state.dayViews }}
             </div>
             <div class="item-compare">
@@ -65,7 +65,7 @@
         <el-col :span="6">
           <el-card shadow="always">
             <div class="item-title">今日访问IP数(UV)</div>
-            <div class="item-amount" ref="countupdayIp">
+            <div class="item-amount" ref="countupdayIp" id="countupdayIp">
               {{ state.dayIp }}
             </div>
             <div class="item-compare">
@@ -187,29 +187,25 @@ onMounted(() => {
   });
 });
 const initCountUp = () => {
-  let countupviews = ref();
-  const cp = new CountUp(countupviews, state.views, state.options);
+  const cp = new CountUp("countupviews", state.views, state.options);
   if (!cp.error) {
     cp.start();
   } else {
     console.error(cp.error);
   }
-  let countuppages = ref();
-  const cp2 = new CountUp(countuppages, state.pages, state.options);
+  const cp2 = new CountUp("countuppages", state.pages, state.options);
   if (!cp2.error) {
     cp2.start();
   } else {
     console.error(cp2.error);
   }
-  let countupdayViews = ref();
-  const cp3 = new CountUp(countupdayViews, state.dayViews, state.options);
+  const cp3 = new CountUp("countupdayViews", state.dayViews, state.options);
   if (!cp3.error) {
     cp3.start();
   } else {
     console.error(cp3.error);
   }
-  let countupdayIp = ref();
-  const cp4 = new CountUp(countupdayIp, state.dayIp, state.options);
+  const cp4 = new CountUp("countupdayIp", state.dayIp, state.options);
   if (!cp4.error) {
     cp4.start();
   } else {
