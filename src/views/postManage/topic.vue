@@ -35,7 +35,7 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="state.dialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="submit(row)">确 定</el-button>
+          <el-button type="primary" @click="submit(state.row)">确 定</el-button>
         </span>
       </template>
     </el-dialog>
@@ -104,6 +104,7 @@ const manage = async (row: any) => {
 };
 
 const submit = async (row: any) => {
+  debugger
   if (row.id) {
     const res = await updateTopicApi(row);
     if (res) {
