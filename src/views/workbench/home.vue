@@ -214,7 +214,9 @@ const initCountUp = () => {
 };
 
 const initDeviceType = () => {
-  const myChart = echarts.init(document.getElementById("deviceType"));
+  let dom = document.getElementById("deviceType")
+  dom.removeAttribute('_echarts_instance_')
+  const myChart = echarts.init(dom);
   myChart.setOption({
     title: {
       text: "设备型号",
@@ -232,7 +234,9 @@ const initDeviceType = () => {
 };
 
 const initBrowserType = () => {
-  const myChart = echarts.init(document.getElementById("browserType"));
+  let dom = document.getElementById("browserType")
+  dom.removeAttribute('_echarts_instance_')
+  const myChart = echarts.init(dom);
   myChart.setOption({
     title: {
       text: "浏览器型号",
@@ -249,7 +253,9 @@ const initBrowserType = () => {
   myChart.resize();
 };
 const initDeiveRatio = () => {
-  const myChart = echarts.init(document.getElementById("deiveRatio"));
+  let dom = document.getElementById("deiveRatio")
+  dom.removeAttribute('_echarts_instance_')
+  const myChart = echarts.init(dom);
   myChart.setOption({
     title: {
       text: "设备分辨率",
@@ -266,7 +272,9 @@ const initDeiveRatio = () => {
   myChart.resize();
 };
 const initDayViews = () => {
-  const myChart = echarts.init(document.getElementById("dayViews"));
+  let dom = document.getElementById("dayViews")
+  dom.removeAttribute('_echarts_instance_')
+  const myChart = echarts.init(dom);
   myChart.setOption({
     title: {
       text: "最近30天访问量",
