@@ -8,6 +8,11 @@
           {{ scope.row.name }}
         </template>
       </el-table-column>
+      <el-table-column label="标题">
+        <template #default="scope">
+          {{ scope.row.createDate }}
+        </template>
+      </el-table-column>
       <el-table-column label="操作" width="180">
         <template #default="scope">
           <el-button @click="edit(scope.row)" type="text">编辑</el-button>
