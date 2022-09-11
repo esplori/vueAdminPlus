@@ -6,7 +6,7 @@
     </div>
     <div style="padding: 20px 0">
       <el-button type="button" style="width: 250px" @click="onBtnClick()">
-        {{ state.btnText }}
+        {{ btnText }}
       </el-button>
     </div>
     <div>
@@ -116,7 +116,7 @@ onMounted(() => {
   state.students.sort(() => 0.5 - Math.random());
 });
 const btnText = computed(() => {
-  return state.intervalId ? "停止" : `开始`;
+  return state.intervalId ? "停止" : "开始";
 });
 
 const onBtnClick = () => {
