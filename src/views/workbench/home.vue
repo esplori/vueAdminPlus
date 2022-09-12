@@ -128,7 +128,7 @@
         <el-table-column type="index" label="序号" width="60" align="center">
         </el-table-column>
         <el-table-column prop="referrer" label="地址"> </el-table-column>
-        <el-table-column prop="ip" label="时间"> </el-table-column>
+        <el-table-column prop="ip" label="ip地址"> </el-table-column>
         <el-table-column prop="createDate" label="时间"> </el-table-column>
       </el-table>
       <div class="date-picker-change">
@@ -143,6 +143,7 @@
             <a :href="scope.row.href">{{scope.row.href}}</a>
           </template>
         </el-table-column>
+        <el-table-column prop="ip" label="ip地址"> </el-table-column>
         <el-table-column prop="createDate" label="时间"> </el-table-column>
       </el-table>
     </div>
