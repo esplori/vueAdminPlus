@@ -4,8 +4,8 @@
       <div class="date-picker-change">
         <h3>统计数据</h3>
       </div>
-      <el-row :gutter="12" style="width: 100%">
-        <el-col :span="6">
+      <el-row :gutter="10" style="width: 100%;">
+        <el-col :span="8">
           <el-card shadow="always">
             <div class="item-title">总访问量</div>
             <div class="item-amount" ref="countupviews" id="countupviews">
@@ -17,29 +17,7 @@
             </div>
           </el-card>
         </el-col>
-        <el-col :span="6" v-if="userInfo.role.includes('ROLE_admin')">
-          <el-card shadow="always">
-            <div class="item-title">文章总数</div>
-            <div class="item-amount" ref="countuppages" id="countuppages">
-              {{ state.pages }}
-            </div>
-            <div class="item-compare">
-              <span
-                >较昨日
-                
-                <el-icon  v-show="state.allpagesMom > 0" :size="16" color="#F56C6C">
-                  <CaretTop ></CaretTop>
-                </el-icon>
-                <el-icon  v-show="state.allpagesMom < 0" :size="16" color="#91cc74">
-                  <CaretBottom ></CaretBottom>
-                </el-icon>
-                
-               </span>
-              <span class="num"> {{ Math.abs(state.allpagesMom) }} </span>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :span="6">
+        <el-col :span="8">
           <el-card shadow="always">
             <div class="item-title">今日浏览量(PV)</div>
             <div class="item-amount" ref="countupdayViews" id="countupdayViews">
@@ -62,7 +40,7 @@
             </div>
           </el-card>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="8">
           <el-card shadow="always">
             <div class="item-title">今日访问IP数(UV)</div>
             <div class="item-amount" ref="countupdayIp" id="countupdayIp">
@@ -82,6 +60,41 @@
                 
                 </span>
               <span class="num"> {{ parseFloat(Math.abs(state.dayIpMom)) }} </span>
+            </div>
+          </el-card>
+        </el-col>
+      </el-row> 
+      <el-row :gutter="10" style="width: 100%;margin-top:10px" v-if="userInfo.role.includes('ROLE_admin')">
+        <el-col :span="8">
+          <el-card shadow="always">
+            <div class="item-title">文章总数</div>
+            <div class="item-amount" ref="countuppages" id="countuppages">
+              {{ state.pages }}
+            </div>
+            <div class="item-compare">
+              <span
+                >较昨日
+                
+                <el-icon  v-show="state.allpagesMom > 0" :size="16" color="#F56C6C">
+                  <CaretTop ></CaretTop>
+                </el-icon>
+                <el-icon  v-show="state.allpagesMom < 0" :size="16" color="#91cc74">
+                  <CaretBottom ></CaretBottom>
+                </el-icon>
+                
+               </span>
+              <span class="num"> {{ Math.abs(state.allpagesMom) }} </span>
+            </div>
+          </el-card>
+        </el-col>
+        <el-col :span="8">
+          <el-card shadow="always">
+            <div class="item-title">总字数</div>
+            <div class="item-amount" ref="countuppages" id="countuppages">
+              {{ state.totalWordsNum }}
+            </div>
+            <div class="item-compare">
+              <span class="num" style="color:#fff">0</span>
             </div>
           </el-card>
         </el-col>
@@ -120,9 +133,8 @@
     </div>
 
     <div v-if="userInfo.role.includes('ROLE_admin')">
-      <h2 style="padding: 20px 0">总字数：{{ state.totalWordsNum }}</h2>
       <div>
-        <h2>当天访问来源</h2>
+        <h2 class="table-title">当天访问来源：共{{state.referrerTableData.length}}条</h2>
       </div>
       <el-table :data="state.referrerTableData" style="width: 100%">
         <el-table-column type="index" label="序号" width="60" align="center">
@@ -132,7 +144,7 @@
         <el-table-column prop="createDate" label="时间"> </el-table-column>
       </el-table>
       <div class="date-picker-change">
-        <h3>当天访问地址</h3>
+        <h2 class="table-title">当天访问地址：共{{state.postViewTableData.length}}条</h2>
       </div>
       <el-table :data="state.postViewTableData" style="width: 100%">
         <el-table-column type="index" label="序号" width="60" align="center">
@@ -306,11 +318,11 @@ const initDayViews = () => {
         return item.createDate;
       }),
       axisLabel: {
-        interval: 1,
-        rotate: 45, // 倾斜度 -90 至 90 默认为0
+        interval: 2,
+        rotate: 0, // 倾斜度 -90 至 90 默认为0
         margin: 8,
         formatter: function (value) {
-          const str = value.slice(0, 10);
+          const str = value.slice(0, 10).slice(-5);
           return str;
         },
       },
@@ -319,7 +331,7 @@ const initDayViews = () => {
     series: [
       {
         name: "今日访问IP数(UV)",
-        type: "bar",
+        type: "line",
         data: state.everyDayViews.map((item) => {
           return item.dayIp;
         }),
@@ -335,16 +347,15 @@ const initDayViews = () => {
       },
       {
         name: "今日浏览量(PV)",
-        type: "bar",
+        type: "line",
         data: state.everyDayViews.map((item) => {
           return item.dayViews;
         }),
-
         itemStyle: {
           color: "#7667f9",
           normal: {
             label: {
-              show: false,
+              show: true,
               position: "top",
             },
           },
@@ -424,6 +435,11 @@ const initCharts = () => {
   }
   .dayViews {
     padding: 20px;
+  }
+  .table-title{
+    width: 100%;
+    border-bottom: 1px solid #f5f5f5;
+    padding: 5px 0;
   }
 }
 </style>
