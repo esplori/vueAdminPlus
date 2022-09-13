@@ -24,18 +24,17 @@
               {{ state.dayViews }}
             </div>
             <div class="item-compare">
-              <span
-                >较昨日
-                
-                  <el-icon  v-show="state.dayViewsMom > 0" :size="16" color="#F56C6C">
-                  <CaretTop ></CaretTop>
+              <span>较昨日
+
+                <el-icon v-show="state.dayViewsMom > 0" :size="16" color="#F56C6C">
+                  <CaretTop></CaretTop>
                 </el-icon>
-                <el-icon  v-show="state.dayViewsMom < 0" :size="16" color="#F56C6C">
-                  <CaretBottom ></CaretBottom>
+                <el-icon v-show="state.dayViewsMom < 0" :size="16" color="#F56C6C">
+                  <CaretBottom></CaretBottom>
                 </el-icon>
-                
-                
-                </span>
+
+
+              </span>
               <span class="num"> {{ parseFloat(Math.abs(state.dayViewsMom)) }} </span>
             </div>
           </el-card>
@@ -47,23 +46,22 @@
               {{ state.dayIp }}
             </div>
             <div class="item-compare">
-              <span
-                >较昨日
-                
-                <el-icon  v-show="state.dayIpMom > 0" :size="16" color="#F56C6C">
-                  <CaretTop ></CaretTop>
+              <span>较昨日
+
+                <el-icon v-show="state.dayIpMom > 0" :size="16" color="#F56C6C">
+                  <CaretTop></CaretTop>
                 </el-icon>
-                <el-icon  v-show="state.dayIpMom < 0" :size="16" color="#F56C6C">
-                  <CaretBottom ></CaretBottom>
+                <el-icon v-show="state.dayIpMom < 0" :size="16" color="#F56C6C">
+                  <CaretBottom></CaretBottom>
                 </el-icon>
-                
-                
-                </span>
+
+
+              </span>
               <span class="num"> {{ parseFloat(Math.abs(state.dayIpMom)) }} </span>
             </div>
           </el-card>
         </el-col>
-      </el-row> 
+      </el-row>
       <el-row :gutter="10" style="width: 100%;margin-top:10px" v-if="userInfo.role.includes('ROLE_admin')">
         <el-col :span="8">
           <el-card shadow="always">
@@ -72,17 +70,16 @@
               {{ state.pages }}
             </div>
             <div class="item-compare">
-              <span
-                >较昨日
-                
-                <el-icon  v-show="state.allpagesMom > 0" :size="16" color="#F56C6C">
-                  <CaretTop ></CaretTop>
+              <span>较昨日
+
+                <el-icon v-show="state.allpagesMom > 0" :size="16" color="#F56C6C">
+                  <CaretTop></CaretTop>
                 </el-icon>
-                <el-icon  v-show="state.allpagesMom < 0" :size="16" color="#91cc74">
-                  <CaretBottom ></CaretBottom>
+                <el-icon v-show="state.allpagesMom < 0" :size="16" color="#91cc74">
+                  <CaretBottom></CaretBottom>
                 </el-icon>
-                
-               </span>
+
+              </span>
               <span class="num"> {{ Math.abs(state.allpagesMom) }} </span>
             </div>
           </el-card>
@@ -114,10 +111,7 @@
         <el-row>
           <el-col :span="24">
             <div>
-              <div
-                id="browserType"
-                style="max-width: 100%; height: 300px"
-              ></div>
+              <div id="browserType" style="max-width: 100%; height: 300px"></div>
             </div>
           </el-col>
         </el-row>
@@ -167,7 +161,7 @@ import { getWebStatisticsApi } from "@/views/API/stats.js";
 import { CountUp } from "countup.js";
 import * as echarts from "echarts";
 import { reactive, computed, onMounted, ref, nextTick } from "vue";
-import { CaretTop,CaretBottom } from "@element-plus/icons-vue";
+import { CaretTop, CaretBottom } from "@element-plus/icons-vue";
 const state = reactive({
   views: 0,
   pages: 0,
@@ -233,6 +227,7 @@ const initCountUp = () => {
 
 const initDeviceType = () => {
   let dom = document.getElementById("deviceType")
+  if (!dom) { return false }
   dom.removeAttribute('_echarts_instance_')
   const myChart = echarts.init(dom);
   myChart.setOption({
@@ -253,6 +248,7 @@ const initDeviceType = () => {
 
 const initBrowserType = () => {
   let dom = document.getElementById("browserType")
+  if (!dom) { return false }
   dom.removeAttribute('_echarts_instance_')
   const myChart = echarts.init(dom);
   myChart.setOption({
@@ -272,6 +268,7 @@ const initBrowserType = () => {
 };
 const initDeiveRatio = () => {
   let dom = document.getElementById("deiveRatio")
+  if (!dom) { return false }
   dom.removeAttribute('_echarts_instance_')
   const myChart = echarts.init(dom);
   myChart.setOption({
@@ -291,6 +288,7 @@ const initDeiveRatio = () => {
 };
 const initDayViews = () => {
   let dom = document.getElementById("dayViews")
+  if (!dom) { return false }
   dom.removeAttribute('_echarts_instance_')
   const myChart = echarts.init(dom);
   myChart.setOption({
@@ -321,7 +319,7 @@ const initDayViews = () => {
         interval: 2,
         rotate: 0, // 倾斜度 -90 至 90 默认为0
         margin: 8,
-        formatter: function (value) {
+        formatter: function (value: any) {
           const str = value.slice(0, 10).slice(-5);
           return str;
         },
@@ -410,33 +408,40 @@ const initCharts = () => {
     display: flex;
     justify-content: space-between;
   }
+
   .card-item {
     .item-title {
       text-align: center;
       font-size: 16px;
       padding: 5px;
     }
+
     .item-amount {
       text-align: center;
       font-size: 24px;
       font-weight: bold;
       padding: 5px;
     }
+
     .item-compare {
       text-align: center;
       font-size: 14px;
+
       .num {
         color: #f85149;
       }
     }
+
     .type-data {
       padding: 20px 0;
     }
   }
+
   .dayViews {
     padding: 20px;
   }
-  .table-title{
+
+  .table-title {
     width: 100%;
     border-bottom: 1px solid #f5f5f5;
     padding: 5px 0;

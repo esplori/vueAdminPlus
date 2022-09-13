@@ -58,7 +58,6 @@
         <commonFooter></commonFooter>
       </div>
     </div>
-    <music class="global-music" v-if="false"></music>
   </div>
 </template>
 <script setup lang="ts">

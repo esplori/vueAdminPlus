@@ -15,6 +15,7 @@ export default defineConfig({
   server: {
     host: "127.0.0.1",
     port: 7910,
+    open:true, // 默认打开浏览器
     proxy: {
       "/bootService": {
         target: "http://admin.dsiab.com/",
