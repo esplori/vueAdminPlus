@@ -14,7 +14,6 @@ const route = useRoute();
 const successMsg = ref("");
 
 onMounted(() => {
-  debugger
   const id: any = route.query.id || "";
   getValidEmailEffective(id);
 });

@@ -104,7 +104,6 @@ const manage = async (row: any) => {
 };
 
 const submit = async (row: any) => {
-  debugger
   if (row.id) {
     const res = await updateTopicApi(row);
     if (res) {

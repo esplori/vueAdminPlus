@@ -9,8 +9,6 @@
           style="height: 100%; overflow-y: auto"
           default-active="/home"
           class="el-menu-vertical"
-          @open="handleOpen"
-          @close="handleClose"
           router
         >
           <div v-for="(item, index) in state.menuList" :key="index">

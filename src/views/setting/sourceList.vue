@@ -100,7 +100,6 @@ const headers = computed(() => {
 });
 
 const handleClick = (val: any) => {
-  debugger;
   getList(val);
 };
 const addFile = () => {

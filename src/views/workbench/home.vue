@@ -364,7 +364,7 @@ const initDayViews = () => {
   myChart.resize();
 };
 const getWebStatistics = async () => {
-  const res:any = await getWebStatisticsApi({});
+  const res: any = await getWebStatisticsApi({});
   if (res) {
     state.views = res.data.allViews;
     state.pages = res.data.allpages;
@@ -374,13 +374,13 @@ const getWebStatistics = async () => {
     state.allpagesMom = parseFloat(res.data.allpagesMom);
     state.dayViewsMom = parseFloat(res.data.dayViewsMom);
     state.dayIpMom = parseFloat(res.data.dayIpMom);
-    state.deviceRatioY = res.data.deviceRatio.map((item:any) => {
+    state.deviceRatioY = res.data.deviceRatio.map((item: any) => {
       return { name: item.screen, value: item.num };
     });
-    state.deviceTypeY = res.data.deviceType.map((item:any) => {
+    state.deviceTypeY = res.data.deviceType.map((item: any) => {
       return { name: item.os, value: item.num };
     });
-    state.browserTypeY = res.data.browserType.map((item:any) => {
+    state.browserTypeY = res.data.browserType.map((item: any) => {
       return { name: item.browse, value: item.num };
     });
     state.everyDayViews = res.data.everyDayViews;
