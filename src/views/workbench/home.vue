@@ -333,15 +333,6 @@ const initDayViews = () => {
         data: state.everyDayViews.map((item: any) => {
           return item.dayIp;
         }),
-        itemStyle: {
-          color: "#6496f9",
-          normal: {
-            label: {
-              show: false,
-              position: "top",
-            },
-          },
-        },
       },
       {
         name: "今日浏览量(PV)",
@@ -349,14 +340,9 @@ const initDayViews = () => {
         data: state.everyDayViews.map((item: any) => {
           return item.dayViews;
         }),
-        itemStyle: {
-          color: "#7667f9",
-          normal: {
-            label: {
-              show: true,
-              position: "top",
-            },
-          },
+        label: {
+          show: true,
+          position: "top",
         },
       },
     ],
