@@ -1,5 +1,5 @@
 <h1 align="center" style=" font-weight: bold;">vueAdminPlus</h1>
-<h5 align="center">基于vue3.0 + element-plus + typescript开发的博客后台管理系统</h5>
+<h5 align="center">基于vue3.0 + element-plus + typeScript开发的博客后台管理系统</h5>
 
 
 <p align="center" style="padding:10px">
