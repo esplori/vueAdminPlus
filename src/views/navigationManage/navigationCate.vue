@@ -16,22 +16,12 @@
       <el-table-column label="操作" width="180">
         <template #default="scope">
           <el-button @click="edit(scope.row)" type="text">编辑</el-button>
-          <el-button
-            @click="delConfirm(scope.row.id)"
-            type="text"
-            class="cus-button-danger"
-            >删除</el-button
-          >
+          <el-button @click="delConfirm(scope.row.id)" type="text" class="cus-button-danger">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
 
-    <el-dialog
-      :title="title"
-      v-model="dialogVisible"
-      width="30%"
-      @close="handleClose"
-    >
+    <el-dialog :title="title" v-model="dialogVisible" width="30%" @close="handleClose">
       <div>
         <el-input v-model="row.name" placeholder="请输入名称"></el-input>
       </div>
@@ -71,7 +61,7 @@ const insertCate = () => {
 };
 
 const getList = async () => {
-  const res = await getNavCateApi({});
+  const res: any = await getNavCateApi({});
   if (res) {
     list.value = res.data;
   }
@@ -132,6 +122,7 @@ const handleClose = async (row: any) => {
 <style scoped lang="scss">
 .page-list {
   width: 100%;
+
   .content-item {
     font-size: 18px;
     text-align: left;

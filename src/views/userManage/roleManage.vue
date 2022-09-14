@@ -24,7 +24,7 @@ onMounted(() => {
 });
 
 const getUserList = async () => {
-  const res = await getRoleListApi({});
+  const res:any = await getRoleListApi({});
   if (res) {
     data.value = res.data.result;
   }

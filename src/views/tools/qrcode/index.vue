@@ -34,7 +34,7 @@ let state = reactive({
 });
 
 const genereateQrcode = async () => {
-  const res = await genereateQrcodeApi(state.form);
+  const res:any = await genereateQrcodeApi(state.form);
   if (res) {
     state.qrcodeUrl = res.data;
   }

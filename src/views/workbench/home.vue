@@ -35,7 +35,7 @@
 
 
               </span>
-              <span class="num"> {{ parseFloat(Math.abs(state.dayViewsMom)) }} </span>
+              <span class="num"> {{ Math.abs(state.dayViewsMom) }} </span>
             </div>
           </el-card>
         </el-col>
@@ -57,7 +57,7 @@
 
 
               </span>
-              <span class="num"> {{ parseFloat(Math.abs(state.dayIpMom)) }} </span>
+              <span class="num"> {{ Math.abs(state.dayIpMom) }} </span>
             </div>
           </el-card>
         </el-col>
@@ -175,10 +175,10 @@ const state = reactive({
     startVal: 0,
   },
   everyDayViews: [],
-  allViewsMom: "",
-  allpagesMom: "",
-  dayViewsMom: "",
-  dayIpMom: "",
+  allViewsMom: 0,
+  allpagesMom: 0,
+  dayViewsMom: 0,
+  dayIpMom: 0,
   list: [],
   referrerTableData: [],
   postViewTableData: [],
@@ -312,7 +312,7 @@ const initDayViews = () => {
     },
     legend: {},
     xAxis: {
-      data: state.everyDayViews.map((item) => {
+      data: state.everyDayViews.map((item: any) => {
         return item.createDate;
       }),
       axisLabel: {
@@ -330,7 +330,7 @@ const initDayViews = () => {
       {
         name: "今日访问IP数(UV)",
         type: "line",
-        data: state.everyDayViews.map((item) => {
+        data: state.everyDayViews.map((item: any) => {
           return item.dayIp;
         }),
         itemStyle: {
@@ -346,7 +346,7 @@ const initDayViews = () => {
       {
         name: "今日浏览量(PV)",
         type: "line",
-        data: state.everyDayViews.map((item) => {
+        data: state.everyDayViews.map((item: any) => {
           return item.dayViews;
         }),
         itemStyle: {
@@ -364,7 +364,7 @@ const initDayViews = () => {
   myChart.resize();
 };
 const getWebStatistics = async () => {
-  const res = await getWebStatisticsApi({});
+  const res:any = await getWebStatisticsApi({});
   if (res) {
     state.views = res.data.allViews;
     state.pages = res.data.allpages;
@@ -374,13 +374,13 @@ const getWebStatistics = async () => {
     state.allpagesMom = parseFloat(res.data.allpagesMom);
     state.dayViewsMom = parseFloat(res.data.dayViewsMom);
     state.dayIpMom = parseFloat(res.data.dayIpMom);
-    state.deviceRatioY = res.data.deviceRatio.map((item) => {
+    state.deviceRatioY = res.data.deviceRatio.map((item:any) => {
       return { name: item.screen, value: item.num };
     });
-    state.deviceTypeY = res.data.deviceType.map((item) => {
+    state.deviceTypeY = res.data.deviceType.map((item:any) => {
       return { name: item.os, value: item.num };
     });
-    state.browserTypeY = res.data.browserType.map((item) => {
+    state.browserTypeY = res.data.browserType.map((item:any) => {
       return { name: item.browse, value: item.num };
     });
     state.everyDayViews = res.data.everyDayViews;

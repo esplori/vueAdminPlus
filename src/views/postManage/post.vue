@@ -2,84 +2,42 @@
   <div class="post">
     <el-form label-width="85px" :model="state.form">
       <el-form-item label="" label-width="0">
-        <el-input
-          class="title"
-          size="medium"
-          v-model="state.form.title"
-          placeholder="请输入文章标题"
-        ></el-input>
+        <el-input class="title" size="medium" v-model="state.form.title" placeholder="请输入文章标题"></el-input>
       </el-form-item>
       <el-form-item label="" label-width="0">
         <div style="width: 100%">
-          <div
-            style="min-height: 550px"
-            id="wangeditorRef"
-            ref="wangeditorRef"
-          ></div>
+          <div style="min-height: 550px" id="wangeditorRef" ref="wangeditorRef"></div>
         </div>
         <div class="autosaveTip" v-show="state.showAutosaveTip">
-          <el-alert
-            title="自动保存成功，每过15秒会自动保存，防止数据丢失"
-            type="success"
-          >
+          <el-alert title="自动保存成功，每过15秒会自动保存，防止数据丢失" type="success">
           </el-alert>
         </div>
       </el-form-item>
       <el-form-item label="创建时间：">
-        <el-date-picker
-          type="datetime"
-          style="width: 250px"
-          popper-class="select-zindex"
-          v-model="state.form.createDate"
-        ></el-date-picker>
+        <el-date-picker type="datetime" style="width: 250px" popper-class="select-zindex"
+          v-model="state.form.createDate"></el-date-picker>
       </el-form-item>
       <el-form-item label="分类：">
-        <el-select
-          v-model="state.form.cate"
-          popper-class="select-zindex"
-          class="optionsWidth"
-        >
-          <el-option
-            v-for="(item, index) in state.cateList"
-            :key="index"
-            :label="item.name"
-            :value="item.id"
-          ></el-option>
+        <el-select v-model="state.form.cate" popper-class="select-zindex" class="optionsWidth">
+          <el-option v-for="(item, index) in state.cateList" :key="index" :label="item.name" :value="item.id">
+          </el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="浏览量：">
-        <el-input
-          v-model="state.form.views"
-          disabled
-          class="optionsWidth"
-        ></el-input>
+        <el-input v-model="state.form.views" disabled class="optionsWidth"></el-input>
       </el-form-item>
       <el-form-item label="字数：">
         <div class="optionsWidth">{{ state.form.wordsNum }}</div>
       </el-form-item>
       <el-form-item label="关键字：">
-        <el-tag
-          :key="tag"
-          v-for="tag in state.dynamicTags"
-          closable
-          :disable-transitions="false"
-          @close="handleClose(tag)"
-        >
+        <el-tag :key="tag" v-for="tag in state.dynamicTags" closable :disable-transitions="false"
+          @close="handleClose(tag)">
           {{ tag }}
         </el-tag>
-        <el-input
-          class="input-new-tag"
-          v-if="state.inputVisible"
-          v-model="state.inputValue"
-          ref="saveTagInput"
-          size="small"
-          @keyup.enter="handleInputConfirm"
-          @blur="handleInputConfirm"
-        >
+        <el-input class="input-new-tag" v-if="state.inputVisible" v-model="state.inputValue" ref="saveTagInput"
+          size="small" @keyup.enter="handleInputConfirm" @blur="handleInputConfirm">
         </el-input>
-        <el-button v-else class="button-new-tag" size="small" @click="showInput"
-          >+ 新增</el-button
-        >
+        <el-button v-else class="button-new-tag" size="small" @click="showInput">+ 新增</el-button>
       </el-form-item>
 
       <el-form-item>
@@ -97,7 +55,7 @@ import {
   getAdminCateValidApi,
 } from "@/views/API/admin.js";
 import { getCurrDate } from "@/utils/common.js";
-import { reactive, onMounted, computed, onBeforeUnmount} from "vue";
+import { reactive, onMounted, computed, onBeforeUnmount } from "vue";
 import { ElMessage } from "element-plus";
 import { useRouter, useRoute } from "vue-router";
 const router = useRouter();
@@ -235,7 +193,7 @@ const userInfo = computed(() => {
 });
 
 const getCate = async (id: any) => {
-  const res = await getAdminCateValidApi({});
+  const res: any = await getAdminCateValidApi({});
   if (res) {
     state.cateList = res.data.result || [];
     if (!id) {
@@ -299,7 +257,7 @@ const editPage = async (jump: any) => {
 };
 
 const postPage = async (jump: any) => {
-  const res = await postPageApi({
+  const res: any = await postPageApi({
     ...state.form,
     createBy: userInfo && userInfo.value.username,
     createDate: getCurrDate(state.form.createDate),
@@ -313,7 +271,7 @@ const postPage = async (jump: any) => {
 };
 
 const getDetail = async (id: any) => {
-  const res = await getDetailByIdApi({ id: id });
+  const res: any = await getDetailByIdApi({ id: id });
   if (res) {
     // 日期兼容safari
     res.data.result.createDate = res.data.result.createDate.replace(/-/g, "/");
@@ -354,28 +312,35 @@ onBeforeUnmount(() => {
 <style scoped lang="scss">
 .post {
   width: 100%;
+
   .optionsWidth {
     width: 250px;
   }
+
   .el-tag {
     margin-right: 5px;
   }
+
   .button-new-tag {
     height: 28px;
     padding-top: 0;
     padding-bottom: 0;
   }
+
   .input-new-tag {
     width: 90px;
     vertical-align: bottom;
   }
+
   .autosaveTip {
     height: 35px;
     margin-top: 5px;
   }
+
   .el-alert {
     padding: 0;
   }
+
   // 重置标题样式
   .title {
     :deep(.el-input__wrapper) {

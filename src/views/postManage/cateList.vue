@@ -13,30 +13,15 @@
       <el-table-column label="操作" width="180">
         <template #default="scope">
           <el-button @click="edit(scope.row)" type="text">编辑</el-button>
-          <el-button
-            @click="delConfirm(scope.row.id)"
-            type="text"
-            class="cus-button-danger"
-            v-if="scope.row.valid === 1 && scope.$index !== 0"
-            >删除</el-button
-          >
-          <el-button
-            @click="revertConfirm(scope.row.id)"
-            type="text"
-            class="cus-button-info"
-            v-if="scope.row.valid === 0"
-            >恢复</el-button
-          >
+          <el-button @click="delConfirm(scope.row.id)" type="text" class="cus-button-danger"
+            v-if="scope.row.valid === 1 && scope.$index !== 0">删除</el-button>
+          <el-button @click="revertConfirm(scope.row.id)" type="text" class="cus-button-info"
+            v-if="scope.row.valid === 0">恢复</el-button>
         </template>
       </el-table-column>
     </el-table>
 
-    <el-dialog
-      :title="state.title"
-      v-model="state.dialogVisible"
-      width="30%"
-      @close="handleClose"
-    >
+    <el-dialog :title="state.title" v-model="state.dialogVisible" width="30%" @close="handleClose">
       <div>
         <el-input v-model="state.row.name" placeholder="请输入名称"></el-input>
       </div>
@@ -78,7 +63,7 @@ const insertCate = () => {
   state.title = "新增";
 };
 const getList = async () => {
-  const res = await getCateApi(state.params);
+  const res: any = await getCateApi({});
   if (res) {
     state.list = res.data.result;
   }
@@ -150,6 +135,7 @@ const handleClose = async () => {
 <style scoped lang="scss">
 .page-list {
   width: 100%;
+
   .content-item {
     font-size: 18px;
     text-align: left;

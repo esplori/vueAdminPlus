@@ -17,7 +17,7 @@
 <script lang="ts" setup>
 import { sendMailApi } from "@/views/API/admin.js";
 import { reactive } from "vue";
-import {ElMessage} from "element-plus"
+import { ElMessage } from "element-plus"
 const state = reactive({
   form: {
     mailTo: "2381773226@qq.com",

@@ -12,12 +12,7 @@
       </el-form-item>
       <el-form-item label="分类：">
         <el-select v-model="form.cate">
-          <el-option
-            v-for="(item, index) in cateList"
-            :key="index"
-            :label="item.name"
-            :value="item.id"
-          ></el-option>
+          <el-option v-for="(item, index) in cateList" :key="index" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -54,7 +49,7 @@ onMounted(() => {
   getNavCateList();
 });
 const getNavCateList = async () => {
-  const res = await getNavCateApi({});
+  const res: any = await getNavCateApi({});
   if (res) {
     cateList.value = res.data.map((item: any) => {
       item.id = String(item.id);
@@ -88,9 +83,8 @@ const postPage = async () => {
 };
 
 const getDetail = async (id: any) => {
-  const res = await getDetailApi({ id: id });
+  const res: any = await getDetailApi({ id: id });
   if (res) {
-    debugger;
     let { cate, content, id, title, url } = res.data.result;
     form.id = id;
     form.cate = cate;

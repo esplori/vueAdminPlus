@@ -1,7 +1,9 @@
 <template>
   <div id="img2base64">
     <h2 style="padding: 20px 0">方案一：网络图片生成base64</h2>
-    <div><el-input v-model="state.url"></el-input></div>
+    <div>
+      <el-input v-model="state.url"></el-input>
+    </div>
     <div style="padding: 20px 0">
       <el-button @click="generated" type="primary">生成base64</el-button>
     </div>
@@ -10,12 +12,7 @@
     <h2 style="padding: 20px 0">方案二：本地上传图片生成base64</h2>
     <div style="padding: 20px 0">
       <input type="file" id="imagefile" />
-      <input
-        style="paddding: 20px 0"
-        type="button"
-        value="读取图像"
-        @click="readAsDataURL"
-      />
+      <input style="paddding: 20px 0" type="button" value="读取图像" @click="readAsDataURL" />
     </div>
     <div id="localPic" style="margin-bottom:20px"></div>
     <el-input type="textarea" v-model="state.base64Url2" :rows="8"></el-input>
@@ -35,6 +32,7 @@ const getBase64Image = (img: any) => {
   canvas.width = img.width;
   canvas.height = img.height;
   const ctx = canvas.getContext("2d");
+  if (!ctx) { return false }
   ctx.drawImage(img, 0, 0, img.width, img.height);
   const dataURL = canvas.toDataURL("image/png");
   return dataURL;
@@ -47,11 +45,11 @@ const generated = () => {
   img.crossOrigin = "anonymous";
   img.onload = function () {
     const data = getBase64Image(img);
-    const img1 = document.createElement("img");
-    img1.src = data;
-    img1.width= "200";
+    const imgDom = document.createElement("img");
+    imgDom.src = data;
+    imgDom.width = "200";
     state.base64Url1 = data;
-    document.getElementById("pic").appendChild(img1);
+    document.getElementById("pic").appendChild(imgDom);
   };
 };
 
@@ -62,6 +60,7 @@ const readAsDataURL = () => {
     return false;
   }
   const file = document.getElementById("imagefile").files[0];
+  if (!file) { return false }
   if (!/image\/\w+/.test(file.type)) {
     // 判断获取的是否为图片文件
     alert("请确保文件为图像文件");
@@ -71,6 +70,7 @@ const readAsDataURL = () => {
   reader.readAsDataURL(file);
   reader.onload = function (e) {
     const result = document.getElementById("localPic");
+    if(!result){return false}
     result.innerHTML =
       '<img style="width:400px" src="' + this.result + '" alt=""/>';
     state.base64Url2 = this.result;

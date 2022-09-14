@@ -257,7 +257,7 @@ const userInfo = computed(() => {
 });
 
 const getUserInfo = async () => {
-  const res = await getUserInfoApi({});
+  const res: any = await getUserInfoApi({});
   state.userInfoObj = res.data;
 };
 onMounted(() => {

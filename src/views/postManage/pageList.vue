@@ -5,34 +5,21 @@
         <span>按分类筛选：</span>
         <el-select v-model="state.params.cate" @change="typeChange">
           <el-option label="全部" :value="null"></el-option>
-          <el-option
-            v-for="(item, index) in state.cateList"
-            :key="index"
-            :label="item.name"
-            :value="item.id"
-          ></el-option>
+          <el-option v-for="(item, index) in state.cateList" :key="index" :label="item.name" :value="item.id">
+          </el-option>
         </el-select>
       </div>
       <div>
-        <el-input
-          v-model="state.params.tag"
-          placeholder="输入关键字搜索"
-          @change="tagChange"
-        ></el-input>
+        <el-input v-model="state.params.tag" placeholder="输入关键字搜索" @change="tagChange"></el-input>
       </div>
     </div>
     <el-table :data="state.list" @sort-change="sortCchange">
       <el-table-column type="index" label="序号" width="55px"></el-table-column>
       <el-table-column label="标题" width="200px">
         <template #default="scope">
-          <a
-            style="color: #333; text-decoration: underline"
-            :href="
-              'https://www.dsiab.com/post/' + (scope.row.uid || scope.row.id)
-            "
-            target="_blank"
-            >{{ scope.row.title }}</a
-          >
+          <a style="color: #333; text-decoration: underline" :href="
+            'https://www.dsiab.com/post/' + (scope.row.uid || scope.row.id)
+          " target="_blank">{{ scope.row.title }}</a>
         </template>
       </el-table-column>
       <el-table-column label="分类" prop="cateName"> </el-table-column>
@@ -46,44 +33,23 @@
       <el-table-column fixed="right" width="180" label="操作">
         <template #default="scope">
           <el-button @click="edit(scope.row.id)" type="text">编辑</el-button>
-          <el-button
-            @click="delConfirm(scope.row.id)"
-            type="text"
-            class="cus-button-danger"
-            >删除</el-button
-          >
-          <el-button
-            v-if="userInfo.includes('ROLE_admin')"
-            @click="addToTopic(scope.row)"
-            type="text"
-            >添加到专题</el-button
-          >
+          <el-button @click="delConfirm(scope.row.id)" type="text" class="cus-button-danger">删除</el-button>
+          <el-button v-if="userInfo.includes('ROLE_admin')" @click="addToTopic(scope.row)" type="text">添加到专题</el-button>
         </template>
       </el-table-column>
     </el-table>
     <div class="pagination-box" style="text-align: center; margin-top: 20px">
-      <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="state.params.page"
-        :page-size="state.params.pageSize"
-        :page-sizes="[10, 20, 30, 50]"
-        :pager-count="5"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="state.total"
-      >
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+        :current-page="state.params.page" :page-size="state.params.pageSize" :page-sizes="[10, 20, 30, 50]"
+        :pager-count="5" layout="total, sizes, prev, pager, next, jumper" :total="state.total">
       </el-pagination>
     </div>
 
     <el-dialog title="添加到专题" v-model="state.dialogVisible" width="30%">
       <div>
         <el-select v-model="state.form.topicId">
-          <el-option
-            v-for="(item, index) in state.topicList"
-            :key="index"
-            :label="item.name"
-            :value="item.id"
-          ></el-option>
+          <el-option v-for="(item, index) in state.topicList" :key="index" :label="item.name" :value="item.id">
+          </el-option>
         </el-select>
       </div>
       <template #footer>
@@ -152,13 +118,13 @@ const tagChange = (val: any) => {
   getListByTags(val);
 };
 const getListByTags = async (val: any) => {
-  const res = await getListByTagsApi({ tag: val });
+  const res: any = await getListByTagsApi({ tag: val });
   if (res) {
     state.list = res.data.result;
     state.total = res.data.total;
   }
 };
-const sortCchange = ({ column, prop, order }) => {
+const sortCchange = ({ prop, order }) => {
   state.params.page = 1;
   // 需要转换成sql对应的排序字段
   state.params.order = order === "ascending" ? "asc" : "desc";
@@ -167,7 +133,7 @@ const sortCchange = ({ column, prop, order }) => {
 };
 
 const getTopicList = async () => {
-  const res = await getTopicListApi({});
+  const res: any = await getTopicListApi({});
   if (res) {
     state.topicList = res.data.result;
   }
@@ -183,14 +149,14 @@ const getList = async () => {
 };
 
 const getCate = async () => {
-  const res = await getAdminCateValidApi({});
+  const res: any = await getAdminCateValidApi({});
   if (res) {
     state.cateList = res.data.result;
   }
 };
 
 const getListByCate = async () => {
-  const res = await getListByCateApi(state.params);
+  const res: any = await getListByCateApi(state.params);
   if (res) {
     state.list = res.data.result;
     state.total = res.data.total;
@@ -248,11 +214,13 @@ const submitTopic = async (row: any) => {
 <style scoped lang="scss">
 .page-list {
   width: 100%;
+
   .select-by-cate {
     margin: 20px;
     display: flex;
     justify-content: space-between;
   }
+
   .content-item {
     font-size: 18px;
     text-align: left;

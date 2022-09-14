@@ -125,7 +125,7 @@ onMounted(() => {
 });
 
 const getUserList = async () => {
-  const res = await getUserListApi({ page: state.params.page });
+  const res:any = await getUserListApi({ page: state.params.page });
   if (res) {
     state.data = res.data.result;
     state.total = res.data.total;
@@ -175,7 +175,7 @@ const delUser = async (id: String, username: String) => {
 const RoleTable = ref();
 
 const getRoleList = async (row: any) => {
-  const res = await getRoleListApi({});
+  const res:any = await getRoleListApi({});
   if (res) {
     state.Roledata = res.data.result;
     state.Roledata.forEach((item: any, index) => {

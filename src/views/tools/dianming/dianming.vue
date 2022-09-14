@@ -10,20 +10,14 @@
       </el-button>
     </div>
     <div>
-      <ul
-        style="
+      <ul style="
           list-style: none;
           margin: 0;
           padding: 0;
           display: flex;
           flex-flow: row wrap;
-        "
-      >
-        <li
-          v-for="(v, i) in state.students"
-          :key="i"
-          :class="{ active: state.selectedStudentIndexs.includes(i) }"
-        >
+        ">
+        <li v-for="(v, i) in state.students" :key="i" :class="{ active: state.selectedStudentIndexs.includes(i) }">
           {{ v }}
         </li>
       </ul>
@@ -144,6 +138,7 @@ const onBtnClick = () => {
   align-items: center;
   color: #fff;
   height: 700px;
+
   li {
     margin: 10px;
     padding: 10px;

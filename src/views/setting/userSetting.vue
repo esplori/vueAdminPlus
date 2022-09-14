@@ -43,7 +43,7 @@ const submit = async () => {
 };
 
 const getUserInfo = async () => {
-  const res = await getUserInfoApi({});
+  const res: any = await getUserInfoApi({});
   if (res) {
     state.form = res.data;
   }

@@ -1,11 +1,6 @@
 <template>
   <div class="user-info">
-    <el-form
-      :model="form"
-      label-width="130px"
-      label-position="left"
-      class="setting-form"
-    >
+    <el-form :model="form" label-width="130px" label-position="left" class="setting-form">
       <el-form-item label="站点名称:">
         <el-input v-model="state.form.siteName"></el-input>
       </el-form-item>
@@ -37,18 +32,10 @@
         <el-button type="primary" @click="clearCache">清空</el-button>
       </el-form-item>
       <el-form-item label="启用轮播分类推荐:" style="width: 100%">
-        <el-switch
-          v-model="state.form.carouselEnable"
-          active-value="Y"
-          inactive-value="N"
-        >
+        <el-switch v-model="state.form.carouselEnable" active-value="Y" inactive-value="N">
         </el-switch>
         <el-table :data="state.tableData" style="width: 100%">
-          <el-table-column
-            type="index"
-            label="序号"
-            width="55px"
-          ></el-table-column>
+          <el-table-column type="index" label="序号" width="55px"></el-table-column>
           <el-table-column label="轮播图片地址" width="180">
             <template #default="scope">
               <el-input v-model="scope.row.imgUrl"></el-input>
@@ -66,17 +53,9 @@
           </el-table-column>
           <el-table-column prop="address" label="操作">
             <template #default="scope">
-              <el-button
-                @click="add"
-                v-show="scope.$index === state.tableData.length - 1"
-                >新增</el-button
-              >
-              <el-button
-                type="danger"
-                @click="del($index)"
-                v-show="scope.$index === state.tableData.length - 1"
-                >删除</el-button
-              >
+              <el-button @click="add" v-show="scope.$index === state.tableData.length - 1">新增</el-button>
+              <el-button type="danger" @click="del($index)" v-show="scope.$index === state.tableData.length - 1">删除
+              </el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -140,7 +119,7 @@ const submit = async () => {
 };
 
 const getSiteInfo = async () => {
-  const res = await getSiteInfoApi({});
+  const res: any = await getSiteInfoApi({});
   if (res) {
     state.form = res.data;
     state.tableData = JSON.parse(res.data.carouselUrl);
@@ -159,8 +138,9 @@ const del = (index: number) => {
 <style scoped lang="scss">
 .user-info {
   padding: 20px 0;
+
   .setting-form {
-    & > div {
+    &>div {
       width: 50%;
     }
   }

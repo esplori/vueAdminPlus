@@ -5,12 +5,8 @@
       <el-table-column type="index" label="序号" width="55px"></el-table-column>
       <el-table-column label="标题">
         <template #default="scope">
-          <a
-            style="color: #333"
-            :href="'https://www.dsiab.com/post/' + scope.row.id"
-            target="_blank"
-            >{{ scope.row.title }}</a
-          >
+          <a style="color: #333" :href="'https://www.dsiab.com/post/' + scope.row.id" target="_blank">{{ scope.row.title
+          }}</a>
         </template>
       </el-table-column>
       <el-table-column label="分类" width="120px">
@@ -35,12 +31,7 @@
       </el-table-column>
       <el-table-column fixed="right" width="180" label="操作">
         <template #default="scope">
-          <el-button
-            @click="delConfirm(scope.row.id)"
-            type="text"
-            class="cus-button-danger"
-            >删除</el-button
-          >
+          <el-button @click="delConfirm(scope.row.id)" type="text" class="cus-button-danger">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -48,16 +39,9 @@
       <el-button @click="delMul">批量删除</el-button>
     </div>
     <div class="pagination-box" style="text-align: center; margin-top: 20px">
-      <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="state.params.page"
-        :page-size="state.params.pageSize"
-        :page-sizes="[10, 20, 30, 50]"
-        :pager-count="5"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="state.total"
-      >
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+        :current-page="state.params.page" :page-size="state.params.pageSize" :page-sizes="[10, 20, 30, 50]"
+        :pager-count="5" layout="total, sizes, prev, pager, next, jumper" :total="state.total">
       </el-pagination>
     </div>
   </div>
@@ -71,14 +55,14 @@ import {
 } from "@/views/API/admin.js";
 import { reactive, onMounted } from "vue";
 import { useRoute } from "vue-router";
-import { ElMessageBox,ElMessage } from "element-plus";
+import { ElMessageBox, ElMessage } from "element-plus";
 
 const route = useRoute();
 const state = reactive({
   list: [],
   params: {
     page: 1,
-    cate: "",
+    cate: 0,
     pageSize: 10,
   },
   total: 0,
@@ -87,10 +71,10 @@ const state = reactive({
 });
 onMounted(() => {
   // 恢复之前查询的参数
-  const { page, cate, pageSize } = route.query;
+  const { page = 1, cate = 0, pageSize = 10 } = route.query;
   state.params.page = parseInt(page) || 1;
   state.params.pageSize = parseInt(pageSize) || 10;
-  state.params.cate = parseInt(cate) || "";
+  state.params.cate = parseInt(cate);
   getList();
 });
 
@@ -99,14 +83,14 @@ const getList = () => {
 };
 
 const getListByCate = async () => {
-  const res = await getPostListByCateApi(state.params);
+  const res: any = await getPostListByCateApi(state.params);
   if (res) {
     state.list = res.data.result;
     state.total = res.data.total;
   }
 };
 
-const delConfirm = async (id:any) => {
+const delConfirm = async (id: any) => {
   ElMessageBox.confirm("此操作将删除该条数据, 是否继续?", "提示", {
     confirmButtonText: "确定",
     cancelButtonText: "取消",
@@ -137,19 +121,19 @@ const delMul = (val: any) => {
     type: "warning",
   }).then(() => {
     delMultiple(
-      state.multipleSelection.map((item) => {
+      state.multipleSelection.map((item: any) => {
         return item.id;
       })
     );
   });
 };
 
-const delMultiple = async (ids:any)=>{
+const delMultiple = async (ids: any) => {
   const res = await deletePostApi({ ids: ids });
-      if (res) {
-        ElMessage.success("删除成功");
-        getList();
-      }
+  if (res) {
+    ElMessage.success("删除成功");
+    getList();
+  }
 }
 
 </script>
@@ -157,14 +141,17 @@ const delMultiple = async (ids:any)=>{
 <style scoped lang="scss">
 .page-list {
   width: 100%;
+
   .select-by-cate {
     margin-bottom: 20px;
   }
+
   .content-item {
     font-size: 18px;
     text-align: left;
     padding: 5px;
   }
+
   .delMul {
     padding: 10px 0;
   }

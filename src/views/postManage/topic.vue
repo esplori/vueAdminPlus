@@ -70,7 +70,7 @@ const insertCate = () => {
   state.title = "新增";
 };
 const getList = async () => {
-  const res = await getTopicListApi(state.params);
+  const res: any = await getTopicListApi({});
   if (res) {
     state.list = res.data.result;
   }

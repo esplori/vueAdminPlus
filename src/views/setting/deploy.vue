@@ -7,23 +7,13 @@
       </el-table-column>
       <el-table-column width="180" label="操作">
         <template #default="scope">
-          <el-button
-            :type="scope.row.class"
-            @click="deployAdmin(scope.row)"
-            :loading="scope.row.loading"
-            :icon="ArrowRight"
-            circle
-          ></el-button>
+          <el-button :type="scope.row.class" @click="deployAdmin(scope.row)" :loading="scope.row.loading"
+            :icon="ArrowRight" circle></el-button>
         </template>
       </el-table-column>
       <el-table-column width="180" label="状态">
         <template #default="scope">
-          <el-button
-            v-show="scope.row.success"
-            type="success"
-            :icon="Check"
-            circle
-          ></el-button>
+          <el-button v-show="scope.row.success" type="success" :icon="Check" circle></el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -33,7 +23,7 @@
 <script lang="ts" setup>
 import { deployApi } from "@/views/API/tools.js";
 import { reactive } from "vue";
-import { ArrowRight,Check } from "@element-plus/icons-vue";
+import { ArrowRight, Check } from "@element-plus/icons-vue";
 
 const state = reactive({
   tableData: [
@@ -72,6 +62,7 @@ const deployAdmin = async (row: any) => {
 <style scoped lang="scss">
 .compressJs {
   width: 100%;
+
   .success {
     color: #67c23a;
   }

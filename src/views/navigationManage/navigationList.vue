@@ -12,25 +12,14 @@
       <el-table-column label="操作" width="180">
         <template #default="scope">
           <el-button @click="edit(scope.row.id)" type="text">编辑</el-button>
-          <el-button
-            @click="delConfirm(scope.row.id)"
-            type="text"
-            class="cus-button-danger"
-            >删除</el-button
-          >
+          <el-button @click="delConfirm(scope.row.id)" type="text" class="cus-button-danger">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
     <div class="pagination-box" style="text-align: center; margin-top: 20px">
-      <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="state.params.page"
-        :page-sizes="[10, 20, 30, 50]"
-        :page-size="state.params.pageSize"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="state.total"
-      >
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+        :current-page="state.params.page" :page-sizes="[10, 20, 30, 50]" :page-size="state.params.pageSize"
+        layout="total, sizes, prev, pager, next, jumper" :total="state.total">
       </el-pagination>
     </div>
   </div>
@@ -55,7 +44,7 @@ onMounted(() => {
 });
 
 const getList = async () => {
-  const res = await getListApi(state.params);
+  const res: any = await getListApi(state.params);
   if (res) {
     state.list = res.data.result;
     state.total = res.data.total;
@@ -97,6 +86,7 @@ const handleCurrentChange = async (val: any) => {
 <style scoped lang="scss">
 .page-list {
   width: 100%;
+
   .content-item {
     font-size: 18px;
     text-align: left;
