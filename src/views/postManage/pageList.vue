@@ -3,8 +3,7 @@
     <div class="select-by-cate">
       <div>
         <span>按分类筛选：</span>
-        <el-select v-model="state.params.cate" @change="typeChange">
-          <el-option label="全部" :value="null"></el-option>
+        <el-select v-model="state.params.cate" @change="typeChange" clearable>
           <el-option v-for="(item, index) in state.cateList" :key="index" :label="item.name" :value="item.id">
           </el-option>
         </el-select>
@@ -30,11 +29,11 @@
       </el-table-column>
       <el-table-column label="创建时间" sortable="custom" prop="createDate">
       </el-table-column>
-      <el-table-column fixed="right" width="180" label="操作">
+      <el-table-column fixed="right" width="270" label="操作">
         <template #default="scope">
-          <el-button @click="edit(scope.row.id)" type="text">编辑</el-button>
-          <el-button @click="delConfirm(scope.row.id)" type="text" class="cus-button-danger">删除</el-button>
-          <el-button v-if="userInfo.includes('ROLE_admin')" @click="addToTopic(scope.row)" type="text">添加到专题</el-button>
+          <el-button @click="edit(scope.row.id)" type="primary">编辑</el-button>
+          <el-button @click="delConfirm(scope.row.id)" type="danger" class="cus-button-danger">删除</el-button>
+          <el-button v-if="userInfo.includes('ROLE_admin')" @click="addToTopic(scope.row)" type="primary">添加到专题</el-button>
         </template>
       </el-table-column>
     </el-table>

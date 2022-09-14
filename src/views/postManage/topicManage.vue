@@ -1,5 +1,6 @@
 <template>
   <div class="comments-list">
+    <el-button @click="goBack">返回</el-button>
     <el-table :data="state.list" style="width: 100%">
       <el-table-column type="index" label="序号"> </el-table-column>
       <el-table-column label="标题">
@@ -21,7 +22,7 @@
         <template #default="scope">
           <el-button
             @click="delConfirm(scope.row.id)"
-            type="text"
+            type="danger"
             class="cus-button-danger"
             >删除</el-button
           >
@@ -72,6 +73,9 @@ const del = async (id: any) => {
     getList();
   }
 };
+const goBack = ()=>{
+  history.go(-1)
+}
 </script>
 
 <style scoped lang="scss">

@@ -1,6 +1,6 @@
 <template>
   <div class="page-list">
-    <el-button type="text" @click="insertCate">新增专题</el-button>
+    <el-button type="primary" @click="insertCate">新增专题</el-button>
     <el-table :data="state.list" style="width: 100%">
       <el-table-column type="index" label="序号" width="55px"></el-table-column>
       <el-table-column label="名称">
@@ -13,13 +13,13 @@
           {{ scope.row.createDate }}
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="180">
+      <el-table-column label="操作" width="250">
         <template #default="scope">
-          <el-button @click="edit(scope.row)" type="text">编辑</el-button>
-          <el-button @click="manage(scope.row)" type="text">管理</el-button>
+          <el-button @click="edit(scope.row)" type="primary">编辑</el-button>
+          <el-button @click="manage(scope.row)" type="primary">管理</el-button>
           <el-button
             @click="delConfirm(scope.row.id)"
-            type="text"
+            type="danger"
             class="cus-button-danger"
             v-if="scope.row.valid === '1'"
             >删除</el-button

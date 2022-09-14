@@ -47,7 +47,7 @@
       </el-table-column>
       <el-table-column fixed="right" width="120" label="操作">
         <template #default="scope">
-          <el-button @click="del(scope.row.filename)" type="text">删除</el-button>
+          <el-button @click="del(scope.row.filename)" type="danger">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

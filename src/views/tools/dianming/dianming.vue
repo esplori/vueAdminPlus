@@ -5,7 +5,7 @@
       <el-input v-model="state.size" style="width: 75px"></el-input> 位
     </div>
     <div style="padding: 20px 0">
-      <el-button type="button" style="width: 250px" @click="onBtnClick()">
+      <el-button type="primary" style="width: 250px" @click="onBtnClick()">
         {{ btnText }}
       </el-button>
     </div>

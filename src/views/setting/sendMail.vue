@@ -1,6 +1,6 @@
 <template>
   <div class="mail">
-    <el-form :model="form" label-width="80px">
+    <el-form :model="state.form" label-width="80px">
       <el-form-item label="收件人：">
         <el-input v-model="state.form.mailTo"></el-input>
       </el-form-item>

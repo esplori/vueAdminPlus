@@ -1,6 +1,6 @@
 <template>
   <div class="user-info">
-    <el-form :model="form" label-width="130px" label-position="left" class="setting-form">
+    <el-form :model="state.form" label-width="130px" label-position="left" class="setting-form">
       <el-form-item label="站点名称:">
         <el-input v-model="state.form.siteName"></el-input>
       </el-form-item>
