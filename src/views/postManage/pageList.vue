@@ -83,6 +83,7 @@ const state = reactive({
     pageSize: 10,
     order: "desc",
     orderBy: "createDate",
+    tag: ""
   },
   form: {
     postId: "",

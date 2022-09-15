@@ -30,7 +30,7 @@
 
 <script setup lang="ts">
 import { delHtmlTag } from "@/utils/common.js";
-import { logoutApi } from "@/views/account/api.ts";
+import { logoutApi } from "@/views/account/api";
 import { ArrowDown } from "@element-plus/icons-vue";
 import { computed, watchEffect, ref } from "vue";
 import { useRouter } from "vue-router";
