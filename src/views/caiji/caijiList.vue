@@ -3,7 +3,7 @@
     <div class="handle">
       <!-- <el-button type="primary" @click="multipleDel">批量删除</el-button> -->
     </div>
-    <el-table :data="list" style="width: 100%">
+    <el-table :data="state.list" style="width: 100%">
       <el-table-column type="selection" width="55"> </el-table-column>
       <el-table-column label="商品名称">
         <template #default="scope">
@@ -27,67 +27,57 @@
       </el-table-column>
     </el-table>
     <div class="pagination-box" style="text-align: center; margin-top: 20px">
-      <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="params.page"
-        :page-size="params.pageSize"
-        layout="total, prev, pager, next"
-        :total="total"
-      >
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+        :current-page="state.params.page" :page-size="state.params.pageSize" layout="total, prev, pager, next"
+        :total="state.total">
       </el-pagination>
     </div>
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { delTbkApi, getTbkListApi } from "@/views/API/tbk.js";
-
-export default {
-  data() {
-    return {
-      list: [],
-      params: {
-        page: 1,
-        pageSize: 20,
-      },
-      total: 0,
-    };
+import { reactive, onMounted } from "vue"
+import { ElMessage } from "element-plus"
+const state = reactive({
+  list: [],
+  params: {
+    page: 1,
+    pageSize: 20,
   },
-  created() {
-    this.getList();
-  },
-  methods: {
-    async getList() {
-      const res = await getTbkListApi(this.params);
-      if (res) {
-        this.list = res.data.result;
-        this.total = res.data.total;
-      }
-    },
-    async del(id) {
-      const res = await delTbkApi({ pid: id });
-      if (res) {
-        this.$message.success("删除成功");
-        this.getList();
-      }
-    },
-    handleSizeChange(val) {
-      this.params.pageSize = val;
-      this.getList();
-    },
-    handleCurrentChange(val) {
-      this.params.page = val;
-      this.getList();
-    },
-    multipleDel(condition) {},
-  },
-};
+  total: 0,
+})
+onMounted(() => {
+  getList();
+})
+const getList = async () => {
+  const res: any = await getTbkListApi(state.params);
+  if (res) {
+    state.list = res.data.result;
+    state.total = res.data.total;
+  }
+}
+const del = async (id: any) => {
+  const res = await delTbkApi({ pid: id });
+  if (res) {
+    ElMessage.success("删除成功");
+    getList();
+  }
+}
+const handleSizeChange = async (val: any) => {
+  state.params.pageSize = val;
+  getList();
+}
+const handleCurrentChange = async (val: any) => {
+  state.params.page = val;
+  getList();
+}
 </script>
 
 <style scoped lang="scss">
 .page-list {
   width: 100%;
+
   .content-item {
     font-size: 18px;
     text-align: left;
