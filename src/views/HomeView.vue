@@ -147,6 +147,12 @@ const state = reactive({
       auth: "ROLE_admin,ROLE_author",
       icon: "el-icon-crop",
       children: [
+      {
+          title: "ip归属地查询",
+          path: "/tools/getRegionFromIp",
+          id: "",
+          auth: "ROLE_admin,ROLE_author",
+        },
         {
           title: "json格式化",
           path: "/tools/jsonviewer",

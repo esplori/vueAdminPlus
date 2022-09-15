@@ -6,6 +6,7 @@ import {
 
 const router = createRouter({
   // history: createWebHistory(import.meta.env.BASE_URL),
+  // hash 模式
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
@@ -127,6 +128,10 @@ const router = createRouter({
           path: "tools",
           component: () => import("../views/tools/index.vue"),
           children: [
+            {
+              path: "getRegionFromIp",
+              component: () => import("../views/tools/getRegionFromIp/index.vue"),
+            },
             {
               path: "qrcode",
               component: () => import("../views/tools/qrcode/index.vue"),
