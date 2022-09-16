@@ -37,8 +37,8 @@ export function tryHideFullScreenLoading() {
 // 在请求或响应被 then 或 catch 处理前拦截它们。
 // 添加请求拦截器
 axios.interceptors.request.use(
-  function (config) {
-    let userinfo = localStorage.getItem("userInfo");
+  function (config: any) {
+    let userinfo: any = localStorage.getItem("userInfo");
     if (userinfo) {
       userinfo = JSON.parse(userinfo);
       config.headers.common.Authorization = userinfo.token;
@@ -74,7 +74,7 @@ axios.interceptors.response.use(
  * */
 
 // get请求
-export function get(url:String, params: Object, options: Object) {
+export function get(url: any, params: any, options: any) {
   if (options.showLoading) {
     showFullScreenLoading();
   }
@@ -93,7 +93,7 @@ export function get(url:String, params: Object, options: Object) {
 }
 
 // post请求
-export function post(url:String, param:Object, options:Object) {
+export function post(url: any, param: any, options: any) {
   if (options.showLoading) {
     showFullScreenLoading();
   }
@@ -110,7 +110,7 @@ export function post(url:String, param:Object, options:Object) {
   });
 }
 
-function handleData(res:Object, resolve:any, reject:any) {
+function handleData(res: any, resolve: any, reject: any) {
   tryHideFullScreenLoading();
   if (res.data.code === 0) {
     resolve(res.data);
@@ -119,7 +119,7 @@ function handleData(res:Object, resolve:any, reject:any) {
     ElMessage.error(res.data.data || res.data.msg);
   }
 }
-function handleAuthenticated(res:Object) {
+function handleAuthenticated(res: any) {
   switch (res.response.status) {
     case 401:
       setTimeout(() => {

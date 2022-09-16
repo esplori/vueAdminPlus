@@ -71,9 +71,9 @@ const state = reactive({
 });
 onMounted(() => {
   // 恢复之前查询的参数
-  const { page = 1, cate = 0, pageSize = 10 } = route.query;
-  state.params.page = parseInt(page) || 1;
-  state.params.pageSize = parseInt(pageSize) || 10;
+  const { page = 1, cate = 0, pageSize = 10 } = route.query as any;
+  state.params.page = parseInt(page);
+  state.params.pageSize = parseInt(pageSize);
   state.params.cate = parseInt(cate);
   getList();
 });

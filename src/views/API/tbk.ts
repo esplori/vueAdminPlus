@@ -1,18 +1,18 @@
 import { get, post } from "@/utils/axios.js";
 import contextPath from "@/utils/context-path.js";
 
-export async function getTbkShopListApi(data: Object) {
+export async function getTbkShopListApi(data: any) {
   const url = `${contextPath}/tbk/getShopList`;
   const options = {};
   return get(url, data, options);
 }
-export async function getTbkListApi(data: Object) {
+export async function getTbkListApi(data: any) {
   const url = `${contextPath}/tbk/getList/${data.page}`;
   const options = {};
   return get(url, {}, options);
 }
 
-export async function getCateApi(data: Object) {
+export async function getCateApi(data: any) {
   const url = `${contextPath}/tbk/getCate`;
   const options = {};
   return get(url, data, options);

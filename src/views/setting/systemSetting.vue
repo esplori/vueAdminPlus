@@ -53,8 +53,8 @@
           </el-table-column>
           <el-table-column prop="address" label="操作">
             <template #default="scope">
-              <el-button @click="add" v-show="scope.$index === state.tableData.length - 1">新增</el-button>
-              <el-button type="danger" @click="del($index)" v-show="scope.$index === state.tableData.length - 1">删除
+              <el-button @click="add">新增</el-button>
+              <el-button type="danger" @click="del(scope.$index)">删除
               </el-button>
             </template>
           </el-table-column>

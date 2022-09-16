@@ -3,37 +3,17 @@
     <div class="show-container" :class="{ shadow: showShadow }">
       <div class="login-container">
         <h2 style="text-align: center; padding-bottom: 20px">登录</h2>
-        <el-form
-          :model="form"
-          label-width="80px"
-          :rules="loginRules"
-          ref="formref"
-          label-position="left"
-        >
+        <el-form :model="form" label-width="80px" :rules="loginRules" ref="formref" label-position="left">
           <el-form-item label="用户名：" prop="username">
-            <el-input
-              @focus="shadow"
-              @blur="hideShadow"
-              :prefix-icon="User"
-              v-model="form.username"
-              placeholder="账号"
-            ></el-input>
+            <el-input @focus="shadow" @blur="hideShadow" :prefix-icon="User" v-model="form.username" placeholder="账号">
+            </el-input>
           </el-form-item>
           <el-form-item label="密码：" prop="password">
-            <el-input
-              @focus="shadow"
-              @blur="hideShadow"
-              :prefix-icon="Lock"
-              v-model="form.password"
-              type="password"
-              placeholder="密码"
-              @keyup.enter="login"
-            ></el-input>
+            <el-input @focus="shadow" @blur="hideShadow" :prefix-icon="Lock" v-model="form.password" type="password"
+              placeholder="密码" @keyup.enter="login"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button @click="login" type="primary" style="width: 100%"
-              >登录</el-button
-            >
+            <el-button @click="login" type="primary" style="width: 100%">登录</el-button>
           </el-form-item>
           <el-form-item>
             <div>
@@ -50,7 +30,7 @@
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import { loginApi } from "@/views/account/api";
-import { User,Lock } from "@element-plus/icons-vue";
+import { User, Lock } from "@element-plus/icons-vue";
 const form = reactive({
   username: "",
   password: "",
@@ -75,7 +55,7 @@ const login = async function () {
   if (!valid) {
     return;
   }
-  const res = await loginApi(form);
+  const res: any = await loginApi(form);
   if (res) {
     localStorage.setItem("userInfo", JSON.stringify(res.data));
     router.push({ path: "/home" });
@@ -88,12 +68,14 @@ const login = async function () {
   background: url("../../assets/images/bg.jpg") no-repeat;
   background-size: cover;
   min-height: 100vh;
+
   .show-container {
     width: 100%;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+
     .login-container {
       border-radius: 3px;
       width: 400px;
@@ -101,6 +83,7 @@ const login = async function () {
       background: rgba(255, 255, 255, 1);
       padding: 40px 60px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
       .reg {
         cursor: pointer;
         font-size: 12px;
@@ -108,6 +91,7 @@ const login = async function () {
       }
     }
   }
+
   .shadow {
     background: rgba(0, 0, 0, 0.6);
     transition: all 0.5s;
