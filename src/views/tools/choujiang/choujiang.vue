@@ -111,14 +111,15 @@ const startRoll = () => {
     state.speed = 200;
     state.click = true;
     const that = this;
-    setTimeout((res) => {
+    setTimeout(() => {
       state.showToast = true;
     }, 500);
   } else {
     if (state.times < state.cycle) {
       state.speed -= 10; // 加快转动速度
     } else if (state.times === state.cycle) {
-      const index = parseInt(Math.random() * 10, 0) || 0; // 随机获得一个中奖位置
+      const num = String(Math.random() * 10)
+      const index = parseInt(num, 0) || 0; // 随机获得一个中奖位置
       state.prize = index; // 中奖位置,可由后台返回
       if (state.prize > 7) {
         state.prize = 7;
@@ -134,7 +135,8 @@ const startRoll = () => {
     if (state.speed < 40) {
       state.speed = 40;
     }
-    state.timer = setTimeout(startRoll, state.speed);
+    // 使用window.setTimeout 解决ts 不能将类型“Timeout”分配给类型“number”
+    state.timer = window.setTimeout(startRoll, state.speed);
   }
 };
 const oneRoll = () => {
