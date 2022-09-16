@@ -53,7 +53,7 @@ onMounted(() => {
   getCate();
 })
 const optionChange = (val:any) => {
-  const filterArr = state.options.filter((item) => {
+  const filterArr = state.options.filter((item:any) => {
     return item.id === val;
   });
   if (filterArr.length) {

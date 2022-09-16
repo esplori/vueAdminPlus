@@ -49,7 +49,7 @@ onMounted(() => {
   getList();
 });
 const getList = async () => {
-  const id = route.query.id;
+  const id = route.query.id  as any;
   const res: any = await getTopicDetailListApi({ topicId: parseInt(id) });
   if (res) {
     state.list = res.data.result;

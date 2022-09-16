@@ -8,10 +8,10 @@
       </div>
       <div class="user-info">
         <div class="userInfo">
-          <div v-if="userInfo" class="info-flex">
+          <div v-if="state.userInfo" class="info-flex">
             <el-dropdown @command="handleCommand">
               <div class="el-dropdown-link">
-                {{ userInfo.username
+                {{ state.userInfo.username
                 }}<el-icon class="el-icon--right"><arrow-down /></el-icon>
               </div>
               <template #dropdown>
@@ -32,18 +32,23 @@
 import { delHtmlTag } from "@/utils/common.js";
 import { logoutApi } from "@/views/account/api";
 import { ArrowDown } from "@element-plus/icons-vue";
-import { computed, watchEffect, ref } from "vue";
+import { computed, watchEffect, reactive } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 
 const dailySentence = computed(() => {
   return (
-    userInfo.value.dailySentence && delHtmlTag(userInfo.value.dailySentence)
+    state.userInfo.dailySentence && delHtmlTag(state.userInfo.dailySentence)
   );
 });
 
-const userInfo = ref({})
+const state = reactive({
+  userInfo:{
+    dailySentence: "",
+    username: ""
+  }
+})
 
 const handleCommand = (command: string) => {
   switch (command) {
@@ -67,7 +72,7 @@ const logout = async () => {
 const propsState = defineProps(["userInfoObj"]);
 
 watchEffect(() => {
-  userInfo.value = propsState.userInfoObj;
+  state.userInfo = propsState.userInfoObj;
 });
 </script>
 

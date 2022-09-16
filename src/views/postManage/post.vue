@@ -70,7 +70,7 @@ const state = reactive({
     keywords: "",
     createBy: "",
     wordsNum: 0,
-    createDate: getCurrDate(),
+    createDate: getCurrDate(""),
   },
   cateList: [],
   editorOption: {

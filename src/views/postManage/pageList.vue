@@ -33,7 +33,8 @@
         <template #default="scope">
           <el-button @click="edit(scope.row.id)" type="primary">编辑</el-button>
           <el-button @click="delConfirm(scope.row.id)" type="danger" class="cus-button-danger">删除</el-button>
-          <el-button v-if="userInfo.includes('ROLE_admin')" @click="addToTopic(scope.row)" type="primary">添加到专题</el-button>
+          <el-button v-if="userInfo.includes('ROLE_admin')" @click="addToTopic(scope.row)" type="primary">添加到专题
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -202,7 +203,7 @@ const addToTopic = async (row: any) => {
   state.form.name = row.title;
 };
 
-const submitTopic = async (row: any) => {
+const submitTopic = async () => {
   const res = await addPostToTopicApi(state.form);
   if (res) {
     ElMessage.success("添加成功");

@@ -1,8 +1,8 @@
 <template>
   <div class="footer">
     <!-- <span v-html="copyRight"></span>copyRight {{currentDate}} <a href="http://beian.miit.gov.cn/"> 粤ICP备20013202号</a> -->
-    <span v-html="copyRight.value"></span>
-    {{ currentDate.value }} javascript技术分享
+    <span v-html="copyRight"></span>
+    {{ currentDate }} javascript技术分享
   </div>
 </template>
 <script lang="ts" setup>
