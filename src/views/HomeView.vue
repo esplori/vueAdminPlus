@@ -284,7 +284,7 @@ onMounted(() => {
     .logo {
       font-size: 14px;
       text-align: center;
-      padding: 20px 0;
+      padding: 32px 0;
       color: #fff;
       border-bottom: 1px solid #ddd;
     }
