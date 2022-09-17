@@ -5,7 +5,11 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    // "string" 的表达式不能用于索引类型
+    "suppressImplicitAnyIndexErrors":true,
+    // 报错类型“{}”上不存在属性“xxx”
+    // "jsx": "preserve",
   },
 
   "references": [

@@ -15,7 +15,7 @@
             <el-menu-item
               v-if="
                 !item.children &&
-                userInfo.some((role) => {
+                userInfo.some((role:any) => {
                   return item.auth.includes(role);
                 })
               "
@@ -27,7 +27,7 @@
               :index="item.path"
               v-if="
                 item.children &&
-                userInfo.some((role) => {
+                userInfo.some((role:any) => {
                   return item.auth.includes(role);
                 })
               "
@@ -39,7 +39,7 @@
                 :key="idx"
                 v-show="
                   it.auth &&
-                  userInfo.some((role) => {
+                  userInfo.some((role:any) => {
                     return it.auth.includes(role);
                   })
                 "
@@ -257,7 +257,7 @@ const userInfo = computed(() => {
   if (userIn) {
     userIn = JSON.parse(userIn).role.split(",");
   }
-  return userIn;
+  return userIn as any;
 });
 
 const getUserInfo = async () => {

@@ -92,21 +92,21 @@ const state = reactive({
     topicId: "",
   },
   total: 0,
-  cateList: [],
+  cateList: [{name:"",id:""}],
   dialogVisible: false,
-  topicList: [],
+  topicList: [{name:"",id:""}],
 });
 onMounted(() => {
   getCate();
   // 恢复之前查询的参数
-  const { page, cate, pageSize } = route.query;
+  const { page, cate, pageSize } = route.query as any;
   state.params.page = parseInt(page) || 1;
   state.params.pageSize = parseInt(pageSize) || 10;
-  state.params.cate = parseInt(cate) || "";
+  state.params.cate = cate ;
   getList();
 });
 const userInfo = computed(() => {
-  let uinfo = localStorage.getItem("userInfo") || [];
+  let uinfo = localStorage.getItem("userInfo") as any;
   if (uinfo) {
     uinfo = JSON.parse(uinfo).role.split(",");
   } else {
@@ -125,7 +125,7 @@ const getListByTags = async (val: any) => {
     state.total = res.data.total;
   }
 };
-const sortCchange = ({ prop, order }) => {
+const sortCchange = (prop:any, order:any) => {
   state.params.page = 1;
   // 需要转换成sql对应的排序字段
   state.params.order = order === "ascending" ? "asc" : "desc";

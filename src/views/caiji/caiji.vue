@@ -10,7 +10,8 @@
         </el-form-item>
         <el-form-item label="分类:">
           <el-select v-model="state.params.cate" placeholder="请选择" @change="optionChange">
-            <el-option v-for="item in state.options" :key="item.id" :label="item.name" :value="item.id">
+            <el-option v-for="(item,index) in state.options" :key="index" :label="item.name"
+              :value="item.id">
             </el-option>
           </el-select>
         </el-form-item>
@@ -47,17 +48,18 @@ const state = reactive({
     keyWords: "",
     cate: "",
   },
-  options: [],
+  options: [{id:"",name:""}],
 })
 onMounted(() => {
   getCate();
 })
-const optionChange = (val:any) => {
-  const filterArr = state.options.filter((item:any) => {
+const optionChange = (val: any) => {
+  const filterArr = state.options.filter((item: any) => {
     return item.id === val;
   });
   if (filterArr.length) {
-    state.params.keyWords = filterArr[0].name;
+    let arr0 = filterArr[0] as any
+    state.params.keyWords = arr0.name;
   }
 }
 const getCate = async () => {

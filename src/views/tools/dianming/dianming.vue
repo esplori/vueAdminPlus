@@ -10,14 +10,9 @@
       </el-button>
     </div>
     <div>
-      <ul style="
-          list-style: none;
-          margin: 0;
-          padding: 0;
-          display: flex;
-          flex-flow: row wrap;
-        ">
-        <li v-for="(v, i) in state.students" :key="i" :class="{ active: state.selectedStudentIndexs.includes(i) }">
+      <ul style="list-style: none;margin: 0;padding: 0;display: flex;flex-flow: row wrap;">
+        <li v-for="(v, i) in state.students" :key="i"
+          :class="{ active: state.selectedStudentIndexs.includes(i as never) }">
           {{ v }}
         </li>
       </ul>
@@ -106,8 +101,9 @@ const state = reactive({
 });
 
 onMounted(() => {
-  state.studentIndexs = state.students.map((v, i) => i);
+  let index = state.students.map((v, i) => i);
   state.students.sort(() => 0.5 - Math.random());
+  state.studentIndexs = index as any
 });
 const btnText = computed(() => {
   return state.intervalId ? "停止" : "开始";
@@ -124,7 +120,7 @@ const onBtnClick = () => {
       state.selectedStudentIndexs = state.studentIndexs
         .sort(() => 0.5 - Math.random())
         .slice(0, state.size);
-    }, 100);
+    }, 100) as any;
   }
 };
 </script>

@@ -1,18 +1,18 @@
 <template>
   <div class="post">
-    <el-form label-width="80px" :model="form">
+    <el-form label-width="80px" :model="state.form">
       <el-form-item label="名称：">
-        <el-input v-model="form.title"></el-input>
+        <el-input v-model="state.form.title"></el-input>
       </el-form-item>
       <el-form-item label="地址：">
-        <el-input v-model="form.url" :rows="10"></el-input>
+        <el-input v-model="state.form.url" :rows="10"></el-input>
       </el-form-item>
       <el-form-item label="描述：">
-        <el-input type="textarea" v-model="form.content" :rows="5"></el-input>
+        <el-input type="textarea" v-model="state.form.content" :rows="5"></el-input>
       </el-form-item>
       <el-form-item label="分类：">
-        <el-select v-model="form.cate">
-          <el-option v-for="(item, index) in cateList" :key="index" :label="item.name" :value="item.id"></el-option>
+        <el-select v-model="state.form.cate">
+          <el-option v-for="(item, index) in state.cateList" :key="index" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -33,14 +33,16 @@ import { ElMessage } from "element-plus";
 import { useRoute, useRouter } from "vue-router";
 let route = useRoute();
 let router = useRouter();
-let form = reactive({
-  id: "",
-  title: "",
-  content: "",
-  cate: "",
-  url: "",
+let state = reactive({
+  form: {
+    id: "",
+    title: "",
+    content: "",
+    cate: "",
+    url: "",
+  },
+  cateList: [{name:"",id:""}]
 });
-let cateList = ref([]);
 onMounted(() => {
   const id = route.query.id;
   if (id) {
@@ -51,7 +53,7 @@ onMounted(() => {
 const getNavCateList = async () => {
   const res: any = await getNavCateApi({});
   if (res) {
-    cateList.value = res.data.map((item: any) => {
+    state.cateList = res.data.map((item: any) => {
       item.id = String(item.id);
       return item;
     });
@@ -59,7 +61,7 @@ const getNavCateList = async () => {
 };
 
 const submit = async () => {
-  if (form.id) {
+  if (state.form.id) {
     editPage();
   } else {
     postPage();
@@ -67,7 +69,7 @@ const submit = async () => {
 };
 
 const editPage = async () => {
-  const res = await editPageApi({ ...form });
+  const res = await editPageApi({ ...state.form });
   if (res) {
     ElMessage.success("修改成功");
     router.push({ path: "/navigationList" });
@@ -75,7 +77,7 @@ const editPage = async () => {
 };
 
 const postPage = async () => {
-  const res = await postPageApi({ ...form });
+  const res = await postPageApi({ ...state.form });
   if (res) {
     ElMessage.success("添加成功");
     router.push({ path: "/navigationList" });
@@ -86,11 +88,11 @@ const getDetail = async (id: any) => {
   const res: any = await getDetailApi({ id: id });
   if (res) {
     let { cate, content, id, title, url } = res.data.result;
-    form.id = id;
-    form.cate = cate;
-    form.content = content;
-    form.title = title;
-    form.url = url;
+    state.form.id = id;
+    state.form.cate = cate;
+    state.form.content = content;
+    state.form.title = title;
+    state.form.url = url;
   }
 };
 </script>

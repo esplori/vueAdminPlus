@@ -2,7 +2,7 @@
   <div class="post">
     <el-form label-width="85px" :model="state.form">
       <el-form-item label="" label-width="0">
-        <el-input class="title" size="medium" v-model="state.form.title" placeholder="请输入文章标题"></el-input>
+        <el-input class="title" size="large" v-model="state.form.title" placeholder="请输入文章标题"></el-input>
       </el-form-item>
       <el-form-item label="" label-width="0">
         <div style="width: 100%">
@@ -72,11 +72,26 @@ const state = reactive({
     wordsNum: 0,
     createDate: getCurrDate(""),
   },
-  cateList: [],
+  cateList: [{name:"",id:""}],
   editorOption: {
     placeholder: "编辑文章内容",
   },
-  editor: null,
+  editor: {
+    // create: ()=>{},
+    // config:{
+    //   uploadImgServer:"",
+    //   uploadFileName:"",
+    //   uploadImgHeaders:{},
+    //   uploadImgTimeout: 1000*100,
+    //   uploadImgHooks:{},
+    //   menus:[],
+    //   languageType: [],
+    //   onchange: {}
+    // },
+    // txt:{
+    //   html: ()=>{}
+    // }
+  } as any,
   inputVisible: false,
   inputValue: "",
   dynamicTags: [],
@@ -88,14 +103,14 @@ onMounted(() => {
   // 页签加载完成后每30秒调用保存接口，实现自动保存
   state.autoSave = setInterval(() => {
     submit(false);
-  }, 30000);
-  let userinfo = localStorage.getItem("userInfo");
+  }, 30000) as any;
+  let userinfo = localStorage.getItem("userInfo") as any;
   if (userinfo) {
     userinfo = JSON.parse(userinfo);
   } else {
     userinfo = {};
   }
-  state.editor = new Wangeditor("#wangeditorRef");
+  state.editor = new Wangeditor("#wangeditorRef") as any;
   // 配置 server 接口地址
   state.editor.config.uploadImgServer = "/bootService/account/upload";
   state.editor.config.uploadFileName = "file";
@@ -105,7 +120,7 @@ onMounted(() => {
   state.editor.config.uploadImgTimeout = 100 * 1000;
   state.editor.config.uploadImgHooks = {
     // 上传图片之前
-    before: function (xhr) {
+    before: function (xhr:any) {
       // console.log(xhr);
       // // 可阻止图片上传
       // return {
@@ -114,24 +129,24 @@ onMounted(() => {
       // }
     },
     // 图片上传并返回了结果，图片插入已成功
-    success: function (xhr) {
+    success: function (xhr:any) {
       // console.log("success", xhr);
     },
     // 图片上传并返回了结果，但图片插入时出错了
-    fail: function (xhr, editor, resData) {
+    fail: function (xhr:any, editor:any, resData:any) {
       // console.log("fail", resData);
     },
     // 上传图片出错，一般为 http 请求的错误
-    error: function (xhr, editor, resData) {
+    error: function (xhr:any, editor:any, resData:any) {
       // console.log("error", xhr, resData);
     },
     // 上传图片超时
-    timeout: function (xhr) {
+    timeout: function (xhr:any) {
       // console.log("timeout");
     },
     // 图片上传并返回了结果，想要自己把图片插入到编辑器中
     // 例如服务器端返回的不是 { errno: 0, data: [...] } 这种格式，可使用 customInsert
-    customInsert: function (insertImgFn, result) {
+    customInsert: function (insertImgFn:any, result:any) {
       // result 即服务端返回的接口
       // insertImgFn 可把图片插入到编辑器，传入图片 src ，执行函数即可
       insertImgFn(result.data[0].url);
@@ -158,7 +173,7 @@ onMounted(() => {
     "code",
     "undo",
     "redo",
-  ];
+  ] as any;
   // 插入代码语言配置
   state.editor.config.languageType = [
     "JavaScript",
@@ -166,11 +181,11 @@ onMounted(() => {
     "Java",
     "JSON",
     "Html",
-  ];
+  ] as any;
   // 配置 onchange 回调函数
-  state.editor.config.onchange = function (newHtml) {
-    state.form.wordsNum =
-      document.querySelector(".w-e-text").textContent.length;
+  state.editor.config.onchange = function (newHtml:any) {
+    let dom = document.querySelector(".w-e-text") as any
+    state.form.wordsNum = dom.textContent.length;
   };
   // 配置触发 onchange 的时间频率，默认为 200ms
   // this.editor.config.onchangeTimeout = 5000; // 修改为 500ms
@@ -204,7 +219,7 @@ const getCate = async (id: any) => {
 };
 
 const submit = async (jump: any) => {
-  state.form.content = state.editor.txt.html();
+  state.form.content = (state.editor.txt.html()) as any;
   // 自动保存，如果无标题或内容不调接口
   if (!jump && (!state.form.title || !state.form.content)) {
     return false;
@@ -279,12 +294,12 @@ const getDetail = async (id: any) => {
     state.form = res.data.result;
     state.dynamicTags = state.form.keywords
       ? state.form.keywords.split(",")
-      : [];
+      : [] as any;
     state.editor.txt.html(state.form.content);
   }
 };
 
-const handleClose = async (tag: any) => {
+const handleClose = async (tag: never) => {
   state.dynamicTags.splice(state.dynamicTags.indexOf(tag), 1);
 };
 
@@ -296,7 +311,7 @@ const showInput = async (tag: any) => {
 };
 
 const handleInputConfirm = async (tag: any) => {
-  const inputValue = state.inputValue;
+  const inputValue = state.inputValue as never;
   if (inputValue) {
     state.dynamicTags.push(inputValue);
   }
@@ -305,7 +320,7 @@ const handleInputConfirm = async (tag: any) => {
 };
 onBeforeUnmount(() => {
   // 页面销毁前清除定时器
-  clearInterval(state.autoSave);
+  clearInterval(state.autoSave as any);
 });
 </script>
 

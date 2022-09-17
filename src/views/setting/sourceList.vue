@@ -22,7 +22,7 @@
               )
             ">
               <span>{{ scope.row.filename }}</span>
-              <audio :src="state.sourceUrl + scope.row.filename" controls="controls"></audio>
+              <audio :src="state.sourceUrl + scope.row.filename" controls></audio>
             </div>
             <div v-else-if="
               state.typeConfig.image.includes(
@@ -53,7 +53,7 @@
     </el-table>
 
     <el-dialog title="提示" v-model="state.dialogVisible" width="30%">
-      <el-upload class="upload-demo" drag action="/bootService/account/upload" multiple :headers="state.headers">
+      <el-upload class="upload-demo" drag action="/bootService/account/upload" multiple :headers="headers">
         <i class="el-icon-upload"></i>
         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
         <template #tip>
@@ -91,7 +91,7 @@ onMounted(() => {
   getList(state.activeName);
 });
 const headers = computed(() => {
-  let userinfo = localStorage.getItem("userInfo");
+  let userinfo = localStorage.getItem("userInfo") as any;
   if (userinfo) {
     userinfo = JSON.parse(userinfo);
     return { Authorization: userinfo.token };

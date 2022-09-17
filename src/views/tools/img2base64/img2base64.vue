@@ -44,12 +44,13 @@ const generated = () => {
   // 此处自己替换本地图片的地址
   img.crossOrigin = "anonymous";
   img.onload = function () {
-    const data = getBase64Image(img);
-    const imgDom = document.createElement("img");
+    const data:any = getBase64Image(img);
+    const imgDom:any = document.createElement("img");
     imgDom.src = data;
     imgDom.width = "200";
     state.base64Url1 = data;
-    document.getElementById("pic").appendChild(imgDom);
+    let picdom:any = document.getElementById("pic")
+    picdom.appendChild(imgDom);
   };
 };
 
@@ -59,7 +60,8 @@ const readAsDataURL = () => {
     document.body.innerHTML = "<p>抱歉，你的浏览器不支持 FileReader</p>";
     return false;
   }
-  const file = document.getElementById("imagefile").files[0];
+  let dom = document.getElementById("imagefile") as any
+  const file = dom.files[0];
   if (!file) { return false }
   if (!/image\/\w+/.test(file.type)) {
     // 判断获取的是否为图片文件
@@ -73,7 +75,7 @@ const readAsDataURL = () => {
     if(!result){return false}
     result.innerHTML =
       '<img style="width:400px" src="' + this.result + '" alt=""/>';
-    state.base64Url2 = this.result;
+    state.base64Url2 = this.result as any;
   };
 };
 </script>
