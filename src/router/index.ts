@@ -101,16 +101,26 @@ const router = createRouter({
           component: () => import("../views/setting/sourceList.vue"),
         },
         {
-          path: "caiji",
-          component: () => import("../views/caiji/caiji.vue"),
-        },
-        {
-          path: "caijiList",
-          component: () => import("../views/caiji/caijiList.vue"),
-        },
-        {
-          path: "tbkType",
-          component: () => import("../views/caiji/tbkCate.vue"),
+          path: "tbk",
+          component: () => import("../views/caiji/index.vue"),
+          children: [
+            {
+              path: "/",
+              redirect: "caiji",
+            },
+            {
+              path: "caiji",
+              component: () => import("../views/caiji/caiji.vue"),
+            },
+            {
+              path: "caijiList",
+              component: () => import("../views/caiji/caijiList.vue"),
+            },
+            {
+              path: "tbkType",
+              component: () => import("../views/caiji/tbkCate.vue"),
+            },
+          ]
         },
         {
           path: "userManage",

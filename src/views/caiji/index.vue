@@ -1,0 +1,9 @@
+<!--后台管理首页-->
+<template>
+  <div class="custom-view">
+    <router-view></router-view>
+  </div>
+</template>
+<script lang="ts" setup>
+import { RouterView } from "vue-router"
+</script>

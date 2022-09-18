@@ -213,14 +213,14 @@ const state = reactive({
     },
     {
       title: "推广",
-      path: "/caijiList",
+      path: "/tbk",
       id: "",
       auth: "ROLE_admin",
       icon: "el-icon-sell",
       children: [
-        { title: "采集", path: "/caiji", id: "", auth: "ROLE_admin" },
-        { title: "采集列表", path: "/caijiList", id: "", auth: "ROLE_admin" },
-        { title: "分类", path: "/tbkType", id: "", auth: "ROLE_admin" },
+        { title: "采集", path: "/tbk/caiji", id: "", auth: "ROLE_admin" },
+        { title: "采集列表", path: "/tbk/caijiList", id: "", auth: "ROLE_admin" },
+        { title: "分类", path: "/tbk/tbkType", id: "", auth: "ROLE_admin" },
       ],
     },
     {
