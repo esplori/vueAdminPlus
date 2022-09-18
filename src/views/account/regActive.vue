@@ -7,7 +7,6 @@
 import { getValidEmailEffectiveApi } from "@/views/account/api";
 import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import { ElMessage } from "element-plus";
 
 const router = useRouter();
 const route = useRoute();

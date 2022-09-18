@@ -96,6 +96,7 @@ watchEffect(() => {
       display: flex;
       align-items: center;
       width: 100%;
+      height:45px
     }
     .tips {
       width: 100%;
