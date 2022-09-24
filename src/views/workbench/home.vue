@@ -135,6 +135,7 @@
         </el-table-column>
         <el-table-column prop="referrer" label="地址"> </el-table-column>
         <el-table-column prop="ip" label="ip地址"> </el-table-column>
+        <el-table-column prop="region" label="归属地"> </el-table-column>
         <el-table-column prop="createDate" label="时间"> </el-table-column>
       </el-table>
       <div class="date-picker-change">
@@ -150,6 +151,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="ip" label="ip地址"> </el-table-column>
+        <el-table-column prop="region" label="归属地"> </el-table-column>
         <el-table-column prop="createDate" label="时间"> </el-table-column>
       </el-table>
     </div>
