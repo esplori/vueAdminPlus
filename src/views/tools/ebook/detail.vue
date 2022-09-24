@@ -1,6 +1,6 @@
 <template>
   <div class="ebook">
-    <!-- <div v-html="state.txtPre"></div> -->
+    <div class="title"></div>
     <pre>{{state.txtPre}}</pre>
   </div>
 </template>
@@ -14,7 +14,7 @@ let state = reactive({
 const urlToBlob = () => {
   // let file_url= 'http://admin.dsiab.com/eb/%E7%88%B1%E6%83%85%E6%95%85%E4%BA%8B.txt'
   // let file_url = '/static/eb/%E7%88%B1%E6%83%85%E6%95%85%E4%BA%8B.txt'
-  let file_url = '/static/eb/船上_77119小说.txt'
+  let file_url = '/static/eb/船上.txt'
   //可以是具体.txt也可以是接口返回的blob，或者web转换
   let xhr = new XMLHttpRequest();
   xhr.open("get", file_url, true);
@@ -40,7 +40,13 @@ onMounted(() => {
 </script>
 <style scoped lang="scss">
 .ebook {
-  font-size: 18px;
+  background: #ebe5d8;
+  padding: 20px;
+  font-size: 20px;
   line-height: 2rem;
+  .title{
+    text-align: center;
+    font-size: 24px;
+  }
 }
 </style>
