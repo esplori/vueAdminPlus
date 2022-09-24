@@ -5,45 +5,29 @@
         <div class="logo">
           <a href="https://www.dsiab.com" target="_blank">javascript技术分享</a>
         </div>
-        <el-menu
-          style="height: 100%; overflow-y: auto"
-          default-active="/home"
-          class="el-menu-vertical"
-          router
-        >
+        <el-menu style="height: 100%; overflow-y: auto" default-active="/home" class="el-menu-vertical" router>
           <div v-for="(item, index) in state.menuList" :key="index">
-            <el-menu-item
-              v-if="
-                !item.children &&
-                userInfo.some((role:any) => {
-                  return item.auth.includes(role);
-                })
-              "
-              :index="item.path"
-            >
+            <el-menu-item v-if="
+              !item.children &&
+              userInfo.some((role:any) => {
+                return item.auth.includes(role);
+              })
+            " :index="item.path">
               <template #title>{{ item.title }}</template>
             </el-menu-item>
-            <el-sub-menu
-              :index="item.path"
-              v-if="
-                item.children &&
-                userInfo.some((role:any) => {
-                  return item.auth.includes(role);
-                })
-              "
-            >
+            <el-sub-menu :index="item.path" v-if="
+              item.children &&
+              userInfo.some((role:any) => {
+                return item.auth.includes(role);
+              })
+            ">
               <template #title>{{ item.title }}</template>
-              <el-menu-item
-                :index="it.path"
-                v-for="(it, idx) in item.children"
-                :key="idx"
-                v-show="
-                  it.auth &&
-                  userInfo.some((role:any) => {
-                    return it.auth.includes(role);
-                  })
-                "
-              >
+              <el-menu-item :index="it.path" v-for="(it, idx) in item.children" :key="idx" v-show="
+                it.auth &&
+                userInfo.some((role:any) => {
+                  return it.auth.includes(role);
+                })
+              ">
                 <template #title>{{ it.title }}</template>
               </el-menu-item>
             </el-sub-menu>
@@ -147,7 +131,13 @@ const state = reactive({
       auth: "ROLE_admin,ROLE_author",
       icon: "el-icon-crop",
       children: [
-      {
+        {
+          title: "电子书查看",
+          path: "/tools/ebook",
+          id: "",
+          auth: "ROLE_admin,ROLE_author",
+        },
+        {
           title: "ip归属地查询",
           path: "/tools/getRegionFromIp",
           id: "",
@@ -271,6 +261,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 .admin-home {
   height: 100%;
+
   .content-container {
     height: 100%;
     max-width: 1280px;
@@ -278,9 +269,11 @@ onMounted(() => {
     display: flex;
     justify-content: space-between;
   }
+
   .left-menu {
     border-radius: 3px;
     background: #fff;
+
     .logo {
       font-size: 14px;
       text-align: center;
@@ -288,12 +281,14 @@ onMounted(() => {
       color: #fff;
       border-bottom: 1px solid #ddd;
     }
+
     .switch-icon {
       text-align: center;
       padding-top: 40px;
       padding-bottom: 20px;
     }
   }
+
   .right-content {
     width: 100%;
     padding: 0 20px 20px 20px;
@@ -303,14 +298,17 @@ onMounted(() => {
     border-radius: 3px;
     height: fit-content;
   }
+
   .el-menu-vertical:not(.el-menu--collapse) {
     width: 180px;
     min-height: 400px;
     overflow-x: hidden;
   }
+
   .el-menu {
     border-right: none;
   }
+
   .global-music {
     width: 100%;
     position: absolute;
@@ -319,6 +317,7 @@ onMounted(() => {
     // height: 80px;
     color: #fff;
   }
+
   .eltabs {
     width: 80%;
   }

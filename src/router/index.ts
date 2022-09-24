@@ -139,6 +139,10 @@ const router = createRouter({
           component: () => import("../views/tools/index.vue"),
           children: [
             {
+              path: "ebook",
+              component: () => import("../views/tools/ebook/index.vue"),
+            },
+            {
               path: "getRegionFromIp",
               component: () => import("../views/tools/getRegionFromIp/index.vue"),
             },
