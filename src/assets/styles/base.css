@@ -50,7 +50,7 @@
     box-sizing: border-box;
     margin: 0;
     position: relative;
-    font-weight: normal;
+    font-weight: inherit;
 }
 
 body {
@@ -60,8 +60,8 @@ body {
     transition: color 0.5s, background-color 0.5s;
     line-height: 1.6;
     text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    /* -webkit-font-smoothing: antialiased; */
+    /* -moz-osx-font-smoothing: grayscale; */
     font-size: 14px;
     font-family: "Microsoft YaHei", "PingFang SC", "微软雅黑", "Helvetica Neue", Helvetica, Arial, sans-serif;
     -webkit-text-size-adjust: 100%
