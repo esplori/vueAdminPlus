@@ -43,18 +43,3 @@
 	- ip 归属地查询
 	- 持续更新中...
 
-### 关联项目
-
-- 博客首页: nuxt-web (https://gitee.com/wilkwo/nuxt-web.git) 
-  
-- 体验地址：https://www.dsiab.com
-
-
-### 体验地址
-
-
-- 地址：http://admin.dsiab.com
-
-- 体验账号、密码： test / test
-  
-<!-- - 一起交流：抠抠群：744203401 -->
