@@ -35,3 +35,55 @@
 - 个人设置：用户个人信息修改
 - 系统设置：站点设置、资源管理、在线编译、回收站
 
+
+### 关联项目
+
+- 博客首页: nuxt-web (https://gitee.com/wilkwo/nuxt-web.git) 
+  
+- 体验地址：https://www.dsiab.com
+
+
+### 体验地址
+
+
+- 地址：http://admin.dsiab.com
+
+- 体验账号、密码： test / test
+  
+- 加qq群一起交流：744203401
+
+
+
+### 演示截图
+
+
+<img src="./src/assets/images/screenshot.png" alt="赞赏" width="500px" />
+
+
+
+### 运行项目
+
+
+
+``` bash
+
+#下载代码
+gitee: git clone https://gitee.com/wilkwo/vue-admin-plus.git
+
+# 安装依赖
+npm install
+
+# 启动应用 
+npm run dev
+
+# 生成应用
+npm run build
+
+```
+
+### 感谢赞赏  
+
+
+ 创作不易，你的赞赏和认可是持续更新的动力~
+
+<img src="./src/assets/images/zanshan.jpeg" alt="赞赏" width="200px" />
