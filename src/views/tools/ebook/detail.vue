@@ -24,7 +24,6 @@ const urlToBlob = () => {
       console.log(this.response)
       const reader = new FileReader()
       reader.onload = function () {
-        debugger
         state.txtPre = reader.result//获取的数据data
         console.log('reader.result', reader.result)
       }

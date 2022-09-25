@@ -18,3 +18,9 @@ export async function getRegionFromIpApi(data: Object) {
   return get(url, data, options);
 }
 
+export async function getBookListApi(data: Object) {
+  const url = `${contextPath}/tools/getBookList`;
+  const options = {};
+  return post(url, data, options);
+}
+
