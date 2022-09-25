@@ -1,7 +1,7 @@
 <template>
   <div class="ebook">
-    <div v-for="item in state.data" class="item" @click="detail">
-      {{item.filename}}
+    <div v-for="item in state.data" class="item" @click="detail(item.filename)">
+      {{item.filename.split(".")[0]}}
     </div>
   </div>
 </template>
@@ -13,7 +13,7 @@ import { useRouter } from "vue-router"
 let router = useRouter()
 let state = reactive({
   data: [
-    {filename:""}
+    { filename: "" }
   ],
   total: 0,
   params: {
@@ -32,10 +32,13 @@ const getBookList = async () => {
     state.total = res.data.total;
   }
 };
-const detail = () => {
+const detail = (filename: any) => {
   debugger
   router.push({
-    path: "ebookDetail"
+    path: "ebookDetail",
+    params: {
+      filename: filename
+    }
   })
 }
 </script>
@@ -47,8 +50,8 @@ const detail = () => {
 
   .item {
     cursor: pointer;
-    width: 120px;
-    height: 140px;
+    width: 140px;
+    height: 160px;
     border: 1px solid #ddd;
     background: #ebe5d8;
     display: flex;
@@ -56,7 +59,13 @@ const detail = () => {
     justify-content: center;
     margin-left: 10px;
     margin-top: 10px;
-
+    padding: 0 10px;
+    text-align: center;
+    word-break: break-word;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
   }
 }
 </style>

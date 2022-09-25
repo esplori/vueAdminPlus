@@ -1,16 +1,15 @@
 <template>
   <div class="ebook">
     <div class="title"></div>
-    <pre>{{state.txtPre}}</pre>
+    <pre>{{txtPre}}</pre>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { reactive, onMounted } from "vue";
-
-let state = reactive({
-  txtPre: ""
-});
+import { reactive, onMounted,ref } from "vue";
+import {useRoute} from "vue-router"
+let route = useRoute()
+let txtPre:any = ref("") ;
 const urlToBlob = () => {
   // let file_url= 'http://admin.dsiab.com/eb/%E7%88%B1%E6%83%85%E6%95%85%E4%BA%8B.txt'
   // let file_url = '/static/eb/%E7%88%B1%E6%83%85%E6%95%85%E4%BA%8B.txt'
@@ -24,11 +23,10 @@ const urlToBlob = () => {
       console.log(this.response)
       const reader = new FileReader()
       reader.onload = function () {
-        state.txtPre = reader.result//获取的数据data
+        txtPre.value = reader.result//获取的数据data
         console.log('reader.result', reader.result)
       }
       reader.readAsText(this.response, "GBK");
-      // reader.readAsText(this.response);
     }
   };
   xhr.send();
