@@ -132,7 +132,7 @@ const state = reactive({
       icon: "el-icon-crop",
       children: [
         {
-          title: "电子书查看",
+          title: "电子书",
           path: "/tools/ebook",
           id: "",
           auth: "ROLE_admin,ROLE_author",

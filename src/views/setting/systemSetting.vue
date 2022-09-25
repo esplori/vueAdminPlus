@@ -19,6 +19,9 @@
       <el-form-item label="文件备份实际路径:">
         <el-input v-model="state.form.bakRealUrl"> </el-input>
       </el-form-item>
+      <el-form-item label="book实际路径:">
+        <el-input v-model="state.form.bookUrl"> </el-input>
+      </el-form-item>
       <el-form-item label="备案号:">
         <el-input v-model="state.form.beianNo" type="textarea"> </el-input>
       </el-form-item>
@@ -87,6 +90,7 @@ const state = reactive({
     bakRealUrl: "",
     siteEmail: "",
     carouselEnable: "N",
+    bookUrl:""
   },
   tableData: [{ imgUrl: "", desc: "", url: "" }],
 });
