@@ -36,7 +36,7 @@ const detail = (filename: any) => {
   debugger
   router.push({
     path: "ebookDetail",
-    params: {
+    query: {
       filename: filename
     }
   })
