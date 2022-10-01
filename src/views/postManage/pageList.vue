@@ -125,11 +125,11 @@ const getListByTags = async (val: any) => {
     state.total = res.data.total;
   }
 };
-const sortCchange = (prop:any, order:any) => {
+const sortCchange = (column: any ) => {
   state.params.page = 1;
   // 需要转换成sql对应的排序字段
-  state.params.order = order === "ascending" ? "asc" : "desc";
-  state.params.orderBy = prop;
+  state.params.order = column.order === "ascending" ? "asc" : "desc";
+  state.params.orderBy = column.prop;
   getList();
 };
 
