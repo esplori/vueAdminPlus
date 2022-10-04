@@ -5,11 +5,11 @@
         <el-input v-model="state.form.nickname"></el-input>
       </el-form-item>
       <el-form-item label="个性签名:">
-        <el-input v-model="state.form.userdesc" type="textarea"></el-input>
+        <el-input v-model="state.form.userdesc" type="textarea" :rows="5"></el-input>
       </el-form-item>
-      <el-form-item label="头像:">
+      <!-- <el-form-item label="头像:">
         <el-input v-model="state.form.avatar"> </el-input>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="邮箱:">
         <el-input v-model="state.form.email"> </el-input>
       </el-form-item>
@@ -17,7 +17,7 @@
         <div>{{state.form.memberPoints || 0}}</div>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submit">更新</el-button>
+        <el-button type="primary" @click="submit">保存</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -56,6 +56,7 @@ const getUserInfo = async () => {
 
 <style scoped lang="scss">
 .user-info {
+  width: 40%;
   padding: 20px 0;
 }
 </style>
