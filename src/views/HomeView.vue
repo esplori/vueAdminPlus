@@ -184,6 +184,7 @@ const state = reactive({
       children: [
         { title: "用户管理", path: "/userManage", id: "", auth: "ROLE_admin" },
         { title: "角色管理", path: "/roleManage", id: "", auth: "ROLE_admin" },
+        { title: "菜单管理", path: "/menuManage", id: "", auth: "ROLE_admin" },
       ],
     },
     {
