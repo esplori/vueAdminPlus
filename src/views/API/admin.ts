@@ -242,3 +242,9 @@ export async function getListByTagsApi(data: any) {
   const options = { showLoading: true };
   return get(Url, data, options);
 }
+
+export async function getMenusApi(data: any) {
+  const Url = `${contextPath}/admin/getMenus`;
+  const options = { showLoading: true };
+  return get(Url, data, options);
+}

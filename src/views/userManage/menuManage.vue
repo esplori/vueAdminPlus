@@ -109,7 +109,7 @@ const loadNode = async (node: any, resolve: (data: any) => void) => {
   }
   setTimeout(() => {
     let data = []
-    getMenuListApi({ parentId: node.data.menuId }).then((res: any) => {
+    getMenuListApi({ menuId: node.data.menuId }).then((res: any) => {
       // 添加默认菜单
       // let defaultMenu = [{ name: "javascript技术分享" }]
       data = res.data.result;

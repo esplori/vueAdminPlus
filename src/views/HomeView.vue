@@ -7,28 +7,13 @@
         </div>
         <el-menu style="height: 100%; overflow-y: auto" default-active="/home" class="el-menu-vertical" router>
           <div v-for="(item, index) in state.menuList" :key="index">
-            <el-menu-item v-if="
-              !item.children &&
-              userInfo.some((role:any) => {
-                return item.auth.includes(role);
-              })
-            " :index="item.path">
-              <template #title>{{ item.title }}</template>
+            <el-menu-item v-if="!(item.children && item.children.length)" :index="item.path">
+              <template #title>{{ item.name }}</template>
             </el-menu-item>
-            <el-sub-menu :index="item.path" v-if="
-              item.children &&
-              userInfo.some((role:any) => {
-                return item.auth.includes(role);
-              })
-            ">
-              <template #title>{{ item.title }}</template>
-              <el-menu-item :index="it.path" v-for="(it, idx) in item.children" :key="idx" v-show="
-                it.auth &&
-                userInfo.some((role:any) => {
-                  return it.auth.includes(role);
-                })
-              ">
-                <template #title>{{ it.title }}</template>
+            <el-sub-menu :index="item.path" v-if="item.children && item.children.length">
+              <template #title>{{ item.name }}</template>
+              <el-menu-item :index="it.path" v-for="(it, idx) in item.children" :key="idx">
+                <template #title>{{ it.name }}</template>
               </el-menu-item>
             </el-sub-menu>
           </div>
@@ -47,7 +32,7 @@ import { RouterView } from "vue-router";
 import { ref, reactive, computed, onMounted, toRefs, watchEffect } from "vue";
 import adminHeader from "./components/admin-header.vue";
 import commonFooter from "./components/footer.vue";
-import { getUserInfoApi } from "@/views/API/admin.js";
+import { getUserInfoApi, getMenusApi } from "@/views/API/admin.js";
 
 const state = reactive({
   menuList: [
@@ -255,8 +240,14 @@ const getUserInfo = async () => {
   const res: any = await getUserInfoApi({});
   state.userInfoObj = res.data;
 };
+const getMenus = async () => {
+  getMenusApi({}).then((res:any) => {
+    state.menuList = res.data.result
+  })
+}
 onMounted(() => {
   getUserInfo();
+  getMenus()
 });
 </script>
 <style lang="scss" scoped>
