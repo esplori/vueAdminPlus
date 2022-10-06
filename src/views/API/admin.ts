@@ -248,3 +248,8 @@ export async function getMenusApi(data: any) {
   const options = { showLoading: true };
   return get(Url, data, options);
 }
+export async function updateRoleNameApi(data: any) {
+  const Url = `${contextPath}/admin/updateRoleName`;
+  const options = { showLoading: true };
+  return post(Url, data, options);
+}
