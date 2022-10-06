@@ -17,7 +17,7 @@
           <el-form-item label="">
             <el-button type="primary" @click="state.showAdd = true">新增</el-button>
             <el-button type="primary" @click="updateMenu(state.form)">保存</el-button>
-            <el-button type="danger" @click="deleteMenuConfirm(state.form)">删除</el-button>
+            <el-button type="danger" @click="deleteMenuConfirm()">删除</el-button>
           </el-form-item>
         </el-form>
         <div v-if="state.showAdd">
@@ -79,7 +79,7 @@ const getMenuList = async () => {
   getMenusApi({}).then((res: any) => {
     // 添加默认菜单
     let defaultMenu = [{ name: "javascript技术分享", children: res.data.result }]
-    state.data = defaultMenu;
+    state.data = defaultMenu as any;
     state.form = {
       name: "",
       path: "",
