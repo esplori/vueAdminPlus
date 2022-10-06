@@ -2,7 +2,7 @@
   <div class="menu-manage">
     <el-row>
       <el-col :span="12">
-        <el-tree node-key="menuId" :load="loadNode" lazy :data="state.data" :expand-on-click-node="false"
+        <el-tree node-key="menuId" default-expand-all :data="state.data" :expand-on-click-node="false"
           :props="state.defaultProps" @node-click="handleNodeClick">
         </el-tree>
       </el-col>
@@ -47,8 +47,11 @@ import {
   updateMenuApi,
   deleteMenuApi
 } from "../API/auth";
+import {
+  getMenusApi,
+} from "../API/admin";
 
-import { ref, reactive, onMounted, nextTick } from "vue";
+import { reactive, onMounted } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
 
 let state = reactive({
@@ -73,10 +76,10 @@ onMounted(() => {
   getMenuList();
 });
 const getMenuList = async () => {
-  getMenuListApi({}).then((res: any) => {
+  getMenusApi({}).then((res: any) => {
     // 添加默认菜单
-    // let defaultMenu = [{ name: "javascript技术分享" }]
-    state.data = res.data.result;
+    let defaultMenu = [{ name: "javascript技术分享", children: res.data.result }]
+    state.data = defaultMenu;
     state.form = {
       name: "",
       path: "",
@@ -101,30 +104,28 @@ const append = async (form: any) => {
     ElMessage.success("新增成功")
     getMenuList();
   })
-  // getMenuList()
 };
-const loadNode = async (node: any, resolve: (data: any) => void) => {
-  if (!node.data.menuId) {
-    return
-  }
-  setTimeout(() => {
-    let data = []
-    getMenuListApi({ menuId: node.data.menuId }).then((res: any) => {
-      // 添加默认菜单
-      // let defaultMenu = [{ name: "javascript技术分享" }]
-      data = res.data.result;
-      resolve(data)
-    })
-  }, 200)
-}
+// 懒加载
+// const loadNode = async (node: any, resolve: (data: any) => void) => {
+//   if (!node.data.menuId) {
+//     return
+//   }
+//   setTimeout(() => {
+//     let data = []
+//     getMenuListApi({ menuId: node.data.menuId }).then((res: any) => {
+//       // 添加默认菜单
+//       // let defaultMenu = [{ name: "javascript技术分享" }]
+//       data = res.data.result;
+//       resolve(data)
+//     })
+//   }, 200)
+// }
 const updateMenu = async (form: any) => {
   updateMenuApi({ ...form }).then((res: any) => {
     ElMessage.success("保存成功")
     getMenuList();
   })
 }
-const remove = (data: any, parentNode: any) => {
-};
 const deleteMenuConfirm = () => {
   ElMessageBox.confirm("此操作将删除该条数据, 是否继续?", "提示", {
     confirmButtonText: "确定",
