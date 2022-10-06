@@ -247,7 +247,7 @@ const getMenus = async () => {
 }
 onMounted(() => {
   getUserInfo();
-  // getMenus()
+  getMenus()
 });
 </script>
 <style lang="scss" scoped>

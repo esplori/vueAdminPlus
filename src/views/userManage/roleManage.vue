@@ -19,7 +19,7 @@
           </el-form-item>
           <el-form-item label="菜单权限：">
             <div class="tree-container">
-              <el-tree node-key="menuId" v-model="state.checkedKeys" ref="treeRef" show-checkbox default-expand-all
+              <el-tree check-strictly node-key="menuId" v-model="state.checkedKeys" ref="treeRef" show-checkbox default-expand-all
                 :data="state.treeData" :expand-on-click-node="false" :props="state.defaultProps">
               </el-tree>
             </div>
