@@ -11,13 +11,20 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog
-      title="角色修改"
-      v-model="state.editObj.dialogVisible"
-      width="30%"
-    >
+    <el-dialog title="角色修改" v-model="state.editObj.dialogVisible" width="50%">
       <div>
-        <el-input v-model="state.editObj.rolename"></el-input>
+        <el-form>
+          <el-form-item label="角色名称：">
+            <el-input v-model="state.editObj.rolename"></el-input>
+          </el-form-item>
+          <el-form-item label="菜单权限：">
+            <div class="tree-container">
+              <el-tree node-key="menuId" v-model="state.checkedKeys" ref="treeRef" show-checkbox default-expand-all
+                :data="state.treeData" :expand-on-click-node="false" :props="state.defaultProps">
+              </el-tree>
+            </div>
+          </el-form-item>
+        </el-form>
       </div>
       <template #footer>
         <span class="dialog-footer">
@@ -30,33 +37,52 @@
 </template>
 
 <script lang="ts" setup>
-import { getRoleListApi,updateRoleNameApi } from "../API/admin";
-import { ref, onMounted,reactive } from "vue";
-import { ElMessageBox } from "element-plus";
+import { getRoleListApi, updateRoleNameApi, getMenusApi, getMenuByRoleApi } from "../API/admin";
+import { ref, onMounted, reactive } from "vue";
+import { ElMessageBox, ElMessage } from "element-plus";
 
 let state = reactive({
   data: [],
   editObj: {
     dialogVisible: false,
     rolename: "",
-    roleId: ""
-  }
+    roleId: 0
+  },
+  treeData: [],
+  defaultProps: {
+    children: 'children',
+    label: 'name',
+  },
+  checkedKeys: []
 });
 onMounted(() => {
-  getRoleLis();
+  getRoleList();
 });
 
-const getRoleLis = async () => {
-  const res:any = await getRoleListApi({});
+const getRoleList = async () => {
+  const res: any = await getRoleListApi({});
   if (res) {
     state.data = res.data.result;
   }
 };
 
+const getMenuByRole = async (roleId: number) => {
+  const res: any = await getMenuByRoleApi({
+    roleId
+  });
+  if (res) {
+    treeRef.value.setCheckedKeys(res.data.result)
+  }
+};
+
+let treeRef = ref()
+
 const edit = (row: any) => {
   state.editObj.dialogVisible = true;
   state.editObj.rolename = row.roleName;
   state.editObj.roleId = row.id;
+  getMenuList()
+  getMenuByRole(state.editObj.roleId)
 };
 
 const deleteMenuConfirm = (row: any) => {
@@ -70,28 +96,34 @@ const deleteMenuConfirm = (row: any) => {
 }
 
 const submit = async (row: any) => {
+  let checkedKeys = treeRef.value.getCheckedKeys()
   updateRoleNameApi({
     roleName: state.editObj.rolename,
-    id:state.editObj.roleId
-  }).then((res:any) =>{
+    id: state.editObj.roleId,
+    checkedKeys: checkedKeys
+  }).then((res: any) => {
     state.editObj.dialogVisible = false;
-    getRoleLis();
+    ElMessage.success("保存成功")
+    getRoleList();
   })
 };
+
+const getMenuList = async () => {
+  getMenusApi({}).then((res: any) => {
+    // 添加默认菜单
+    // let defaultMenu = [{ name: "javascript技术分享", children: res.data.result }]
+    state.treeData = res.data.result;
+  })
+}
+
 </script>
 
 <style scoped lang="scss">
-.music {
-  width: 100%;
-  height: 100%;
-  .music-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 600px;
+.role-manage {
+  .tree-container {
     height: 400px;
-    background: #001529;
-    margin: auto;
+    padding: 20px 0;
+    overflow-y: auto;
   }
 }
 </style>

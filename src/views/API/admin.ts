@@ -253,3 +253,8 @@ export async function updateRoleNameApi(data: any) {
   const options = { showLoading: true };
   return post(Url, data, options);
 }
+export async function getMenuByRoleApi(data: any) {
+  const Url = `${contextPath}/admin/getMenuByRole`;
+  const options = { showLoading: true };
+  return get(Url, data, options);
+}
