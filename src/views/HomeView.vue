@@ -37,33 +37,33 @@ import { getUserInfoApi, getMenusApi } from "@/views/API/admin.js";
 const state = reactive({
   menuList: [
     {
-      title: "首页",
+      name: "首页",
       path: "/home",
       id: "",
       icon: "el-icon-s-home",
       auth: "ROLE_admin,ROLE_author",
     },
     {
-      title: "导航管理",
+      name: "导航管理",
       path: "/navigationList",
       id: "",
       auth: "ROLE_admin",
       icon: "el-icon-s-promotion",
       children: [
         {
-          title: "导航列表",
+          name: "导航列表",
           path: "/navigationList",
           id: "",
           auth: "ROLE_admin",
         },
         {
-          title: "分类管理",
+          name: "分类管理",
           path: "/navigationCate",
           id: "",
           auth: "ROLE_admin",
         },
         {
-          title: "新增导航",
+          name: "新增导航",
           path: "/navigationEdit",
           id: "",
           auth: "ROLE_admin",
@@ -71,38 +71,38 @@ const state = reactive({
       ],
     },
     {
-      title: "文章管理",
+      name: "文章管理",
       path: "/pageList",
       id: "",
       icon: "el-icon-s-order",
       auth: "ROLE_admin,ROLE_author",
       children: [
         {
-          title: "文章列表",
+          name: "文章列表",
           path: "/pageList",
           id: "",
           auth: "ROLE_admin,ROLE_author",
         },
         {
-          title: "新增文章",
+          name: "新增文章",
           path: "/post",
           id: "",
           auth: "ROLE_admin,ROLE_author",
         },
         {
-          title: "评论管理",
+          name: "评论管理",
           path: "/commentList",
           id: "",
           auth: "ROLE_admin",
         },
         {
-          title: "分类管理",
+          name: "分类管理",
           path: "/cateList",
           id: "",
           auth: "ROLE_author",
         },
         {
-          title: "专题管理",
+          name: "专题管理",
           path: "/topic",
           id: "",
           auth: "ROLE_admin",
@@ -110,50 +110,50 @@ const state = reactive({
       ],
     },
     {
-      title: "小工具",
+      name: "小工具",
       path: "/tools/jsonviewer",
       id: "",
       auth: "ROLE_admin,ROLE_author",
       icon: "el-icon-crop",
       children: [
         {
-          title: "电子书",
+          name: "电子书",
           path: "/tools/ebook",
           id: "",
           auth: "ROLE_admin,ROLE_author",
         },
         {
-          title: "ip归属地查询",
+          name: "ip归属地查询",
           path: "/tools/getRegionFromIp",
           id: "",
           auth: "ROLE_admin,ROLE_author",
         },
         {
-          title: "json格式化",
+          name: "json格式化",
           path: "/tools/jsonviewer",
           id: "",
           auth: "ROLE_admin,ROLE_author",
         },
         {
-          title: "抽奖",
+          name: "抽奖",
           path: "/tools/choujiang",
           id: "",
           auth: "ROLE_admin,ROLE_author",
         },
         {
-          title: "点名",
+          name: "点名",
           id: "",
           path: "/tools/dianming",
           auth: "ROLE_admin,ROLE_author",
         },
         {
-          title: "图片转成base64",
+          name: "图片转成base64",
           path: "/tools/img2base64",
           id: "",
           auth: "ROLE_admin,ROLE_author",
         },
         {
-          title: "二维码生成",
+          name: "二维码生成",
           path: "/tools/qrcode",
           id: "",
           auth: "ROLE_admin,ROLE_author",
@@ -161,26 +161,26 @@ const state = reactive({
       ],
     },
     {
-      title: "权限管理",
+      name: "权限管理",
       path: "/userManage",
       id: "",
       auth: "ROLE_admin",
       icon: "el-icon-s-custom",
       children: [
-        { title: "用户管理", path: "/userManage", id: "", auth: "ROLE_admin" },
-        { title: "角色管理", path: "/roleManage", id: "", auth: "ROLE_admin" },
-        { title: "菜单管理", path: "/menuManage", id: "", auth: "ROLE_admin" },
+        { name: "用户管理", path: "/userManage", id: "", auth: "ROLE_admin" },
+        { name: "角色管理", path: "/roleManage", id: "", auth: "ROLE_admin" },
+        { name: "菜单管理", path: "/menuManage", id: "", auth: "ROLE_admin" },
       ],
     },
     {
-      title: "个人设置",
+      name: "个人设置",
       path: "/userSetting",
       id: "",
       auth: "ROLE_admin,ROLE_author",
       icon: "el-icon-user",
       children: [
         {
-          title: "个人资料",
+          name: "个人资料",
           path: "/userSetting",
           id: "",
           auth: "ROLE_admin,ROLE_author",
@@ -188,35 +188,35 @@ const state = reactive({
       ],
     },
     {
-      title: "推广",
+      name: "推广",
       path: "/tbk",
       id: "",
       auth: "ROLE_admin",
       icon: "el-icon-sell",
       children: [
-        { title: "采集", path: "/tbk/caiji", id: "", auth: "ROLE_admin" },
-        { title: "采集列表", path: "/tbk/caijiList", id: "", auth: "ROLE_admin" },
-        { title: "分类", path: "/tbk/tbkType", id: "", auth: "ROLE_admin" },
+        { name: "采集", path: "/tbk/caiji", id: "", auth: "ROLE_admin" },
+        { name: "采集列表", path: "/tbk/caijiList", id: "", auth: "ROLE_admin" },
+        { name: "分类", path: "/tbk/tbkType", id: "", auth: "ROLE_admin" },
       ],
     },
     {
-      title: "系统设置",
+      name: "系统设置",
       path: "/systemSetting",
       id: "",
       auth: "ROLE_admin",
       icon: "el-icon-setting",
       children: [
         {
-          title: "站点设置",
+          name: "站点设置",
           path: "/systemSetting",
           id: "",
           auth: "ROLE_admin",
         },
-        { title: "资源管理", path: "/sourceList", id: "", auth: "ROLE_admin" },
-        { title: "编译部署", path: "/deploy", id: "", auth: "ROLE_admin" },
-        { title: "回收站", path: "/recycle", id: "", auth: "ROLE_admin" },
+        { name: "资源管理", path: "/sourceList", id: "", auth: "ROLE_admin" },
+        { name: "编译部署", path: "/deploy", id: "", auth: "ROLE_admin" },
+        { name: "回收站", path: "/recycle", id: "", auth: "ROLE_admin" },
         {
-          title: "发送邮件",
+          name: "发送邮件",
           path: "/mail",
           id: "",
           auth: "ROLE_admin",
@@ -247,7 +247,7 @@ const getMenus = async () => {
 }
 onMounted(() => {
   getUserInfo();
-  getMenus()
+  // getMenus()
 });
 </script>
 <style lang="scss" scoped>
