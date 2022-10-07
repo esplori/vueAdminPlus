@@ -158,7 +158,7 @@ export async function updateSiteInfoApi(data: any) {
   return post(url, data, options);
 }
 export async function sendMailApi(data: any) {
-  const url = `${contextPath}/admin/mail`;
+  const url = `${contextPath}/admin/sendMail`;
   const options = { showLoading: true };
   return post(url, data, options);
 }

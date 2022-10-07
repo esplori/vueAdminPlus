@@ -4,6 +4,9 @@
       <el-form-item label="收件人：">
         <el-input v-model="state.form.mailTo"></el-input>
       </el-form-item>
+      <el-form-item label="标题：">
+        <el-input v-model="state.form.title"></el-input>
+      </el-form-item>
       <el-form-item label="内容：">
         <el-input type="textarea" :rows="8" v-model="state.form.content"></el-input>
       </el-form-item>
@@ -22,6 +25,7 @@ const state = reactive({
   form: {
     mailTo: "2381773226@qq.com",
     content: "",
+    title: ""
   },
 });
 const sendMail = async () => {
