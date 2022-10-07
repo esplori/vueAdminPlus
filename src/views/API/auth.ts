@@ -7,8 +7,8 @@ export async function insertMenuApi(data: any) {
   return post(url, data, options);
 }
 
-export async function getMenuListApi(data: any) {
-  const url = `${contextPath}/admin/getMenuList`;
+export async function getAllMenusApi(data: any) {
+  const url = `${contextPath}/admin/getAllMenus`;
   const options = { showLoading: false };
   return get(url, data, options);
 }

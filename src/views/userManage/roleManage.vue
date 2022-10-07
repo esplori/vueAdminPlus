@@ -37,7 +37,8 @@
 </template>
 
 <script lang="ts" setup>
-import { getRoleListApi, updateRoleNameApi, getMenusApi, getMenuByRoleApi } from "../API/admin";
+import { getRoleListApi, updateRoleNameApi, getMenuByRoleApi } from "../API/admin";
+import { getAllMenusApi } from "../API/auth";
 import { ref, onMounted, reactive } from "vue";
 import { ElMessageBox, ElMessage } from "element-plus";
 
@@ -109,7 +110,7 @@ const submit = async (row: any) => {
 };
 
 const getMenuList = async () => {
-  getMenusApi({}).then((res: any) => {
+  getAllMenusApi({}).then((res: any) => {
     // 添加默认菜单
     // let defaultMenu = [{ name: "javascript技术分享", children: res.data.result }]
     state.treeData = res.data.result;

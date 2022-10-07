@@ -43,13 +43,10 @@
 <script lang="ts" setup>
 import {
   insertMenuApi,
-  getMenuListApi,
+  getAllMenusApi,
   updateMenuApi,
   deleteMenuApi
 } from "../API/auth";
-import {
-  getMenusApi,
-} from "../API/admin";
 
 import { reactive, onMounted } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
@@ -76,7 +73,7 @@ onMounted(() => {
   getMenuList();
 });
 const getMenuList = async () => {
-  getMenusApi({}).then((res: any) => {
+  getAllMenusApi({}).then((res: any) => {
     // 添加默认菜单
     let defaultMenu = [{ name: "javascript技术分享", children: res.data.result }]
     state.data = defaultMenu as any;
