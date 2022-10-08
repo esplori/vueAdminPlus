@@ -81,11 +81,6 @@ export async function delCateApi(data: any) {
   const options = { showLoading: true };
   return post(Url, data, options);
 }
-export async function revertCateApi(data: any) {
-  const Url = `${contextPath}/admin/revertCate`;
-  const options = { showLoading: true };
-  return post(Url, data, options);
-}
 export async function insertCateApi(data: any) {
   const url = `${contextPath}/admin/insertCate`;
   const options = { showLoading: true };
