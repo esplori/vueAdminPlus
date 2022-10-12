@@ -1,10 +1,8 @@
 <template>
   <div class="admin-home">
+    <adminHeader :userInfoObj="state.userInfoObj"></adminHeader>
     <div class="content-container">
       <div class="left-menu">
-        <div class="logo">
-          <a href="https://www.dsiab.com" target="_blank">javascript技术分享</a>
-        </div>
         <el-menu style="height: 100%; overflow-y: auto" default-active="/home" class="el-menu-vertical" router>
           <div v-for="(item, index) in state.menuList" :key="index">
             <el-menu-item v-if="!(item.children && item.children.length)" :index="item.path">
@@ -20,11 +18,10 @@
         </el-menu>
       </div>
       <div class="right-content">
-        <adminHeader :userInfoObj="state.userInfoObj"></adminHeader>
         <RouterView />
-        <commonFooter></commonFooter>
       </div>
     </div>
+    <commonFooter></commonFooter>
   </div>
 </template>
 <script setup lang="ts">
@@ -265,29 +262,15 @@ onMounted(() => {
   .left-menu {
     border-radius: 3px;
     background: #fff;
-
-    .logo {
-      font-size: 14px;
-      text-align: center;
-      padding: 32px 0;
-      color: #fff;
-      border-bottom: 1px solid #ddd;
-    }
-
-    .switch-icon {
-      text-align: center;
-      padding-top: 40px;
-      padding-bottom: 20px;
-    }
+    height: 100vh;
   }
 
   .right-content {
     width: 100%;
-    padding: 0 20px 20px 20px;
+    padding: 20px;
     padding-bottom: 20px;
     background: #fff;
     margin-left: 5px;
-    border-radius: 3px;
     height: fit-content;
   }
 

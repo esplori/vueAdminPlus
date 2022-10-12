@@ -1,6 +1,9 @@
 <template>
   <div class="admin-header">
     <div class="header-container">
+      <div class="logo">
+          <a href="https://www.dsiab.com" target="_blank">javascript技术分享</a>
+        </div> 
       <div class="left-header">
         <div class="tips">
           <span class="welcomeMsg">每日一句：{{ dailySentence }}</span>
@@ -80,7 +83,7 @@ watchEffect(() => {
 .admin-header {
   width: 100%;
   padding: 20px 0;
-  margin: 0 auto 10px;
+  margin: 0 auto 5px;
   background: #fff;
   color: #71777c;
   border-bottom: 1px solid #ddd;
@@ -88,7 +91,18 @@ watchEffect(() => {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: 1280px;
+    margin: 0 auto;
+    .logo {
+      font-size: 16px;
+      text-align: left;
+      width: 220px;
+      a{
+        color: #333;
+      }
+    }
     .user-info {
+      width: 100px;
       display: flex;
       justify-content: flex-end;
     }
