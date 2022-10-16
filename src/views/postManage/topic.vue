@@ -100,7 +100,7 @@ const edit = async (row: any) => {
 };
 
 const manage = async (row: any) => {
-  router.push({ path: "/article/topicManage", query: { id: row.id } });
+  router.push({ path: "topicManage", query: { id: row.id } });
 };
 
 const submit = async (row: any) => {

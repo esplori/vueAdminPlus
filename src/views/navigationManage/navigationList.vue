@@ -69,7 +69,7 @@ const del = async (id: any) => {
 };
 
 const edit = async (id: any) => {
-  router.push({ path: "navigationEdit", query: { id: id } });
+  router.push({ path: "post", query: { id: id } });
 };
 
 const handleSizeChange = async (val: any) => {

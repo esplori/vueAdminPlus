@@ -265,7 +265,7 @@ const editPage = async (jump: any) => {
     // 保存列表查询参数,自动保存不跳转
     jump &&
       router.push({
-        path: "/pageList",
+        path: "pageList",
         query: { page, cate, pageSize },
       });
   }
@@ -281,7 +281,7 @@ const postPage = async (jump: any) => {
   if (res) {
     // 回填id，方便再次保存使用
     state.form.id = res.data;
-    jump && router.push({ path: "/pageList" });
+    jump && router.push({ path: "pageList" });
   }
 };
 

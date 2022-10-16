@@ -69,10 +69,6 @@ const router = createRouter({
               component: () => import("../views/postManage/post.vue"),
             },
             {
-              path: "edit",
-              component: () => import("../views/postManage/post.vue"),
-            },
-            {
               path: "cateManage",
               component: () => import("../views/postManage/cateList.vue"),
             },
