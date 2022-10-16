@@ -30,7 +30,7 @@ const router = createRouter({
       component: () => import("../views/HomeView.vue"),
       children: [
         {
-          path: "/",
+          path: "",
           redirect: "home",
         },
         {
@@ -205,6 +205,10 @@ const router = createRouter({
           ]
         },
       ],
+    },
+    {
+      path: "/:pathMatch(.*)", // 404页面
+      component: () => import("@/views/components/404.vue"),
     },
   ],
 });
