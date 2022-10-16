@@ -86,13 +86,14 @@ watchEffect(() => {
   margin: 0 auto 5px;
   background: #fff;
   color: #71777c;
-  border-bottom: 1px solid #ddd;
+  // border-bottom: 1px solid #ddd;
   .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1280px;
+    width: 100%;
     margin: 0 auto;
+    padding: 0 20px;
     .logo {
       font-size: 16px;
       text-align: left;

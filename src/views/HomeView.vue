@@ -3,7 +3,7 @@
     <adminHeader :userInfoObj="state.userInfoObj"></adminHeader>
     <div class="content-container">
       <div class="left-menu">
-        <el-menu style="height: 100%; overflow-y: auto" default-active="/home" class="el-menu-vertical" router>
+        <el-menu unique-opened style="height: 100%; overflow-y: auto" default-active="/home" class="el-menu-vertical" router>
           <div v-for="(item, index) in state.menuList" :key="index">
             <el-menu-item v-if="!(item.children && item.children.length)" :index="item.path">
               <template #title>{{ item.name }}</template>
@@ -253,7 +253,7 @@ onMounted(() => {
 
   .content-container {
     height: 100%;
-    max-width: 1280px;
+    width: 100%;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -262,7 +262,7 @@ onMounted(() => {
   .left-menu {
     border-radius: 3px;
     background: #fff;
-    height: 100vh;
+    // height: 100vh;
   }
 
   .right-content {
