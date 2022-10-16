@@ -81,11 +81,6 @@ export async function delCateApi(data: any) {
   const options = { showLoading: true };
   return post(Url, data, options);
 }
-export async function revertCateApi(data: any) {
-  const Url = `${contextPath}/admin/revertCate`;
-  const options = { showLoading: true };
-  return post(Url, data, options);
-}
 export async function insertCateApi(data: any) {
   const url = `${contextPath}/admin/insertCate`;
   const options = { showLoading: true };
@@ -158,7 +153,7 @@ export async function updateSiteInfoApi(data: any) {
   return post(url, data, options);
 }
 export async function sendMailApi(data: any) {
-  const url = `${contextPath}/admin/mail`;
+  const url = `${contextPath}/admin/sendMail`;
   const options = { showLoading: true };
   return post(url, data, options);
 }
@@ -239,6 +234,22 @@ export async function deletePostApi(data: any) {
 }
 export async function getListByTagsApi(data: any) {
   const Url = `${contextPath}/pages/getList/tags/${encodeURI(data.tag)}/page/1`;
+  const options = { showLoading: true };
+  return get(Url, data, options);
+}
+
+export async function getMenusApi(data: any) {
+  const Url = `${contextPath}/admin/getMenus`;
+  const options = { showLoading: true };
+  return get(Url, data, options);
+}
+export async function updateRoleNameApi(data: any) {
+  const Url = `${contextPath}/admin/updateRoleName`;
+  const options = { showLoading: true };
+  return post(Url, data, options);
+}
+export async function getMenuByRoleApi(data: any) {
+  const Url = `${contextPath}/admin/getMenuByRole`;
   const options = { showLoading: true };
   return get(Url, data, options);
 }

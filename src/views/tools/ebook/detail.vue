@@ -3,9 +3,12 @@
     <div class="title"></div>
     <pre>{{state.currPageStr}}</pre>
     <div class="pagination">
-      <span>共:{{state.total}} 页</span><span>第{{state.params.page + 1}} 页</span>
-      <span @click="prePage" v-if="state.params.page>0">上一页</span>
-      <span @click="nextPage" v-if="state.params.page <state.total">下一页</span>
+      <span class="total">共:{{state.total}} 页</span>
+      <span>第{{state.params.page + 1}} 页</span>
+      <span class="pre-next">
+        <span @click="prePage" v-if="state.params.page>0">上一页</span>
+        <span @click="nextPage" v-if="state.params.page <state.total">下一页</span>
+      </span>
       <!-- <span>跳转到 <el-input @keydown.enter.native="nextPage" v-model.number ="state.params.page" style="width:50px"></el-input> 页</span> -->
     </div>
   </div>
@@ -61,7 +64,7 @@ const nextPage = () => {
   }
 }
 const prePage = () => {
-  if (state.params.page <= state.total && state.params.page >0) {
+  if (state.params.page <= state.total && state.params.page > 0) {
     state.currPageStr = state.txtPre.slice(state.params.pageSize * (--state.params.page), state.params.pageSize * (state.params.page) + state.params.pageSize)
     debugger
   }
@@ -85,17 +88,25 @@ onMounted(() => {
   .pagination {
     text-align: center;
     padding-top: 20px;
+    .total{
+      margin-right: 20px;
+    }
+    .pre-next {
+      margin-left: 20px;
+      padding-left: 20px;
+      span {
+        margin-right: 20px;
+        cursor: pointer;
+        &:hover {
+          text-decoration: underline;
+        }
 
-    span {
-      margin-right: 40px;
-
-      &:hover {
-        text-decoration: underline;
-      }
-      &:last-child:hover{
-        text-decoration: none;
+        &:last-child:hover {
+          text-decoration: none;
+        }
       }
     }
+
   }
 }
 </style>

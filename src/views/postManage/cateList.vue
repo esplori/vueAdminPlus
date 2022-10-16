@@ -13,10 +13,7 @@
       <el-table-column label="操作" width="180">
         <template #default="scope">
           <el-button @click="edit(scope.row)" type="primary">编辑</el-button>
-          <el-button @click="delConfirm(scope.row.id)" type="danger" class="cus-button-danger"
-            v-if="scope.row.valid === 1 && scope.$index !== 0">删除</el-button>
-          <el-button @click="revertConfirm(scope.row.id)" type="warning" class="cus-button-info"
-            v-if="scope.row.valid === 0">恢复</el-button>
+          <el-button v-if="scope.$index !== state.list.length - 1" @click="delConfirm(scope.row.id)" type="danger" class="cus-button-danger">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -41,7 +38,6 @@ import {
   getCateApi,
   updateCateApi,
   insertCateApi,
-  revertCateApi,
 } from "@/views/API/admin.js";
 import { reactive, onMounted } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
@@ -68,15 +64,6 @@ const getList = async () => {
     state.list = res.data.result;
   }
 };
-const revertConfirm = async (id: any) => {
-  ElMessageBox.confirm("此操作恢复该条数据?", "提示", {
-    confirmButtonText: "确定",
-    cancelButtonText: "取消",
-    type: "warning",
-  }).then(() => {
-    revert(id);
-  });
-};
 
 const delConfirm = async (id: any) => {
   ElMessageBox.confirm("此操作将删除该条数据, 是否继续?", "提示", {
@@ -96,13 +83,6 @@ const del = async (id: any) => {
   }
 };
 
-const revert = async (id: any) => {
-  const res = await revertCateApi({ id: id });
-  if (res) {
-    ElMessage.success("恢复成功");
-    getList();
-  }
-};
 
 const edit = async (row: any) => {
   state.title = "编辑";

@@ -124,14 +124,12 @@ function handleAuthenticated(res: any) {
     case 401:
       setTimeout(() => {
         location.href = "/#/login";
-        location.reload();
       }, 1500);
       ElMessage.error("用户信息已失效，请重新登录");
       break;
     case 403:
       setTimeout(() => {
         location.href = "/#/login";
-        location.reload();
       }, 1500);
       ElMessage.error("用户信息已失效，请重新登录");
       break;
