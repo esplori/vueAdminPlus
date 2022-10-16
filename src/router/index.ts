@@ -38,105 +38,57 @@ const router = createRouter({
           component: () => import("../views/workbench/home.vue"),
         },
         {
-          path: "pageList",
-          component: () => import("../views/postManage/pageList.vue"),
-        },
-        {
-          path: "post",
-          component: () => import("../views/postManage/post.vue"),
-        },
-        {
-          path: "edit",
-          component: () => import("../views/postManage/post.vue"),
-        },
-        {
-          path: "cateList",
-          component: () => import("../views/postManage/cateList.vue"),
-        },
-        {
-          path: "topic",
-          component: () => import("../views/postManage/topic.vue"),
-        },
-        {
-          path: "topicManage",
-          component: () => import("../views/postManage/topicManage.vue"),
-        },
-        {
-          path: "systemSetting",
-          component: () => import("../views/setting/systemSetting.vue"),
-        },
-        {
-          path: "mail",
-          component: () => import("../views/setting/sendMail.vue"),
-        },
-        {
-          path: "recycle",
-          component: () => import("../views/setting/recyclePost.vue"),
-        },
-        {
-          path: "userSetting",
-          component: () => import("../views/setting/userSetting.vue"),
-        },
-        {
-          path: "deploy",
-          component: () => import("../views/setting/deploy.vue"),
-        },
-        {
-          path: "navigationList",
-          component: () =>
-            import("../views/navigationManage/navigationList.vue"),
-        },
-        {
-          path: "navigationCate",
-          component: () =>
-            import("../views/navigationManage/navigationCate.vue"),
-        },
-        {
-          path: "navigationEdit",
-          component: () =>
-            import("../views/navigationManage/navigationEdit.vue"),
-        },
-        {
-          path: "sourceList",
-          component: () => import("../views/setting/sourceList.vue"),
-        },
-        {
-          path: "tbk",
-          component: () => import("../views/caiji/index.vue"),
+          path: "navigation",
           children: [
             {
-              path: "/",
-              redirect: "caiji",
+              path: "list",
+              component: () =>
+                import("../views/navigationManage/navigationList.vue"),
             },
             {
-              path: "caiji",
-              component: () => import("../views/caiji/caiji.vue"),
+              path: "cateManage",
+              component: () =>
+                import("../views/navigationManage/navigationCate.vue"),
             },
             {
-              path: "caijiList",
-              component: () => import("../views/caiji/caijiList.vue"),
-            },
-            {
-              path: "tbkType",
-              component: () => import("../views/caiji/tbkCate.vue"),
+              path: "post",
+              component: () =>
+                import("../views/navigationManage/navigationEdit.vue"),
             },
           ]
         },
         {
-          path: "userManage",
-          component: () => import("../views/userManage/userManage.vue"),
-        },
-        {
-          path: "roleManage",
-          component: () => import("../views/userManage/roleManage.vue"),
-        },
-        {
-          path: "menuManage",
-          component: () => import("../views/userManage/menuManage.vue"),
-        },
-        {
-          path: "commentList",
-          component: () => import("../views/postManage/commentList.vue"),
+          path: "article",
+          children: [
+            {
+              path: "pageList",
+              component: () => import("../views/postManage/pageList.vue"),
+            },
+            {
+              path: "post",
+              component: () => import("../views/postManage/post.vue"),
+            },
+            {
+              path: "edit",
+              component: () => import("../views/postManage/post.vue"),
+            },
+            {
+              path: "cateManage",
+              component: () => import("../views/postManage/cateList.vue"),
+            },
+            {
+              path: "topic",
+              component: () => import("../views/postManage/topic.vue"),
+            },
+            {
+              path: "topicManage",
+              component: () => import("../views/postManage/topicManage.vue"),
+            },
+            {
+              path: "commentManage",
+              component: () => import("../views/postManage/commentList.vue"),
+            },
+          ]
         },
         {
           path: "tools",
@@ -177,6 +129,80 @@ const router = createRouter({
               component: () => import("../views/tools/choujiang/choujiang.vue"),
             },
           ],
+        },
+        {
+          path: "authority",
+          children: [
+            {
+              path: "userManage",
+              component: () => import("../views/userManage/userManage.vue"),
+            },
+            {
+              path: "roleManage",
+              component: () => import("../views/userManage/roleManage.vue"),
+            },
+            {
+              path: "menuManage",
+              component: () => import("../views/userManage/menuManage.vue"),
+            },
+          ]
+        },
+        {
+          path: "user",
+          children: [
+            {
+              path: "userSetting",
+              component: () => import("../views/setting/userSetting.vue"),
+            },
+          ]
+        },
+        {
+          path: "promotion",
+          component: () => import("../views/caiji/index.vue"),
+          children: [
+            {
+              path: "/",
+              redirect: "caiji",
+            },
+            {
+              path: "caiji",
+              component: () => import("../views/caiji/caiji.vue"),
+            },
+            {
+              path: "caijiList",
+              component: () => import("../views/caiji/caijiList.vue"),
+            },
+            {
+              path: "type",
+              component: () => import("../views/caiji/tbkCate.vue"),
+            },
+          ]
+        },
+        {
+          path: "system",
+          children: [
+            {
+              path: "setting",
+              component: () => import("../views/setting/systemSetting.vue"),
+            },
+            {
+              path: "sendMail",
+              component: () => import("../views/setting/sendMail.vue"),
+            },
+            {
+              path: "recycle",
+              component: () => import("../views/setting/recyclePost.vue"),
+            },
+
+            {
+              path: "deploy",
+              component: () => import("../views/setting/deploy.vue"),
+            },
+            {
+              path: "sourceList",
+              component: () => import("../views/setting/sourceList.vue"),
+            },
+          ]
         },
       ],
     },
