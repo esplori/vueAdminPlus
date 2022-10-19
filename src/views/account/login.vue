@@ -78,8 +78,8 @@ const login = async function () {
     align-items: center;
 
     .login-container {
-      border-radius: 3px;
-      width: 400px;
+      border-radius: 5px;
+      max-width: 400px;
       margin-top: 0;
       background: rgba(255, 255, 255, 1);
       padding: 40px 60px;
