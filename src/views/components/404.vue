@@ -16,7 +16,7 @@ onMounted(()=>{
     state.seconds = state.seconds - 1;
         if (state.seconds <= 0) {
           state.seconds = 0
-          // location.href = "/#/login";
+          location.href = "/#/login";
         }
       }, 1000);
 })
