@@ -1,6 +1,8 @@
 <template>
   <div class="page-list">
-    <el-button type="primary" @click="insertCate">新增分类</el-button>
+    <div class="handler">
+      <el-button type="primary" @click="insertCate">新增分类</el-button>
+    </div>
     <el-table :data="state.list" style="width: 100%">
       <el-table-column type="index" width="55" label="序号"> </el-table-column>
       <el-table-column label="分类">
@@ -122,7 +124,11 @@ const handleClose = () => {
 <style scoped lang="scss">
 .page-list {
   width: 100%;
-
+  .handler{
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
   .content-item {
     font-size: 18px;
     text-align: left;

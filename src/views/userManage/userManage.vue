@@ -1,6 +1,8 @@
 <template>
   <div class="user-manage">
-    <el-button @click="insertUser" type="primary">新增用户</el-button>
+    <div class="handler">
+      <el-button @click="insertUser" type="primary">新增用户</el-button>
+    </div>
     <el-table :data="state.data">
       <el-table-column type="index" label="序号" width="55px"></el-table-column>
       <el-table-column prop="username" label="用户名"> </el-table-column>
@@ -221,17 +223,11 @@ const handleCurrentChange = (val: any) => {
 </script>
 
 <style scoped lang="scss">
-.music {
-  width: 100%;
-  height: 100%;
-  .music-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 600px;
-    height: 400px;
-    background: #001529;
-    margin: auto;
+.user-manage {
+  .handler{
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
   }
 }
 </style>

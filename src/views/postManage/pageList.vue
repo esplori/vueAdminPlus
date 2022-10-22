@@ -220,6 +220,9 @@ const submitTopic = async () => {
     margin: 20px;
     display: flex;
     justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
   }
 
   .content-item {

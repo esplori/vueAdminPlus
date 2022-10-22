@@ -36,7 +36,7 @@
       </el-table-column>
     </el-table>
     <div class="delMul">
-      <el-button @click="delMul">批量删除</el-button>
+      <el-button @click="delMul" type="danger">批量删除</el-button>
     </div>
     <div class="pagination-box" style="text-align: center; margin-top: 20px">
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
