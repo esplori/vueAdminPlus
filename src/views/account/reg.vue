@@ -33,7 +33,7 @@
               @blur="hideShadow"
               v-model="regform.email"
               type="text"
-              placeholder="请输入正确邮箱，方便找回密码"
+              placeholder="请输入正确邮箱,方便找回密码"
             ></el-input>
           </el-form-item>
           <el-form-item>
@@ -139,10 +139,10 @@ const valid = async () => {
     align-items: center;
     .login-container {
       border-radius: 3px;
-      width: 400px;
+      width: 420px;
       margin-top: 0;
       background: rgba(255, 255, 255, 1);
-      padding: 40px 60px;
+      padding: 30px 60px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       .reg {
         cursor: pointer;
