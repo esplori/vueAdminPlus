@@ -198,6 +198,10 @@ const router = createRouter({
               path: "sourceList",
               component: () => import("../views/setting/sourceList.vue"),
             },
+            {
+              path: "notice",
+              component: () => import("../views/setting/notice.vue"),
+            },
           ]
         },
       ],
