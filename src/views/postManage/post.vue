@@ -76,22 +76,7 @@ const state = reactive({
   editorOption: {
     placeholder: "编辑文章内容",
   },
-  editor: {
-    // create: ()=>{},
-    // config:{
-    //   uploadImgServer:"",
-    //   uploadFileName:"",
-    //   uploadImgHeaders:{},
-    //   uploadImgTimeout: 1000*100,
-    //   uploadImgHooks:{},
-    //   menus:[],
-    //   languageType: [],
-    //   onchange: {}
-    // },
-    // txt:{
-    //   html: ()=>{}
-    // }
-  } as any,
+  editor: {} as any,
   inputVisible: false,
   inputValue: "",
   dynamicTags: [],
@@ -157,22 +142,14 @@ onMounted(() => {
     "head",
     "bold",
     "fontSize",
-    "italic",
     "underline",
-    "indent",
-    "lineHeight",
-    "foreColor",
-    "backColor",
     "link",
     "list",
-    "todo",
     "justify",
     "quote",
     "image",
     "video",
     "code",
-    "undo",
-    "redo",
   ] as any;
   // 插入代码语言配置
   state.editor.config.languageType = [
