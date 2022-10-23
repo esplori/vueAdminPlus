@@ -120,23 +120,22 @@ function handleData(res: any, resolve: any, reject: any) {
   }
 }
 function handleAuthenticated(res: any) {
+  let ErrorMsg = ""
   switch (res.response.status) {
     case 401:
-      setTimeout(() => {
-        location.href = "/#/login";
-      }, 1500);
-      ElMessage.error("用户信息已失效，请重新登录");
-      break;
     case 403:
       setTimeout(() => {
         location.href = "/#/login";
       }, 1500);
-      ElMessage.error("用户信息已失效，请重新登录");
+      ErrorMsg = "用户信息已失效，请重新登录";
       break;
-    case 500:
-      ElMessage.error("500错误");
-      break;
-    case 400:
-      ElMessage.error("400错误");
+    default:
+      ErrorMsg = "网络错误,请稍后再试";
   }
+  let existMsgError = document.querySelector(".el-message--error")
+  if (!existMsgError) {
+    // 如果家前已经有显示错误同时重复显示
+    ElMessage.error(ErrorMsg);
+  }
+
 }

@@ -68,6 +68,7 @@ const toLogin = () => {
 const logout = async () => {
   const res = await logoutApi({});
   if (res) {
+    localStorage.removeItem("userInfo")
     toLogin();
   }
 };
