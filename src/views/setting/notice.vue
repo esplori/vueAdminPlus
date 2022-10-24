@@ -2,7 +2,7 @@
   <div class="page-list">
     <el-table :data="state.list">
       <el-table-column type="index" label="序号" width="55px"></el-table-column>
-      <el-table-column label="通知类型" prop="title" width="150px">
+      <el-table-column label="通知类型" prop="title" width="100px">
       </el-table-column>
       <el-table-column label="通知内容">
         <template #default="scope">
