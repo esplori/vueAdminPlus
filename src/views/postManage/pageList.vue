@@ -2,7 +2,7 @@
   <div class="page-list">
     <div class="select-by-cate">
       <div>
-        <span class="insert"><el-button type="primary" @click="insert">新增导航</el-button></span>
+        <span class="insert"><el-button type="primary" @click="insert">新增文章</el-button></span>
         <span>按分类筛选：</span>
         <el-select v-model="state.params.cate" @change="typeChange" clearable>
           <el-option v-for="(item, index) in state.cateList" :key="index" :label="item.name" :value="item.id">
