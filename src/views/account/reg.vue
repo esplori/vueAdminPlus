@@ -129,6 +129,7 @@ const valid = async () => {
 <style scoped lang="scss">
 .login {
   background: url("../../assets/images/bg.jpg") no-repeat;
+  // background: url("../../assets/images/bg.svg") no-repeat;
   background-size: cover;
   min-height: 100vh;
   .show-container {
