@@ -143,6 +143,7 @@ onMounted(() => {
     "bold",
     "fontSize",
     "underline",
+    "justify",
     "link",
     "list",
     "justify",
