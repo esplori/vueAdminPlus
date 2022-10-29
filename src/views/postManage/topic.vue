@@ -5,9 +5,14 @@
     </div>
     <el-table :data="state.list" style="width: 100%">
       <el-table-column type="index" label="序号" width="55px"></el-table-column>
-      <el-table-column label="名称">
+      <el-table-column label="分类名称">
         <template #default="scope">
           {{ scope.row.name }}
+        </template>
+      </el-table-column>
+      <el-table-column label="分类Id">
+        <template #default="scope">
+          {{ scope.row.id }}
         </template>
       </el-table-column>
       <el-table-column label="创建时间">
