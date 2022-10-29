@@ -11,6 +11,7 @@ pre {
     white-space: -pre-wrap;
     white-space: -o-pre-wrap;
     word-wrap: break-word;
+
 }
 
 
@@ -50,8 +51,8 @@ pre {
 #app pre code {
     border-radius: 5px;
     padding: 10px;
-    color: rgb(231, 227, 227);
-    background-color: #2d2d2d !important;
+    color: #333;
+    background-color: #f8f8f8 !important
 }
 
 .cus-button-danger {
@@ -61,8 +62,9 @@ pre {
 .cus-button-info {
     color: #909399;
 }
+
 /* 设置编辑器段落间距 */
 .w-e-text p {
-    margin-bottom: 20px!important;
-    margin-top: 10px!important;
+    margin-bottom: 20px !important;
+    margin-top: 10px !important;
 }
