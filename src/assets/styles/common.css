@@ -17,14 +17,14 @@ pre {
 /* 编辑页面:富文本编辑器跟分类下拉框的z-index有冲突，需要用下拉框的z-index覆盖富文本的z-index */
 
 .select-zindex {
-    z-index: 2000!important;
+    z-index: 2000 !important;
 }
 
 
 /* 富文本编辑器跟loading的z-index有冲突 */
 
 .el-loading-mask {
-    z-index: 3000!important;
+    z-index: 3000 !important;
 }
 
 
@@ -38,20 +38,20 @@ pre {
 /* 改变编辑器默认300px的高度 */
 
 .w-e-text {
-    min-height: 500px!important;
+    min-height: 500px !important;
 }
 
 .w-e-text-container {
     /* 覆盖编辑器原本堆叠层级 */
-    z-index: 10!important;
-    min-height: 500px!important;
+    z-index: 10 !important;
+    min-height: 500px !important;
 }
 
 #app pre code {
     border-radius: 5px;
     padding: 10px;
     color: rgb(231, 227, 227);
-    background-color: #2d2d2d!important;
+    background-color: #2d2d2d !important;
 }
 
 .cus-button-danger {
@@ -60,4 +60,9 @@ pre {
 
 .cus-button-info {
     color: #909399;
+}
+/* 设置编辑器段落间距 */
+.w-e-text p {
+    margin-bottom: 20px!important;
+    margin-top: 10px!important;
 }
