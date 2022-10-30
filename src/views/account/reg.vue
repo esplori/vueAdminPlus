@@ -128,8 +128,8 @@ const valid = async () => {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .login {
-  background: url("../../assets/images/bg.jpg") no-repeat;
-  // background: url("../../assets/images/bg.svg") no-repeat;
+  // background: url("../../assets/images/bg.jpg") no-repeat;
+  background: url("../../assets/images/bg.svg") no-repeat;
   background-size: cover;
   min-height: 100vh;
   .show-container {
@@ -144,7 +144,28 @@ const valid = async () => {
       margin-top: 0;
       background: rgba(255, 255, 255, 1);
       padding: 30px 60px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 49% 51% 46% 54% / 52% 49% 51% 48%   ;
+      box-shadow: inset 10px 20px 30px rgba(0,0,0, 0.2), 
+                  10px 10px 20px rgba(0, 0, 0, 0.1), 
+                  15px 15px 30px rgba(0, 0, 0, 0.05),
+                  inset -10px -10px 15px rgba(255,255,255, 0.8);
+      animation: action 3s linear infinite alternate;
+      @keyframes action {
+        25%{
+          border-radius: 43% 57% 40% 60% / 53% 44% 56% 47%     ;
+        }
+        50%{
+          border-radius: 38% 62% 35% 65% / 56% 39% 61% 44%       ;
+        }
+        75%{
+          border-radius: 58% 42% 51% 49% / 35% 57% 43% 65%       ;
+        }
+        100%{
+          border-radius: 64% 36% 59% 41% / 30% 65% 35% 70%      ;
+        }
+        
+      }
       .reg {
         cursor: pointer;
         font-size: 12px;
