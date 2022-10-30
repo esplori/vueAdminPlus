@@ -2,7 +2,7 @@
   <div class="login">
     <div class="show-container" :class="{ shadow: showShadow }">
       <div class="login-container">
-        <h2 style="text-align: center; padding-bottom: 20px">注册</h2>
+        <h2 style="text-align: center; padding-bottom: 0px;border-bottom: 1px solid #ddd;margin-bottom: 25px;">注册</h2>
         <el-form
           :model="regform"
           label-width="80px"
