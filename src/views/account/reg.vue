@@ -43,7 +43,7 @@
           </el-form-item>
           <el-form-item>
             <div>
-              已有账号？<span><a href="/#/login">去登录</a></span>
+              已有账号？<span><a href="/#/login" class="toLogin">去登录</a></span>
             </div>
           </el-form-item>
         </el-form>
@@ -176,6 +176,9 @@ const valid = async () => {
   .shadow {
     background: rgba(0, 0, 0, 0.6);
     transition: all 0.5s;
+  }
+  .toLogin{
+    color: #409eff;
   }
 }
 </style>

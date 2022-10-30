@@ -17,7 +17,7 @@
           </el-form-item>
           <el-form-item>
             <div>
-              还没有账号？<span><a href="/#/reg">去注册</a></span>
+              还没有账号？<span><a href="/#/reg" class="toReg">去注册</a></span>
             </div>
           </el-form-item>
         </el-form>
@@ -116,8 +116,11 @@ const login = async function () {
   }
 
   .shadow {
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.5);
     transition: all 0.5s;
+  }
+  .toReg{
+    color: #409eff;
   }
 }
 </style>
