@@ -2,7 +2,7 @@
   <div class="login">
     <div class="show-container" :class="{ shadow: showShadow }">
       <div class="login-container">
-        <h2 style="text-align: center; padding-bottom: 20px">注册</h2>
+        <h2 style="text-align: center; padding-bottom: 0px;border-bottom: 1px solid #ddd;margin-bottom: 25px;">注册</h2>
         <el-form
           :model="regform"
           label-width="80px"
@@ -33,7 +33,7 @@
               @blur="hideShadow"
               v-model="regform.email"
               type="text"
-              placeholder="请输入正确邮箱，方便找回密码"
+              placeholder="请输入正确邮箱,方便找回密码"
             ></el-input>
           </el-form-item>
           <el-form-item>
@@ -43,7 +43,7 @@
           </el-form-item>
           <el-form-item>
             <div>
-              已有账号？<span><a href="/#/login">去登录</a></span>
+              已有账号？<span><a href="/#/login" class="toLogin">去登录</a></span>
             </div>
           </el-form-item>
         </el-form>
@@ -128,7 +128,8 @@ const valid = async () => {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .login {
-  background: url("../../assets/images/bg.jpg") no-repeat;
+  // background: url("../../assets/images/bg.jpg") no-repeat;
+  background: url("../../assets/images/bg.svg") no-repeat;
   background-size: cover;
   min-height: 100vh;
   .show-container {
@@ -139,11 +140,32 @@ const valid = async () => {
     align-items: center;
     .login-container {
       border-radius: 3px;
-      width: 400px;
+      width: 420px;
       margin-top: 0;
       background: rgba(255, 255, 255, 1);
-      padding: 40px 60px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 30px 60px;
+      // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 49% 51% 46% 54% / 52% 49% 51% 48%   ;
+      box-shadow: inset 10px 20px 30px rgba(0,0,0, 0.2), 
+                  10px 10px 20px rgba(0, 0, 0, 0.1), 
+                  15px 15px 30px rgba(0, 0, 0, 0.05),
+                  inset -10px -10px 15px rgba(255,255,255, 0.8);
+      animation: action 3s linear infinite alternate;
+      @keyframes action {
+        25%{
+          border-radius: 43% 57% 40% 60% / 53% 44% 56% 47%     ;
+        }
+        50%{
+          border-radius: 38% 62% 35% 65% / 56% 39% 61% 44%       ;
+        }
+        75%{
+          border-radius: 58% 42% 51% 49% / 35% 57% 43% 65%       ;
+        }
+        100%{
+          border-radius: 64% 36% 59% 41% / 30% 65% 35% 70%      ;
+        }
+        
+      }
       .reg {
         cursor: pointer;
         font-size: 12px;
@@ -154,6 +176,9 @@ const valid = async () => {
   .shadow {
     background: rgba(0, 0, 0, 0.6);
     transition: all 0.5s;
+  }
+  .toLogin{
+    color: #409eff;
   }
 }
 </style>

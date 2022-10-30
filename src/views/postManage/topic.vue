@@ -1,11 +1,18 @@
 <template>
   <div class="page-list">
-    <el-button type="primary" @click="insertCate">新增专题</el-button>
+    <div class="handler">
+      <el-button type="primary" @click="insertCate">新增专题</el-button>
+    </div>
     <el-table :data="state.list" style="width: 100%">
       <el-table-column type="index" label="序号" width="55px"></el-table-column>
-      <el-table-column label="名称">
+      <el-table-column label="分类名称">
         <template #default="scope">
           {{ scope.row.name }}
+        </template>
+      </el-table-column>
+      <el-table-column label="分类Id">
+        <template #default="scope">
+          {{ scope.row.id }}
         </template>
       </el-table-column>
       <el-table-column label="创建时间">
@@ -100,7 +107,7 @@ const edit = async (row: any) => {
 };
 
 const manage = async (row: any) => {
-  router.push({ path: "/article/topicManage", query: { id: row.id } });
+  router.push({ path: "topicManage", query: { id: row.id } });
 };
 
 const submit = async (row: any) => {
@@ -122,6 +129,11 @@ const submit = async (row: any) => {
 <style scoped lang="scss">
 .page-list {
   width: 100%;
+  .handler{
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
   .content-item {
     font-size: 18px;
     text-align: left;

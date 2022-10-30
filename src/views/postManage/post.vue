@@ -76,22 +76,7 @@ const state = reactive({
   editorOption: {
     placeholder: "编辑文章内容",
   },
-  editor: {
-    // create: ()=>{},
-    // config:{
-    //   uploadImgServer:"",
-    //   uploadFileName:"",
-    //   uploadImgHeaders:{},
-    //   uploadImgTimeout: 1000*100,
-    //   uploadImgHooks:{},
-    //   menus:[],
-    //   languageType: [],
-    //   onchange: {}
-    // },
-    // txt:{
-    //   html: ()=>{}
-    // }
-  } as any,
+  editor: {} as any,
   inputVisible: false,
   inputValue: "",
   dynamicTags: [],
@@ -157,22 +142,15 @@ onMounted(() => {
     "head",
     "bold",
     "fontSize",
-    "italic",
     "underline",
-    "indent",
-    "lineHeight",
-    "foreColor",
-    "backColor",
+    "justify",
     "link",
     "list",
-    "todo",
     "justify",
     "quote",
     "image",
     "video",
     "code",
-    "undo",
-    "redo",
   ] as any;
   // 插入代码语言配置
   state.editor.config.languageType = [
@@ -265,7 +243,7 @@ const editPage = async (jump: any) => {
     // 保存列表查询参数,自动保存不跳转
     jump &&
       router.push({
-        path: "/pageList",
+        path: "pageList",
         query: { page, cate, pageSize },
       });
   }
@@ -281,7 +259,7 @@ const postPage = async (jump: any) => {
   if (res) {
     // 回填id，方便再次保存使用
     state.form.id = res.data;
-    jump && router.push({ path: "/pageList" });
+    jump && router.push({ path: "pageList" });
   }
 };
 

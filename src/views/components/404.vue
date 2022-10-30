@@ -1,6 +1,6 @@
 <template>
    <div class="not-found">
-    <img src="@/assets/img/404.png" alt="" width="100%" />
+    <img src="@/assets/images/404.png" alt="" width="400" />
     <div class="msg">抱歉，你访问的页面不存在</div>
     <div class="seconds">{{ state.seconds }} 秒后将跳转到登录页面</div>
   </div>
@@ -26,6 +26,7 @@ onMounted(()=>{
   background: #fff;
   height: 100%;
   padding-bottom: 200px;
+  text-align: center;
   .msg,
   .seconds {
     text-align: center;

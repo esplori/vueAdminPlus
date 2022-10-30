@@ -2,6 +2,7 @@
   <div class="page-list">
     <div class="select-by-cate">
       <div>
+        <span class="insert"><el-button type="primary" @click="insert">新增文章</el-button></span>
         <span>按分类筛选：</span>
         <el-select v-model="state.params.cate" @change="typeChange" clearable>
           <el-option v-for="(item, index) in state.cateList" :key="index" :label="item.name" :value="item.id">
@@ -80,7 +81,7 @@ const state = reactive({
   list: [],
   params: {
     page: 1,
-    cate: "",
+    cate: null,
     pageSize: 10,
     order: "desc",
     orderBy: "createDate",
@@ -102,9 +103,14 @@ onMounted(() => {
   const { page, cate, pageSize } = route.query as any;
   state.params.page = parseInt(page) || 1;
   state.params.pageSize = parseInt(pageSize) || 10;
-  state.params.cate = cate ;
+  state.params.cate = (parseInt(cate) || null) as any;
   getList();
 });
+
+const insert = () => {
+  router.push({ path: "post"});
+};
+
 const userInfo = computed(() => {
   let uinfo = localStorage.getItem("userInfo") as any;
   if (uinfo) {
@@ -220,6 +226,12 @@ const submitTopic = async () => {
     margin: 20px;
     display: flex;
     justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    .insert{
+      margin-right: 20px;
+    }
   }
 
   .content-item {

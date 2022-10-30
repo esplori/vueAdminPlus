@@ -1,6 +1,6 @@
 <template>
   <div class="page-list">
-    <div class="handle">
+    <div class="handler">
       <el-button type="primary" @click="addFile">新增文件</el-button>
     </div>
     <el-tabs v-model="state.activeName" @tab-click="handleClick">
@@ -133,7 +133,11 @@ const del = async (filename: any) => {
 <style scoped lang="scss">
 .page-list {
   width: 100%;
-
+  .handler{
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
   .content-item {
     font-size: 18px;
     text-align: left;

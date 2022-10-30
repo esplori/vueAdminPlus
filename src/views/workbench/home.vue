@@ -392,7 +392,7 @@ const initCharts = () => {
 <style scoped lang="scss">
 .home {
   .date-picker-change {
-    padding: 20px 0;
+    padding: 10px 0;
     display: flex;
     justify-content: space-between;
   }

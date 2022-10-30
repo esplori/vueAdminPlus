@@ -72,7 +72,7 @@ const editPage = async () => {
   const res = await editPageApi({ ...state.form });
   if (res) {
     ElMessage.success("修改成功");
-    router.push({ path: "/navigationList" });
+    router.push({ path: "list" });
   }
 };
 
@@ -80,7 +80,7 @@ const postPage = async () => {
   const res = await postPageApi({ ...state.form });
   if (res) {
     ElMessage.success("添加成功");
-    router.push({ path: "/navigationList" });
+    router.push({ path: "list" });
   }
 };
 

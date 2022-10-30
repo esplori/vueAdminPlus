@@ -1,5 +1,8 @@
 <template>
   <div class="menu-manage">
+    <div class="handler">
+      <h2>菜单管理</h2>
+    </div>
     <el-row>
       <el-col :span="12">
         <el-tree node-key="menuId" default-expand-all :data="state.data" :expand-on-click-node="false"
@@ -143,5 +146,10 @@ const deleteMenu = (form: any) => {
 <style scoped lang="scss">
 .menu-manage {
   padding: 20px;
+  .handler{
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
 }
 </style>
