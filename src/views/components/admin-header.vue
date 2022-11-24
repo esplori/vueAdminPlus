@@ -1,21 +1,21 @@
 <template>
   <div class="admin-header">
+    <div class="tips">
+      <span class="welcomeMsg">每日一句：{{ dailySentence }}</span>
+    </div>
     <div class="header-container">
       <div class="logo">
-          <a href="https://www.dsiab.com" target="_blank">javascript技术分享</a>
-        </div> 
-      <div class="left-header">
-        <div class="tips">
-          <span class="welcomeMsg">每日一句：{{ dailySentence }}</span>
-        </div>
+        <a href="https://www.dsiab.com" target="_blank">javascript技术分享</a>
       </div>
       <div class="user-info">
-        <div class="userInfo">
+        <!-- <div class="userInfo"> -->
           <div v-if="state.userInfo" class="info-flex">
             <el-dropdown @command="handleCommand">
               <div class="el-dropdown-link">
                 {{ state.userInfo.username
-                }}<el-icon class="el-icon--right"><arrow-down /></el-icon>
+                }}<el-icon class="el-icon--right">
+                  <arrow-down />
+                </el-icon>
               </div>
               <template #dropdown>
                 <el-dropdown-menu>
@@ -25,7 +25,7 @@
             </el-dropdown>
           </div>
           <span v-else @click="toLogin" class="login-in">登录</span>
-        </div>
+        <!-- </div> -->
       </div>
     </div>
   </div>
@@ -47,7 +47,7 @@ const dailySentence = computed(() => {
 });
 
 const state = reactive({
-  userInfo:{
+  userInfo: {
     dailySentence: "",
     username: ""
   }
@@ -83,10 +83,11 @@ watchEffect(() => {
 <style scoped lang="scss">
 .admin-header {
   width: 100%;
-  padding: 20px 0;
+  padding: 5px 0 5px 0;
   margin: 0 auto 5px;
   background: #fff;
   color: #71777c;
+
   // border-bottom: 1px solid #ddd;
   .header-container {
     display: flex;
@@ -94,36 +95,39 @@ watchEffect(() => {
     align-items: center;
     width: 100%;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 15px 20px;
+
     .logo {
-      font-size: 16px;
+      font-size: 14px;
       text-align: left;
       width: 220px;
-      a{
+
+      a {
         color: #333;
       }
     }
+
     .user-info {
-      width: 100px;
-      display: flex;
-      justify-content: flex-end;
-    }
-    .left-header {
-      display: flex;
-      align-items: center;
-      width: 100%;
-      height:45px
-    }
-    .tips {
-      width: 100%;
-      .welcomeMsg {
-        // margin-left: 10px;
-        font-size: 12px;
+      .info-flex{
+        display: flex;
       }
     }
+
     .el-dropdown-link {
       display: flex;
       align-items: center;
+    }
+
+  }
+
+  .tips {
+    width: 100%;
+    padding: 0 20px 5px 20px ;
+    border-bottom: 1px solid #ddd;
+
+    .welcomeMsg {
+      // margin-left: 10px;
+      font-size: 12px;
     }
   }
 }
