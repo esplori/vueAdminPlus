@@ -335,6 +335,7 @@ const initDayViews = () => {
         data: state.everyDayViews.map((item: any) => {
           return item.dayIp;
         }),
+        smooth:true
       },
       {
         name: "今日浏览量(PV)",
@@ -346,6 +347,7 @@ const initDayViews = () => {
           show: true,
           position: "top",
         },
+        smooth:true
       },
     ],
   });
