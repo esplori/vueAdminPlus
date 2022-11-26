@@ -95,7 +95,7 @@ watchEffect(() => {
     align-items: center;
     width: 100%;
     margin: 0 auto;
-    padding: 15px 20px;
+    padding: 20px 20px;
 
     .logo {
       font-size: 14px;
