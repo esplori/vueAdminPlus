@@ -132,11 +132,6 @@ export async function updateRoleApi(data: any) {
   const options = { showLoading: true };
   return post(Url, data, options);
 }
-export async function insertUserApi(data: any) {
-  const Url = `${contextPath}/admin/insertRole`;
-  const options = { showLoading: true };
-  return post(Url, data, options);
-}
 export async function deleUserApi(data: any) {
   const Url = `${contextPath}/admin/deleUser`;
   const options = { showLoading: true };

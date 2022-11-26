@@ -1,8 +1,8 @@
 <template>
   <div class="user-manage">
-    <div class="handler">
+    <!-- <div class="handler">
       <el-button @click="insertUser" type="primary">新增用户</el-button>
-    </div>
+    </div> -->
     <el-table :data="state.data">
       <el-table-column type="index" label="序号" width="55px"></el-table-column>
       <el-table-column prop="username" label="用户名"> </el-table-column>
@@ -66,25 +66,6 @@
         </span>
       </template>
     </el-dialog>
-
-    <el-dialog title="新增用户" v-model="state.insertObj.dialogVisible" width="30%">
-      <div>
-        <el-form :model="state.form" label-width="60px">
-          <el-form-item label="用户名">
-            <el-input v-model="state.form.username"></el-input>
-          </el-form-item>
-          <el-form-item label="密码">
-            <el-input v-model="state.form.password"></el-input>
-          </el-form-item>
-        </el-form>
-      </div>
-      <template #footer>
-        <span class="dialog-footer">
-          <el-button @click="state.insertObj.dialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="insert">确 定</el-button>
-        </span>
-      </template>
-    </el-dialog>
   </div>
 </template>
 
@@ -93,7 +74,6 @@ import {
   getUserListApi,
   getRoleListApi,
   updateRoleApi,
-  insertUserApi,
   deleUserApi,
 } from "../API/admin";
 
@@ -112,14 +92,7 @@ let state = reactive({
     dialogVisible: false,
     currUsername: "",
   },
-  insertObj: {
-    dialogVisible: false,
-  },
   multipleSelection: [],
-  form: {
-    username: "",
-    password: "",
-  },
 });
 
 onMounted(() => {
@@ -134,19 +107,6 @@ const getUserList = async () => {
   }
 };
 
-const insert = async () => {
-  const res = await insertUserApi({
-    ...state.form,
-  });
-  if (res) {
-    state.insertObj.dialogVisible = false;
-    getUserList();
-  }
-};
-
-const insertUser = () => {
-  state.insertObj.dialogVisible = true;
-};
 
 const edit = (row: any) => {
   state.editObj.dialogVisible = true;
