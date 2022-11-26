@@ -16,8 +16,9 @@
             <el-button @click="login" type="primary" style="width: 100%">登录</el-button>
           </el-form-item>
           <el-form-item>
-            <div>
-              还没有账号？<span><a href="/#/reg" class="toReg">去注册</a></span>
+            <div class="login-operate">
+              <span><a href="/#/reg" class="toReg">去注册</a></span>
+              <span><a href="/#/resetPwd" class="toReg">忘记密码</a></span>
             </div>
           </el-form-item>
         </el-form>
@@ -104,6 +105,11 @@ const login = async function () {
         cursor: pointer;
         font-size: 12px;
         text-decoration: underline;
+      }
+      .login-operate{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
       }
     }
   }

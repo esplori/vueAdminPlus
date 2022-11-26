@@ -253,3 +253,9 @@ export async function getMenuByRoleApi(data: any) {
   const options = { showLoading: true };
   return get(Url, data, options);
 }
+
+export async function updatePwdApi(data: any) {
+  const Url = `${contextPath}/admin/updatePwd`;
+  const options = { showLoading: true };
+  return post(Url, data, options);
+}

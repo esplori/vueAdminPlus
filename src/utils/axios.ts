@@ -129,6 +129,9 @@ function handleAuthenticated(res: any) {
       }, 1500);
       ErrorMsg = "用户信息已失效，请重新登录";
       break;
+    case 500:
+      ErrorMsg = res.response.data.message || "网络错误,请稍后再试";
+      break;
     default:
       ErrorMsg = "网络错误,请稍后再试";
   }
