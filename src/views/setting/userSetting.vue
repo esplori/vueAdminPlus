@@ -39,7 +39,7 @@
         <span class="dialog-footer">
           <el-button @click="state.updatePwdDialog = false">取消</el-button>
           <el-button type="primary" @click="submitPwd">
-            Confirm
+            确定
           </el-button>
         </span>
       </template>
