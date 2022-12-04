@@ -125,7 +125,7 @@ const tagChange = (val: any) => {
   getListByTags(val);
 };
 const getListByTags = async (val: any) => {
-  const res: any = await getListByTagsApi({ tag: val });
+  const res: any = await getListByTagsApi({ tag: val ,page: 1 });
   if (res) {
     state.list = res.data.result;
     state.total = res.data.total;

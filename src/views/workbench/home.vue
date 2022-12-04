@@ -162,7 +162,7 @@
 import { getWebStatisticsApi } from "@/views/API/stats.js";
 import { CountUp } from "countup.js";
 import * as echarts from "echarts";
-import { reactive, computed, onMounted, ref, nextTick } from "vue";
+import { reactive, computed, onMounted, nextTick } from "vue";
 import { CaretTop, CaretBottom } from "@element-plus/icons-vue";
 const state = reactive({
   views: 0,

@@ -100,7 +100,7 @@ onMounted(() => {
 });
 
 const getUserList = async () => {
-  const res:any = await getUserListApi({ page: state.params.page });
+  const res:any = await getUserListApi({ pageNo: state.params.page });
   if (res) {
     state.data = res.data.result;
     state.total = res.data.total;

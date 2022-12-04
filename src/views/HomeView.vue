@@ -3,7 +3,8 @@
     <adminHeader :userInfoObj="state.userInfoObj"></adminHeader>
     <div class="content-container">
       <div class="left-menu">
-        <el-menu unique-opened style="height: 100%; overflow-y: auto" default-active="/home" class="el-menu-vertical" router>
+        <el-menu unique-opened style="height: 100%; overflow-y: auto" default-active="/home" class="el-menu-vertical"
+          router>
           <div v-for="(item, index) in state.menuList" :key="index">
             <el-menu-item v-if="!(item.children && item.children.length)" :index="item.path">
               <template #title>{{ item.name }}</template>
@@ -26,7 +27,7 @@
 </template>
 <script setup lang="ts">
 import { RouterView } from "vue-router";
-import { ref, reactive, computed, onMounted, toRefs, watchEffect } from "vue";
+import { reactive, computed, onMounted } from "vue";
 import adminHeader from "./components/admin-header.vue";
 import commonFooter from "./components/footer.vue";
 import { getUserInfoApi, getMenusApi } from "@/views/API/admin.js";
@@ -238,7 +239,7 @@ const getUserInfo = async () => {
   state.userInfoObj = res.data;
 };
 const getMenus = async () => {
-  getMenusApi({}).then((res:any) => {
+  getMenusApi({}).then((res: any) => {
     state.menuList = res.data.result
   })
 }

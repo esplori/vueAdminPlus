@@ -50,8 +50,7 @@
 <script lang="ts" setup>
 import {
   deletePostApi,
-  getPostListByCateApi,
-  getCateValidApi,
+  getPostListByCateApi
 } from "@/views/API/admin.js";
 import { reactive, onMounted } from "vue";
 import { useRoute } from "vue-router";

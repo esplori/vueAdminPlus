@@ -105,21 +105,6 @@ const append = async (form: any) => {
     getMenuList();
   })
 };
-// 懒加载
-// const loadNode = async (node: any, resolve: (data: any) => void) => {
-//   if (!node.data.menuId) {
-//     return
-//   }
-//   setTimeout(() => {
-//     let data = []
-//     getMenuListApi({ menuId: node.data.menuId }).then((res: any) => {
-//       // 添加默认菜单
-//       // let defaultMenu = [{ name: "javascript技术分享" }]
-//       data = res.data.result;
-//       resolve(data)
-//     })
-//   }, 200)
-// }
 const updateMenu = async (form: any) => {
   updateMenuApi({ ...form }).then((res: any) => {
     ElMessage.success("保存成功")

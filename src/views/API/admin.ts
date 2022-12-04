@@ -6,16 +6,11 @@ export async function getListByCateApi(data: any) {
   const options = {};
   return post(url, data, options);
 }
-export async function getListApi(data: any) {
-  const url = `${contextPath}/admin/getList/${data.page}`;
-  const options = {};
-  return get(url, {}, options);
-}
 
 export async function getDetailByIdApi(data: any) {
-  const Url = `${contextPath}/admin/getDetail/${data.id}`;
+  const Url = `${contextPath}/admin/getDetail`;
   const options = {};
-  return get(Url, {}, options);
+  return get(Url, data, options);
 }
 export async function postPageApi(data: any) {
   const url = `${contextPath}/admin/insertItem`;
@@ -32,16 +27,7 @@ export async function editPageApi(data: any) {
   const options = { showLoading: false };
   return post(url, data, options);
 }
-export async function getCateApi(data: any) {
-  const url = `${contextPath}/admin/getCate`;
-  const options = {};
-  return get(url, data, options);
-}
-export async function getCateValidApi(data: any) {
-  const url = `${contextPath}/pages/getCate`;
-  const options = {};
-  return get(url, data, options);
-}
+
 export async function getAdminCateValidApi(data: any) {
   const url = `${contextPath}/admin/getCate`;
   const options = {};
@@ -60,11 +46,6 @@ export async function delCateApi(data: any) {
 export async function insertCateApi(data: any) {
   const url = `${contextPath}/admin/insertCate`;
   const options = { showLoading: true };
-  return post(url, data, options);
-}
-export async function getImageListApi(data: any) {
-  const url = `${contextPath}/admin/getImageList`;
-  const options = {};
   return post(url, data, options);
 }
 export async function delFileApi(data: any) {
@@ -89,9 +70,9 @@ export async function getSourceListApi(data: any) {
 }
 
 export async function getUserListApi(data: any) {
-  const Url = `${contextPath}/admin/getUserList/${data.page}`;
+  const Url = `${contextPath}/admin/getUserList`;
   const options = {};
-  return post(Url, data, options);
+  return get(Url, data, options);
 }
 export async function getRoleListApi(data: any) {
   const Url = `${contextPath}/admin/getRoleList`;
@@ -124,7 +105,7 @@ export async function sendMailApi(data: any) {
   return post(url, data, options);
 }
 export async function getCommentApi(data: any) {
-  const url = `${contextPath}/pages/getAllComment`;
+  const url = `${contextPath}/admin/getAllComment`;
   const options = {};
   return get(url, data, options);
 }
@@ -198,8 +179,9 @@ export async function deletePostApi(data: any) {
   const options = { showLoading: true };
   return post(Url, data, options);
 }
+
 export async function getListByTagsApi(data: any) {
-  const Url = `${contextPath}/pages/getList/tags/${encodeURI(data.tag)}/page/1`;
+  const Url = `${contextPath}/admin/getListByTagsPage`;
   const options = { showLoading: true };
   return get(Url, data, options);
 }

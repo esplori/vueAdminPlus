@@ -37,7 +37,7 @@
 <script lang="ts" setup>
 import {
   delCateApi,
-  getCateApi,
+  getAdminCateValidApi,
   updateCateApi,
   insertCateApi,
 } from "@/views/API/admin.js";
@@ -61,7 +61,7 @@ const insertCate = () => {
   state.title = "新增";
 };
 const getList = async () => {
-  const res: any = await getCateApi({});
+  const res: any = await getAdminCateValidApi({});
   if (res) {
     state.list = res.data.result;
   }
