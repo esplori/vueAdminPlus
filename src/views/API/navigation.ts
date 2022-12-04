@@ -26,43 +26,23 @@ export async function editPageApi(data: Object) {
   const options = { showLoading: true };
   return post(url, data, options);
 }
-export async function getCateApi(data: Object) {
-  const url = `${contextPath}/pages/getCate`;
-  const options = {};
-  return get(url, data, options);
-}
-export async function updateCateApi(data: Object) {
-  const url = `${contextPath}/pages/updateCate`;
+export async function updateNavCateApi(data: any) {
+  const url = `${contextPath}/nav/updateCate`;
   const options = { showLoading: true };
   return post(url, data, options);
 }
-export async function delCateApi(data: Object) {
-  const Url = `${contextPath}/pages/delCate`;
+export async function delNavCateApi(data: any) {
+  const Url = `${contextPath}/nav/delCate`;
   const options = { showLoading: true };
   return post(Url, data, options);
 }
-export async function insertCateApi(data: Object) {
-  const url = `${contextPath}/pages/insertCate`;
+export async function insertNavCateApi(data: any) {
+  const url = `${contextPath}/nav/insertCate`;
   const options = { showLoading: true };
   return post(url, data, options);
 }
-export async function getImageListApi(data: Object) {
-  const url = `${contextPath}/pages/getImageList`;
-  const options = {};
-  return post(url, data, options);
-}
-export async function delFileApi(data: Object) {
-  const url = `${contextPath}/pages/delFile`;
-  const options = {};
-  return post(url, data, options);
-}
-export async function updateUserInfoApi(data: Object) {
-  const url = `${contextPath}/account/updateUserInfo`;
-  const options = { showLoading: true };
-  return post(url, data, options);
-}
-export async function getUserInfoApi(data: Object) {
-  const url = `${contextPath}/account/getUserInfo`;
+export async function getNavCateApi(data: any) {
+  const url = `${contextPath}/nav/getCate`;
   const options = {};
   return get(url, data, options);
 }

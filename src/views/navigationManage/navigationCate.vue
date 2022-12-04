@@ -43,7 +43,7 @@ import {
   getNavCateApi,
   updateNavCateApi,
   insertNavCateApi,
-} from "@/views/API/admin.js";
+} from "@/views/API/navigation.js";
 import { ref, reactive, onMounted } from "vue";
 import { ElMessageBox, ElMessage } from "element-plus";
 

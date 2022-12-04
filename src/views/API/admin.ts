@@ -11,11 +11,7 @@ export async function getListApi(data: any) {
   const options = {};
   return get(url, {}, options);
 }
-export async function getDetailApi(data: any) {
-  const Url = `${contextPath}/pages/getDetail/${data.id}`;
-  const options = {};
-  return get(Url, {}, options);
-}
+
 export async function getDetailByIdApi(data: any) {
   const Url = `${contextPath}/admin/getDetail/${data.id}`;
   const options = {};
@@ -36,11 +32,6 @@ export async function editPageApi(data: any) {
   const options = { showLoading: false };
   return post(url, data, options);
 }
-export async function getNavCateApi(data: any) {
-  const url = `${contextPath}/nav/getCate`;
-  const options = {};
-  return get(url, data, options);
-}
 export async function getCateApi(data: any) {
   const url = `${contextPath}/admin/getCate`;
   const options = {};
@@ -58,21 +49,6 @@ export async function getAdminCateValidApi(data: any) {
 }
 export async function updateCateApi(data: any) {
   const url = `${contextPath}/admin/updateCate`;
-  const options = { showLoading: true };
-  return post(url, data, options);
-}
-export async function updateNavCateApi(data: any) {
-  const url = `${contextPath}/nav/updateCate`;
-  const options = { showLoading: true };
-  return post(url, data, options);
-}
-export async function delNavCateApi(data: any) {
-  const Url = `${contextPath}/nav/delCate`;
-  const options = { showLoading: true };
-  return post(Url, data, options);
-}
-export async function insertNavCateApi(data: any) {
-  const url = `${contextPath}/nav/insertCate`;
   const options = { showLoading: true };
   return post(url, data, options);
 }
@@ -112,11 +88,6 @@ export async function getSourceListApi(data: any) {
   return get(url, data, options);
 }
 
-export async function getFundApi(data: any) {
-  const url = `/fund/js/${data.code}.js?rt=1463558676006`;
-  const options = {};
-  return get(url, data, options);
-}
 export async function getUserListApi(data: any) {
   const Url = `${contextPath}/admin/getUserList/${data.page}`;
   const options = {};
