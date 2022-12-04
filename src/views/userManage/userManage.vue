@@ -73,7 +73,7 @@
 import {
   getUserListApi,
   getRoleListApi,
-  updateRoleApi,
+  updateUserRoleApi,
   deleUserApi,
 } from "../API/admin";
 
@@ -157,7 +157,7 @@ const submit = () => {
 };
 
 const updateRole = async () => {
-  const res = await updateRoleApi({
+  const res = await updateUserRoleApi({
     roleList: state.multipleSelection,
     username: state.editObj.currUsername,
   });
