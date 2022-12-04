@@ -27,7 +27,7 @@ import {
   editPageApi,
   getDetailApi,
 } from "@/views/API/navigation.js";
-import { getNavCateApi } from "@/views/API/admin.js";
+import { getNavCateApi } from "@/views/API/navigation";
 import { ref, reactive, onMounted, toRef } from "vue";
 import { ElMessage } from "element-plus";
 import { useRoute, useRouter } from "vue-router";
