@@ -191,7 +191,9 @@ const userInfo = computed(() => {
   if (usrinfo) {
     return JSON.parse(usrinfo);
   } else {
-    return false;
+    return {
+      role: []
+    };
   }
 });
 onMounted(() => {

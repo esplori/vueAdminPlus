@@ -28,14 +28,16 @@
       </el-table-column>
       <el-table-column label="字数" sortable="custom" prop="wordsNum">
       </el-table-column>
-      <el-table-column label="创建时间" sortable="custom" prop="createDate">
+      <el-table-column label="创建时间" sortable="custom" prop="createDate" width="140px">
       </el-table-column>
-      <el-table-column fixed="right" width="270" label="操作">
+      <el-table-column fixed="right" width="160px" label="操作">
         <template #default="scope">
-          <el-button @click="edit(scope.row.id)" type="primary">编辑</el-button>
-          <el-button @click="delConfirm(scope.row.id)" type="danger" class="cus-button-danger">删除</el-button>
-          <el-button v-if="userInfo.includes('ROLE_admin')" @click="addToTopic(scope.row)" type="primary">添加到专题
-          </el-button>
+         <div class="operate">
+          <div @click="edit(scope.row.id)" type="text">编辑</div>
+          <div @click="delConfirm(scope.row.id)" type="danger" class="cus-button-danger">删除</div>
+          <div v-if="userInfo.includes('ROLE_admin')" @click="addToTopic(scope.row)" type="primary">加专题
+          </div>
+         </div>
         </template>
       </el-table-column>
     </el-table>
@@ -238,6 +240,13 @@ const submitTopic = async () => {
     font-size: 18px;
     text-align: left;
     padding: 5px;
+  }
+  .operate{
+    display: flex;
+    div{
+      cursor: pointer;
+      padding-right:10px;
+    }
   }
 }
 </style>
