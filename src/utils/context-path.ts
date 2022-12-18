@@ -1,3 +1,3 @@
 // 默认接口地址
-const contextPah = "/bootService";
+const contextPah = "/manage-service";
 export default contextPah;
