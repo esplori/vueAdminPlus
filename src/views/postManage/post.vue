@@ -97,7 +97,7 @@ onMounted(() => {
   }
   state.editor = new Wangeditor("#wangeditorRef") as any;
   // 配置 server 接口地址
-  state.editor.config.uploadImgServer = "/bootService/account/upload";
+  state.editor.config.uploadImgServer = "/manage-service/account/upload";
   state.editor.config.uploadFileName = "file";
   state.editor.config.uploadImgHeaders = {
     Authorization: userinfo.token,
