@@ -15,20 +15,19 @@
     </div>
     <el-table :data="state.list" @sort-change="sortCchange">
       <el-table-column type="index" label="序号" width="55px"></el-table-column>
-      <el-table-column label="标题" width="200px">
+      <el-table-column label="标题">
         <template #default="scope">
-          <a style="color: #333; text-decoration: underline" :href="
+          <a style="color: #333;" :href="
             'https://www.dsiab.com/post/' + (scope.row.uid || scope.row.id)
           " target="_blank">{{ scope.row.title }}</a>
         </template>
       </el-table-column>
-      <el-table-column label="分类" prop="cateName"> </el-table-column>
-      <el-table-column label="作者" prop="createBy"> </el-table-column>
-      <el-table-column label="阅读" sortable="custom" prop="views">
+      <el-table-column label="分类" prop="cateName" width="80px"> </el-table-column>
+      <el-table-column label="阅读" sortable="custom" prop="views" width="80px">
       </el-table-column>
-      <el-table-column label="字数" sortable="custom" prop="wordsNum">
+      <el-table-column label="字数" sortable="custom" prop="wordsNum" width="80px">
       </el-table-column>
-      <el-table-column label="创建时间" sortable="custom" prop="createDate" width="140px">
+      <el-table-column label="创建时间" sortable="custom" prop="createDate" width="180px">
       </el-table-column>
       <el-table-column fixed="right" width="160px" label="操作">
         <template #default="scope">
