@@ -34,7 +34,7 @@
       <el-form-item label="清空redis缓存:">
         <el-button type="primary" @click="clearCache">清空</el-button>
       </el-form-item>
-      <el-form-item label="启用轮播分类推荐:" style="width: 100%">
+      <el-form-item label="启用轮播:" style="width: 100%">
         <el-switch v-model="state.form.carouselEnable" active-value="Y" inactive-value="N">
         </el-switch>
         <el-table :data="state.tableData" style="width: 100%">
