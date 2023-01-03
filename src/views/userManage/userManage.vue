@@ -30,15 +30,16 @@
         </template>
       </el-table-column>
     </el-table>
-    <div class="pagination-box" style="text-align: center; margin-top: 20px">
+    <div class="pagination-box">
       <el-pagination
+        small background
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="state.params.page"
         :page-size="state.params.pageSize"
         :page-sizes="[10, 20, 30, 50]"
         :pager-count="5"
-        layout="total, sizes, prev, pager, next, jumper"
+        layout="total, prev, pager, next"
         :total="state.total"
       >
       </el-pagination>

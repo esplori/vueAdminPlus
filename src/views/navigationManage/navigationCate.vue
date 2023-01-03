@@ -1,7 +1,7 @@
 <template>
   <div class="page-list">
     <div class="handler">
-      <el-button type="primary" @click="insertCate">新增分类</el-button>
+      <el-button link type="primary" @click="insertCate">新增分类</el-button>
     </div>
     <el-table :data="list" style="width: 100%">
       <!-- <el-table-column type="index" width="55" label="序号"> </el-table-column> -->

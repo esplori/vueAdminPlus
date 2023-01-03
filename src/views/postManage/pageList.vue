@@ -2,7 +2,7 @@
   <div class="page-list">
     <div class="select-by-cate">
       <div>
-        <span class="insert"><el-button type="primary" @click="insert">新增文章</el-button></span>
+        <span class="insert"><el-button link type="primary" @click="insert">新增文章</el-button></span>
         <span>按分类筛选：</span>
         <el-select v-model="state.params.cate" @change="typeChange" clearable>
           <el-option v-for="(item, index) in state.cateList" :key="index" :label="item.name" :value="item.id">
@@ -40,10 +40,10 @@
         </template>
       </el-table-column>
     </el-table>
-    <div class="pagination-box" style="text-align: center; margin-top: 20px">
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+    <div class="pagination-box">
+      <el-pagination small background @size-change="handleSizeChange" @current-change="handleCurrentChange"
         :current-page="state.params.page" :page-size="state.params.pageSize" :page-sizes="[10, 20, 30, 50]"
-        :pager-count="5" layout="total, sizes, prev, pager, next, jumper" :total="state.total">
+        :pager-count="5" layout="total, prev, pager, next" :total="state.total">
       </el-pagination>
     </div>
 
