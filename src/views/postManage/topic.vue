@@ -4,7 +4,7 @@
       <el-button type="primary" @click="insertCate">新增专题</el-button>
     </div>
     <el-table :data="state.list" style="width: 100%">
-      <el-table-column type="index" label="序号" width="55px"></el-table-column>
+      <!-- <el-table-column type="index" label="序号" width="55px"></el-table-column> -->
       <el-table-column label="分类名称">
         <template #default="scope">
           {{ scope.row.name }}
@@ -22,9 +22,10 @@
       </el-table-column>
       <el-table-column label="操作" width="250">
         <template #default="scope">
-          <el-button @click="edit(scope.row)" type="primary">编辑</el-button>
-          <el-button @click="manage(scope.row)" type="primary">管理</el-button>
+          <el-button link @click="edit(scope.row)" type="primary">编辑</el-button>
+          <el-button link @click="manage(scope.row)" type="primary">管理</el-button>
           <el-button
+            link
             @click="delConfirm(scope.row.id)"
             type="danger"
             class="cus-button-danger"

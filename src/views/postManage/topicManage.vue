@@ -4,7 +4,7 @@
       <el-button @click="goBack">返回</el-button>
     </div>
     <el-table :data="state.list" style="width: 100%">
-      <el-table-column type="index" label="序号" width="60px"> </el-table-column>
+      <!-- <el-table-column type="index" label="序号" width="60px"> </el-table-column> -->
       <el-table-column label="标题">
         <template #default="scope">
           {{ scope.row.name }}

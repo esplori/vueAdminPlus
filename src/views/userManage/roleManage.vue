@@ -1,13 +1,13 @@
 <template>
   <div class="role-manage">
     <el-table :data="state.data">
-      <el-table-column type="index" label="序号" width="55px"></el-table-column>
+      <!-- <el-table-column type="index" label="序号" width="55px"></el-table-column> -->
       <el-table-column prop="roleName" label="角色名称"> </el-table-column>
       <el-table-column prop="roleId" label="角色id"> </el-table-column>
       <el-table-column fixed="right" width="180" label="操作">
         <template #default="scope">
-          <el-button @click="edit(scope.row)" type="primary">编辑</el-button>
-          <el-button @click="deleteMenuConfirm(scope.row)" type="danger">删除</el-button>
+          <el-button link @click="edit(scope.row)" type="primary">编辑</el-button>
+          <el-button link @click="deleteMenuConfirm(scope.row)" type="danger">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

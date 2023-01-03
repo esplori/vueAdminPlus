@@ -22,7 +22,7 @@
       <el-table-column prop="createDate" label="更新时间"> </el-table-column>
       <el-table-column label="操作">
         <template #default="scope">
-          <el-button @click="del(scope.row.pid)" type="danger">删除</el-button>
+          <el-button link @click="del(scope.row.pid)" type="danger">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

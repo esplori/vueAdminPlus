@@ -12,7 +12,7 @@
     </el-tabs>
     <el-table :data="state.list" style="width: 100%">
       <el-table-column type="selection" width="55"> </el-table-column>
-      <el-table-column type="index" label="序号" width="55px"></el-table-column>
+      <!-- <el-table-column type="index" label="序号" width="55px"></el-table-column> -->
       <el-table-column prop="" label="名称">
         <template #default="scope">
           <div class="filename">
@@ -47,7 +47,7 @@
       </el-table-column>
       <el-table-column fixed="right" width="120" label="操作">
         <template #default="scope">
-          <el-button @click="del(scope.row.filename)" type="danger">删除</el-button>
+          <el-button link @click="del(scope.row.filename)" type="danger">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
