@@ -3,26 +3,28 @@
     <adminHeader :userInfoObj="state.userInfoObj"></adminHeader>
     <div class="content-container">
       <div class="left-menu">
-        <el-menu :unique-opened="false" style="height: 100%; overflow-y: auto" default-active="/home"
-          class="el-menu-vertical" router>
-          <div v-for="(item, index) in state.menuList" :key="index">
-            <el-menu-item v-if="!(item.children && item.children.length)" :index="item.path">
-              <template #title>{{ item.name }}</template>
-            </el-menu-item>
-            <el-sub-menu :index="item.path" v-if="item.children && item.children.length">
-              <template #title>{{ item.name }}</template>
-              <el-menu-item :index="it.path" v-for="(it, idx) in item.children" :key="idx">
-                <template #title>{{ it.name }}</template>
+        <el-scrollbar>
+          <el-menu :unique-opened="false" style="height: 100%; overflow-y: auto" default-active="/home"
+            class="el-menu-vertical" router>
+            <div v-for="(item, index) in state.menuList" :key="index">
+              <el-menu-item v-if="!(item.children && item.children.length)" :index="item.path">
+                <template #title>{{ item.name }}</template>
               </el-menu-item>
-            </el-sub-menu>
-          </div>
-        </el-menu>
+              <el-sub-menu :index="item.path" v-if="item.children && item.children.length">
+                <template #title>{{ item.name }}</template>
+                <el-menu-item :index="it.path" v-for="(it, idx) in item.children" :key="idx">
+                  <template #title>{{ it.name }}</template>
+                </el-menu-item>
+              </el-sub-menu>
+            </div>
+          </el-menu>
+        </el-scrollbar>
       </div>
       <div class="right-content">
         <RouterView />
       </div>
     </div>
-    <commonFooter></commonFooter>
+    <!-- <commonFooter></commonFooter> -->
   </div>
 </template>
 <script setup lang="ts">
@@ -253,21 +255,33 @@ onMounted(() => {
   height: 100%;
 
   .content-container {
+    position: relative;
+    // top: 5px;
+    left: 183px;
+    border-left: 10px solid #f5f5f5;
+    right: 0;
     height: 100%;
     width: 1200px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
+    overflow-x: hidden;
   }
 
   .left-menu {
     border-radius: 5px;
     background: #fff;
-    padding: 10px 10px;
+    padding: 10px 0 10px 10px;
+    position: fixed;
+    width: 200px;
+    left: 20px;
+    top: 90px;
+    height: calc(100% - 100px);
+    bottom: 120px;
   }
 
   .right-content {
-    width: 100%;
+    width: calc(100% - 150px);
     padding: 20px;
     padding-bottom: 20px;
     background: #fff;

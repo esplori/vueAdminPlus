@@ -85,9 +85,15 @@ watchEffect(() => {
 .admin-header {
   width: 100%;
   padding: 5px 0 5px 0;
-  margin: 0 auto 5px;
-  background: #fff;
+  border-bottom: 10px solid #f5f5f5;
   color: #71777c;
+  position: sticky;
+  top: 0;
+  left: 0;
+  background-image: radial-gradient(transparent 1px, #fff 1px);
+  backdrop-filter: saturate(50%) blur(4px);
+  z-index: 105;
+  background-size: 4px 4px;
 
   .header-container {
     display: flex;
