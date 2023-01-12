@@ -9,22 +9,23 @@
       </div>
       <div class="user-info">
         <!-- <div class="userInfo"> -->
-          <div v-if="state.userInfo" class="info-flex">
-            <el-dropdown @command="handleCommand">
-              <div class="el-dropdown-link">
-                {{ state.userInfo.username
-                }}<el-icon class="el-icon--right">
-                  <arrow-down />
-                </el-icon>
-              </div>
-              <template #dropdown>
-                <el-dropdown-menu>
-                  <el-dropdown-item command="logout">退出</el-dropdown-item>
-                </el-dropdown-menu>
-              </template>
-            </el-dropdown>
-          </div>
-          <span v-else @click="toLogin" class="login-in">登录</span>
+        <div v-if="state.userInfo" class="info-flex">
+          <el-dropdown @command="handleCommand">
+            <div class="el-dropdown-link">
+              {{
+                state.userInfo.username
+              }}<el-icon class="el-icon--right">
+                <arrow-down />
+              </el-icon>
+            </div>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item command="logout">退出</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+        </div>
+        <span v-else @click="toLogin" class="login-in">登录</span>
         <!-- </div> -->
       </div>
     </div>
@@ -88,14 +89,13 @@ watchEffect(() => {
   background: #fff;
   color: #71777c;
 
-  // border-bottom: 1px solid #ddd;
   .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: 1200px;
     margin: 0 auto;
-    padding: 10px 20px;
+    padding: 10px 0;
 
     .logo {
       font-size: 14px;
@@ -108,7 +108,7 @@ watchEffect(() => {
     }
 
     .user-info {
-      .info-flex{
+      .info-flex {
         display: flex;
       }
     }
@@ -122,7 +122,7 @@ watchEffect(() => {
 
   .tips {
     width: 100%;
-    padding: 0 20px 5px 20px ;
+    padding: 0 20px 5px 20px;
     border-bottom: 1px solid #ddd;
 
     .welcomeMsg {

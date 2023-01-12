@@ -2,11 +2,11 @@
   <div class="home">
     <div class="card-item">
       <div class="date-picker-change">
-        <h3>统计数据</h3>
+        <h3>数据总览</h3>
       </div>
       <el-row :gutter="10" style="width: 100%;">
-        <el-col :span="8">
-          <el-card shadow="always">
+        <el-col :span="6">
+          <el-card shadow="hover">
             <div class="item-title">总访问量</div>
             <div class="item-amount" ref="countupviews" id="countupviews">
               {{ state.views }}
@@ -17,8 +17,8 @@
             </div>
           </el-card>
         </el-col>
-        <el-col :span="8">
-          <el-card shadow="always">
+        <el-col :span="6">
+          <el-card shadow="hover">
             <div class="item-title">今日浏览量(PV)</div>
             <div class="item-amount" ref="countupdayViews" id="countupdayViews">
               {{ state.dayViews }}
@@ -39,8 +39,8 @@
             </div>
           </el-card>
         </el-col>
-        <el-col :span="8">
-          <el-card shadow="always">
+        <el-col :span="6">
+          <el-card shadow="hover">
             <div class="item-title">今日访问IP数(UV)</div>
             <div class="item-amount" ref="countupdayIp" id="countupdayIp">
               {{ state.dayIp }}
@@ -61,10 +61,8 @@
             </div>
           </el-card>
         </el-col>
-      </el-row>
-      <el-row :gutter="10" style="width: 100%;margin-top:10px" v-if="userInfo.role.includes('ROLE_admin')">
-        <el-col :span="8">
-          <el-card shadow="always">
+        <el-col :span="6">
+          <el-card shadow="hover">
             <div class="item-title">文章总数</div>
             <div class="item-amount" ref="countuppages" id="countuppages">
               {{ state.pages }}
@@ -81,17 +79,6 @@
 
               </span>
               <span class="num"> {{ Math.abs(state.allpagesMom) }} </span>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :span="8">
-          <el-card shadow="always">
-            <div class="item-title">总字数</div>
-            <div class="item-amount" ref="countuppages" id="countuppages">
-              {{ state.totalWordsNum }}
-            </div>
-            <div class="item-compare">
-              <span class="num" style="color:#fff">0</span>
             </div>
           </el-card>
         </el-col>
@@ -128,7 +115,7 @@
 
     <div v-if="userInfo.role.includes('ROLE_admin')">
       <div>
-        <h2 class="table-title">当天访问来源：共{{state.referrerTableData.length}}条</h2>
+        <h2 class="table-title">当天访问来源：共{{ state.referrerTableData.length }}条</h2>
       </div>
       <el-table :data="state.referrerTableData" style="width: 100%">
         <el-table-column type="index" label="序号" width="60" align="center">
@@ -139,7 +126,7 @@
         <el-table-column prop="createDate" label="时间"> </el-table-column>
       </el-table>
       <div class="date-picker-change">
-        <h2 class="table-title">当天访问地址：共{{state.postViewTableData.length}}条</h2>
+        <h2 class="table-title">当天访问地址：共{{ state.postViewTableData.length }}条</h2>
       </div>
       <el-table :data="state.postViewTableData" style="width: 100%">
         <el-table-column type="index" label="序号" width="60" align="center">
@@ -147,7 +134,7 @@
         <el-table-column prop="title" label="标题"> </el-table-column>
         <el-table-column prop="href" label="地址">
           <template #default="scope">
-            <a :href="scope.row.href">{{scope.row.href}}</a>
+            <a :href="scope.row.href">{{ scope.row.href }}</a>
           </template>
         </el-table-column>
         <el-table-column prop="ip" label="ip地址"> </el-table-column>
@@ -337,7 +324,7 @@ const initDayViews = () => {
         data: state.everyDayViews.map((item: any) => {
           return item.dayIp;
         }),
-        smooth:true
+        smooth: true
       },
       {
         name: "今日浏览量(PV)",
@@ -349,7 +336,7 @@ const initDayViews = () => {
           show: true,
           position: "top",
         },
-        smooth:true
+        smooth: true
       },
     ],
   });
