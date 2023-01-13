@@ -257,9 +257,9 @@ onMounted(() => {
   .content-container {
     position: relative;
     // top: 5px;
-    left: 183px;
-    border-left: 10px solid #f5f5f5;
-    right: 0;
+    // left: 183px;
+    // border-left: 10px solid #f5f5f5;
+    // right: 0;
     height: 100%;
     width: 1200px;
     margin: 0 auto;
@@ -269,23 +269,25 @@ onMounted(() => {
   }
 
   .left-menu {
-    border-radius: 5px;
+    // border-radius: 5px;
     background: #fff;
-    padding: 10px 0 10px 10px;
+    padding: 0 0 10px 10px;
     position: fixed;
     width: 200px;
     left: 20px;
     top: 90px;
     height: calc(100% - 100px);
     bottom: 120px;
+    overflow-y: auto;
+    border-right: 10px solid #f5f5f5;
   }
 
   .right-content {
-    width: calc(100% - 150px);
+    margin-left: 190px;
+    width: calc(100% - 200px);
     padding: 20px;
     padding-bottom: 20px;
     background: #fff;
-    margin-left: 5px;
     height: fit-content;
     border-radius: 5px;
   }

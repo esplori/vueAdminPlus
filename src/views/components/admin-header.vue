@@ -129,7 +129,7 @@ watchEffect(() => {
   .tips {
     width: 100%;
     padding: 0 20px 5px 20px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #f5f5f5;
 
     .welcomeMsg {
       // margin-left: 10px;
