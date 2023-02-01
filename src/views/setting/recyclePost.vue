@@ -2,7 +2,7 @@
   <div class="page-list">
     <el-table :data="state.list" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"> </el-table-column>
-      <el-table-column type="index" label="序号" width="55px"></el-table-column>
+      <!-- <el-table-column type="index" label="序号" width="55px"></el-table-column> -->
       <el-table-column label="标题">
         <template #default="scope">
           <a style="color: #333" :href="'https://www.dsiab.com/post/' + scope.row.id" target="_blank">{{ scope.row.title
@@ -31,7 +31,7 @@
       </el-table-column>
       <el-table-column fixed="right" width="180" label="操作">
         <template #default="scope">
-          <el-button @click="delConfirm(scope.row.id)" type="text" class="cus-button-danger">删除</el-button>
+          <el-button link @click="delConfirm(scope.row.id)" type="danger" class="cus-button-danger">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

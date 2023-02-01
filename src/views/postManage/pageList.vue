@@ -2,7 +2,7 @@
   <div class="page-list">
     <div class="select-by-cate">
       <div>
-        <span class="insert"><el-button type="primary" @click="insert">新增文章</el-button></span>
+        <span class="insert"><el-button link type="primary" @click="insert">新增文章</el-button></span>
         <span>按分类筛选：</span>
         <el-select v-model="state.params.cate" @change="typeChange" clearable>
           <el-option v-for="(item, index) in state.cateList" :key="index" :label="item.name" :value="item.id">
@@ -14,36 +14,36 @@
       </div>
     </div>
     <el-table :data="state.list" @sort-change="sortCchange">
-      <el-table-column type="index" label="序号" width="55px"></el-table-column>
-      <el-table-column label="标题">
+      <!-- <el-table-column type="index" label="序号" width="55px"></el-table-column> -->
+      <el-table-column label="标题" show-overflow-tooltip>
         <template #default="scope">
           <a style="color: #333;" :href="
             'https://www.dsiab.com/post/' + (scope.row.uid || scope.row.id)
           " target="_blank">{{ scope.row.title }}</a>
         </template>
       </el-table-column>
-      <el-table-column label="分类" prop="cateName" width="80px"> </el-table-column>
-      <el-table-column label="阅读" sortable="custom" prop="views" width="80px">
+      <el-table-column label="分类" prop="cateName" width="80px" align="center"> </el-table-column>
+      <el-table-column label="阅读" sortable="custom" prop="views" width="80px" align="center">
       </el-table-column>
-      <el-table-column label="字数" sortable="custom" prop="wordsNum" width="80px">
+      <el-table-column label="字数" sortable="custom" prop="wordsNum" width="80px" align="center">
       </el-table-column>
-      <el-table-column label="创建时间" sortable="custom" prop="createDate" width="180px">
+      <el-table-column label="创建时间" sortable="custom" prop="createDate" width="180px" align="center">
       </el-table-column>
       <el-table-column fixed="right" width="160px" label="操作">
         <template #default="scope">
          <div class="operate">
-          <div @click="edit(scope.row.id)" type="text">编辑</div>
-          <div @click="delConfirm(scope.row.id)" type="danger" class="cus-button-danger">删除</div>
-          <div v-if="userInfo.includes('ROLE_admin')" @click="addToTopic(scope.row)" type="primary">加专题
-          </div>
+          <el-button link type="primary" @click="edit(scope.row.id)">编辑</el-button>
+          <el-button link @click="delConfirm(scope.row.id)" type="danger">删除</el-button>
+          <el-button link v-if="userInfo.includes('ROLE_admin')" @click="addToTopic(scope.row)" type="primary">加专题
+          </el-button>
          </div>
         </template>
       </el-table-column>
     </el-table>
-    <div class="pagination-box" style="text-align: center; margin-top: 20px">
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+    <div class="pagination-box">
+      <el-pagination small background @size-change="handleSizeChange" @current-change="handleCurrentChange"
         :current-page="state.params.page" :page-size="state.params.pageSize" :page-sizes="[10, 20, 30, 50]"
-        :pager-count="5" layout="total, sizes, prev, pager, next, jumper" :total="state.total">
+        :pager-count="5" layout="total, prev, pager, next" :total="state.total">
       </el-pagination>
     </div>
 

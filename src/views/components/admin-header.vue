@@ -9,22 +9,23 @@
       </div>
       <div class="user-info">
         <!-- <div class="userInfo"> -->
-          <div v-if="state.userInfo" class="info-flex">
-            <el-dropdown @command="handleCommand">
-              <div class="el-dropdown-link">
-                {{ state.userInfo.username
-                }}<el-icon class="el-icon--right">
-                  <arrow-down />
-                </el-icon>
-              </div>
-              <template #dropdown>
-                <el-dropdown-menu>
-                  <el-dropdown-item command="logout">退出</el-dropdown-item>
-                </el-dropdown-menu>
-              </template>
-            </el-dropdown>
-          </div>
-          <span v-else @click="toLogin" class="login-in">登录</span>
+        <div v-if="state.userInfo" class="info-flex">
+          <el-dropdown @command="handleCommand">
+            <div class="el-dropdown-link">
+              {{
+                state.userInfo.username
+              }}<el-icon class="el-icon--right">
+                <arrow-down />
+              </el-icon>
+            </div>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item command="logout">退出</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+        </div>
+        <span v-else @click="toLogin" class="login-in">登录</span>
         <!-- </div> -->
       </div>
     </div>
@@ -84,18 +85,23 @@ watchEffect(() => {
 .admin-header {
   width: 100%;
   padding: 5px 0 5px 0;
-  margin: 0 auto 5px;
-  background: #fff;
+  border-bottom: 10px solid #f5f5f5;
   color: #71777c;
+  position: sticky;
+  top: 0;
+  left: 0;
+  background-image: radial-gradient(transparent 1px, #fff 1px);
+  backdrop-filter: saturate(50%) blur(4px);
+  z-index: 105;
+  background-size: 4px 4px;
 
-  // border-bottom: 1px solid #ddd;
   .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: 1200px;
     margin: 0 auto;
-    padding: 20px 20px;
+    padding: 10px 0;
 
     .logo {
       font-size: 14px;
@@ -108,7 +114,7 @@ watchEffect(() => {
     }
 
     .user-info {
-      .info-flex{
+      .info-flex {
         display: flex;
       }
     }
@@ -122,8 +128,8 @@ watchEffect(() => {
 
   .tips {
     width: 100%;
-    padding: 0 20px 5px 20px ;
-    border-bottom: 1px solid #ddd;
+    padding: 0 20px 5px 20px;
+    border-bottom: 1px solid #f5f5f5;
 
     .welcomeMsg {
       // margin-left: 10px;

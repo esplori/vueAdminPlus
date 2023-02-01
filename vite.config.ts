@@ -17,10 +17,11 @@ export default defineConfig({
     port: 7910,
     open:true, // 默认打开浏览器
     proxy: {
-      "/bootService": {
-        target: "http://admin.dsiab.com/",
-        // target: 'http://localhost:8091/',
+      "/manage-service": {
+        // target: "http://106.52.157.102:8081",
+        target: 'http://localhost:8083/',
         changeOrigin: true,
+        rewrite: path => path.replace('manage-service', '')
       },
     },
     // hmr:{

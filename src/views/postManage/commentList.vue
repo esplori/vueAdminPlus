@@ -6,7 +6,7 @@
           {{ scope.row.username }}
         </template>
       </el-table-column>
-      <el-table-column label="文章id">
+      <el-table-column label="文章">
         <template #default="scope">
           <a :href="'http://www.dsiab.com/post/' + scope.row.postId" target="_blank">{{ scope.row.postId }}</a>
         </template>

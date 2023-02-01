@@ -1,25 +1,25 @@
 <template>
   <div class="page-list">
     <div class="handler">
-      <el-button type="primary" @click="insert">新增导航</el-button>
+      <el-button link type="primary" @click="insert">新增导航</el-button>
     </div>
     <el-table :data="state.list" style="width: 100%">
-      <el-table-column type="index" width="55" label="序号"> </el-table-column>
+      <!-- <el-table-column type="index" width="55" label="序号"> </el-table-column> -->
       <el-table-column prop="title" label="标题"> </el-table-column>
       <el-table-column prop="content" label="描述"> </el-table-column>
       <el-table-column prop="url" label="地址"> </el-table-column>
       <el-table-column prop="createDate" label="创建日期"> </el-table-column>
       <el-table-column label="操作" width="180">
         <template #default="scope">
-          <el-button @click="edit(scope.row.id)" type="primary">编辑</el-button>
-          <el-button @click="delConfirm(scope.row.id)" type="danger" class="cus-button-danger">删除</el-button>
+          <el-button link @click="edit(scope.row.id)" type="primary">编辑</el-button>
+          <el-button link @click="delConfirm(scope.row.id)" type="danger" class="cus-button-danger">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <div class="pagination-box" style="text-align: center; margin-top: 20px">
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+    <div class="pagination-box">
+      <el-pagination small background @size-change="handleSizeChange" @current-change="handleCurrentChange"
         :current-page="state.params.page" :page-sizes="[10, 20, 30, 50]" :page-size="state.params.pageSize"
-        layout="total, sizes, prev, pager, next, jumper" :total="state.total">
+        layout="total, prev, pager, next" :total="state.total">
       </el-pagination>
     </div>
   </div>

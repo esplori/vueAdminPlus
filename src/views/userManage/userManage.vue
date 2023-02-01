@@ -4,7 +4,7 @@
       <el-button @click="insertUser" type="primary">新增用户</el-button>
     </div> -->
     <el-table :data="state.data">
-      <el-table-column type="index" label="序号" width="55px"></el-table-column>
+      <!-- <el-table-column type="index" label="序号" width="55px"></el-table-column> -->
       <el-table-column prop="username" label="用户名"> </el-table-column>
       <el-table-column prop="role" label="角色Id"> </el-table-column>
       <el-table-column prop="email" label="邮箱"> </el-table-column>
@@ -17,11 +17,12 @@
       <el-table-column prop="createDate" label="创建时间"> </el-table-column>
       <el-table-column fixed="right" width="180" label="操作">
         <template #default="scope">
-          <el-button @click="edit(scope.row)" type="primary">编辑</el-button>
+          <el-button link @click="edit(scope.row)" type="primary">编辑</el-button>
           <!-- 不允许删除管理员 -->
           <el-button
             @click="delConfirm(scope.row.id, scope.row.username)"
             type="danger"
+            link
             class="cus-button-danger"
             :disabled="scope.row.role.indexOf('admin') !== -1"
             >删除</el-button
@@ -29,15 +30,16 @@
         </template>
       </el-table-column>
     </el-table>
-    <div class="pagination-box" style="text-align: center; margin-top: 20px">
+    <div class="pagination-box">
       <el-pagination
+        small background
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="state.params.page"
         :page-size="state.params.pageSize"
         :page-sizes="[10, 20, 30, 50]"
         :pager-count="5"
-        layout="total, sizes, prev, pager, next, jumper"
+        layout="total, prev, pager, next"
         :total="state.total"
       >
       </el-pagination>
