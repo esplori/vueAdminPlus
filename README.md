@@ -46,7 +46,7 @@
 
 ### 关联项目
 
-- 博客首页: nuxt-web (https://gitee.com/wilkwo/nuxt-web.git) 
+- 博客首页: nuxtWebPlus (https://gitee.com/wilkwo/nuxt-web-plus.git) 
   
 - 体验地址：https://www.dsiab.com
 
