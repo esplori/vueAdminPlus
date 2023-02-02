@@ -31,12 +31,12 @@
       </el-table-column>
       <el-table-column fixed="right" width="160px" label="操作">
         <template #default="scope">
-         <div class="operate">
-          <el-button link type="primary" @click="edit(scope.row.id)">编辑</el-button>
-          <el-button link @click="delConfirm(scope.row.id)" type="danger">删除</el-button>
-          <el-button link v-if="userInfo.includes('ROLE_admin')" @click="addToTopic(scope.row)" type="primary">加专题
-          </el-button>
-         </div>
+          <div class="operate">
+            <el-button link type="primary" @click="edit(scope.row.id)">编辑</el-button>
+            <el-button link @click="delConfirm(scope.row.id)" type="danger">删除</el-button>
+            <el-button link v-if="userInfo.includes('ROLE_admin')" @click="addToTopic(scope.row)" type="primary">加专题
+            </el-button>
+          </div>
         </template>
       </el-table-column>
     </el-table>
@@ -94,9 +94,9 @@ const state = reactive({
     topicId: "",
   },
   total: 0,
-  cateList: [{name:"",id:""}],
+  cateList: [{ name: "", id: "" }],
   dialogVisible: false,
-  topicList: [{name:"",id:""}],
+  topicList: [{ name: "", id: "" }],
 });
 onMounted(() => {
   getCate();
@@ -109,7 +109,11 @@ onMounted(() => {
 });
 
 const insert = () => {
-  router.push({ path: "post"});
+  // router.push({ path: "/post" });
+  // 新开窗口
+  let rt = router.resolve({ path: "/post" })
+  window.open(rt.href, '_blank')
+
 };
 
 const userInfo = computed(() => {
@@ -126,13 +130,13 @@ const tagChange = (val: any) => {
   getListByTags(val);
 };
 const getListByTags = async (val: any) => {
-  const res: any = await getListByTagsApi({ tag: val ,page: 1 });
+  const res: any = await getListByTagsApi({ tag: val, page: 1 });
   if (res) {
     state.list = res.data.result;
     state.total = res.data.total;
   }
 };
-const sortCchange = (column: any ) => {
+const sortCchange = (column: any) => {
   state.params.page = 1;
   // 需要转换成sql对应的排序字段
   state.params.order = column.order === "ascending" ? "asc" : "desc";
@@ -190,7 +194,10 @@ const del = async (id: any) => {
 };
 
 const edit = async (id: any) => {
-  router.push({ path: "post", query: { id: id, ...state.params } });
+  // router.push({ path: "/post", query: { id: id, ...state.params } });
+  // 新开窗口
+  let rt = router.resolve({ path: "/post", query: { id: id, ...state.params } })
+  window.open(rt.href, '_blank')
 };
 
 const handleSizeChange = async (val: any) => {
@@ -224,13 +231,14 @@ const submitTopic = async () => {
   width: 100%;
 
   .select-by-cate {
-    margin: 20px;
+    margin: 20px 0;
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
     margin-bottom: 10px;
-    .insert{
+
+    .insert {
       margin-right: 20px;
     }
   }
@@ -240,11 +248,13 @@ const submitTopic = async () => {
     text-align: left;
     padding: 5px;
   }
-  .operate{
+
+  .operate {
     display: flex;
-    div{
+
+    div {
       cursor: pointer;
-      padding-right:10px;
+      padding-right: 10px;
     }
   }
 }
