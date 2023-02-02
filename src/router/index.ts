@@ -22,6 +22,10 @@ const router = createRouter({
       component: () => import("../views/account/regActive.vue"),
     },
     {
+      path: "/post",
+      component: () =>import("../views/postManage/_post.vue")
+    },
+    {
       path: "/",
       name: "mainLayout",
       // route level code-splitting
