@@ -1,43 +1,167 @@
 <template>
   <div class="_post">
-    <div>
-      <div id="editor-toolbar">
-        <Toolbar style="z-index: 100;" :editor="editorRef" :defaultConfig="toolbarConfig" :mode="mode" />
-      </div>
+    <div id="editor-toolbar">
+      <Toolbar style="z-index: 100;" :editor="editorRef" :defaultConfig="toolbarConfig" :mode="mode" />
     </div>
     <div id="content">
       <div id="editor-container">
         <div id="title-container">
-          <input placeholder="请输入标题...">
+          <input v-model="state.form.title" placeholder="请输入标题...">
         </div>
         <div id="editor-text-area">
           <Editor style="height: 500px; overflow-y: hidden;" v-model="valueHtml" :defaultConfig="editorConfig"
-            :mode="mode" @onCreated="handleCreated" />
+            :mode="mode" @onCreated="handleCreated" @onChange="handleChange" />
         </div>
+        <!-- 文章选项 -->
+        <div class="post-info">
+          <el-form label-width="85px" :model="state.form">
+            <el-form-item label="创建时间：">
+              <el-date-picker type="datetime" style="width: 250px" popper-class="select-zindex"
+                v-model="state.form.createDate"></el-date-picker>
+            </el-form-item>
+            <el-form-item label="分类：">
+              <el-select v-model="state.form.cate" popper-class="select-zindex" class="optionsWidth">
+                <el-option v-for="(item, index) in state.cateList" :key="index" :label="item.name" :value="item.id">
+                </el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="浏览量：">
+              <el-input v-model="state.form.views" disabled class="optionsWidth"></el-input>
+            </el-form-item>
+            <el-form-item label="关键字：">
+              <el-tag :key="tag" v-for="tag in state.dynamicTags" closable :disable-transitions="false"
+                @close="handleClose(tag)">
+                {{ tag }}
+              </el-tag>
+              <el-input class="input-new-tag" v-if="state.inputVisible" v-model="state.inputValue" ref="saveTagInput"
+                @keyup.enter="handleInputConfirm" @blur="handleInputConfirm">
+              </el-input>
+              <el-button v-else class="button-new-tag" @click="showInput">+ 新增</el-button>
+            </el-form-item>
+          </el-form>
+        </div>
+      </div>
+    </div>
+    <div class="submit-container">
+      <div class="submit-bar">
+        <div><span class="wordNum">字数：{{ state.form.wordsNum }}</span></div>
+        <div><el-button @click="submit()" type="primary">提交</el-button></div>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
-
-import { onBeforeUnmount, ref, shallowRef, onMounted } from 'vue'
+import { onBeforeUnmount, ref, shallowRef, onMounted, reactive, computed } from 'vue'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+import { ElMessage } from "element-plus";
+import { getCurrDate } from "@/utils/common.js";
+import { useRouter, useRoute } from "vue-router";
+import {
+  postPageApi,
+  editPageApi,
+  getDetailByIdApi,
+  getAdminCateValidApi,
+} from "@/views/API/admin.js";
+const router = useRouter();
+const route = useRoute();
 
-const mode = "simple"
+const state = reactive({
+  form: {
+    id: "",
+    title: "",
+    content: "",
+    cate: "",
+    views: 0,
+    keywords: "",
+    createBy: "",
+    wordsNum: 0,
+    createDate: getCurrDate(""),
+  },
+  cateList: [{ name: "", id: "" }],
+  inputVisible: false,
+  inputValue: "",
+  dynamicTags: []
+});
 
+const id = route.query.id;
+
+const userInfo = computed(() => {
+  const uinfo = localStorage.getItem("userInfo");
+  if (uinfo) {
+    return JSON.parse(uinfo);
+  } else {
+    return "";
+  }
+});
+
+const getCate = async (id: any) => {
+  const res: any = await getAdminCateValidApi({});
+  if (res) {
+    state.cateList = res.data.result || [];
+    if (!id) {
+      //  如果不是编辑，默认取第一个分类
+      state.form.cate = state.cateList[0].id;
+    }
+  }
+};
+
+const getDetail = async (id: any) => {
+  const res: any = await getDetailByIdApi({ id: id });
+  if (res) {
+    // 日期兼容safari
+    res.data.result.createDate = res.data.result.createDate.replace(/-/g, "/");
+    // this.$set(this, "form", res.data.result);
+    state.form = res.data.result;
+    state.dynamicTags = state.form.keywords
+      ? state.form.keywords.split(",")
+      : [] as any;
+    editorRef.value.setHtml(state.form.content)
+  }
+};
+
+if (id) {
+  getDetail(id);
+}
+getCate(id);
+
+const editPage = async () => {
+  const res = await editPageApi({
+    ...state.form,
+    createDate: getCurrDate(state.form.createDate),
+    createBy: userInfo && userInfo.value.username,
+    keywords: state.dynamicTags.join(","),
+  });
+  if (res) {
+    const { page, cate, pageSize } = route.query;
+    ElMessage.success("保存成功");
+    router.push({
+      path: "/article/pageList",
+      query: { page, cate, pageSize },
+    });
+  }
+};
+
+const postPage = async () => {
+  const res: any = await postPageApi({
+    ...state.form,
+    createBy: userInfo && userInfo.value.username,
+    createDate: getCurrDate(state.form.createDate),
+    keywords: state.dynamicTags.join(","),
+  });
+  if (res) {
+    ElMessage.success("保存成功");
+    state.form.id = res.data;
+    router.push({ path: "/article/pageList" });
+  }
+};
+
+
+const mode = "default"
 // 编辑器实例，必须用 shallowRef
 const editorRef = shallowRef()
-
 // 内容 HTML
 const valueHtml = ref('')
-
-// 模拟 ajax 异步获取内容
-onMounted(() => {
-  // setTimeout(() => {
-  //   valueHtml.value = '<p>模拟 Ajax 异步设置内容</p>'
-  // }, 1500)
-})
 
 const toolbarConfig = {
   excludeKeys: [
@@ -61,51 +185,149 @@ onBeforeUnmount(() => {
 const handleCreated = (editor) => {
   editorRef.value = editor // 记录 editor 实例，重要！
 }
+const handleChange = (editor) => {
+
+  let editorDom = document.getElementById("w-e-textarea-1")
+  if (editorDom) {
+    state.form.wordsNum = editorDom.textContent.length
+  } else {
+    state.form.wordsNum = editor.getText().length
+  }
+  console.log('dom', state.form.wordsNum);
+
+}
+
+const submit = async () => {
+  state.form.content = (editorRef.value.getHtml()) as any;
+  // 正常提交提示必填项
+  if (!state.form.title) {
+    ElMessage.warning("请输入标题");
+    return false;
+  }
+  if (!state.form.content) {
+    ElMessage.warning("请输入内容");
+    return false;
+  }
+  if (!state.form.cate) {
+    ElMessage.warning("请选择分类");
+    return false;
+  }
+  // 同时保存到缓存
+  localStorage.setItem("postInfo", JSON.stringify(state.form));
+  if (state.form.id) {
+    editPage();
+  } else {
+    postPage();
+  }
+};
+const showInput = async (tag: any) => {
+  state.inputVisible = true;
+};
+
+const handleInputConfirm = async (tag: any) => {
+  const inputValue = state.inputValue as never;
+  if (inputValue) {
+    state.dynamicTags.push(inputValue);
+  }
+  state.inputVisible = false;
+  state.inputValue = "";
+};
+
+const handleClose = async (tag: never) => {
+  state.dynamicTags.splice(state.dynamicTags.indexOf(tag), 1);
+};
 </script>
 
 <style scoped lang="scss">
-#top-container {
-  border-bottom: 1px solid #e8e8e8;
-  padding-left: 30px;
-}
+._post {
+  #top-container {
+    border-bottom: 1px solid #e8e8e8;
+    padding-left: 30px;
+  }
 
-#editor-toolbar {
-  width: 1350px;
-  background-color: #FCFCFC;
-  margin: 0 auto;
-}
+  #editor-toolbar {
+    width: 100%;
+    background-color: #FCFCFC;
+    margin: 0 auto;
+  }
 
-#content {
-  height: calc(100% - 40px);
-  background-color: rgb(245, 245, 245);
-  overflow-y: auto;
-  position: relative;
-}
+  #content {
+    height: calc(100% - 40px);
+    background-color: rgb(245, 245, 245);
+    overflow-y: auto;
+    position: relative;
+  }
 
-#editor-container {
-  width: 850px;
-  margin: 30px auto 150px auto;
-  background-color: #fff;
-  padding: 20px 50px 50px 50px;
-  border: 1px solid #e8e8e8;
-  box-shadow: 0 2px 10px rgb(0 0 0 / 12%);
-}
+  #editor-container {
+    width: 850px;
+    margin: 30px auto 150px auto;
+    background-color: #fff;
+    padding: 20px 50px 50px 50px;
+    border: 1px solid #e8e8e8;
+    box-shadow: 0 2px 10px rgb(0 0 0 / 12%);
+  }
 
-#title-container {
-  padding: 20px 0;
-  border-bottom: 1px solid #e8e8e8;
-}
+  #title-container {
+    padding: 20px 0;
+    border-bottom: 1px solid #e8e8e8;
+  }
 
-#title-container input {
-  font-size: 30px;
-  border: 0;
-  outline: none;
-  width: 100%;
-  line-height: 1;
-}
+  #title-container input {
+    font-size: 30px;
+    border: 0;
+    outline: none;
+    width: 100%;
+    line-height: 1;
+  }
 
-#editor-text-area {
-  min-height: 500px;
-  margin-top: 20px;
+  #editor-text-area {
+    min-height: 500px;
+    margin-top: 20px;
+  }
+
+  .post-info {
+    border-top: 1px solid #EBEBEB;
+    padding-top: 20px;
+  }
+
+  .optionsWidth {
+    width: 250px;
+  }
+
+  .submit-container {
+    color: #8590A6;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 10px;
+    text-align: center;
+    background-color: #fff;
+    border-top: 1px solid #EBEBEB;
+    z-index: 300;
+  }
+
+  .submit-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 850px;
+    margin: 0 auto;
+  }
+
+  .wordNum {
+    margin-right: 30px;
+  }
+
+  .input-new-tag {
+    width: 90px;
+    vertical-align: bottom;
+  }
+
+  .el-tag {
+    margin-right: 5px;
+    height: 32px;
+  }
+
 }
 </style>
