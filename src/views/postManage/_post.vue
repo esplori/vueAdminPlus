@@ -173,7 +173,7 @@ const toolbarConfig = {
     "todo"
   ]
 }
-const editorConfig = { placeholder: '请输入内容...' }
+const editorConfig = { placeholder: '请输入内容...', MENU_CONF: {} }
 
 // 组件销毁时，也及时销毁编辑器
 onBeforeUnmount(() => {
@@ -196,6 +196,46 @@ const handleChange = (editor) => {
   console.log('dom', state.form.wordsNum);
 
 }
+
+editorConfig.MENU_CONF['uploadImage'] = {
+  server: '/manage-service/account/upload',
+  // server: '/api/upload-img-10s', // test timeout
+  // server: '/api/upload-img-failed', // test failed
+  // server: '/api/xxx', // test 404
+
+  timeout: 15 * 1000, // 5s
+  fieldName: 'file',
+  meta: { Authorization: userInfo.value.token },
+  metaWithUrl: true, // join params to url
+  headers: { Accept: 'application/json' },
+  maxFileSize: 10 * 1024 * 1024, // 10M
+  base64LimitSize: 5 * 1024, // insert base64 format, if file's size less than 5kb
+  onBeforeUpload(file) {
+    console.log('onBeforeUpload', file)
+
+    return file // will upload this file
+    // return false // prevent upload
+  },
+  onProgress(progress) {
+    console.log('onProgress', progress)
+  },
+  onSuccess(file, res) {
+    console.log('onSuccess', file, res)
+  },
+  onFailed(file, res) {
+    alert(res.message)
+    console.log('onFailed', file, res)
+  },
+  onError(file, err, res) {
+    alert(err.message)
+    console.error('onError', file, err, res)
+  },
+  customInsert(res, insertFn) {
+    console.log(res);
+    insertFn(res.data[0].url);
+  },
+}
+
 
 const submit = async () => {
   state.form.content = (editorRef.value.getHtml()) as any;
