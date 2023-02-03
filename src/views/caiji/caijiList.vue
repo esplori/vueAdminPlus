@@ -5,7 +5,7 @@
     </div>
     <el-table :data="state.list" style="width: 100%">
       <el-table-column type="selection" width="55"> </el-table-column>
-      <el-table-column label="商品名称">
+      <el-table-column label="商品名称" show-overflow-tooltip>
         <template #default="scope">
           <a :href="scope.row.url">{{ scope.row.title }}</a>
         </template>

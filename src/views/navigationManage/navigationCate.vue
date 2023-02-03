@@ -10,7 +10,7 @@
           {{ scope.row.name }}
         </template>
       </el-table-column>
-      <el-table-column label="标题">
+      <el-table-column label="创建时间">
         <template #default="scope">
           {{ scope.row.createDate }}
         </template>
