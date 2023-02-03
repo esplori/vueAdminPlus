@@ -6,8 +6,8 @@
     <el-table :data="state.list" style="width: 100%">
       <!-- <el-table-column type="index" width="55" label="序号"> </el-table-column> -->
       <el-table-column prop="title" label="标题"> </el-table-column>
-      <el-table-column prop="content" label="描述"> </el-table-column>
-      <el-table-column prop="url" label="地址"> </el-table-column>
+      <el-table-column prop="content" label="描述" show-overflow-tooltip> </el-table-column>
+      <el-table-column prop="url" label="地址" show-overflow-tooltip> </el-table-column>
       <el-table-column prop="createDate" label="创建日期"> </el-table-column>
       <el-table-column label="操作" width="180">
         <template #default="scope">
