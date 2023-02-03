@@ -1,11 +1,8 @@
 <template>
   <div class="admin-header">
-    <div class="tips">
-      <span class="welcomeMsg">每日一句：{{ dailySentence }}</span>
-    </div>
     <div class="header-container">
       <div class="logo">
-        <a href="https://www.dsiab.com" target="_blank">javascript技术分享</a>
+        <span class="logo_pic">SIA</span><a href="https://www.dsiab.com" target="_blank">javascript技术分享</a>
       </div>
       <div class="user-info">
         <!-- <div class="userInfo"> -->
@@ -33,23 +30,16 @@
 </template>
 
 <script setup lang="ts">
-import { delHtmlTag } from "@/utils/common.js";
 import { logoutApi } from "@/views/account/api";
 import { ArrowDown } from "@element-plus/icons-vue";
-import { computed, watchEffect, reactive } from "vue";
+import { watchEffect, reactive } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-const dailySentence = computed(() => {
-  return (
-    state.userInfo.dailySentence && delHtmlTag(state.userInfo.dailySentence)
-  );
-});
 
 const state = reactive({
   userInfo: {
-    dailySentence: "",
     username: ""
   }
 })
@@ -107,6 +97,15 @@ watchEffect(() => {
       font-size: 14px;
       text-align: left;
       width: 220px;
+
+      .logo_pic {
+        color: #333;
+        font-size: .8rem;
+        border: 1px solid #333;
+        border-radius: 10%;
+        padding: 5px;
+        margin-right: 10px;
+      }
 
       a {
         color: #333;

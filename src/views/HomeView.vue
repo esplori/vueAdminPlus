@@ -239,6 +239,10 @@ const userInfo = computed(() => {
 const getUserInfo = async () => {
   const res: any = await getUserInfoApi({});
   state.userInfoObj = res.data;
+  // 保存每日一句
+  if(res.data.dailySentence){
+    localStorage.setItem("dailySentence",res.data.dailySentence)
+  }
 };
 const getMenus = async () => {
   getMenusApi({}).then((res: any) => {
@@ -275,8 +279,8 @@ onMounted(() => {
     position: fixed;
     width: 200px;
     left: 20px;
-    top: 90px;
-    height: calc(100% - 100px);
+    top: 60px;
+    height: calc(100% - 60px);
     bottom: 120px;
     overflow-y: auto;
     border-right: 10px solid #f5f5f5;

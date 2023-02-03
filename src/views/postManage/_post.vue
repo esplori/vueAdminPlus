@@ -182,13 +182,13 @@ onBeforeUnmount(() => {
   editor.destroy()
 })
 
-const handleCreated = (editor) => {
+const handleCreated = (editor: any) => {
   editorRef.value = editor // 记录 editor 实例，重要！
 }
-const handleChange = (editor) => {
+const handleChange = (editor: any) => {
 
   let editorDom = document.getElementById("w-e-textarea-1")
-  if (editorDom) {
+  if (editorDom && editorDom.textContent) {
     state.form.wordsNum = editorDom.textContent.length
   } else {
     state.form.wordsNum = editor.getText().length
@@ -210,27 +210,7 @@ editorConfig.MENU_CONF['uploadImage'] = {
   headers: { Accept: 'application/json' },
   maxFileSize: 10 * 1024 * 1024, // 10M
   base64LimitSize: 5 * 1024, // insert base64 format, if file's size less than 5kb
-  onBeforeUpload(file) {
-    console.log('onBeforeUpload', file)
-
-    return file // will upload this file
-    // return false // prevent upload
-  },
-  onProgress(progress) {
-    console.log('onProgress', progress)
-  },
-  onSuccess(file, res) {
-    console.log('onSuccess', file, res)
-  },
-  onFailed(file, res) {
-    alert(res.message)
-    console.log('onFailed', file, res)
-  },
-  onError(file, err, res) {
-    alert(err.message)
-    console.error('onError', file, err, res)
-  },
-  customInsert(res, insertFn) {
+  customInsert(res:any, insertFn:any) {
     console.log(res);
     insertFn(res.data[0].url);
   },
