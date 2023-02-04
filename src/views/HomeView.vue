@@ -284,6 +284,7 @@ onMounted(() => {
     bottom: 120px;
     overflow-y: auto;
     border-right: 10px solid #f5f5f5;
+    margin-top:10px
   }
 
   .right-content {

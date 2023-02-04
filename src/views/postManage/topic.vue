@@ -1,10 +1,9 @@
 <template>
   <div class="page-list">
     <div class="handler">
-      <el-button type="primary" @click="insertCate">新增专题</el-button>
+      <el-button link type="primary" @click="insertCate">新增专题</el-button>
     </div>
     <el-table :data="state.list" style="width: 100%">
-      <!-- <el-table-column type="index" label="序号" width="55px"></el-table-column> -->
       <el-table-column label="分类名称">
         <template #default="scope">
           {{ scope.row.name }}
@@ -28,7 +27,6 @@
             link
             @click="delConfirm(scope.row.id)"
             type="danger"
-            class="cus-button-danger"
             v-if="scope.row.valid === '1'"
             >删除</el-button
           >
