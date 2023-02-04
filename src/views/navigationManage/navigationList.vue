@@ -1,7 +1,7 @@
 <template>
   <div class="page-list">
     <searchHeader :title="'导航'">
-        <el-button type="primary" size="small" @click="insert">新增导航</el-button>
+        <el-button type="primary" @click="insert">新增导航</el-button>
     </searchHeader>
     <el-table :data="state.list" style="width: 100%">
       <!-- <el-table-column type="index" width="55" label="序号"> </el-table-column> -->
@@ -17,7 +17,7 @@
       </el-table-column>
     </el-table>
     <div class="pagination-box">
-      <el-pagination small background @size-change="handleSizeChange" @current-change="handleCurrentChange"
+      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
         :current-page="state.params.page" :page-sizes="[10, 20, 30, 50]" :page-size="state.params.pageSize"
         layout="total, prev, pager, next" :total="state.total">
       </el-pagination>

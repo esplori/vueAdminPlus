@@ -275,8 +275,8 @@ onMounted(() => {
   }
 
   .right-content {
-    margin-left: 190px;
-    width: calc(100% - 200px);
+    margin-left: 160px;
+    width: calc(100% - 100px);
     padding: 20px;
     padding-bottom: 20px;
     background: #fff;

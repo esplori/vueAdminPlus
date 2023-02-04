@@ -1,18 +1,18 @@
 <template>
   <div class="page-list">
-    <searchHeader :title="'文章'">
+    <searchHeader :title="'文章管理'">
       <div class="select-by-cate">
         <div class="pdding">
           <span>分类：</span>
-          <el-select size="small" v-model="state.params.cate" @change="typeChange" clearable>
+          <el-select v-model="state.params.cate" @change="typeChange" clearable>
             <el-option v-for="(item, index) in state.cateList" :key="index" :label="item.name" :value="item.id">
             </el-option>
           </el-select>
         </div>
         <div class="pdding">
-          <el-input size="small" v-model="state.params.tag" placeholder="输入关键字搜索" @change="tagChange"></el-input>
+          <el-input v-model="state.params.tag" placeholder="输入关键字搜索" @change="tagChange"></el-input>
         </div>
-        <span class="pdding"><el-button  size="small" type="primary" @click="insert">新增文章</el-button></span>
+        <span class="pdding"><el-button type="primary" @click="insert">新增文章</el-button></span>
       </div>
     </searchHeader>
 
@@ -43,9 +43,9 @@
       </el-table-column>
     </el-table>
     <div class="pagination-box">
-      <el-pagination small background @size-change="handleSizeChange" @current-change="handleCurrentChange"
+      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
         :current-page="state.params.page" :page-size="state.params.pageSize" :page-sizes="[10, 20, 30, 50]"
-        :pager-count="5" layout="total, prev, pager, next" :total="state.total">
+        :pager-count="5" layout="total, prev, pager, next, jumper" :total="state.total">
       </el-pagination>
     </div>
 

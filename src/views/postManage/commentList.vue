@@ -1,5 +1,6 @@
 <template>
   <div class="comments-list">
+    <searchHeader :title="'评论管理'"></searchHeader>
     <el-table :data="state.list" style="width: 100%">
       <el-table-column label="用户">
         <template #default="scope">
@@ -34,6 +35,7 @@
 import { getCommentApi, delCommentApi } from "@/views/API/admin.js";
 import { reactive, onMounted } from "vue";
 import { ElMessageBox, ElMessage } from "element-plus";
+import searchHeader from "../components/searchHeader.vue";
 const state = reactive({
   list: [],
 });

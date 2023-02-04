@@ -1,8 +1,8 @@
 <template>
   <div class="comments-list">
-    <div class="handler">
-      <el-button @click="goBack">返回</el-button>
-    </div>
+    <searchHeader :title="'专题管理'">
+      <el-button type="primary" @click="goBack">返回</el-button>
+    </searchHeader>
     <el-table :data="state.list" style="width: 100%">
       <el-table-column label="标题">
         <template #default="scope">
@@ -37,6 +37,7 @@ import {
 import { reactive, onMounted } from "vue";
 import { useRoute,useRouter } from "vue-router";
 import { ElMessageBox, ElMessage } from "element-plus";
+import searchHeader from "../components/searchHeader.vue";
 
 const route = useRoute();
 const router = useRouter();

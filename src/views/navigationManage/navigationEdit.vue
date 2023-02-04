@@ -1,7 +1,6 @@
 <template>
   <div class="post">
-    <searchHeader :title="'新增导航'">
-    </searchHeader>
+    <searchHeader :title="'新增导航'"></searchHeader>
     <el-form label-width="80px" :model="state.form">
       <el-form-item label="名称：">
         <el-input v-model="state.form.title"></el-input>

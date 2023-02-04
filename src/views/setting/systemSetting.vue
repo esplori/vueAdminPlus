@@ -1,5 +1,6 @@
 <template>
   <div class="user-info">
+    <searchHeader :title="'站点设置'"></searchHeader>
     <el-form :model="state.form" label-width="130px" label-position="left" class="setting-form">
       <el-form-item label="站点名称:">
         <el-input v-model="state.form.siteName"></el-input>
@@ -79,6 +80,7 @@ import {
 } from "@/views/API/admin.js";
 import { reactive, onMounted } from "vue";
 import { ElMessage } from "element-plus";
+import searchHeader from "../components/searchHeader.vue";
 const state = reactive({
   form: {
     siteName: "",
@@ -90,7 +92,7 @@ const state = reactive({
     bakRealUrl: "",
     siteEmail: "",
     carouselEnable: "N",
-    bookUrl:""
+    bookUrl: ""
   },
   tableData: [{ imgUrl: "", desc: "", url: "" }],
 });
@@ -141,7 +143,6 @@ const del = (index: number) => {
 
 <style scoped lang="scss">
 .user-info {
-  padding: 20px 0;
 
   .setting-form {
     &>div {

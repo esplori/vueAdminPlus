@@ -1,5 +1,6 @@
 <template>
   <div class="page-list">
+    <searchHeader :title="'推广采集'"></searchHeader>
     <div class="handle">
       <el-form :model="state.params" label-width="80px">
         <el-form-item label="采集页码:">
@@ -10,8 +11,7 @@
         </el-form-item>
         <el-form-item label="分类:">
           <el-select v-model="state.params.cate" placeholder="请选择" @change="optionChange">
-            <el-option v-for="(item,index) in state.options" :key="index" :label="item.name"
-              :value="item.id">
+            <el-option v-for="(item, index) in state.options" :key="index" :label="item.name" :value="item.id">
             </el-option>
           </el-select>
         </el-form-item>
@@ -40,6 +40,7 @@
 import { getCateApi, getTbkShopListApi, delTbkApi } from "@/views/API/tbk.js";
 import { reactive, onMounted } from "vue"
 import { ElMessage } from "element-plus"
+import searchHeader from "../components/searchHeader.vue";
 const state = reactive({
   list: [],
   params: {
@@ -48,7 +49,7 @@ const state = reactive({
     keyWords: "",
     cate: "",
   },
-  options: [{id:"",name:""}],
+  options: [{ id: "", name: "" }],
 })
 onMounted(() => {
   getCate();
