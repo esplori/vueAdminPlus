@@ -205,12 +205,12 @@ editorConfig.MENU_CONF['uploadImage'] = {
 
   timeout: 15 * 1000, // 5s
   fieldName: 'file',
-  meta: { Authorization: userInfo.value.token },
+  meta: {},
   metaWithUrl: true, // join params to url
-  headers: { Accept: 'application/json' },
+  headers: { Accept: 'application/json', Authorization: userInfo.value.token },
   maxFileSize: 10 * 1024 * 1024, // 10M
   base64LimitSize: 5 * 1024, // insert base64 format, if file's size less than 5kb
-  customInsert(res:any, insertFn:any) {
+  customInsert(res: any, insertFn: any) {
     console.log(res);
     insertFn(res.data[0].url);
   },
