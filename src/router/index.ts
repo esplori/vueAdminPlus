@@ -23,7 +23,7 @@ const router = createRouter({
     },
     {
       path: "/post",
-      component: () => import("../views/postManage/_post.vue")
+      component: () => import("../views/postManage/post.vue")
     },
     {
       path: "/",
@@ -67,10 +67,6 @@ const router = createRouter({
             {
               path: "pageList",
               component: () => import("../views/postManage/pageList.vue"),
-            },
-            {
-              path: "post",
-              component: () => import("../views/postManage/post.vue"),
             },
             {
               path: "cateManage",
@@ -135,15 +131,15 @@ const router = createRouter({
           children: [
             {
               path: "userManage",
-              component: () => import("../views/userManage/userManage.vue"),
+              component: () => import("../views/authManage/userManage.vue"),
             },
             {
               path: "roleManage",
-              component: () => import("../views/userManage/roleManage.vue"),
+              component: () => import("../views/authManage/roleManage.vue"),
             },
             {
               path: "menuManage",
-              component: () => import("../views/userManage/menuManage.vue"),
+              component: () => import("../views/authManage/menuManage.vue"),
             },
           ]
         },
