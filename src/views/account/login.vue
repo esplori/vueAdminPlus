@@ -3,7 +3,7 @@
     <div class="show-container" :class="{ shadow: showShadow }">
       <div class="left-pic">
         <div class="login-box">
-          <div class="logo">SIA</div><span>技术分享</span>
+          <div class="logo"></div><span>技术分享</span>
         </div>
         <div class="slogan">『书写心得，分享感悟』</div>
         <div class="comment">
@@ -15,10 +15,14 @@
         </div>
       </div>
       <div class="login-container">
-        <div class="toReg"><h2>登录</h2><div>没有账号？<a href="/#/reg" class="toRegTxt">去注册</a></div></div>
+        <div class="toReg">
+          <h2>登录</h2>
+          <div>没有账号？<a href="/#/reg" class="toRegTxt">去注册</a></div>
+        </div>
         <el-form :model="form" :rules="loginRules" ref="formref" label-position="left">
           <el-form-item label="" prop="username">
-            <el-input @focus="shadow" @blur="hideShadow" :prefix-icon="User" v-model="form.username" placeholder="请输入账号">
+            <el-input @focus="shadow" @blur="hideShadow" :prefix-icon="User" v-model="form.username"
+              placeholder="请输入账号">
             </el-input>
           </el-form-item>
           <el-form-item label="" prop="password">
@@ -109,12 +113,18 @@ const login = async function () {
         align-items: center;
         justify-content: flex-start;
         font-size: 1rem;
+
         .logo {
           font-size: 1rem;
-          border: 1px solid #fff;
-          border-radius: 50%;
+          // border: 1px solid #fff;
+          // border-radius: 50%;
           padding: 5px;
-          margin-right: 10px;
+          // margin-right: 10px;
+          display: inline-block;
+          background: url("@/assets/images/logo_white.png") no-repeat;
+          width: 80px;
+          height: 40px;
+          background-size: cover;
         }
       }
 
@@ -150,7 +160,7 @@ const login = async function () {
       //   }
 
       // }
-      .toReg{
+      .toReg {
         display: flex;
         justify-content: space-between;
         margin-bottom: 20px;

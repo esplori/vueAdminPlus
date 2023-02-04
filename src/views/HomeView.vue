@@ -275,10 +275,10 @@ onMounted(() => {
   .left-menu {
     // border-radius: 5px;
     background: #fff;
-    padding: 10px 0 10px 10px;
+    padding: 10px;
     position: fixed;
     width: 200px;
-    left: 20px;
+    left: 0;
     top: 60px;
     height: calc(100% - 60px);
     bottom: 120px;
