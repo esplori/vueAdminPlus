@@ -1,8 +1,6 @@
 <template>
   <div class="page-list">
-    <div class="handle">
-      <!-- <el-button type="primary" @click="multipleDel">批量删除</el-button> -->
-    </div>
+    <searchHeader :title="'采集列表'"></searchHeader>
     <el-table :data="state.list" style="width: 100%">
       <el-table-column type="selection" width="55"> </el-table-column>
       <el-table-column label="商品名称" show-overflow-tooltip>
@@ -27,7 +25,7 @@
       </el-table-column>
     </el-table>
     <div class="pagination-box" style="text-align: center; margin-top: 20px">
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
         :current-page="state.params.page" :page-size="state.params.pageSize" layout="total, prev, pager, next"
         :total="state.total">
       </el-pagination>
@@ -39,6 +37,7 @@
 import { delTbkApi, getTbkListApi } from "@/views/API/tbk.js";
 import { reactive, onMounted } from "vue"
 import { ElMessage } from "element-plus"
+import searchHeader from "../components/searchHeader.vue";
 const state = reactive({
   list: [],
   params: {

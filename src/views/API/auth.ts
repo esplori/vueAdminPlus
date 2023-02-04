@@ -24,5 +24,9 @@ export async function deleteMenuApi(data: any) {
   const options = { showLoading: false };
   return post(url, data, options);
 }
+// 文件上传地址
+export function fileUploadApi() {
+  return `${contextPath}/account/upload`
+}
 
 

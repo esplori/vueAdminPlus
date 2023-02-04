@@ -1,8 +1,8 @@
 <template>
   <div class="page-list">
-    <div class="handler">
-      <el-button link type="primary" @click="insertCate">新增分类</el-button>
-    </div>
+    <searchHeader :title="'分类管理'">
+      <el-button type="primary" @click="insertCate">新增分类</el-button>
+    </searchHeader>
     <el-table :data="state.list" style="width: 100%">
       <el-table-column label="标题">
         <template #default="scope">
@@ -42,6 +42,7 @@ import {
 } from "@/views/API/admin.js";
 import { reactive, onMounted } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
+import searchHeader from "../components/searchHeader.vue";
 
 const state = reactive({
   list: [],

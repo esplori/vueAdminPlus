@@ -1,5 +1,5 @@
 <template>
-    <div class="handler">
+    <div class="search-header">
         <span class="tab-cus-title">{{ propsState.title }}<i></i></span>
         <div><slot></slot></div>
     </div>
@@ -8,13 +8,14 @@
 const propsState = defineProps(["title"]);
 </script>
 <style lang="scss" scoped>
-.handler {
+.search-header {
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
     margin-bottom: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 43px;
 
     .tab-cus-title {
         position: relative;
@@ -24,7 +25,7 @@ const propsState = defineProps(["title"]);
             position: absolute;
             width: 100%;
             height: 1px;
-            bottom: -12px;
+            bottom: -16px;
             left: 0;
             border: 1px solid var(--el-color-primary);
         }

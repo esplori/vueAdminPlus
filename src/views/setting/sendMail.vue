@@ -1,5 +1,6 @@
 <template>
   <div class="mail">
+    <searchHeader :title="'邮件发送'"></searchHeader>
     <el-form ref="mailForm" :model="state.form" label-width="80px" :rules="state.rules">
       <el-form-item label="收件人：" prop="mailTo">
         <el-input v-model="state.form.mailTo"></el-input>
@@ -21,6 +22,7 @@
 import { sendMailApi } from "@/views/API/admin.js";
 import { reactive,ref } from "vue";
 import { ElMessage } from "element-plus"
+import searchHeader from "../components/searchHeader.vue";
 const state = reactive({
   form: {
     mailTo: "2381773226@qq.com",

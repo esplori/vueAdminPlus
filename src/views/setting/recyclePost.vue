@@ -1,5 +1,6 @@
 <template>
   <div class="page-list">
+    <searchHeader :title="'回收数据'"></searchHeader>
     <el-table :data="state.list" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"> </el-table-column>
       <el-table-column label="标题">
@@ -34,13 +35,13 @@
         </template>
       </el-table-column>
     </el-table>
-    <div class="delMul">
+    <div class="delMul" v-if="state.list.length">
       <el-button @click="delMul" type="danger">批量删除</el-button>
     </div>
     <div class="pagination-box" style="text-align: center; margin-top: 20px">
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
         :current-page="state.params.page" :page-size="state.params.pageSize" :page-sizes="[10, 20, 30, 50]"
-        :pager-count="5" layout="total, sizes, prev, pager, next, jumper" :total="state.total">
+        :pager-count="5" layout="total, prev, pager, next" :total="state.total">
       </el-pagination>
     </div>
   </div>
@@ -54,6 +55,7 @@ import {
 import { reactive, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { ElMessageBox, ElMessage } from "element-plus";
+import searchHeader from "../components/searchHeader.vue";
 
 const route = useRoute();
 const state = reactive({

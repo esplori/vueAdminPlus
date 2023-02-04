@@ -1,6 +1,7 @@
 <template>
   <div class="user-setting">
-    <el-form :model="state.form" label-width="80px" label-position="left">
+    <searchHeader :title="'个人信息'"></searchHeader>
+    <el-form :model="state.form" label-width="80px" label-position="left" style="width:50%">
       <el-form-item label="昵称:">
         <el-input v-model="state.form.nickname"></el-input>
       </el-form-item>
@@ -53,6 +54,7 @@ import { updateUserInfoApi, getUserInfoApi, updatePwdApi } from "@/views/API/adm
 import { reactive, onMounted } from "vue";
 import { ElMessage } from "element-plus";
 import {useRouter} from "vue-router"
+import searchHeader from "../components/searchHeader.vue";
 
 const router = useRouter();
 const state = reactive({
@@ -103,9 +105,7 @@ const submitPwd = async () => {
 
 <style scoped lang="scss">
 .user-setting {
-  width: 40%;
-  padding: 20px 0;
-
+  width: 100%;
   .editPwd {
     width: 100%;
     display: flex;

@@ -1,7 +1,7 @@
 <template>
   <div class="page-list">
-    <searchHeader :title="'分类'">
-      <el-button type="primary" size="small" @click="insertCate">新增分类</el-button>
+    <searchHeader :title="'导航分类'">
+      <el-button type="primary" @click="insertCate">新增分类</el-button>
     </searchHeader>
     <el-table :data="list" style="width: 100%">
       <el-table-column label="标题">
