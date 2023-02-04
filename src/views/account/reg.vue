@@ -3,7 +3,7 @@
     <div class="show-container" :class="{ shadow: showShadow }">
       <div class="left-pic">
         <div class="login-box">
-          <div class="logo">SIA</div><span>技术分享</span>
+          <div class="logo"></div><span>技术分享</span>
         </div>
         <div class="slogan">『书写心得，分享感悟』</div>
         <div class="comment">
@@ -158,10 +158,10 @@ const valid = async () => {
         font-size: 1rem;
         .logo {
           font-size: 1rem;
-          border: 1px solid #fff;
-          border-radius: 50%;
-          padding: 5px;
-          margin-right: 10px;
+          background: url("@/assets/images/logo_white.png") no-repeat;
+          width: 80px;
+          height: 40px;
+          background-size: cover;
         }
       }
 
