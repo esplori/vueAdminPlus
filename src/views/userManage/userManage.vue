@@ -23,7 +23,6 @@
             @click="delConfirm(scope.row.id, scope.row.username)"
             type="danger"
             link
-            class="cus-button-danger"
             :disabled="scope.row.role.indexOf('admin') !== -1"
             >删除</el-button
           >

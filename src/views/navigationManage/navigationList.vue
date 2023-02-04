@@ -12,7 +12,7 @@
       <el-table-column label="操作" width="180">
         <template #default="scope">
           <el-button link @click="edit(scope.row.id)" type="primary">编辑</el-button>
-          <el-button link @click="delConfirm(scope.row.id)" type="danger" class="cus-button-danger">删除</el-button>
+          <el-button link @click="delConfirm(scope.row.id)" type="danger">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

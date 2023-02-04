@@ -1,7 +1,7 @@
 <template>
   <div class="page-list">
     <div class="handler">
-      <el-button type="primary" @click="addFile">新增文件</el-button>
+      <el-button link type="primary" @click="addFile">新增文件</el-button>
     </div>
     <el-tabs v-model="state.activeName" @tab-click="handleClick">
       <el-tab-pane label="所有" name="all"></el-tab-pane>
