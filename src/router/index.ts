@@ -23,7 +23,7 @@ const router = createRouter({
     },
     {
       path: "/post",
-      component: () =>import("../views/postManage/_post.vue")
+      component: () => import("../views/postManage/_post.vue")
     },
     {
       path: "/",
@@ -158,23 +158,23 @@ const router = createRouter({
         },
         {
           path: "promotion",
-          component: () => import("../views/caiji/index.vue"),
+          component: () => import("../views/promotion/index.vue"),
           children: [
             {
               path: "/",
-              redirect: "caiji",
+              redirect: "promote",
             },
             {
-              path: "caiji",
-              component: () => import("../views/caiji/caiji.vue"),
+              path: "promote",
+              component: () => import("../views/promotion/promote.vue"),
             },
             {
-              path: "caijiList",
-              component: () => import("../views/caiji/caijiList.vue"),
+              path: "promoteList",
+              component: () => import("../views/promotion/promoteList.vue"),
             },
             {
-              path: "type",
-              component: () => import("../views/caiji/tbkCate.vue"),
+              path: "promoteType",
+              component: () => import("../views/promotion/promoteCate.vue"),
             },
           ]
         },
@@ -192,11 +192,6 @@ const router = createRouter({
             {
               path: "recycle",
               component: () => import("../views/setting/recyclePost.vue"),
-            },
-
-            {
-              path: "deploy",
-              component: () => import("../views/setting/deploy.vue"),
             },
             {
               path: "sourceList",
