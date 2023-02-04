@@ -1,20 +1,22 @@
 <template>
   <div class="page-list">
-    <div class="select-by-cate">
-      <div>
-        <span class="insert"><el-button link type="primary" @click="insert">新增文章</el-button></span>
-        <span>按分类筛选：</span>
-        <el-select v-model="state.params.cate" @change="typeChange" clearable>
-          <el-option v-for="(item, index) in state.cateList" :key="index" :label="item.name" :value="item.id">
-          </el-option>
-        </el-select>
+    <searchHeader :title="'文章'">
+      <div class="select-by-cate">
+        <div class="pdding">
+          <span>分类：</span>
+          <el-select size="small" v-model="state.params.cate" @change="typeChange" clearable>
+            <el-option v-for="(item, index) in state.cateList" :key="index" :label="item.name" :value="item.id">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="pdding">
+          <el-input size="small" v-model="state.params.tag" placeholder="输入关键字搜索" @change="tagChange"></el-input>
+        </div>
+        <span class="pdding"><el-button  size="small" type="primary" @click="insert">新增文章</el-button></span>
       </div>
-      <div>
-        <el-input v-model="state.params.tag" placeholder="输入关键字搜索" @change="tagChange"></el-input>
-      </div>
-    </div>
+    </searchHeader>
+
     <el-table :data="state.list" @sort-change="sortCchange">
-      <!-- <el-table-column type="index" label="序号" width="55px"></el-table-column> -->
       <el-table-column label="标题" show-overflow-tooltip>
         <template #default="scope">
           <a style="color: #333;" :href="
@@ -76,6 +78,7 @@ import {
 import { reactive, onMounted, computed } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { useRoute, useRouter } from "vue-router";
+import searchHeader from "../components/searchHeader.vue";
 const route = useRoute();
 const router = useRouter();
 const state = reactive({
@@ -231,14 +234,13 @@ const submitTopic = async () => {
   width: 100%;
 
   .select-by-cate {
-    margin: 20px 0;
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
+    // border-bottom: 1px solid #ddd;
+    // padding-bottom: 20px;
+    // margin-bottom: 20px;
 
-    .insert {
+    .pdding {
       margin-right: 20px;
     }
   }

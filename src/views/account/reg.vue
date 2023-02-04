@@ -19,7 +19,7 @@
           <h2>注册</h2>
           <div>已有账号？<a href="/#/login" class="toRegTxt">去登录</a></div>
         </div>
-        <el-form :model="regform" :rules="rules" ref="formref" label-position="left">
+        <el-form size="default" :model="regform" :rules="rules" ref="formref" label-position="left">
           <el-form-item prop="username">
             <el-input @focus="shadow" @blur="hideShadow" v-model="regform.username" placeholder="请输入账号"></el-input>
           </el-form-item>
