@@ -13,7 +13,7 @@
               {{ state.views }}
             </div>
             <div class="item-compare">
-              <span>今日新增</span>
+              <span>今日新增 </span>
               <span class="num"> {{ Math.abs(state.allViewsMom) }} </span>
             </div>
           </el-card>
@@ -26,15 +26,12 @@
             </div>
             <div class="item-compare">
               <span>较昨日
-
                 <el-icon v-show="state.dayViewsMom > 0" :size="16" color="#F56C6C">
                   <CaretTop></CaretTop>
                 </el-icon>
                 <el-icon v-show="state.dayViewsMom < 0" :size="16" color="#F56C6C">
                   <CaretBottom></CaretBottom>
                 </el-icon>
-
-
               </span>
               <span class="num"> {{ Math.abs(state.dayViewsMom) }} </span>
             </div>
@@ -55,8 +52,6 @@
                 <el-icon v-show="state.dayIpMom < 0" :size="16" color="#F56C6C">
                   <CaretBottom></CaretBottom>
                 </el-icon>
-
-
               </span>
               <span class="num"> {{ Math.abs(state.dayIpMom) }} </span>
             </div>
@@ -188,7 +183,7 @@ const userInfo = computed(() => {
 const dailySentence = computed(() => {
   const dailySentence = localStorage.getItem("dailySentence");
   if (dailySentence) {
-    return delHtmlTag( '每日一句：' + dailySentence)
+    return delHtmlTag('每日一句：' + dailySentence)
   }
 });
 onMounted(() => {

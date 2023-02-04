@@ -1,5 +1,7 @@
 <template>
   <div class="post">
+    <searchHeader :title="'新增导航'">
+    </searchHeader>
     <el-form label-width="80px" :model="state.form">
       <el-form-item label="名称：">
         <el-input v-model="state.form.title"></el-input>
@@ -12,7 +14,8 @@
       </el-form-item>
       <el-form-item label="分类：">
         <el-select v-model="state.form.cate">
-          <el-option v-for="(item, index) in state.cateList" :key="index" :label="item.name" :value="item.id"></el-option>
+          <el-option v-for="(item, index) in state.cateList" :key="index" :label="item.name"
+            :value="item.id"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -31,6 +34,7 @@ import { getNavCateApi } from "@/views/API/navigation";
 import { ref, reactive, onMounted, toRef } from "vue";
 import { ElMessage } from "element-plus";
 import { useRoute, useRouter } from "vue-router";
+import searchHeader from "../components/searchHeader.vue";
 let route = useRoute();
 let router = useRouter();
 let state = reactive({
@@ -41,7 +45,7 @@ let state = reactive({
     cate: "",
     url: "",
   },
-  cateList: [{name:"",id:""}]
+  cateList: [{ name: "", id: "" }]
 });
 onMounted(() => {
   const id = route.query.id;
