@@ -21,7 +21,6 @@
       </el-form>
     </div>
     <el-table :data="state.list" style="width: 100%">
-      <el-table-column type="selection" width="55"> </el-table-column>
       <el-table-column label="商品名称">
         <template #default="scope">
           <a :href="scope.row.url">{{ scope.row.title }}</a>
@@ -29,7 +28,7 @@
       </el-table-column>
       <el-table-column label="图片">
         <template #default="scope">
-          <img :src="scope.row.pict_url" alt="" width="200px" height="120px" />
+          <img :src="scope.row.pict_url" alt=""  width="80" height="80" />
         </template>
       </el-table-column>
     </el-table>
@@ -37,7 +36,7 @@
 </template>
 
 <script lang="ts" setup>
-import { getCateApi, getTbkShopListApi, delTbkApi } from "@/views/API/tbk.js";
+import { getCateApi, getTbkShopListApi } from "@/views/API/promotion.js";
 import { reactive, onMounted } from "vue"
 import { ElMessage } from "element-plus"
 import searchHeader from "../components/searchHeader.vue";

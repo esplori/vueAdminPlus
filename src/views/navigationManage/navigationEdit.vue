@@ -1,6 +1,8 @@
 <template>
   <div class="post">
-    <searchHeader :title="'新增导航'"></searchHeader>
+    <searchHeader :title="state.navName">
+      <el-button type="primary" @click="goBack">返回</el-button>
+    </searchHeader>
     <el-form label-width="80px" :model="state.form">
       <el-form-item label="名称：">
         <el-input v-model="state.form.title"></el-input>
@@ -44,8 +46,15 @@ let state = reactive({
     cate: "",
     url: "",
   },
-  cateList: [{ name: "", id: "" }]
+  cateList: [{ name: "", id: "" }],
+  navName: ''
 });
+
+state.navName = (route.query.name || "新增导航") as any
+
+const goBack = () => {
+  history.go(-1)
+}
 onMounted(() => {
   const id = route.query.id;
   if (id) {

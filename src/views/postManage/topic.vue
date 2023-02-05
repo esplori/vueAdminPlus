@@ -9,11 +9,6 @@
           {{ scope.row.name }}
         </template>
       </el-table-column>
-      <el-table-column label="分类Id">
-        <template #default="scope">
-          {{ scope.row.id }}
-        </template>
-      </el-table-column>
       <el-table-column label="创建时间">
         <template #default="scope">
           {{ scope.row.createDate }}
@@ -107,7 +102,7 @@ const edit = async (row: any) => {
 };
 
 const manage = async (row: any) => {
-  router.push({ path: "topicManage", query: { id: row.id } });
+  router.push({ path: "topicManage", query: { id: row.id,topicName: row.name} });
 };
 
 const submit = async (row: any) => {

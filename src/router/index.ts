@@ -116,11 +116,6 @@ const router = createRouter({
                 import("../views/tools/img2base64/img2base64.vue"),
             },
             {
-              path: "jsonviewer",
-              component: () =>
-                import("../views/tools/jsonviewer/jsonviewer.vue"),
-            },
-            {
               path: "choujiang",
               component: () => import("../views/tools/choujiang/choujiang.vue"),
             },

@@ -28,7 +28,7 @@ export async function delApi(data: any) {
 // 更新文章
 export async function editPageApi(data: any) {
   const url = `${contextPath}/admin/updateItem`;
-  const options = { showLoading: false };
+  const options = { showLoading: true };
   return post(url, data, options);
 }
 // 查新文章所有分类

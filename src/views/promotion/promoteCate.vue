@@ -4,15 +4,14 @@
       <el-button type="primary" @click="insertCate">新增分类</el-button>
     </searchHeader>
     <el-table :data="state.list" style="width: 100%">
-      <el-table-column type="index" width="55" label="序号"> </el-table-column>
       <el-table-column label="分类">
         <template #default="scope">
           {{ scope.row.name }}
         </template>
       </el-table-column>
-      <el-table-column label="分类id">
+      <el-table-column label="创建时间">
         <template #default="scope">
-          {{ scope.row.id }}
+          {{ scope.row.createDate }}
         </template>
       </el-table-column>
       <el-table-column label="操作" width="180">
@@ -43,7 +42,7 @@ import {
   getCateApi,
   updateCateApi,
   insertCateApi,
-} from "@/views/API/tbk.js";
+} from "@/views/API/promotion.js";
 
 import { reactive, onMounted } from "vue"
 import { ElMessageBox, ElMessage } from "element-plus"

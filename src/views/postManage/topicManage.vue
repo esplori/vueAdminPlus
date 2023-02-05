@@ -1,20 +1,15 @@
 <template>
   <div class="comments-list">
-    <searchHeader :title="'专题管理'">
+    <searchHeader :title="state.topicName">
       <el-button type="primary" @click="goBack">返回</el-button>
     </searchHeader>
     <el-table :data="state.list" style="width: 100%">
-      <el-table-column label="标题">
+      <el-table-column label="标题" show-overflow-tooltip>
         <template #default="scope">
-          {{ scope.row.name }}
+          <span class="topic-item" @click="goToPage(scope.row.postId)">{{ scope.row.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="id">
-        <template #default="scope">
-          {{ scope.row.postId }}
-        </template>
-      </el-table-column>
-      <el-table-column label="时间">
+      <el-table-column label="创建时间">
         <template #default="scope">
           {{ scope.row.createDate }}
         </template>
@@ -35,7 +30,7 @@ import {
   getTopicDetailListApi,
 } from "@/views/API/admin.js";
 import { reactive, onMounted } from "vue";
-import { useRoute,useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { ElMessageBox, ElMessage } from "element-plus";
 import searchHeader from "../components/searchHeader.vue";
 
@@ -43,7 +38,11 @@ const route = useRoute();
 const router = useRouter();
 const state = reactive({
   list: [],
+  topicName: ""
 });
+
+state.topicName = route.query.topicName as any
+
 onMounted(() => {
   getList();
 });
@@ -75,13 +74,24 @@ const del = async (id: any) => {
 const goBack = () => {
   history.go(-1)
 }
-const edit = (id: any)=> {
-  router.push({path: "/article/post",query:{id: id}})
+const edit = (id: String) => {
+  let rt = router.resolve({ path: "/post", query: { id: id } })
+  window.open(rt.href, '_blank')
+}
+
+const goToPage = (postId:String) =>{
+  window.open('http://www.dsiab.com/post/' + postId)
 }
 </script>
 
 <style scoped lang="scss">
 .comments-list {
+  .topic-item{
+    cursor: pointer;
+    &:hover{
+      text-decoration: underline;
+    }
+  }
   .handler {
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
