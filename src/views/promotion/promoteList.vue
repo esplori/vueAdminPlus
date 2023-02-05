@@ -10,7 +10,7 @@
       </el-table-column>
       <el-table-column label="图片">
         <template #default="scope">
-          <img :src="scope.row.pict_url" alt="" width="120px" height="120px" />
+          <img :src="scope.row.pict_url" alt="" width="80" height="80" />
         </template>
       </el-table-column>
       <el-table-column prop="volume" label="月销量"> </el-table-column>

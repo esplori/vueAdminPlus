@@ -11,7 +11,7 @@
       <el-table-column prop="createDate" label="创建日期"> </el-table-column>
       <el-table-column label="操作" width="180">
         <template #default="scope">
-          <el-button link @click="edit(scope.row.id)" type="primary">编辑</el-button>
+          <el-button link @click="edit(scope.row)" type="primary">编辑</el-button>
           <el-button link @click="delConfirm(scope.row.id)" type="danger">删除</el-button>
         </template>
       </el-table-column>
@@ -73,8 +73,8 @@ const del = async (id: any) => {
   }
 };
 
-const edit = async (id: any) => {
-  router.push({ path: "post", query: { id: id } });
+const edit = async (row: any) => {
+  router.push({ path: "post", query: { id: row.id,name: row.title  } });
 };
 
 const handleSizeChange = async (val: any) => {

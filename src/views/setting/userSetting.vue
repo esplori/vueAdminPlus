@@ -1,6 +1,6 @@
 <template>
   <div class="user-setting">
-    <searchHeader :title="'个人信息'"></searchHeader>
+    <searchHeader :title="'个人资料'"></searchHeader>
     <el-form :model="state.form" label-width="80px" label-position="left" style="width:50%">
       <el-form-item label="昵称:">
         <el-input v-model="state.form.nickname"></el-input>
