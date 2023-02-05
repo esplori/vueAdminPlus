@@ -129,12 +129,6 @@ const state = reactive({
           auth: "ROLE_admin,ROLE_author",
         },
         {
-          name: "json格式化",
-          path: "/tools/jsonviewer",
-          id: "",
-          auth: "ROLE_admin,ROLE_author",
-        },
-        {
           name: "抽奖",
           path: "/tools/choujiang",
           id: "",
