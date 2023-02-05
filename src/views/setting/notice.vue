@@ -1,7 +1,7 @@
 <template>
   <div class="page-list">
+    <searchHeader :title="'系统通知'"></searchHeader>
     <el-table :data="state.list">
-      <!-- <el-table-column type="index" label="序号" width="55px"></el-table-column> -->
       <el-table-column label="通知类型" prop="title" width="100px">
       </el-table-column>
       <el-table-column label="通知内容">
@@ -16,9 +16,9 @@
       </el-table-column>
     </el-table>
     <div class="pagination-box" style="text-align: center; margin-top: 20px">
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
         :current-page="state.params.page" :page-size="state.params.pageSize" :page-sizes="[10, 20, 30, 50]"
-        :pager-count="5" layout="total, sizes, prev, pager, next, jumper" :total="state.total">
+        :pager-count="5" layout="total, prev, pager, next" :total="state.total">
       </el-pagination>
     </div>
   </div>
@@ -29,6 +29,7 @@ import {
   getNoticeApi
 } from "@/views/API/system.js";
 import { reactive, onMounted } from "vue";
+import searchHeader from "../components/searchHeader.vue";
 const state = reactive({
   list: [],
   params: {

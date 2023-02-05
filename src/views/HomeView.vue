@@ -71,7 +71,7 @@ const state = reactive({
       ],
     },
     {
-      name: "文章管理",
+      name: "内容管理",
       path: "/pageList",
       id: "",
       icon: "el-icon-s-order",
@@ -188,18 +188,6 @@ const state = reactive({
       ],
     },
     {
-      name: "推广",
-      path: "/promotion",
-      id: "",
-      auth: "ROLE_admin",
-      icon: "el-icon-sell",
-      children: [
-        { name: "采集", path: "/promotion/caiji", id: "", auth: "ROLE_admin" },
-        { name: "采集列表", path: "/promotion/caijiList", id: "", auth: "ROLE_admin" },
-        { name: "分类", path: "/promotion/type", id: "", auth: "ROLE_admin" },
-      ],
-    },
-    {
       name: "系统设置",
       path: "/systemSetting",
       id: "",
@@ -213,7 +201,6 @@ const state = reactive({
           auth: "ROLE_admin",
         },
         { name: "资源管理", path: "/sourceList", id: "", auth: "ROLE_admin" },
-        { name: "编译部署", path: "/deploy", id: "", auth: "ROLE_admin" },
         { name: "回收站", path: "/recycle", id: "", auth: "ROLE_admin" },
         {
           name: "发送邮件",
@@ -239,6 +226,10 @@ const userInfo = computed(() => {
 const getUserInfo = async () => {
   const res: any = await getUserInfoApi({});
   state.userInfoObj = res.data;
+  // 保存每日一句
+  if (res.data.dailySentence) {
+    localStorage.setItem("dailySentence", res.data.dailySentence)
+  }
 };
 const getMenus = async () => {
   getMenusApi({}).then((res: any) => {
@@ -271,20 +262,21 @@ onMounted(() => {
   .left-menu {
     // border-radius: 5px;
     background: #fff;
-    padding: 0 0 10px 10px;
+    padding: 10px;
     position: fixed;
     width: 200px;
-    left: 20px;
-    top: 90px;
-    height: calc(100% - 100px);
+    left: 0;
+    top: 60px;
+    height: calc(100% - 60px);
     bottom: 120px;
     overflow-y: auto;
     border-right: 10px solid #f5f5f5;
+    margin-top: 10px
   }
 
   .right-content {
-    margin-left: 190px;
-    width: calc(100% - 200px);
+    margin-left: 160px;
+    width: calc(100% - 100px);
     padding: 20px;
     padding-bottom: 20px;
     background: #fff;

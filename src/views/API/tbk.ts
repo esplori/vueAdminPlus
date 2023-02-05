@@ -1,5 +1,5 @@
 import { get, post } from "@/utils/axios.js";
-const contextPath = "/promote-service";
+const contextPath = "/manage-service";
 
 export async function getTbkShopListApi(data: any) {
   const url = `${contextPath}/promote/getList`;

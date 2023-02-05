@@ -128,6 +128,7 @@ function handleAuthenticated(res: any) {
         location.href = "/#/login";
       }, 1500);
       ErrorMsg = "用户信息已失效，请重新登录";
+      localStorage.clear()
       break;
     case 500:
       ErrorMsg = res.response.data.message || "网络错误,请稍后再试";

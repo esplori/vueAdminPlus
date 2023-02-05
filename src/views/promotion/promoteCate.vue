@@ -1,8 +1,8 @@
 <template>
   <div class="page-list">
-    <div class="handler">
+    <searchHeader :title="'分类管理'">
       <el-button type="primary" @click="insertCate">新增分类</el-button>
-    </div>
+    </searchHeader>
     <el-table :data="state.list" style="width: 100%">
       <el-table-column type="index" width="55" label="序号"> </el-table-column>
       <el-table-column label="分类">
@@ -18,7 +18,7 @@
       <el-table-column label="操作" width="180">
         <template #default="scope">
           <el-button @click="edit(scope.row)" type="primary">编辑</el-button>
-          <el-button @click="delConfirm(scope.row.id)" type="danger" class="cus-button-danger">删除</el-button>
+          <el-button @click="delConfirm(scope.row.id)" type="danger">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -47,6 +47,7 @@ import {
 
 import { reactive, onMounted } from "vue"
 import { ElMessageBox, ElMessage } from "element-plus"
+import searchHeader from "../components/searchHeader.vue";
 
 let state = reactive({
   list: [],
@@ -124,11 +125,13 @@ const handleClose = () => {
 <style scoped lang="scss">
 .page-list {
   width: 100%;
-  .handler{
+
+  .handler {
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
     margin-bottom: 10px;
   }
+
   .content-item {
     font-size: 18px;
     text-align: left;

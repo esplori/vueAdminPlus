@@ -1,5 +1,6 @@
 <template>
   <div class="comments-list">
+    <searchHeader :title="'评论管理'"></searchHeader>
     <el-table :data="state.list" style="width: 100%">
       <el-table-column label="用户">
         <template #default="scope">
@@ -23,7 +24,7 @@
       </el-table-column>
       <el-table-column label="操作" width="180">
         <template #default="scope">
-          <el-button @click="delConfirm(scope.row.id)" type="text" class="cus-button-danger">删除</el-button>
+          <el-button link @click="delConfirm(scope.row.id)" type="text">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -34,6 +35,7 @@
 import { getCommentApi, delCommentApi } from "@/views/API/admin.js";
 import { reactive, onMounted } from "vue";
 import { ElMessageBox, ElMessage } from "element-plus";
+import searchHeader from "../components/searchHeader.vue";
 const state = reactive({
   list: [],
 });

@@ -1,7 +1,7 @@
 <template>
   <div class="role-manage">
+    <searchHeader :title="'角色管理'"></searchHeader>
     <el-table :data="state.data">
-      <!-- <el-table-column type="index" label="序号" width="55px"></el-table-column> -->
       <el-table-column prop="roleName" label="角色名称"> </el-table-column>
       <el-table-column prop="roleId" label="角色id"> </el-table-column>
       <el-table-column fixed="right" width="180" label="操作">
@@ -19,8 +19,8 @@
           </el-form-item>
           <el-form-item label="菜单权限：">
             <div class="tree-container">
-              <el-tree check-strictly node-key="menuId" v-model="state.checkedKeys" ref="treeRef" show-checkbox default-expand-all
-                :data="state.treeData" :expand-on-click-node="false" :props="state.defaultProps">
+              <el-tree check-strictly node-key="menuId" v-model="state.checkedKeys" ref="treeRef" show-checkbox
+                default-expand-all :data="state.treeData" :expand-on-click-node="false" :props="state.defaultProps">
               </el-tree>
             </div>
           </el-form-item>
@@ -41,6 +41,7 @@ import { getRoleListApi, updateRoleNameApi, getMenuByRoleApi } from "../API/admi
 import { getAllMenusApi } from "../API/auth";
 import { ref, onMounted, reactive } from "vue";
 import { ElMessageBox, ElMessage } from "element-plus";
+import searchHeader from "../components/searchHeader.vue";
 
 let state = reactive({
   data: [],

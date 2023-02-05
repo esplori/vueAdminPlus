@@ -1,11 +1,8 @@
 <template>
   <div class="admin-header">
-    <div class="tips">
-      <span class="welcomeMsg">每日一句：{{ dailySentence }}</span>
-    </div>
     <div class="header-container">
       <div class="logo">
-        <a href="https://www.dsiab.com" target="_blank">javascript技术分享</a>
+        <a href="https://www.dsiab.com" target="_blank"><span class="logo_pic"></span> 管理中心</a>
       </div>
       <div class="user-info">
         <!-- <div class="userInfo"> -->
@@ -33,23 +30,16 @@
 </template>
 
 <script setup lang="ts">
-import { delHtmlTag } from "@/utils/common.js";
 import { logoutApi } from "@/views/account/api";
 import { ArrowDown } from "@element-plus/icons-vue";
-import { computed, watchEffect, reactive } from "vue";
+import { watchEffect, reactive } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-const dailySentence = computed(() => {
-  return (
-    state.userInfo.dailySentence && delHtmlTag(state.userInfo.dailySentence)
-  );
-});
 
 const state = reactive({
   userInfo: {
-    dailySentence: "",
     username: ""
   }
 })
@@ -101,15 +91,29 @@ watchEffect(() => {
     align-items: center;
     width: 1200px;
     margin: 0 auto;
-    padding: 10px 0;
+    padding: 5px 0;
 
     .logo {
       font-size: 14px;
       text-align: left;
       width: 220px;
+      display: flex;
+      align-items: center;
+
+      .logo_pic {
+        display: inline-block;
+        background: url("@/assets/images/logo_black.png") no-repeat;
+        width: 80px;
+        height: 40px;
+        background-size: cover;
+      }
 
       a {
         color: #333;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        font-size: 1rem;
       }
     }
 

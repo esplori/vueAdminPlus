@@ -1,10 +1,9 @@
 <template>
   <div class="page-list">
-    <div class="handler">
+    <searchHeader :title="'专题管理'">
       <el-button type="primary" @click="insertCate">新增专题</el-button>
-    </div>
+    </searchHeader>
     <el-table :data="state.list" style="width: 100%">
-      <!-- <el-table-column type="index" label="序号" width="55px"></el-table-column> -->
       <el-table-column label="分类名称">
         <template #default="scope">
           {{ scope.row.name }}
@@ -28,7 +27,6 @@
             link
             @click="delConfirm(scope.row.id)"
             type="danger"
-            class="cus-button-danger"
             v-if="scope.row.valid === '1'"
             >删除</el-button
           >
@@ -60,6 +58,7 @@ import {
 import { reactive, onMounted } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { useRouter } from "vue-router";
+import searchHeader from "../components/searchHeader.vue";
 const router = useRouter();
 const state = reactive({
   list: [],

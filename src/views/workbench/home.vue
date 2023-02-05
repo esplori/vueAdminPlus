@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <div class="card-item">
+      <el-alert :title="dailySentence" type="info" />
       <div class="date-picker-change">
         <h3>数据总览</h3>
       </div>
@@ -12,7 +13,7 @@
               {{ state.views }}
             </div>
             <div class="item-compare">
-              <span>今日新增</span>
+              <span>今日新增 </span>
               <span class="num"> {{ Math.abs(state.allViewsMom) }} </span>
             </div>
           </el-card>
@@ -25,15 +26,12 @@
             </div>
             <div class="item-compare">
               <span>较昨日
-
                 <el-icon v-show="state.dayViewsMom > 0" :size="16" color="#F56C6C">
                   <CaretTop></CaretTop>
                 </el-icon>
                 <el-icon v-show="state.dayViewsMom < 0" :size="16" color="#F56C6C">
                   <CaretBottom></CaretBottom>
                 </el-icon>
-
-
               </span>
               <span class="num"> {{ Math.abs(state.dayViewsMom) }} </span>
             </div>
@@ -54,8 +52,6 @@
                 <el-icon v-show="state.dayIpMom < 0" :size="16" color="#F56C6C">
                   <CaretBottom></CaretBottom>
                 </el-icon>
-
-
               </span>
               <span class="num"> {{ Math.abs(state.dayIpMom) }} </span>
             </div>
@@ -151,6 +147,7 @@ import { CountUp } from "countup.js";
 import * as echarts from "echarts";
 import { reactive, computed, onMounted, nextTick } from "vue";
 import { CaretTop, CaretBottom } from "@element-plus/icons-vue";
+import { delHtmlTag } from "@/utils/common.js";
 const state = reactive({
   views: 0,
   pages: 0,
@@ -181,6 +178,12 @@ const userInfo = computed(() => {
     return {
       role: []
     };
+  }
+});
+const dailySentence = computed(() => {
+  const dailySentence = localStorage.getItem("dailySentence");
+  if (dailySentence) {
+    return delHtmlTag('每日一句：' + dailySentence)
   }
 });
 onMounted(() => {
@@ -383,7 +386,7 @@ const initCharts = () => {
 <style scoped lang="scss">
 .home {
   .date-picker-change {
-    padding: 10px 0;
+    padding: 20px 0;
     display: flex;
     justify-content: space-between;
   }

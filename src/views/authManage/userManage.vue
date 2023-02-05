@@ -1,10 +1,7 @@
 <template>
   <div class="user-manage">
-    <!-- <div class="handler">
-      <el-button @click="insertUser" type="primary">新增用户</el-button>
-    </div> -->
+    <searchHeader :title="'用户管理'"></searchHeader>
     <el-table :data="state.data">
-      <!-- <el-table-column type="index" label="序号" width="55px"></el-table-column> -->
       <el-table-column prop="username" label="用户名"> </el-table-column>
       <el-table-column prop="role" label="角色Id"> </el-table-column>
       <el-table-column prop="email" label="邮箱"> </el-table-column>
@@ -19,43 +16,20 @@
         <template #default="scope">
           <el-button link @click="edit(scope.row)" type="primary">编辑</el-button>
           <!-- 不允许删除管理员 -->
-          <el-button
-            @click="delConfirm(scope.row.id, scope.row.username)"
-            type="danger"
-            link
-            class="cus-button-danger"
-            :disabled="scope.row.role.indexOf('admin') !== -1"
-            >删除</el-button
-          >
+          <el-button @click="delConfirm(scope.row.id, scope.row.username)" type="danger" link
+            :disabled="scope.row.role.indexOf('admin') !== -1">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
     <div class="pagination-box">
-      <el-pagination
-        small background
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="state.params.page"
-        :page-size="state.params.pageSize"
-        :page-sizes="[10, 20, 30, 50]"
-        :pager-count="5"
-        layout="total, prev, pager, next"
-        :total="state.total"
-      >
+      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
+        :current-page="state.params.page" :page-size="state.params.pageSize" :page-sizes="[10, 20, 30, 50]"
+        :pager-count="5" layout="total, prev, pager, next" :total="state.total">
       </el-pagination>
     </div>
-    <el-dialog
-      :title="state.editObj.currUsername + '角色修改'"
-      v-model="state.editObj.dialogVisible"
-      width="30%"
-    >
+    <el-dialog :title="state.editObj.currUsername + '角色修改'" v-model="state.editObj.dialogVisible" width="30%">
       <div>
-        <el-table
-          :data="state.Roledata"
-          ref="RoleTable"
-          row-key="id"
-          @selection-change="handleSelectionChange"
-        >
+        <el-table :data="state.Roledata" ref="RoleTable" row-key="id" @selection-change="handleSelectionChange">
           <el-table-column type="selection" width="55"> </el-table-column>
           <el-table-column prop="roleName" label="角色"> </el-table-column>
           <el-table-column prop="roleId" label="角色ID"> </el-table-column>
@@ -81,6 +55,7 @@ import {
 
 import { ref, reactive, onMounted, nextTick } from "vue";
 import { ElMessageBox } from "element-plus";
+import searchHeader from "../components/searchHeader.vue";
 
 let state = reactive({
   data: [],
@@ -102,7 +77,7 @@ onMounted(() => {
 });
 
 const getUserList = async () => {
-  const res:any = await getUserListApi({ pageNo: state.params.page });
+  const res: any = await getUserListApi({ pageNo: state.params.page });
   if (res) {
     state.data = res.data.result;
     state.total = res.data.total;
@@ -139,7 +114,7 @@ const delUser = async (id: String, username: String) => {
 const RoleTable = ref();
 
 const getRoleList = async (row: any) => {
-  const res:any = await getRoleListApi({});
+  const res: any = await getRoleListApi({});
   if (res) {
     state.Roledata = res.data.result;
     state.Roledata.forEach((item: any, index) => {
@@ -186,7 +161,7 @@ const handleCurrentChange = (val: any) => {
 
 <style scoped lang="scss">
 .user-manage {
-  .handler{
+  .handler {
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
     margin-bottom: 10px;

@@ -1,10 +1,9 @@
 <template>
   <div class="comments-list">
-    <div class="handler">
-      <el-button @click="goBack">返回</el-button>
-    </div>
+    <searchHeader :title="'专题管理'">
+      <el-button type="primary" @click="goBack">返回</el-button>
+    </searchHeader>
     <el-table :data="state.list" style="width: 100%">
-      <!-- <el-table-column type="index" label="序号" width="60px"> </el-table-column> -->
       <el-table-column label="标题">
         <template #default="scope">
           {{ scope.row.name }}
@@ -23,7 +22,7 @@
       <el-table-column label="操作" width="180">
         <template #default="scope">
           <el-button @click="edit(scope.row.postId)" type="primary">编辑</el-button>
-          <el-button @click="delConfirm(scope.row.id)" type="danger" class="cus-button-danger">删除</el-button>
+          <el-button @click="delConfirm(scope.row.id)" type="danger">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -38,6 +37,7 @@ import {
 import { reactive, onMounted } from "vue";
 import { useRoute,useRouter } from "vue-router";
 import { ElMessageBox, ElMessage } from "element-plus";
+import searchHeader from "../components/searchHeader.vue";
 
 const route = useRoute();
 const router = useRouter();

@@ -1,20 +1,22 @@
 <template>
   <div class="page-list">
-    <div class="select-by-cate">
-      <div>
-        <span class="insert"><el-button link type="primary" @click="insert">新增文章</el-button></span>
-        <span>按分类筛选：</span>
-        <el-select v-model="state.params.cate" @change="typeChange" clearable>
-          <el-option v-for="(item, index) in state.cateList" :key="index" :label="item.name" :value="item.id">
-          </el-option>
-        </el-select>
+    <searchHeader :title="'文章管理'">
+      <div class="select-by-cate">
+        <div class="pdding">
+          <span>分类：</span>
+          <el-select v-model="state.params.cate" @change="typeChange" clearable>
+            <el-option v-for="(item, index) in state.cateList" :key="index" :label="item.name" :value="item.id">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="pdding">
+          <el-input v-model="state.params.tag" placeholder="输入关键字搜索" @change="tagChange"></el-input>
+        </div>
+        <span class="pdding"><el-button type="primary" @click="insert">新增文章</el-button></span>
       </div>
-      <div>
-        <el-input v-model="state.params.tag" placeholder="输入关键字搜索" @change="tagChange"></el-input>
-      </div>
-    </div>
+    </searchHeader>
+
     <el-table :data="state.list" @sort-change="sortCchange">
-      <!-- <el-table-column type="index" label="序号" width="55px"></el-table-column> -->
       <el-table-column label="标题" show-overflow-tooltip>
         <template #default="scope">
           <a style="color: #333;" :href="
@@ -31,19 +33,19 @@
       </el-table-column>
       <el-table-column fixed="right" width="160px" label="操作">
         <template #default="scope">
-         <div class="operate">
-          <el-button link type="primary" @click="edit(scope.row.id)">编辑</el-button>
-          <el-button link @click="delConfirm(scope.row.id)" type="danger">删除</el-button>
-          <el-button link v-if="userInfo.includes('ROLE_admin')" @click="addToTopic(scope.row)" type="primary">加专题
-          </el-button>
-         </div>
+          <div class="operate">
+            <el-button link type="primary" @click="edit(scope.row.id)">编辑</el-button>
+            <el-button link @click="delConfirm(scope.row.id)" type="danger">删除</el-button>
+            <el-button link v-if="userInfo.includes('ROLE_admin')" @click="addToTopic(scope.row)" type="primary">加专题
+            </el-button>
+          </div>
         </template>
       </el-table-column>
     </el-table>
     <div class="pagination-box">
-      <el-pagination small background @size-change="handleSizeChange" @current-change="handleCurrentChange"
+      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
         :current-page="state.params.page" :page-size="state.params.pageSize" :page-sizes="[10, 20, 30, 50]"
-        :pager-count="5" layout="total, prev, pager, next" :total="state.total">
+        :pager-count="5" layout="total, prev, pager, next, jumper" :total="state.total">
       </el-pagination>
     </div>
 
@@ -76,6 +78,7 @@ import {
 import { reactive, onMounted, computed } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { useRoute, useRouter } from "vue-router";
+import searchHeader from "../components/searchHeader.vue";
 const route = useRoute();
 const router = useRouter();
 const state = reactive({
@@ -94,9 +97,9 @@ const state = reactive({
     topicId: "",
   },
   total: 0,
-  cateList: [{name:"",id:""}],
+  cateList: [{ name: "", id: "" }],
   dialogVisible: false,
-  topicList: [{name:"",id:""}],
+  topicList: [{ name: "", id: "" }],
 });
 onMounted(() => {
   getCate();
@@ -109,7 +112,11 @@ onMounted(() => {
 });
 
 const insert = () => {
-  router.push({ path: "post"});
+  // router.push({ path: "/post" });
+  // 新开窗口
+  let rt = router.resolve({ path: "/post" })
+  window.open(rt.href, '_blank')
+
 };
 
 const userInfo = computed(() => {
@@ -126,13 +133,13 @@ const tagChange = (val: any) => {
   getListByTags(val);
 };
 const getListByTags = async (val: any) => {
-  const res: any = await getListByTagsApi({ tag: val ,page: 1 });
+  const res: any = await getListByTagsApi({ tag: val, page: 1 });
   if (res) {
     state.list = res.data.result;
     state.total = res.data.total;
   }
 };
-const sortCchange = (column: any ) => {
+const sortCchange = (column: any) => {
   state.params.page = 1;
   // 需要转换成sql对应的排序字段
   state.params.order = column.order === "ascending" ? "asc" : "desc";
@@ -190,7 +197,10 @@ const del = async (id: any) => {
 };
 
 const edit = async (id: any) => {
-  router.push({ path: "post", query: { id: id, ...state.params } });
+  // router.push({ path: "/post", query: { id: id, ...state.params } });
+  // 新开窗口
+  let rt = router.resolve({ path: "/post", query: { id: id, ...state.params } })
+  window.open(rt.href, '_blank')
 };
 
 const handleSizeChange = async (val: any) => {
@@ -224,13 +234,13 @@ const submitTopic = async () => {
   width: 100%;
 
   .select-by-cate {
-    margin: 20px;
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-    .insert{
+    // border-bottom: 1px solid #ddd;
+    // padding-bottom: 20px;
+    // margin-bottom: 20px;
+
+    .pdding {
       margin-right: 20px;
     }
   }
@@ -240,11 +250,13 @@ const submitTopic = async () => {
     text-align: left;
     padding: 5px;
   }
-  .operate{
+
+  .operate {
     display: flex;
-    div{
+
+    div {
       cursor: pointer;
-      padding-right:10px;
+      padding-right: 10px;
     }
   }
 }

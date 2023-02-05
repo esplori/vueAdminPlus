@@ -1,8 +1,8 @@
 <template>
   <div class="page-list">
-    <div class="handler">
+    <searchHeader :title="'资源管理'">
       <el-button type="primary" @click="addFile">新增文件</el-button>
-    </div>
+    </searchHeader>
     <el-tabs v-model="state.activeName" @tab-click="handleClick">
       <el-tab-pane label="所有" name="all"></el-tab-pane>
       <el-tab-pane label="图片" name="image"></el-tab-pane>
@@ -53,7 +53,7 @@
     </el-table>
 
     <el-dialog title="提示" v-model="state.dialogVisible" width="30%">
-      <el-upload class="upload-demo" drag action="/bootService/account/upload" multiple :headers="headers">
+      <el-upload class="upload-demo" drag :action="fileUploadApi()" multiple :headers="headers">
         <i class="el-icon-upload"></i>
         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
         <template #tip>
@@ -72,8 +72,10 @@
 
 <script lang="ts" setup>
 import { delFileApi, getSourceListApi } from "@/views/API/admin.js";
+import { fileUploadApi } from "@/views/API/auth.js";
 import { reactive, onMounted, computed } from "vue";
 import { ElMessage } from "element-plus";
+import searchHeader from "../components/searchHeader.vue";
 const state = reactive({
   list: [],
   dialogVisible: false,

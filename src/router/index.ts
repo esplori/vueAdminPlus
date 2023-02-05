@@ -22,6 +22,10 @@ const router = createRouter({
       component: () => import("../views/account/regActive.vue"),
     },
     {
+      path: "/post",
+      component: () => import("../views/postManage/post.vue")
+    },
+    {
       path: "/",
       name: "mainLayout",
       // route level code-splitting
@@ -63,10 +67,6 @@ const router = createRouter({
             {
               path: "pageList",
               component: () => import("../views/postManage/pageList.vue"),
-            },
-            {
-              path: "post",
-              component: () => import("../views/postManage/post.vue"),
             },
             {
               path: "cateManage",
@@ -131,15 +131,15 @@ const router = createRouter({
           children: [
             {
               path: "userManage",
-              component: () => import("../views/userManage/userManage.vue"),
+              component: () => import("../views/authManage/userManage.vue"),
             },
             {
               path: "roleManage",
-              component: () => import("../views/userManage/roleManage.vue"),
+              component: () => import("../views/authManage/roleManage.vue"),
             },
             {
               path: "menuManage",
-              component: () => import("../views/userManage/menuManage.vue"),
+              component: () => import("../views/authManage/menuManage.vue"),
             },
           ]
         },
@@ -154,23 +154,23 @@ const router = createRouter({
         },
         {
           path: "promotion",
-          component: () => import("../views/caiji/index.vue"),
+          component: () => import("../views/promotion/index.vue"),
           children: [
             {
               path: "/",
-              redirect: "caiji",
+              redirect: "promote",
             },
             {
-              path: "caiji",
-              component: () => import("../views/caiji/caiji.vue"),
+              path: "promote",
+              component: () => import("../views/promotion/promote.vue"),
             },
             {
-              path: "caijiList",
-              component: () => import("../views/caiji/caijiList.vue"),
+              path: "promoteList",
+              component: () => import("../views/promotion/promoteList.vue"),
             },
             {
-              path: "type",
-              component: () => import("../views/caiji/tbkCate.vue"),
+              path: "promoteType",
+              component: () => import("../views/promotion/promoteCate.vue"),
             },
           ]
         },
@@ -188,11 +188,6 @@ const router = createRouter({
             {
               path: "recycle",
               component: () => import("../views/setting/recyclePost.vue"),
-            },
-
-            {
-              path: "deploy",
-              component: () => import("../views/setting/deploy.vue"),
             },
             {
               path: "sourceList",
