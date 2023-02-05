@@ -42,7 +42,7 @@ import {
   getCateApi,
   updateCateApi,
   insertCateApi,
-} from "@/views/API/tbk.js";
+} from "@/views/API/promotion.js";
 
 import { reactive, onMounted } from "vue"
 import { ElMessageBox, ElMessage } from "element-plus"

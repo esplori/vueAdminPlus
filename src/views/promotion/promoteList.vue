@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts" setup>
-import { delTbkApi, getTbkListApi } from "@/views/API/tbk.js";
+import { delTbkApi, getTbkListApi } from "@/views/API/promotion.js";
 import { reactive, onMounted } from "vue"
 import { ElMessage } from "element-plus"
 import searchHeader from "../components/searchHeader.vue";

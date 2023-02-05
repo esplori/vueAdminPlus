@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts" setup>
-import { getCateApi, getTbkShopListApi, delTbkApi } from "@/views/API/tbk.js";
+import { getCateApi, getTbkShopListApi } from "@/views/API/promotion.js";
 import { reactive, onMounted } from "vue"
 import { ElMessage } from "element-plus"
 import searchHeader from "../components/searchHeader.vue";
