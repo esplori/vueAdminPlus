@@ -148,6 +148,7 @@ import * as echarts from "echarts";
 import { reactive, computed, onMounted, nextTick } from "vue";
 import { CaretTop, CaretBottom } from "@element-plus/icons-vue";
 import { delHtmlTag } from "@/utils/common.js";
+import { userInfoStore } from '@/stores/userInfo'
 const state = reactive({
   views: 0,
   pages: 0,
@@ -170,6 +171,9 @@ const state = reactive({
   postViewTableData: [],
   totalWordsNum: 0,
 });
+
+const us = userInfoStore()
+
 const userInfo = computed(() => {
   const usrinfo = localStorage.getItem("userInfo");
   if (usrinfo) {
@@ -181,7 +185,7 @@ const userInfo = computed(() => {
   }
 });
 const dailySentence = computed(() => {
-  const dailySentence = localStorage.getItem("dailySentence");
+  const dailySentence = us.userInfo.dailySentence;
   if (dailySentence) {
     return delHtmlTag('每日一句：' + dailySentence)
   }

@@ -24,7 +24,7 @@
         <RouterView />
       </div>
     </div>
-    <!-- <commonFooter></commonFooter> -->
+    <commonFooter></commonFooter>
   </div>
 </template>
 <script setup lang="ts">
@@ -33,6 +33,7 @@ import { reactive, computed, onMounted } from "vue";
 import adminHeader from "./components/admin-header.vue";
 import commonFooter from "./components/footer.vue";
 import { getUserInfoApi, getMenusApi } from "@/views/API/admin.js";
+import { userInfoStore } from '@/stores/userInfo'
 
 const state = reactive({
   menuList: [
@@ -209,6 +210,8 @@ const state = reactive({
   userInfoObj: {},
 });
 
+const us = userInfoStore()
+
 const userInfo = computed(() => {
   let userIn = localStorage.getItem("userInfo") || "";
   if (userIn) {
@@ -222,7 +225,7 @@ const getUserInfo = async () => {
   state.userInfoObj = res.data;
   // 保存每日一句
   if (res.data.dailySentence) {
-    localStorage.setItem("dailySentence", res.data.dailySentence)
+    us.userInfo.dailySentence = res.data.dailySentence
   }
 };
 const getMenus = async () => {
