@@ -19,7 +19,7 @@ export default defineConfig({
     open:true, // 默认打开浏览器
     proxy: {
       "/manage-service": {
-        target: "http://106.52.157.102:8081",
+        target: "https://admin.dsiab.com",
         // target: 'http://localhost:8083/',
         changeOrigin: true,
         // rewrite: path => path.replace('manage-service', '')

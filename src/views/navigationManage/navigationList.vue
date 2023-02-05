@@ -1,6 +1,6 @@
 <template>
   <div class="page-list">
-    <searchHeader :title="'导航'">
+    <searchHeader :title="'导航管理'">
         <el-button type="primary" @click="insert">新增导航</el-button>
     </searchHeader>
     <el-table :data="state.list" style="width: 100%">

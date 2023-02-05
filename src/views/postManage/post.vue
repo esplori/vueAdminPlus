@@ -45,7 +45,7 @@
     <div class="submit-container">
       <div class="submit-bar">
         <div><span class="wordNum">字数：{{ state.form.wordsNum }}</span></div>
-        <div><el-button @click="submit()" type="primary">提交</el-button></div>
+        <div><el-button @click="submit()" type="primary">发布</el-button></div>
       </div>
     </div>
   </div>
@@ -134,7 +134,7 @@ const editPage = async () => {
   });
   if (res) {
     const { page, cate, pageSize } = route.query;
-    ElMessage.success("保存成功");
+    ElMessage.success("发布成功");
     router.push({
       path: "/article/pageList",
       query: { page, cate, pageSize },
