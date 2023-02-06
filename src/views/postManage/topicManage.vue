@@ -74,7 +74,7 @@ const del = async (id: any) => {
 const goBack = () => {
   history.go(-1)
 }
-const edit = (id: String) => {
+const edit = (id: any) => {
   let rt = router.resolve({ path: "/post", query: { id: id } })
   window.open(rt.href, '_blank')
 }
