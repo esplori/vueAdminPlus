@@ -4,7 +4,7 @@ import contextPath from "@/utils/context-path.js";
 // 文章分页列表
 export async function getListByCateApi(data: any) {
   const url = `${contextPath}/admin/getList`;
-  const options = {};
+  const options = {showLoading: true};
   return post(url, data, options);
 }
 // 文章详情

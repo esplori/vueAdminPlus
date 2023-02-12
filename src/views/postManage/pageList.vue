@@ -44,8 +44,8 @@
     </el-table>
     <div class="pagination-box">
       <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
-        :current-page="state.params.page" :page-size="state.params.pageSize" :page-sizes="[10, 20, 30, 50]"
-        :pager-count="5" layout="total, prev, pager, next, jumper" :total="state.total">
+        :current-page="state.params.page" :page-size="state.params.pageSize" :page-sizes="[10, 20, 30, 50, 100]"
+        :pager-count="5" layout="sizes, total, prev, pager, next, jumper" :total="state.total">
       </el-pagination>
     </div>
 
