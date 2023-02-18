@@ -248,9 +248,9 @@ onMounted(() => {
     // left: 183px;
     // border-left: 10px solid #f5f5f5;
     // right: 0;
-    height: 100%;
+    height: 100vh;
     width: 1200px;
-    margin: 0 auto;
+    margin: 10px auto;
     display: flex;
     justify-content: space-between;
     overflow-x: hidden;
@@ -260,20 +260,19 @@ onMounted(() => {
     // border-radius: 5px;
     background: #fff;
     padding: 10px;
-    position: fixed;
+    position: absolute;
     width: 200px;
     left: 0;
-    top: 60px;
+    top: 0;
     height: calc(100% - 60px);
     bottom: 120px;
     overflow-y: auto;
-    border-right: 10px solid #f5f5f5;
-    margin-top: 10px
+    border-right: 1px solid #f5f5f5;
   }
 
   .right-content {
-    margin-left: 160px;
-    width: calc(100% - 100px);
+    margin-left: 200px;
+    width:100%;
     padding: 20px;
     padding-bottom: 20px;
     background: #fff;
