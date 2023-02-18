@@ -9,7 +9,7 @@ const propsState = defineProps(["title"]);
 </script>
 <style lang="scss" scoped>
 .search-header {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #f5f5f5;
     padding-bottom: 10px;
     margin-bottom: 20px;
     display: flex;
