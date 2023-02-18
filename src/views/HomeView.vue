@@ -261,7 +261,7 @@ onMounted(() => {
     background: #fff;
     padding: 10px;
     position: absolute;
-    width: 200px;
+    width: 210px;
     left: 0;
     top: 0;
     height: calc(100% - 60px);
