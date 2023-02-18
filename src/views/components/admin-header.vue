@@ -75,7 +75,7 @@ watchEffect(() => {
 .admin-header {
   width: 100%;
   padding: 5px 0 5px 0;
-  border-bottom: 10px solid #f5f5f5;
+  border-bottom: 1px solid #f5f5f5;
   color: #71777c;
   position: sticky;
   top: 0;
