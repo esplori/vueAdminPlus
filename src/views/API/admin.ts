@@ -10,13 +10,13 @@ export async function getListByCateApi(data: any) {
 // 文章详情
 export async function getDetailByIdApi(data: any) {
   const Url = `${contextPath}/admin/getDetail`;
-  const options = {};
+  const options = {showLoading: true};
   return get(Url, data, options);
 }
 // 新增文章
 export async function postPageApi(data: any) {
   const url = `${contextPath}/admin/insertItem`;
-  const options = { showLoading: false };
+  const options = { showLoading: true };
   return post(url, data, options);
 }
 // 删除文章

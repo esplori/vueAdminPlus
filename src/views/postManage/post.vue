@@ -150,7 +150,7 @@ const postPage = async () => {
     keywords: state.dynamicTags.join(","),
   });
   if (res) {
-    ElMessage.success("保存成功");
+    ElMessage.success("发布成功");
     state.form.id = res.data;
     router.push({ path: "/article/pageList" });
   }
