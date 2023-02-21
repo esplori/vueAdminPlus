@@ -80,8 +80,9 @@ watchEffect(() => {
   position: sticky;
   top: 0;
   left: 0;
-  background-image: radial-gradient(transparent 1px, #fff 1px);
-  backdrop-filter: saturate(50%) blur(4px);
+  background: #fff;
+  // background-image: radial-gradient(transparent 1px, #fff 1px);
+  // backdrop-filter: saturate(50%) blur(2px);
   z-index: 105;
   background-size: 4px 4px;
 

@@ -248,7 +248,7 @@ onMounted(() => {
     // left: 183px;
     // border-left: 10px solid #f5f5f5;
     // right: 0;
-    height: 100vh;
+    // height: 100vh;
     width: 1200px;
     margin: 10px auto;
     display: flex;
@@ -257,13 +257,12 @@ onMounted(() => {
   }
 
   .left-menu {
-    // border-radius: 5px;
+    border-radius: 8px;
     background: #fff;
     padding: 10px;
-    position: absolute;
+    position: fixed;
     width: 210px;
-    left: 0;
-    top: 0;
+    top: 70px;
     height: calc(100% - 60px);
     bottom: 120px;
     overflow-y: auto;
@@ -271,13 +270,13 @@ onMounted(() => {
   }
 
   .right-content {
-    margin-left: 200px;
+    margin-left: 220px;
     width:100%;
     padding: 20px;
     padding-bottom: 20px;
     background: #fff;
-    height: fit-content;
-    border-radius: 5px;
+    // height: fit-content;
+    border-radius: 8px;
   }
 
   .el-menu-vertical:not(.el-menu--collapse) {

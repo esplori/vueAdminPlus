@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="card-item">
-      <el-alert :title="dailySentence" type="info" />
+      <el-alert :title="dailySentence" type="info" class="dailySentence" />
       <div class="date-picker-change">
         <h3>数据总览</h3>
         <div>
@@ -449,6 +449,9 @@ let tabChange =(type:string)=> {
 
 <style scoped lang="scss">
 .home {
+  .dailySentence{
+    border: 1px dashed #d8d0d0;
+  }
   .date-picker-change {
     padding: 20px 0;
     display: flex;

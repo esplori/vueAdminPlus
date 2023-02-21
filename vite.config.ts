@@ -38,9 +38,6 @@ export default defineConfig({
         // rewrite: path => path.replace('manage-service', '')
       },
     },
-    // hmr:{
-    //   overlay: false
-    // }
   },
   build: {
     rollupOptions: {
