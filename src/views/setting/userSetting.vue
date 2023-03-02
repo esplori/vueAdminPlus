@@ -97,6 +97,7 @@ const submitPwd = async () => {
   if (res) {
     ElMessage.success("修改成功，请重新登录");
     setTimeout(() =>{
+      localStorage.clear()
       router.push("/login")
     })
   }

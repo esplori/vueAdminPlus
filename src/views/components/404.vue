@@ -16,6 +16,7 @@ onMounted(()=>{
     state.seconds = state.seconds - 1;
         if (state.seconds <= 0) {
           state.seconds = 0
+          localStorage.clear()
           location.href = "/#/login";
         }
       }, 1000);

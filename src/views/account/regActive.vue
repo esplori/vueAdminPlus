@@ -22,6 +22,7 @@ const getValidEmailEffective = async (id: String) => {
   if (res) {
     successMsg.value = "激活成功，即将跳转到登录页面";
     setTimeout(() => {
+      localStorage.clear()
       router.push({ path: "/login" });
     }, 3000);
   }

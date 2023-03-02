@@ -105,6 +105,7 @@ const register = async () => {
   if (res) {
     ElMessage.success("注册成功，即将跳转到登录页面");
     setTimeout(() => {
+      localStorage.clear()
       router.push({ path: "/login" });
     }, 3000);
   }
