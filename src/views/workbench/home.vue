@@ -1,9 +1,17 @@
 <template>
   <div class="home">
     <div class="card-item">
-      <el-alert :title="dailySentence" type="info" />
+      <el-alert :title="dailySentence" type="info" class="dailySentence" />
       <div class="date-picker-change">
         <h3>数据总览</h3>
+        <div>
+          <el-radio-group v-model="state.tabPosition" style="margin-bottom: 30px" @change="tabChange">
+            <el-radio-button label="toDay">今天</el-radio-button>
+            <el-radio-button label="yesterday">昨天</el-radio-button>
+            <el-radio-button label="7day">最近7天</el-radio-button>
+            <el-radio-button label="30day">最近30天</el-radio-button>
+          </el-radio-group>
+        </div>
       </div>
       <el-row :gutter="10" style="width: 100%;">
         <el-col :span="6">
@@ -202,6 +210,7 @@ const state = reactive({
   referrerTableData: [],
   postViewTableData: [],
   totalWordsNum: 0,
+  tabPosition: "toDay"
 });
 
 const us = userInfoStore()
@@ -223,7 +232,7 @@ const dailySentence = computed(() => {
   }
 });
 onMounted(() => {
-  getWebStatistics();
+  getWebStatistics(state.tabPosition);
   window.addEventListener("resize", () => {
     initCharts();
   });
@@ -397,8 +406,8 @@ const initDayViews = () => {
   });
   myChart.resize();
 };
-const getWebStatistics = async () => {
-  const res: any = await getWebStatisticsApi({});
+const getWebStatistics = async (type:string) => {
+  const res: any = await getWebStatisticsApi({type: type});
   if (res) {
     state.views = res.data.allViews;
     state.pages = res.data.allpages;
@@ -433,10 +442,16 @@ const initCharts = () => {
     initDayViews();
   });
 };
+let tabChange =(type:string)=> {
+  getWebStatistics(type);
+}
 </script>
 
 <style scoped lang="scss">
 .home {
+  .dailySentence{
+    border: 1px dashed #d8d0d0;
+  }
   .date-picker-change {
     padding: 20px 0;
     display: flex;

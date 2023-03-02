@@ -12,7 +12,8 @@
          <a :href="scope.row.url">{{scope.row.url}}</a>
         </template>
       </el-table-column>
-      <el-table-column prop="createDate" label="创建日期"> </el-table-column>
+      <el-table-column prop="cateName" label="分类"> </el-table-column>
+      <el-table-column prop="createDate" label="创建日期" show-overflow-tooltip> </el-table-column>
       <el-table-column label="操作" width="180">
         <template #default="scope">
           <el-button link @click="edit(scope.row)" type="primary">编辑</el-button>
