@@ -212,14 +212,6 @@ const state = reactive({
 
 const us = userInfoStore()
 
-const userInfo = computed(() => {
-  let userIn = localStorage.getItem("userInfo") || "";
-  if (userIn) {
-    userIn = JSON.parse(userIn).role.split(",");
-  }
-  return userIn as any;
-});
-
 const getUserInfo = async () => {
   const res: any = await getUserInfoApi({});
   state.userInfoObj = res.data;

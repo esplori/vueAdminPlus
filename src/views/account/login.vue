@@ -72,11 +72,10 @@ const login = async function () {
   if (!valid) {
     return;
   }
-  const res: any = await loginApi(form);
-  if (res) {
+  const res: any = await loginApi(form).then((res: any) =>{
     localStorage.setItem("userInfo", JSON.stringify(res.data));
     router.push({ path: "/home" });
-  }
+  });
 };
 </script>
 
