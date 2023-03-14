@@ -255,7 +255,7 @@ onMounted(() => {
     position: fixed;
     width: 210px;
     top: 70px;
-    height: calc(100% - 60px);
+    height: calc(100% - 90px);
     bottom: 120px;
     overflow-y: auto;
     border-right: 1px solid #f5f5f5;
