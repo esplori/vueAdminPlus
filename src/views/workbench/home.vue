@@ -2,7 +2,7 @@
   <div class="home">
     <div class="card-item">
       <el-alert :title="dailySentence" type="info" class="dailySentence" />
-      <div class="date-picker-change">
+      <!-- <div class="date-picker-change">
         <h3>数据总览</h3>
         <div>
           <el-radio-group v-model="state.tabPosition" style="margin-bottom: 30px" @change="tabChange">
@@ -12,7 +12,7 @@
             <el-radio-button label="30day">最近30天</el-radio-button>
           </el-radio-group>
         </div>
-      </div>
+      </div> -->
       <el-row :gutter="10" style="width: 100%;">
         <el-col :span="8">
           <el-card shadow="hover">
