@@ -462,6 +462,7 @@ let tabChange =(type:string)=> {
 .home {
   .dailySentence{
     border: 1px dashed #d8d0d0;
+    margin-bottom: 20px;
   }
   .date-picker-change {
     padding: 20px 0;
