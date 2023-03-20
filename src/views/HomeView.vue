@@ -236,11 +236,6 @@ onMounted(() => {
 
   .content-container {
     position: relative;
-    // top: 5px;
-    // left: 183px;
-    // border-left: 10px solid #f5f5f5;
-    // right: 0;
-    // height: 100vh;
     width: 1200px;
     margin: 10px auto;
     display: flex;
@@ -267,7 +262,6 @@ onMounted(() => {
     padding: 20px;
     padding-bottom: 20px;
     background: #fff;
-    // height: fit-content;
     border-radius: 8px;
   }
 
@@ -285,8 +279,6 @@ onMounted(() => {
     width: 100%;
     position: absolute;
     bottom: 0;
-    // background:rgba(#000,0.8);
-    // height: 80px;
     color: #fff;
   }
 
