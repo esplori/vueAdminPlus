@@ -119,6 +119,10 @@ const router = createRouter({
               path: "choujiang",
               component: () => import("../views/tools/choujiang/choujiang.vue"),
             },
+            {
+              path: "music",
+              component: () => import("../views/tools/music/play.vue"),
+            },
           ],
         },
         {
