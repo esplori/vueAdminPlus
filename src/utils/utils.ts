@@ -44,6 +44,7 @@ export function handleNum(num) {
 
 // 处理音乐时长的时间
 export function handleMusicTime(time) {
+  debugger
   // 如果超过了100000 基本都是毫秒为单位的了 先转成秒的
   time = parseInt(time);
   if (time > 10000) {
