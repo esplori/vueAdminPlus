@@ -6,8 +6,10 @@
         <!-- 中间 -->
         <div class="center">
             <div class="buttons">
-                <span @click="playType = playType == 'order' ? 'random' : 'order'"><i class="iconfont icon-xunhuan"
-                        v-if="playType == 'order'"></i><i class="iconfont icon-suiji1" v-else></i></span>
+                <span @click="playType = playType == 'order' ? 'random' : 'order'">
+                    <i class="iconfont icon-xunhuan" v-if="playType == 'order'"></i>
+                    <i class="iconfont icon-suiji1" v-else></i>
+                </span>
                 <span @click="changeMusic('pre')"><i class="iconfont icon-shangyishou"></i></span>
                 <span @click="changePlayState()">
                     <i v-if="state.isPlay" class="iconfont icon-zantingtingzhi"></i>
@@ -16,8 +18,11 @@
                 <span @click="changeMusic('next')">
                     <i class="iconfont icon-xiayishou"></i>
                 </span>
-                <span><i class="iconfont icon-xihuan" :class="isUserLikeCurrentMusic ? 'like' : ''"
-                        @click="musicList.length != 0 ? likeIt() : ''"></i></span>
+                <span>
+                    <i class="iconfont icon-xihuan" :class="isUserLikeCurrentMusic ? 'like' : ''"
+                        @click="musicList.length != 0 ? likeIt() : ''">
+                    </i>
+                </span>
             </div>
             <!-- 进度条 -->
             <div class="progressBar">
@@ -37,12 +42,6 @@
             <div class="playList" @click="openDrawer">
                 <i class="iconfont icon-bofangliebiao"></i>
             </div>
-            <!-- 备案信息 -->
-            <el-tooltip class="item" effect="dark" placement="left" :enterable="false">
-                <div v-html="recondInfo" slot="content"></div>
-                <el-link type="info" href="https://beian.miit.gov.cn/" target="_blank"
-                    class="recondInfo">粤ICP备2021068014号</el-link>
-            </el-tooltip>
         </div>
         <!-- 抽屉 -->
         <el-drawer :visible.sync="drawer" :with-header="false" width="300">
@@ -94,7 +93,6 @@ export default {
             likeMuiscList: [],
             // 用户是否喜欢当前音乐
             isUserLikeCurrentMusic: false,
-            recondInfo: `仅供学习使用, 侵权必删!`,
             // 播放模式（顺序播放，随机播放）
             // order random
             playType: "order",
@@ -245,6 +243,7 @@ export default {
             // console.log(e);
             // 修改当前播放时间
             this.currentTime = Math.floor((e / 100) * durationNum);
+            debugger
             // 改变audio的实际当前播放时间
             this.$refs.audioPlayer.currentTime = this.currentTime;
         },
@@ -307,45 +306,7 @@ export default {
             this.drawer = !this.drawer;
             this.hasDrawerOpend = true;
             this.handleDrawerListDOM(this.currentMusicIndex);
-        },
-
-
-
-        // 点击下载按钮的回调
-        downloadCurrentMusic() {
-            // console.log("download");
-            console.log(this.musicDetail, this.musicUrl);
-
-            // 匹配资源的域名
-            let url = this.musicUrl.match(/\http.*?\.net/);
-            // 匹配域名名称，并匹配对应的代理
-            let serve = url[0].match(/http:\/(\S*).music/)[1];
-            if (
-                serve != "/m7" &&
-                serve != "/m701" &&
-                serve != "/m8" &&
-                serve != "/m801"
-            ) {
-                // 没有对应的代理
-                this.$message.error("匹配不到对应的代理,下载失败!");
-                return;
-            }
-            // 截取后面的参数
-            let params = this.musicUrl.slice(url[0].length);
-
-            let downloadMusicInfo = {
-                url: serve + params,
-                name:
-                    this.musicDetail.name +
-                    " - " +
-                    this.musicDetail.ar[0].name +
-                    "." +
-                    musicType,
-            };
-
-            console.log(downloadMusicInfo);
-            this.$store.commit("updateDownloadMusicInfo", downloadMusicInfo);
-        },
+        }, 
 
 
     },
@@ -379,48 +340,11 @@ export default {
     background-color: #fff;
 }
 
-.avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 5px;
-    overflow: hidden;
-    margin-right: 10px;
-    cursor: pointer;
-}
 
-.avatar img {
-    width: 100%;
-}
 
-.left {
-    display: flex;
-    align-items: center;
-    width: 123px;
-}
 
-.musicInfo {
-    color: rgb(37, 37, 37);
-    font-size: 12px;
-    width: 70px;
-}
 
-.musicName {
-    margin-bottom: 4px;
-    width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
 
-.singer {
-    transform: scale(0.9);
-    margin-left: -3px;
-    width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    cursor: pointer;
-}
 
 .center {
     margin-top: 5px;
@@ -535,14 +459,6 @@ export default {
     bottom: 5px;
 }
 
-.recondInfo {
-    position: absolute;
-    font-size: 12px;
-    transform: scale(0.8);
-    width: 140px;
-    right: -5px;
-    bottom: -5px;
-}
 
 .center .icon-suiji1 {
     font-size: 15px;
