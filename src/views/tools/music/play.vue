@@ -1,8 +1,11 @@
 <template>
     <div class="bottomControl">
-        <audio id="audioPlayer" ref="audioPlayerRef" :src="state.musicUrl" autoplay @play="changeState(true)" @pause="changeState(false)"
-            @ended="changeMusic('next')" @timeupdate="timeupdate"></audio>
+        <audio id="audioPlayer" ref="audioPlayerRef" :src="state.musicUrl" autoplay @play="changeState(true)"
+            @pause="changeState(false)" @ended="changeMusic('next')" @timeupdate="timeupdate">
+        </audio>
+        <div class="left">
 
+        </div>
         <!-- 中间 -->
         <div class="center">
             <div class="buttons">
@@ -109,7 +112,7 @@ onMounted(() => {
     let myVid = audioPlayerRef.value;
 
     audioPlayerRef = myVid
-    
+
     if (myVid != null) {
         myVid.load();
         myVid.oncanplay = function () {
@@ -133,7 +136,7 @@ const pauseMusic = () => {
 }
 
 // audio开始或暂停播放的回调  在vuex中改变状态
-const changeState = (status:boolean) => {
+const changeState = (status: boolean) => {
     state.isPlay = status;
 }
 
@@ -155,7 +158,7 @@ const timeupdate = () => {
     }
 }
 // 拖动进度条的回调
-const changeProgress = (val:number) => {
+const changeProgress = (val: number) => {
     // console.log(e);
     // 修改当前播放时间
     state.currentTime = Math.floor((val / 100) * state.durationNum);
@@ -163,7 +166,7 @@ const changeProgress = (val:number) => {
     audioPlayerRef.currentTime = state.currentTime;
 }
 // 拖动音量条的回调
-const changeVolume = (val:number) => {
+const changeVolume = (val: number) => {
     // 改变audio的音量
     // input事件 实时触发
     audioPlayerRef.volume = val / 100;
