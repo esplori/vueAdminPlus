@@ -111,9 +111,6 @@ let state = reactive({
 
 let audioPlayerRef = ref()
 
-
-debugger
-
 onMounted(() => {
     state.musicDetail = state.musicList[0]
     // get music duration

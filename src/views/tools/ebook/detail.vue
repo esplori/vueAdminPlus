@@ -66,7 +66,6 @@ const nextPage = () => {
 const prePage = () => {
   if (state.params.page <= state.total && state.params.page > 0) {
     state.currPageStr = state.txtPre.slice(state.params.pageSize * (--state.params.page), state.params.pageSize * (state.params.page) + state.params.pageSize)
-    debugger
   }
 }
 onMounted(() => {
