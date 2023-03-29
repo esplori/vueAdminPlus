@@ -4,7 +4,14 @@
             @pause="changeState(false)" @ended="changeMusic('next')" @timeupdate="timeupdate">
         </audio>
         <div class="left">
-
+            <div class="musicInfo">
+                <div class="musicName">
+                    {{ state.musicDetail.name }}
+                </div>
+                <div class="singer">
+                    {{ state.musicDetail.singerName }}
+                </div>
+            </div>
         </div>
         <!-- 中间 -->
         <div class="center">
@@ -70,10 +77,11 @@ let lastSecond = 0;
 let volumeSave = 0;
 
 let state = reactive({
-    musicDetail: {},
+    musicDetail: {
+    },
     musicUrl: "http://m7.music.126.net/20230328000405/19e9a25803fb1535ec3141804cae9282/ymusic/1358/d103/c9bf/b209db455243dcce97d23d5990ace62a.mp3",
     musicList: [
-        { name: "asdf", id: 1, url: "http://m7.music.126.net/20230328000405/19e9a25803fb1535ec3141804cae9282/ymusic/1358/d103/c9bf/b209db455243dcce97d23d5990ace62a.mp3" }
+        { singerName: "tsffffffffffffffffffffffffffss",name: "asdf99999999999999999999999999999", id: 1, url: "http://m7.music.126.net/20230328000405/19e9a25803fb1535ec3141804cae9282/ymusic/1358/d103/c9bf/b209db455243dcce97d23d5990ace62a.mp3" }
     ],
     currentMusicIndex: 0,
     drawer: false,
@@ -215,12 +223,6 @@ watch(state.isPlay, (newVal, oldVal) => {
     z-index: 10000;
     background-color: #fff;
 }
-
-
-
-
-
-
 
 .center {
     margin-top: 5px;
