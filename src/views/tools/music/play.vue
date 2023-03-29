@@ -342,7 +342,7 @@ watch(state.isPlay, (newVal, oldVal) => {
     font-size: 15px;
 }
 
-/deep/.el-slider__button {
+:deep(.el-slider__button) {
     width: 10px !important;
     height: 10px !important;
 }
