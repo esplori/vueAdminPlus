@@ -60,9 +60,15 @@
             <el-table :data="state.musicList" stripe style="width: 100%" :show-header="false" @row-dblclick="clickRow"
                 highlight-current-row lazy>
                 <el-table-column type="index" width="50" />
-                <el-table-column prop="name"  label="歌曲名称"> </el-table-column>
+                <el-table-column prop="name" label="歌曲名称"> </el-table-column>
                 <el-table-column prop="singerName" label="歌手"> </el-table-column>
             </el-table>
+            <div class="pagination-box" style="text-align: center; margin-top: 20px">
+                <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
+                    :current-page="state.pageNum" :page-size="state.pageSize" layout="total, prev, pager, next"
+                    :total="state.total">
+                </el-pagination>
+            </div>
         </el-drawer>
     </div>
 </template>
@@ -70,7 +76,8 @@
 <script lang="ts" setup>
 
 import { handleMusicTime } from "../../../utils/utils";
-import { reactive, onMounted, watch, ref } from "vue";
+import { reactive, onMounted, ref } from "vue";
+import { getMusicListApi } from "../../API/tools";
 let lastSecond = 0;
 
 // 保存当前音量
@@ -81,7 +88,7 @@ let state = reactive({
     },
     musicUrl: "",
     musicList: [
-        { singerName: "林志炫",name: "明天会更好", id: 1, url: "http://m7.music.126.net/20230328000405/19e9a25803fb1535ec3141804cae9282/ymusic/1358/d103/c9bf/b209db455243dcce97d23d5990ace62a.mp3" }
+        { singerName: "林志炫", name: "明天会更好", id: 1, url: "http://m7.music.126.net/20230328000405/19e9a25803fb1535ec3141804cae9282/ymusic/1358/d103/c9bf/b209db455243dcce97d23d5990ace62a.mp3" }
     ],
     currentMusicIndex: 0,
     drawer: false,
@@ -106,13 +113,16 @@ let state = reactive({
     playType: "order",
     isPlay: false,
     // 总时长的秒数
-    durationNum: ""
+    durationNum: "",
+    pageNum: 1,
+    pageSize: 10,
+    total: 0
 })
 
 let audioPlayerRef = ref()
 
 onMounted(() => {
-    state.musicDetail = state.musicList[0]
+    getMusicList()
     // get music duration
     let myVid = audioPlayerRef.value;
 
@@ -127,6 +137,16 @@ onMounted(() => {
     }
 })
 
+const getMusicList = async () => {
+    const res: any = await getMusicListApi({
+        pageNum: state.pageNum,
+        pageSize: state.pageSize
+    });
+    if (res) {
+        state.musicList = res.data.result;
+        state.total = res.data.total
+    }
+};
 
 const changePlayState = () => {
     !state.isPlay ? playMusic() : pauseMusic();
@@ -194,10 +214,18 @@ const changeMutedState = () => {
 }
 
 
-const openDrawer = () =>{
+const openDrawer = () => {
     state.drawer = true
-    debugger
 }
+const handleSizeChange = (val: any) => {
+  state.pageSize = val;
+  getMusicList();
+};
+
+const handleCurrentChange = (val: any) => {
+  state.pageNum = val;
+  getMusicList();
+};
 
 
 </script>

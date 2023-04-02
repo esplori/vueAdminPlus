@@ -19,4 +19,11 @@ export async function getBookListApi(data: Object) {
   const options = {};
   return post(url, data, options);
 }
+// 查询音樂列表
+export async function getMusicListApi(data: Object) {
+  const url = `${contextPath}/tools/getMusicList`;
+  const options = {};
+  return post(url, data, options);
+}
+
 
