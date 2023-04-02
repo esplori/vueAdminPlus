@@ -33,7 +33,6 @@ const getBookList = async () => {
   }
 };
 const detail = (filename: any) => {
-  debugger
   router.push({
     path: "ebookDetail",
     query: {

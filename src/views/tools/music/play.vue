@@ -55,13 +55,13 @@
             </div>
         </div>
         <!-- 抽屉 -->
-        <el-drawer :visible.sync="state.drawer" :with-header="false" width="300">
+        <el-drawer v-model="state.drawer" :with-header="false" width="500">
             <div class="drawerHeader">总{{ state.musicList.length }}首</div>
             <el-table :data="state.musicList" stripe style="width: 100%" :show-header="false" @row-dblclick="clickRow"
                 highlight-current-row lazy>
-                <el-table-column prop="name" width="150px"> </el-table-column>
-                <el-table-column prop="ar[0].name" width="80px"> </el-table-column>
-                <el-table-column prop="dt" width="70px"> </el-table-column>
+                <el-table-column type="index" width="50" />
+                <el-table-column prop="name"  label="歌曲名称"> </el-table-column>
+                <el-table-column prop="singerName" label="歌手"> </el-table-column>
             </el-table>
         </el-drawer>
     </div>
@@ -79,9 +79,9 @@ let volumeSave = 0;
 let state = reactive({
     musicDetail: {
     },
-    musicUrl: "http://m7.music.126.net/20230328000405/19e9a25803fb1535ec3141804cae9282/ymusic/1358/d103/c9bf/b209db455243dcce97d23d5990ace62a.mp3",
+    musicUrl: "",
     musicList: [
-        { singerName: "tsffffffffffffffffffffffffffss",name: "asdf99999999999999999999999999999", id: 1, url: "http://m7.music.126.net/20230328000405/19e9a25803fb1535ec3141804cae9282/ymusic/1358/d103/c9bf/b209db455243dcce97d23d5990ace62a.mp3" }
+        { singerName: "林志炫",name: "明天会更好", id: 1, url: "http://m7.music.126.net/20230328000405/19e9a25803fb1535ec3141804cae9282/ymusic/1358/d103/c9bf/b209db455243dcce97d23d5990ace62a.mp3" }
     ],
     currentMusicIndex: 0,
     drawer: false,
@@ -106,7 +106,7 @@ let state = reactive({
     playType: "order",
     isPlay: false,
     // 总时长的秒数
-    durationNum: 0
+    durationNum: ""
 })
 
 let audioPlayerRef = ref()
@@ -194,13 +194,10 @@ const changeMutedState = () => {
 }
 
 
-watch(state.isPlay, (newVal, oldVal) => {
-    // if (newVal) {
-    //     playMusic();
-    // } else {
-    //     pauseMusic();
-    // }
-})
+const openDrawer = () =>{
+    state.drawer = true
+    debugger
+}
 
 
 </script>
