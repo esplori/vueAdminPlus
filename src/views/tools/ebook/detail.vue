@@ -17,6 +17,7 @@
 <script lang="ts" setup>
 import { onMounted, ref, reactive } from "vue";
 import { useRoute } from "vue-router"
+import contextPath from "@/utils/context-path.js";
 let route = useRoute()
 let state = reactive({
   loading: false,
@@ -30,7 +31,7 @@ let state = reactive({
   txtPre: "",
 })
 const urlToBlob = () => {
-  let file_url = '/bootService/tools/getBookDetail?filename=' + route.query.filename
+  let file_url =  contextPath +  '/tools/getBookDetail?filename=' + route.query.filename
   //可以是具体.txt也可以是接口返回的blob，或者web转换
   let xhr = new XMLHttpRequest();
   state.loading = true
@@ -47,7 +48,6 @@ const urlToBlob = () => {
       const reader = new FileReader()
       reader.onload = function () {
         state.txtPre = reader.result as any//获取的数据data
-        console.log('reader.result', reader.result)
         // 显示第一页
         state.currPageStr = state.txtPre.slice(0, 2000)
         state.total = Math.ceil(state.txtPre.length / state.params.pageSize)
