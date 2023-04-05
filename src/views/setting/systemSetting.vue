@@ -1,5 +1,5 @@
 <template>
-  <div class="user-info">
+  <div class="systemSetting">
     <searchHeader :title="'站点设置'"></searchHeader>
     <el-form :model="state.form" label-width="150px" label-position="left" class="setting-form">
       <el-form-item label="站点名称:">
@@ -142,11 +142,11 @@ const del = (index: number) => {
 </script>
 
 <style scoped lang="scss">
-.user-info {
+.systemSetting {
 
   .setting-form {
     &>div {
-      width: 50%;
+      width: 65%;
     }
   }
 }

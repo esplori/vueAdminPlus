@@ -1,5 +1,5 @@
 <template>
-  <div class="page-list">
+  <div class="recyclePost">
     <searchHeader :title="'回收数据'"></searchHeader>
     <el-table :data="state.list" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"> </el-table-column>
@@ -139,7 +139,7 @@ const delMultiple = async (ids: any) => {
 </script>
 
 <style scoped lang="scss">
-.page-list {
+.recyclePost {
   width: 100%;
 
   .select-by-cate {

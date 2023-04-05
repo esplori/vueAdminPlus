@@ -1,5 +1,5 @@
 <template>
-  <div class="page-list">
+  <div class="notice">
     <searchHeader :title="'系统通知'"></searchHeader>
     <el-table :data="state.list">
       <el-table-column label="通知类型" prop="title" width="100px">
@@ -70,7 +70,7 @@ const handleCurrentChange = (val: any) => {
 </script>
 
 <style scoped lang="scss">
-.page-list {
+.notice {
   width: 100%;
 
   .select-by-cate {
