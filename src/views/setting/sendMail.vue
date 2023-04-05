@@ -1,7 +1,7 @@
 <template>
   <div class="mail">
     <searchHeader :title="'邮件发送'"></searchHeader>
-    <el-form ref="mailForm" :model="state.form" label-width="80px" :rules="state.rules">
+    <el-form ref="mailForm" :model="state.form" label-width="100px" :rules="state.rules">
       <el-form-item label="收件人：" prop="mailTo">
         <el-input v-model="state.form.mailTo"></el-input>
       </el-form-item>

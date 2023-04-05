@@ -24,7 +24,7 @@
           " target="_blank">{{ scope.row.title }}</a>
         </template>
       </el-table-column>
-      <el-table-column label="分类" prop="cateName" width="80px" align="center"> </el-table-column>
+      <el-table-column label="分类" prop="cateName" width="120px" align="center"> </el-table-column>
       <el-table-column label="阅读" sortable="custom" prop="views" width="80px" align="center">
       </el-table-column>
       <el-table-column label="字数" sortable="custom" prop="wordsNum" width="80px" align="center">
