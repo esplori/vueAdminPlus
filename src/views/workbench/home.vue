@@ -2,19 +2,8 @@
   <div class="home">
     <div class="card-item">
       <el-alert :title="dailySentence" type="info" class="dailySentence" />
-      <div class="date-picker-change">
-        <h3>数据总览</h3>
-        <div>
-          <el-radio-group v-model="state.tabPosition" style="margin-bottom: 30px" @change="tabChange">
-            <el-radio-button label="toDay">今天</el-radio-button>
-            <el-radio-button label="yesterday">昨天</el-radio-button>
-            <el-radio-button label="7day">最近7天</el-radio-button>
-            <el-radio-button label="30day">最近30天</el-radio-button>
-          </el-radio-group>
-        </div>
-      </div>
       <el-row :gutter="10" style="width: 100%;">
-        <el-col :span="6">
+        <el-col :span="8">
           <el-card shadow="hover">
             <div class="item-title">总访问量</div>
             <div class="item-amount" ref="countupviews" id="countupviews">
@@ -26,7 +15,7 @@
             </div>
           </el-card>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="8">
           <el-card shadow="hover">
             <div class="item-title">今日浏览量(PV)</div>
             <div class="item-amount" ref="countupdayViews" id="countupdayViews">
@@ -45,7 +34,7 @@
             </div>
           </el-card>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="8">
           <el-card shadow="hover">
             <div class="item-title">今日访问IP数(UV)</div>
             <div class="item-amount" ref="countupdayIp" id="countupdayIp">
@@ -65,7 +54,9 @@
             </div>
           </el-card>
         </el-col>
-        <el-col :span="6">
+      </el-row>
+      <el-row :gutter="10" style="width: 100%;margin-top: 10px;">
+        <el-col :span="8">
           <el-card shadow="hover">
             <div class="item-title">文章总数</div>
             <div class="item-amount" ref="countuppages" id="countuppages">
@@ -86,7 +77,57 @@
             </div>
           </el-card>
         </el-col>
+        <el-col :span="8">
+          <el-card shadow="hover">
+            <div class="item-title">今天访问来源</div>
+            <div class="item-amount" ref="countupdayViews" id="countupdayViews">
+              {{ state.referrerTableData }}
+            </div>
+            <div class="item-compare">
+              <span>较昨日
+                <el-icon v-show="state.dayViewsMom > 0" :size="16" color="#F56C6C">
+                  <!-- <CaretTop></CaretTop> -->
+                </el-icon>
+                <el-icon v-show="state.dayViewsMom < 0" :size="16" color="#F56C6C">
+                  <!-- <CaretBottom></CaretBottom> -->
+                </el-icon>
+              </span>
+              <span class="num"> {{ Math.abs(0) }} </span>
+            </div>
+          </el-card>
+        </el-col>
+        <el-col :span="8">
+          <el-card shadow="hover">
+            <div class="item-title">今天访问地址</div>
+            <div class="item-amount" ref="countupdayIp" id="countupdayIp">
+              {{ state.postViewTableData }}
+            </div>
+            <div class="item-compare">
+              <span>较昨日
+
+                <el-icon v-show="state.dayIpMom > 0" :size="16" color="#F56C6C">
+                  <!-- <CaretTop></CaretTop> -->
+                </el-icon>
+                <el-icon v-show="state.dayIpMom < 0" :size="16" color="#F56C6C">
+                  <!-- <CaretBottom></CaretBottom> -->
+                </el-icon>
+              </span>
+              <span class="num"> {{ Math.abs(0) }} </span>
+            </div>
+          </el-card>
+        </el-col>
       </el-row>
+      <div class="date-picker-change">
+        <h3>数据总览</h3>
+        <div>
+          <el-radio-group v-model="state.tabPosition" style="margin-bottom: 30px" @change="tabChange">
+            <el-radio-button label="toDay">今天</el-radio-button>
+            <el-radio-button label="yesterday">昨天</el-radio-button>
+            <el-radio-button label="7day">最近7天</el-radio-button>
+            <el-radio-button label="30day">最近30天</el-radio-button>
+          </el-radio-group>
+        </div>
+      </div>
       <div class="dayViews">
         <div id="dayViews" style="width: 100%; height: 300px"></div>
       </div>
@@ -115,36 +156,6 @@
           </el-col>
         </el-row>
       </div>
-    </div>
-
-    <div v-if="userInfo.role.includes('ROLE_admin')">
-      <div>
-        <h2 class="table-title">当天访问来源：共{{ state.referrerTableData.length }}条</h2>
-      </div>
-      <el-table :data="state.referrerTableData" style="width: 100%">
-        <el-table-column type="index" label="序号" width="60" align="center">
-        </el-table-column>
-        <el-table-column prop="referrer" label="地址"> </el-table-column>
-        <el-table-column prop="ip" label="ip地址"> </el-table-column>
-        <el-table-column prop="region" label="归属地"> </el-table-column>
-        <el-table-column prop="createDate" label="时间"> </el-table-column>
-      </el-table>
-      <div class="date-picker-change">
-        <h2 class="table-title">当天访问地址：共{{ state.postViewTableData.length }}条</h2>
-      </div>
-      <el-table :data="state.postViewTableData" style="width: 100%">
-        <el-table-column type="index" label="序号" width="60" align="center">
-        </el-table-column>
-        <el-table-column prop="title" label="标题"> </el-table-column>
-        <el-table-column prop="href" label="地址">
-          <template #default="scope">
-            <a :href="scope.row.href">{{ scope.row.href }}</a>
-          </template>
-        </el-table-column>
-        <el-table-column prop="ip" label="ip地址"> </el-table-column>
-        <el-table-column prop="region" label="归属地"> </el-table-column>
-        <el-table-column prop="createDate" label="时间"> </el-table-column>
-      </el-table>
     </div>
   </div>
 </template>
@@ -451,6 +462,7 @@ let tabChange =(type:string)=> {
 .home {
   .dailySentence{
     border: 1px dashed #d8d0d0;
+    margin-bottom: 20px;
   }
   .date-picker-change {
     padding: 20px 0;

@@ -212,14 +212,6 @@ const state = reactive({
 
 const us = userInfoStore()
 
-const userInfo = computed(() => {
-  let userIn = localStorage.getItem("userInfo") || "";
-  if (userIn) {
-    userIn = JSON.parse(userIn).role.split(",");
-  }
-  return userIn as any;
-});
-
 const getUserInfo = async () => {
   const res: any = await getUserInfoApi({});
   state.userInfoObj = res.data;
@@ -244,11 +236,6 @@ onMounted(() => {
 
   .content-container {
     position: relative;
-    // top: 5px;
-    // left: 183px;
-    // border-left: 10px solid #f5f5f5;
-    // right: 0;
-    // height: 100vh;
     width: 1200px;
     margin: 10px auto;
     display: flex;
@@ -263,7 +250,7 @@ onMounted(() => {
     position: fixed;
     width: 210px;
     top: 70px;
-    height: calc(100% - 60px);
+    height: calc(100% - 90px);
     bottom: 120px;
     overflow-y: auto;
     border-right: 1px solid #f5f5f5;
@@ -275,7 +262,6 @@ onMounted(() => {
     padding: 20px;
     padding-bottom: 20px;
     background: #fff;
-    // height: fit-content;
     border-radius: 8px;
   }
 
@@ -293,8 +279,6 @@ onMounted(() => {
     width: 100%;
     position: absolute;
     bottom: 0;
-    // background:rgba(#000,0.8);
-    // height: 80px;
     color: #fff;
   }
 

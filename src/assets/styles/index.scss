@@ -1,6 +1,5 @@
 // 手动重置主题颜色
-// @forward 'element-plus/theme-chalk/src/common/var.scss' with ( $colors: ( 'primary': ( 'base': #ff852a, ), ), $border-radius: ( 'base': 2px, ));
-@forward 'element-plus/theme-chalk/src/common/var.scss' with ( $border-radius: ( 'base': 2px, ),$colors: ('primary': ('base': #056de8)));
+@forward 'element-plus/theme-chalk/src/common/var.scss' with ( $border-radius: ( 'base': 4px, ),$colors: ('primary': ('base': #056de8)));
 // 重置后引入所有样式
 @use "element-plus/theme-chalk/src/index.scss" as *;
 // 基础样式
@@ -9,3 +8,5 @@
 @import "./reset.css";
 // 通用样式
 @import "./common.css";
+// 新增iconfont字体
+@import 'https://at.alicdn.com/t/font_2559410_7ih6tcqtq07.css?spm=a313x.7781069.1998910419.47&file=font_2559410_7ih6tcqtq07.css';
