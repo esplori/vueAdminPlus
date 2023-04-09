@@ -19,9 +19,21 @@ export async function getBookListApi(data: Object) {
   const options = {};
   return post(url, data, options);
 }
-// 查询音樂列表
+// 查询音乐列表
 export async function getMusicListApi(data: Object) {
   const url = `${contextPath}/tools/getMusicList`;
+  const options = {};
+  return post(url, data, options);
+}
+// 新增音乐
+export async function insertMusicItemApi(data: Object) {
+  const url = `${contextPath}/tools/insertMusicItem`;
+  const options = {};
+  return post(url, data, options);
+}
+// 更新音乐
+export async function updateMusicItemApi(data: Object) {
+  const url = `${contextPath}/tools/updateMusicItem`;
   const options = {};
   return post(url, data, options);
 }

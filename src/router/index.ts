@@ -121,7 +121,7 @@ const router = createRouter({
             },
             {
               path: "music",
-              component: () => import("../views/tools/music/play.vue"),
+              component: () => import("../views/tools/music/index.vue"),
             },
           ],
         },
