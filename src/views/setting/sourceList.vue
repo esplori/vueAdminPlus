@@ -1,5 +1,5 @@
 <template>
-  <div class="page-list">
+  <div class="sourceList">
     <searchHeader :title="'资源管理'">
       <el-button type="primary" @click="addFile">新增文件</el-button>
     </searchHeader>
@@ -133,7 +133,7 @@ const del = async (filename: any) => {
 </script>
 
 <style scoped lang="scss">
-.page-list {
+.sourceList {
   width: 100%;
   .handler{
     border-bottom: 1px solid #ddd;

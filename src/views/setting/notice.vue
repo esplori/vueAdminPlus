@@ -9,7 +9,7 @@
           {{ scope.row.content }}
         </template>
       </el-table-column>
-      <el-table-column label="通知时间">
+      <el-table-column label="通知时间"  width="200px">
         <template #default="scope">
           {{ scope.row.createDate }}
         </template>
