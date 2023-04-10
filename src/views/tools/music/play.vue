@@ -1,6 +1,6 @@
 <template>
     <div class="bottomControl">
-        <audio id="audioPlayer" ref="audioPlayerRef" :src="state.musicUrl" autoplay @play="changeState(true)"
+        <audio id="audioPlayer" ref="audioPlayerRef" :src="state.musicDetail.songUrl" autoplay @play="changeState(true)"
             @pause="changeState(false)" @ended="changeMusic('next')" @timeupdate="timeupdate">
         </audio>
         <div class="left">
@@ -29,8 +29,7 @@
                     <i class="iconfont icon-xiayishou"></i>
                 </span>
                 <span>
-                    <i class="iconfont icon-xihuan" :class="state.isUserLikeCurrentMusic ? 'like' : ''"
-                        @click="state.musicList.length != 0 ? likeIt() : ''">
+                    <i class="iconfont icon-xihuan" :class="state.isUserLikeCurrentMusic ? 'like' : ''">
                     </i>
                 </span>
             </div>
@@ -85,15 +84,18 @@ let volumeSave = 0;
 
 let state = reactive({
     musicDetail: {
+        name: "",
+        singerName: "",
+        songUrl:""
     },
     musicUrl: "",
     musicList: [
-        { singerName: "林志炫", name: "明天会更好", id: 1, url: "http://m7.music.126.net/20230328000405/19e9a25803fb1535ec3141804cae9282/ymusic/1358/d103/c9bf/b209db455243dcce97d23d5990ace62a.mp3" }
+        { singerName: "林志炫", name: "明天会更好", id: 1, songUrl: "http://m7.music.126.net/20230328000405/19e9a25803fb1535ec3141804cae9282/ymusic/1358/d103/c9bf/b209db455243dcce97d23d5990ace62a.mp3" }
     ],
     currentMusicIndex: 0,
     drawer: false,
     // 音乐总时长
-    duration: "00:00",
+    duration: 0,
     // 当前播放时间位置
     currentTime: 0,
     // 进度条的位置
@@ -113,7 +115,7 @@ let state = reactive({
     playType: "order",
     isPlay: false,
     // 总时长的秒数
-    durationNum: "",
+    durationNum: 0,
     pageNum: 1,
     pageSize: 10,
     total: 0
@@ -143,8 +145,11 @@ const getMusicList = async () => {
         pageSize: state.pageSize
     });
     if (res) {
-        state.musicList = res.data.result;
+        state.musicList = res.data.result || [];
         state.total = res.data.total
+        if (state.musicList.length) {
+            state.musicDetail = state.musicList[0]
+        }
     }
 };
 
@@ -226,6 +231,8 @@ const handleCurrentChange = (val: any) => {
   state.pageNum = val;
   getMusicList();
 };
+const clickRow = () =>{}
+const changeMusic = (type: any) =>{}
 
 
 </script>
