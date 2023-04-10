@@ -74,9 +74,9 @@
   
 <script lang="ts" setup>
 
-import { handleMusicTime } from "../../../utils/utils";
+import { handleMusicTime } from "../../utils/utils";
 import { reactive, onMounted, ref } from "vue";
-import { getMusicListApi } from "../../API/tools";
+import { getMusicListApi } from "../API/tools";
 let lastSecond = 0;
 
 // 保存当前音量

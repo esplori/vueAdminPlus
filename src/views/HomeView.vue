@@ -25,6 +25,7 @@
       </div>
     </div>
     <commonFooter></commonFooter>
+    <musicPlayer></musicPlayer>
   </div>
 </template>
 <script setup lang="ts">
@@ -32,6 +33,7 @@ import { RouterView } from "vue-router";
 import { reactive, computed, onMounted } from "vue";
 import adminHeader from "./components/admin-header.vue";
 import commonFooter from "./components/footer.vue";
+import musicPlayer from "./components/musicPlayer.vue"
 import { getUserInfoApi, getMenusApi } from "@/views/API/admin.js";
 import { userInfoStore } from '@/stores/userInfo'
 
