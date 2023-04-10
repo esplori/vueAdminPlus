@@ -11,15 +11,26 @@
           {{ scope.row.singerName }}
         </template>
       </el-table-column>
+      <el-table-column label="地址" show-overflow-tooltip>
+        <template #default="scope">
+          {{ scope.row.songUrl }}
+        </template>
+      </el-table-column>
       <el-table-column label="创建时间">
         <template #default="scope">
           {{ scope.row.createDate }}
         </template>
       </el-table-column>
+      <el-table-column label="操作">
+        <template #default="scope">
+          <el-button link @click="edit(scope.row)">编辑</el-button>
+          <el-button link type="danger" @click="delConfirm(scope.row.id)">删除</el-button>
+        </template>
+      </el-table-column>
     </el-table>
     <div class="pagination-box" style="text-align: center; margin-top: 20px">
       <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
-        :current-page="state.params.page" :page-size="state.params.pageSize" :page-sizes="[10, 20, 30, 50]"
+        :current-page="state.params.pageNum" :page-size="state.params.pageSize" :page-sizes="[10, 20, 30, 50]"
         :pager-count="5" layout="total, prev, pager, next" :total="state.total">
       </el-pagination>
     </div>
@@ -51,17 +62,18 @@
 import {
   getMusicListApi,
   insertMusicItemApi,
-  updateMusicItemApi
+  updateMusicItemApi,
+  delMusicItemApi
 } from "@/views/API/tools.js";
 import { reactive, onMounted } from "vue";
 import searchHeader from "@/views/components/searchHeader.vue";
-import { ElMessage } from "element-plus";
+import { ElMessage,ElMessageBox } from "element-plus";
 const state = reactive({
   dialogVisible: false,
   title: "新增",
   list: [],
   params: {
-    page: 1,
+    pageNum: 1,
     pageSize: 10,
   },
   total: 0,
@@ -94,7 +106,7 @@ const handleSizeChange = (val: any) => {
 };
 
 const handleCurrentChange = (val: any) => {
-  state.params.page = val;
+  state.params.pageNum = val;
   getList();
 };
 const insert = () =>{
@@ -115,6 +127,29 @@ const submit = async (row: any) =>{
   }
   state.dialogVisible = false;
 }
+const edit = (row: any) =>{
+  state.title = "编辑";
+  state.row = row
+  state.dialogVisible = true;
+}
+
+const delConfirm = async (id: any) => {
+  ElMessageBox.confirm("此操作将删除该条数据, 是否继续?", "提示", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning",
+  }).then(() => {
+    delItem(id);
+  });
+};
+
+const delItem = async (id: any) => {
+  const res = await delMusicItemApi({ id: id });
+  if (res) {
+    ElMessage.success("删除成功");
+    getList();
+  }
+};
 
 
 </script>

@@ -37,5 +37,11 @@ export async function updateMusicItemApi(data: Object) {
   const options = {};
   return post(url, data, options);
 }
+// 删除音乐
+export async function delMusicItemApi(data: Object) {
+  const url = `${contextPath}/tools/delMusicItem`;
+  const options = {};
+  return post(url, data, options);
+}
 
 
