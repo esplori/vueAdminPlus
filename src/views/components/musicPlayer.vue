@@ -1,6 +1,6 @@
 <template>
     <div class="bottomControl">
-        <audio id="audioPlayer" ref="audioPlayerRef" :src="state.musicDetail.songUrl" autoplay @play="changeState(true)"
+        <audio id="audioPlayer" :src="state.musicDetail.songUrl" autoplay @play="changeState(true)"
             @pause="changeState(false)" @ended="changeMusic('next')" @timeupdate="timeupdate">
         </audio>
         <div class="left">
@@ -75,7 +75,7 @@
 <script lang="ts" setup>
 
 import { handleMusicTime } from "../../utils/utils";
-import { reactive, onMounted, ref } from "vue";
+import { reactive, onMounted } from "vue";
 import { getMusicListApi } from "../API/tools";
 let lastSecond = 0;
 
@@ -121,12 +121,13 @@ let state = reactive({
     total: 0
 })
 
-let audioPlayerRef = ref()
+let audioPlayerRef:any
 
 onMounted(() => {
+    audioPlayerRef = document.getElementById("audioPlayer") as any
     getMusicList()
     // get music duration
-    let myVid = audioPlayerRef.value;
+    let myVid = audioPlayerRef;
 
     audioPlayerRef = myVid
 
