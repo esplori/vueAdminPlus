@@ -22,9 +22,9 @@
       </div>
       <div class="right-content">
         <RouterView />
+        <commonFooter></commonFooter>
       </div>
     </div>
-    <commonFooter></commonFooter>
     <musicPlayer></musicPlayer>
   </div>
 </template>
@@ -252,7 +252,7 @@ onMounted(() => {
     position: fixed;
     width: 210px;
     top: 70px;
-    height: calc(100% - 90px);
+    height: calc(100% - 140px);
     bottom: 120px;
     overflow-y: auto;
     border-right: 1px solid #f5f5f5;
@@ -262,7 +262,7 @@ onMounted(() => {
     margin-left: 220px;
     width:100%;
     padding: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 60px;
     background: #fff;
     border-radius: 8px;
   }

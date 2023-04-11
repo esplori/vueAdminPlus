@@ -243,13 +243,13 @@ const changeMusic = (type: any) =>{}
     /* background-color: pink; */
     border-top: 1px solid #ddd;
     width: 100%;
-    height: 55px;
+    height: 65px;
     position: fixed;
     bottom: 0;
     left: 0;
     display: flex;
     justify-content: space-between;
-    padding: 6px 10px;
+    padding: 10px 20px;
     z-index: 10000;
     background-color: #fff;
 }

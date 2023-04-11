@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <el-backtop :right="20" :bottom="40" />
+    <el-backtop :right="20" :bottom="80" />
     <!-- <span v-html="copyRight"></span>copyRight {{currentDate}} <a href="http://beian.miit.gov.cn/"> 粤ICP备20013202号</a> -->
     <span v-html="copyRight"></span>
     {{ currentDate }} javascript技术分享
