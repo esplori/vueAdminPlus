@@ -11,11 +11,6 @@
           {{ scope.row.singerName }}
         </template>
       </el-table-column>
-      <el-table-column label="地址" show-overflow-tooltip>
-        <template #default="scope">
-          {{ scope.row.songUrl }}
-        </template>
-      </el-table-column>
       <el-table-column label="创建时间">
         <template #default="scope">
           {{ scope.row.createDate }}

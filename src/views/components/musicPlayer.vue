@@ -77,6 +77,7 @@
 import { handleMusicTime } from "../../utils/utils";
 import { reactive, onMounted } from "vue";
 import { getMusicListApi } from "../API/tools";
+import { userInfoStore } from '@/stores/userInfo'
 let lastSecond = 0;
 
 // 保存当前音量
@@ -86,11 +87,11 @@ let state = reactive({
     musicDetail: {
         name: "",
         singerName: "",
-        songUrl:""
+        songUrl:"",
+        index: 0
     },
-    musicUrl: "",
     musicList: [
-        { singerName: "林志炫", name: "明天会更好", id: 1, songUrl: "http://m7.music.126.net/20230328000405/19e9a25803fb1535ec3141804cae9282/ymusic/1358/d103/c9bf/b209db455243dcce97d23d5990ace62a.mp3" }
+        { singerName: "林志炫", name: "明天会更好", id: 1,index: 0, songUrl: "http://m7.music.126.net/20230328000405/19e9a25803fb1535ec3141804cae9282/ymusic/1358/d103/c9bf/b209db455243dcce97d23d5990ace62a.mp3" }
     ],
     currentMusicIndex: 0,
     drawer: false,
@@ -123,6 +124,8 @@ let state = reactive({
 
 let audioPlayerRef:any
 
+const us = userInfoStore()
+
 onMounted(() => {
     audioPlayerRef = document.getElementById("audioPlayer") as any
     getMusicList()
@@ -140,16 +143,28 @@ onMounted(() => {
     }
 })
 
+const storeDataToPinia = (list:any) =>{
+    us.$patch((state) => {  // 这里传入的state就是pinia的state
+      state.music_list = list
+    })
+}
 const getMusicList = async () => {
     const res: any = await getMusicListApi({
         pageNum: state.pageNum,
         pageSize: state.pageSize
     });
     if (res) {
-        state.musicList = res.data.result || [];
-        state.total = res.data.total
-        if (state.musicList.length) {
+        
+        if (res.data.result.length) {
+            let list = res.data.result || []
+            list.map((item:any,index:number) =>{
+                item.index = index
+            })
+            debugger
+            state.musicList = res.data.result;
+            state.total = res.data.total
             state.musicDetail = state.musicList[0]
+            storeDataToPinia(state.musicList)
         }
     }
 };
@@ -232,8 +247,20 @@ const handleCurrentChange = (val: any) => {
   state.pageNum = val;
   getMusicList();
 };
-const clickRow = () =>{}
-const changeMusic = (type: any) =>{}
+const clickRow = (item:any) =>{
+    state.musicDetail = item
+    playMusic()
+}
+const changeMusic = (type: any) =>{
+    let list = state.musicList
+    let index = state.musicDetail.index
+    if (type === 'pre' && list[index - 1]) {
+        state.musicDetail = list[index - 1]
+    } else if (type === 'next' && list[index + 1]){
+        state.musicDetail = list[index + 1]
+    }
+    playMusic()
+}
 
 
 </script>
@@ -270,6 +297,7 @@ const changeMusic = (type: any) =>{}
 .buttons i {
     font-size: 20px;
     color: #313131;
+    cursor: pointer;
 }
 
 .buttons span:nth-child(3) i {
