@@ -3,8 +3,8 @@
     <searchHeader :title="'用户管理'"></searchHeader>
     <el-table :data="state.data">
       <el-table-column prop="username" label="用户名"> </el-table-column>
-      <el-table-column prop="role" label="角色Id"> </el-table-column>
-      <el-table-column prop="email" label="邮箱"> </el-table-column>
+      <el-table-column prop="role" label="角色Id" show-overflow-tooltip> </el-table-column>
+      <el-table-column prop="email" label="邮箱" show-overflow-tooltip> </el-table-column>
       <el-table-column prop="valid" label="是否有效">
         <template #default="scope">
           <span v-show="scope.row.valid === '1'">是</span>

@@ -1,5 +1,5 @@
 // 格式化时间
-export function formatDate(date, fmt) {
+export function formatDate(date:any, fmt:string) {
   // 1.获取年份
   // y+ 1个或者多个y  yyyy:2021
   // y* 0个或者多个y
@@ -27,13 +27,13 @@ export function formatDate(date, fmt) {
 }
 
 // 不足两位补足两位 04:05:09
-function padLeftZero(str) {
+function padLeftZero(str:string) {
   // str=4 -> 004 截取 1 位 -> 04
   return ('00' + str).substr(str.length);
 }
 
 // 处理大于1w的数字
-export function handleNum(num) {
+export function handleNum(num:any) {
   if (num > 10000) {
     num = (num / 10000).toFixed(1);
     return num + '万';
@@ -43,7 +43,7 @@ export function handleNum(num) {
 }
 
 // 处理音乐时长的时间
-export function handleMusicTime(time) {
+export function handleMusicTime(time:any) {
   // 如果超过了100000 基本都是毫秒为单位的了 先转成秒的
   time = parseInt(time);
   if (time > 10000) {
@@ -51,15 +51,15 @@ export function handleMusicTime(time) {
   } else {
     time = Math.floor(time);
   }
-  let m = Math.floor(time / 60);
-  let s = Math.floor(time % 60);
+  let m:any = Math.floor(time / 60);
+  let s:any = Math.floor(time % 60);
   m = m < 10 ? '0' + m : m;
   s = s < 10 ? '0' + s : s;
   return m + ':' + s;
 }
 
 // 将播放时长还原为秒数
-export function returnSecond(time) {
+export function returnSecond(time:any) {
   time = time.split(':');
   let m = parseInt(time[0]);
   let s = parseInt(time[1]);
