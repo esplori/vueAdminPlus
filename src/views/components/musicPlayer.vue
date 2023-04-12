@@ -87,11 +87,11 @@ let state = reactive({
     musicDetail: {
         name: "",
         singerName: "",
-        songUrl:"",
+        songUrl: "",
         index: 0
     },
     musicList: [
-        { singerName: "林志炫", name: "明天会更好", id: 1,index: 0, songUrl: "http://m7.music.126.net/20230328000405/19e9a25803fb1535ec3141804cae9282/ymusic/1358/d103/c9bf/b209db455243dcce97d23d5990ace62a.mp3" }
+        { singerName: "林志炫", name: "明天会更好", id: 1, index: 0, songUrl: "http://m7.music.126.net/20230328000405/19e9a25803fb1535ec3141804cae9282/ymusic/1358/d103/c9bf/b209db455243dcce97d23d5990ace62a.mp3" }
     ],
     currentMusicIndex: 0,
     drawer: false,
@@ -119,10 +119,11 @@ let state = reactive({
     durationNum: 0,
     pageNum: 1,
     pageSize: 10,
-    total: 0
+    total: 0,
+    totolPage: 0
 })
 
-let audioPlayerRef:any
+let audioPlayerRef: any
 
 const us = userInfoStore()
 
@@ -143,9 +144,9 @@ onMounted(() => {
     }
 })
 
-const storeDataToPinia = (list:any) =>{
+const storeDataToPinia = (list: any) => {
     us.$patch((state) => {  // 这里传入的state就是pinia的state
-      state.music_list = list
+        state.music_list = list
     })
 }
 const getMusicList = async () => {
@@ -154,16 +155,17 @@ const getMusicList = async () => {
         pageSize: state.pageSize
     });
     if (res) {
-        
+
         if (res.data.result.length) {
             let list = res.data.result || []
-            list.map((item:any,index:number) =>{
+            list.map((item: any, index: number) => {
                 item.index = index
             })
-            debugger
             state.musicList = res.data.result;
             state.total = res.data.total
+            state.totolPage = Math.ceil(state.total/10)
             state.musicDetail = state.musicList[0]
+            // 同时保存一份数据到pinia,方便全局使用
             storeDataToPinia(state.musicList)
         }
     }
@@ -239,25 +241,39 @@ const openDrawer = () => {
     state.drawer = true
 }
 const handleSizeChange = (val: any) => {
-  state.pageSize = val;
-  getMusicList();
+    state.pageSize = val;
+    getMusicList();
 };
 
 const handleCurrentChange = (val: any) => {
-  state.pageNum = val;
-  getMusicList();
+    state.pageNum = val;
+    getMusicList();
 };
-const clickRow = (item:any) =>{
+const clickRow = (item: any) => {
     state.musicDetail = item
     playMusic()
 }
-const changeMusic = (type: any) =>{
+const changeMusic = (type: any) => {
     let list = state.musicList
     let index = state.musicDetail.index
-    if (type === 'pre' && list[index - 1]) {
-        state.musicDetail = list[index - 1]
-    } else if (type === 'next' && list[index + 1]){
-        state.musicDetail = list[index + 1]
+    
+    if (type === 'pre') {
+        if (list[index - 1]) {
+            state.musicDetail = list[index - 1]
+        } else {
+            if (state.pageNum > 1) {
+                handleCurrentChange(--state.pageNum)
+            }
+        }
+    } else if (type === 'next') {
+        if (list[index + 1]) {
+            state.musicDetail = list[index + 1]
+        } else {
+            if (state.pageNum< state.totolPage) {
+                handleCurrentChange(++state.pageNum)
+            }
+        }
+
     }
     playMusic()
 }
