@@ -1,12 +1,12 @@
 <template>
     <div class="bottomControl">
-        <audio id="audioPlayer" :src="state.musicDetail.songUrl" autoplay @play="changeState(true)"
+        <audio id="audioPlayer" :src="state.musicDetail.songUrl" @play="changeState(true)"
             @pause="changeState(false)" @ended="changeMusic('next')" @timeupdate="timeupdate">
         </audio>
         <div class="left">
             <div class="musicInfo">
                 <div class="musicName">
-                    {{ state.musicDetail.name }}
+                《{{ state.musicDetail.name }}》
                 </div>
                 <div class="singer">
                     {{ state.musicDetail.singerName }}
