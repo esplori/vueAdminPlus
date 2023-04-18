@@ -25,7 +25,7 @@
         <commonFooter></commonFooter>
       </div>
     </div>
-    <musicPlayer></musicPlayer>
+    <musicPlayer v-if="state.userInfoObj.musicPlayerSwitch === '1'"></musicPlayer>
   </div>
 </template>
 <script setup lang="ts">
@@ -209,7 +209,9 @@ const state = reactive({
     },
   ],
   activeName: "/home",
-  userInfoObj: {},
+  userInfoObj: {
+    musicPlayerSwitch: "0"
+  },
 });
 
 const us = userInfoStore()
