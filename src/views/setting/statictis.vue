@@ -1,9 +1,20 @@
 <template>
   <div class="home">
     <div class="card-item">
-      <el-alert :title="dailySentence" type="info" class="dailySentence" />
       <el-row :gutter="10" style="width: 100%;">
-        <el-col :span="12">
+        <el-col :span="8">
+          <el-card shadow="hover">
+            <div class="item-title">总访问量</div>
+            <div class="item-amount" ref="countupviews" id="countupviews">
+              {{ state.views }}
+            </div>
+            <div class="item-compare">
+              <span>今日新增 </span>
+              <span class="num"> {{ Math.abs(state.allViewsMom) }} </span>
+            </div>
+          </el-card>
+        </el-col>
+        <el-col :span="8">
           <el-card shadow="hover">
             <div class="item-title">今日浏览量(PV)</div>
             <div class="item-amount" ref="countupdayViews" id="countupdayViews">
@@ -22,7 +33,7 @@
             </div>
           </el-card>
         </el-col>
-        <el-col :span="12">
+        <el-col :span="8">
           <el-card shadow="hover">
             <div class="item-title">今日访问IP数(UV)</div>
             <div class="item-amount" ref="countupdayIp" id="countupdayIp">
@@ -44,7 +55,28 @@
         </el-col>
       </el-row>
       <el-row :gutter="10" style="width: 100%;margin-top: 10px;">
-        <el-col :span="12">
+        <el-col :span="8">
+          <el-card shadow="hover">
+            <div class="item-title">文章总数</div>
+            <div class="item-amount" ref="countuppages" id="countuppages">
+              {{ state.pages }}
+            </div>
+            <div class="item-compare">
+              <span>较昨日
+
+                <el-icon v-show="state.allpagesMom > 0" :size="16" color="#F56C6C">
+                  <CaretTop></CaretTop>
+                </el-icon>
+                <el-icon v-show="state.allpagesMom < 0" :size="16" color="#91cc74">
+                  <CaretBottom></CaretBottom>
+                </el-icon>
+
+              </span>
+              <span class="num"> {{ Math.abs(state.allpagesMom) }} </span>
+            </div>
+          </el-card>
+        </el-col>
+        <el-col :span="8">
           <el-card shadow="hover">
             <div class="item-title">今天访问来源</div>
             <div class="item-amount" ref="countupdayViews" id="countupdayViews">
@@ -63,7 +95,7 @@
             </div>
           </el-card>
         </el-col>
-        <el-col :span="12">
+        <el-col :span="8">
           <el-card shadow="hover">
             <div class="item-title">今天访问地址</div>
             <div class="item-amount" ref="countupdayIp" id="countupdayIp">
@@ -86,6 +118,14 @@
       </el-row>
       <div class="date-picker-change">
         <h3>数据总览</h3>
+        <div>
+          <el-radio-group v-model="state.tabPosition" style="margin-bottom: 30px" @change="tabChange">
+            <el-radio-button label="toDay">今天</el-radio-button>
+            <el-radio-button label="yesterday">昨天</el-radio-button>
+            <el-radio-button label="7day">最近7天</el-radio-button>
+            <el-radio-button label="30day">最近30天</el-radio-button>
+          </el-radio-group>
+        </div>
       </div>
       <div class="dayViews">
         <div id="dayViews" style="width: 100%; height: 300px"></div>
