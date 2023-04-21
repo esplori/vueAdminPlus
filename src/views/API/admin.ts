@@ -16,7 +16,7 @@ export async function getDetailByIdApi(data: any) {
 // 新增文章
 export async function postPageApi(data: any) {
   const url = `${contextPath}/admin/insertItem`;
-  const options = { showLoading: true };
+  const options = { showLoading: false };
   return post(url, data, options);
 }
 // 删除文章
@@ -28,7 +28,7 @@ export async function delApi(data: any) {
 // 更新文章
 export async function editPageApi(data: any) {
   const url = `${contextPath}/admin/updateItem`;
-  const options = { showLoading: true };
+  const options = { showLoading: false };
   return post(url, data, options);
 }
 // 查新文章所有分类
