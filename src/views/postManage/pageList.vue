@@ -19,6 +19,7 @@
     <el-table :data="state.list" @sort-change="sortCchange">
       <el-table-column label="标题" show-overflow-tooltip>
         <template #default="scope">
+          <span style="margin-right:10px;color:#056de8">{{scope.row.draft == '1'?'[ 草稿 ]':""}} </span>
           <a style="color: #333;" :href="
             'https://www.dsiab.com/post/' + (scope.row.uid || scope.row.id)
           " target="_blank">{{ scope.row.title }}</a>
