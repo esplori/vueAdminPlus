@@ -196,6 +196,10 @@ const router = createRouter({
               path: "notice",
               component: () => import("../views/setting/notice.vue"),
             },
+            {
+              path: "statictis",
+              component: () => import("../views/setting/statictis.vue"),
+            },
           ]
         },
       ],

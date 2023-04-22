@@ -1,12 +1,12 @@
 <template>
     <div class="bottomControl">
-        <audio id="audioPlayer" :src="state.musicDetail.songUrl" autoplay @play="changeState(true)"
-            @pause="changeState(false)" @ended="changeMusic('next')" @timeupdate="timeupdate">
+        <audio id="audioPlayer" :src="state.musicDetail.songUrl" @play="changeState(true)" @pause="changeState(false)"
+            @ended="changeMusic('next')" @timeupdate="timeupdate">
         </audio>
         <div class="left">
             <div class="musicInfo">
                 <div class="musicName">
-                    {{ state.musicDetail.name }}
+                    《{{ state.musicDetail.name }}》
                 </div>
                 <div class="singer">
                     {{ state.musicDetail.singerName }}
@@ -52,6 +52,15 @@
             <div class="playList" @click="openDrawer">
                 <i class="iconfont icon-bofangliebiao"></i>
             </div>
+            <el-tooltip placement="bottom" effect="light" popper-class="custom-tooltip">
+                <template #content>
+                    <span> 可以在个人设置中关闭音乐播放器</span>
+                </template>
+                <el-icon>
+                    <Warning />
+                </el-icon>
+            </el-tooltip>
+
         </div>
         <!-- 抽屉 -->
         <el-drawer v-model="state.drawer" :with-header="false" width="500">
@@ -78,6 +87,7 @@ import { handleMusicTime } from "../../utils/utils";
 import { reactive, onMounted } from "vue";
 import { getMusicListApi } from "../API/tools";
 import { userInfoStore } from '@/stores/userInfo'
+import { Warning } from "@element-plus/icons-vue";
 let lastSecond = 0;
 
 // 保存当前音量
@@ -163,7 +173,7 @@ const getMusicList = async () => {
             })
             state.musicList = res.data.result;
             state.total = res.data.total
-            state.totolPage = Math.ceil(state.total/10)
+            state.totolPage = Math.ceil(state.total / 10)
             state.musicDetail = state.musicList[0]
             // 同时保存一份数据到pinia,方便全局使用
             storeDataToPinia(state.musicList)
@@ -256,7 +266,7 @@ const clickRow = (item: any) => {
 const changeMusic = (type: any) => {
     let list = state.musicList
     let index = state.musicDetail.index
-    
+
     if (type === 'pre') {
         if (list[index - 1]) {
             state.musicDetail = list[index - 1]
@@ -269,7 +279,7 @@ const changeMusic = (type: any) => {
         if (list[index + 1]) {
             state.musicDetail = list[index + 1]
         } else {
-            if (state.pageNum< state.totolPage) {
+            if (state.pageNum < state.totolPage) {
                 handleCurrentChange(++state.pageNum)
             }
         }
@@ -293,7 +303,7 @@ const changeMusic = (type: any) => {
     display: flex;
     justify-content: space-between;
     padding: 10px 20px;
-    z-index: 10000;
+    z-index: 10;
     background-color: #fff;
 }
 
@@ -419,5 +429,10 @@ const changeMusic = (type: any) => {
 :deep(.el-slider__button) {
     width: 10px !important;
     height: 10px !important;
+}
+</style>
+<style>
+.custom-tooltip {
+    z-index: 100;
 }
 </style>

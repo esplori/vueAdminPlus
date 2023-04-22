@@ -44,25 +44,49 @@
     </div>
     <div class="submit-container">
       <div class="submit-bar">
+        <div class="draft-tip" v-if="state.loading!== null">
+          <span v-if="state.loading">
+            <el-icon class="is-loading" style="margin-right:5px">
+              <Loading />
+            </el-icon>
+            <span>草稿保存中...</span>
+          </span>
+          <span v-else>草稿已保存</span>
+        </div>
         <div><span class="wordNum">字数：{{ state.form.wordsNum }}</span></div>
-        <div><el-button @click="submit()" type="primary">发布</el-button></div>
+        <div><el-button :loading="state.postLoading" @click="submit(false)" type="primary">发布</el-button></div>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
-import { onBeforeUnmount, ref, shallowRef, onMounted, reactive, computed } from 'vue'
+import { onBeforeUnmount, ref, shallowRef, onUnmounted, onMounted, reactive, computed } from 'vue'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import { ElMessage } from "element-plus";
 import { getCurrDate } from "@/utils/common.js";
 import { useRouter, useRoute } from "vue-router";
+import { Loading } from "@element-plus/icons-vue";
 import {
   postPageApi,
   editPageApi,
   getDetailByIdApi,
   getAdminCateValidApi,
 } from "@/views/API/admin.js";
+
+
+onMounted(() => {
+  autoSave()
+})
+// 组件销毁时，也及时销毁编辑器
+onBeforeUnmount(() => {
+  window.clearInterval(state.autoSaveInterval)
+  const editor = editorRef.value
+  if (editor) {
+    editor.destroy()
+  }
+})
+
 const router = useRouter();
 const route = useRoute();
 
@@ -81,7 +105,10 @@ const state = reactive({
   cateList: [{ name: "", id: "" }],
   inputVisible: false,
   inputValue: "",
-  dynamicTags: []
+  dynamicTags: [],
+  autoSaveInterval: 0,
+  loading: null,
+  postLoading: false
 });
 
 const id = route.query.id;
@@ -125,34 +152,50 @@ if (id) {
 }
 getCate(id);
 
-const editPage = async () => {
+const editPage = async (isDraft: boolean) => {
+  if (isDraft) {
+    state.loading = true as any
+  } else {
+    state.postLoading = true
+  }
   const res = await editPageApi({
     ...state.form,
     createDate: getCurrDate(state.form.createDate),
     createBy: userInfo && userInfo.value.username,
     keywords: state.dynamicTags.join(","),
+    draft: isDraft ? '1' : "0"
   });
   if (res) {
     const { page, cate, pageSize } = route.query;
-    ElMessage.success("发布成功");
-    router.push({
-      path: "/article/pageList",
-      query: { page, cate, pageSize },
-    });
+    if (!isDraft) {
+      state.postLoading = true
+      ElMessage.success("发布成功");
+      router.push({
+        path: "/article/pageList",
+        query: { page, cate, pageSize },
+      });
+    } else {
+      state.loading = false as any
+    }
   }
 };
 
-const postPage = async () => {
+const postPage = async (isDraft: boolean) => {  
   const res: any = await postPageApi({
     ...state.form,
     createBy: userInfo && userInfo.value.username,
     createDate: getCurrDate(state.form.createDate),
     keywords: state.dynamicTags.join(","),
+    draft: isDraft ? '1' : "0"
   });
   if (res) {
-    ElMessage.success("发布成功");
     state.form.id = res.data;
-    router.push({ path: "/article/pageList" });
+    if (!isDraft) {
+      ElMessage.success("发布成功");
+      router.push({ path: "/article/pageList" });
+    } else {
+
+    }
   }
 };
 
@@ -175,12 +218,7 @@ const toolbarConfig = {
 }
 const editorConfig = { placeholder: '请输入内容...', MENU_CONF: {} }
 
-// 组件销毁时，也及时销毁编辑器
-onBeforeUnmount(() => {
-  const editor = editorRef.value
-  if (editor == null) return
-  editor.destroy()
-})
+
 
 const handleCreated = (editor: any) => {
   editorRef.value = editor // 记录 editor 实例，重要！
@@ -193,8 +231,7 @@ const handleChange = (editor: any) => {
   } else {
     state.form.wordsNum = editor.getText().length
   }
-  console.log('dom', state.form.wordsNum);
-
+  state.form.content = (editorRef.value.getHtml()) as any;
 }
 
 editorConfig.MENU_CONF['uploadImage'] = {
@@ -217,7 +254,7 @@ editorConfig.MENU_CONF['uploadImage'] = {
 }
 
 
-const submit = async () => {
+const submit = async (type: boolean) => {
   state.form.content = (editorRef.value.getHtml()) as any;
   // 正常提交提示必填项
   if (!state.form.title) {
@@ -235,9 +272,9 @@ const submit = async () => {
   // 同时保存到缓存
   localStorage.setItem("postInfo", JSON.stringify(state.form));
   if (state.form.id) {
-    editPage();
+    editPage(type);
   } else {
-    postPage();
+    postPage(type);
   }
 };
 const showInput = async (tag: any) => {
@@ -256,6 +293,19 @@ const handleInputConfirm = async (tag: any) => {
 const handleClose = async (tag: never) => {
   state.dynamicTags.splice(state.dynamicTags.indexOf(tag), 1);
 };
+
+
+const autoSave = () => {
+  // 每15秒自动保存
+  state.autoSaveInterval = setInterval(() => {
+    if (state.form.title && state.form.content &&  state.form.cate) {
+      submit(true)
+    }
+    console.log(state.autoSaveInterval)
+  }, 15000)
+
+}
+
 </script>
 
 <style scoped lang="scss">
@@ -333,6 +383,12 @@ const handleClose = async (tag: never) => {
     align-items: center;
     width: 850px;
     margin: 0 auto;
+
+    .draft-tip {
+      display: flex;
+      align-items: center;
+      margin-right: 30px;
+    }
   }
 
   .wordNum {
