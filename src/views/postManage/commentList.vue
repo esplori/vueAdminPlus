@@ -17,6 +17,16 @@
           {{ scope.row.content }}
         </template>
       </el-table-column>
+      <el-table-column label="邮箱" show-overflow-tooltip>
+        <template #default="scope">
+          {{ scope.row.mail }}
+        </template>
+      </el-table-column>
+      <el-table-column label="审核状态" show-overflow-tooltip>
+        <template #default="scope">
+          {{ scope.row.approved =='Y'?'是':"否" }}
+        </template>
+      </el-table-column>
       <el-table-column label="创建时间">
         <template #default="scope">
           {{ scope.row.createDate }}
@@ -25,6 +35,7 @@
       <el-table-column label="操作" width="180">
         <template #default="scope">
           <el-button link @click="delConfirm(scope.row.id)" type="text">删除</el-button>
+          <el-button link @click="approveComment(scope.row.id)" type="text">通过</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -32,7 +43,7 @@
 </template>
 
 <script lang="ts" setup>
-import { getCommentApi, delCommentApi } from "@/views/API/admin.js";
+import { getCommentApi, delCommentApi, approveCommentApi } from "@/views/API/admin.js";
 import { reactive, onMounted } from "vue";
 import { ElMessageBox, ElMessage } from "element-plus";
 import searchHeader from "../components/searchHeader.vue";
@@ -45,7 +56,7 @@ onMounted(() => {
 const getList = async () => {
   const res: any = await getCommentApi({});
   if (res) {
-    state.list = res.data.result;
+    state.list = res.data;
   }
 };
 const delConfirm = async (id: any) => {
@@ -65,6 +76,12 @@ const del = async (id: any) => {
     getList();
   }
 };
+const approveComment = async (id: any) =>{
+  const res = await approveCommentApi({ id: id });
+  if (res) {
+    getList();
+  }
+}
 </script>
 
 <style scoped lang="scss">

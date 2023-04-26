@@ -229,3 +229,9 @@ export async function updatePwdApi(data: any) {
   const options = { showLoading: true };
   return post(Url, data, options);
 }
+// 审核评论
+export async function approveCommentApi(data: any) {
+  const Url = `${contextPath}/admin/approveComment`;
+  const options = { showLoading: true };
+  return post(Url, data, options);
+}
