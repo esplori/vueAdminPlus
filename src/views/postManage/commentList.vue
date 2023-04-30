@@ -1,7 +1,10 @@
 <template>
   <div class="comments-list">
-    <searchHeader :title="'评论管理'"></searchHeader>
-    <el-table :data="state.list" style="width: 100%">
+    <searchHeader :title="'评论管理'">
+      <el-button type="danger" @click="delConfirm(state.multipleSelection)">批量删除</el-button>
+    </searchHeader>
+    <el-table :data="state.list" style="width: 100%" @selection-change="handleSelectionChange">
+      <el-table-column type="selection" width="55"> </el-table-column>
       <el-table-column label="用户">
         <template #default="scope">
           {{ scope.row.username }}
@@ -34,11 +37,17 @@
       </el-table-column>
       <el-table-column label="操作" width="180">
         <template #default="scope">
-          <el-button link @click="delConfirm(scope.row.id)" type="text">删除</el-button>
+          <el-button link @click="delConfirm([scope.row.id])" type="text">删除</el-button>
           <el-button link @click="approveComment(scope.row.id)" type="text">通过</el-button>
         </template>
       </el-table-column>
     </el-table>
+    <div class="pagination-box">
+      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
+        :current-page="state.params.pageNum" :page-size="state.params.pageSize" :page-sizes="[10, 20, 30, 50]"
+        :pager-count="5" layout="total, prev, pager, next" :total="state.total">
+      </el-pagination>
+    </div>
   </div>
 </template>
 
@@ -49,14 +58,21 @@ import { ElMessageBox, ElMessage } from "element-plus";
 import searchHeader from "../components/searchHeader.vue";
 const state = reactive({
   list: [],
+  total: 0,
+  params:{
+    pageNum: 1,
+    pageSize: 10
+  },
+  multipleSelection: []
 });
 onMounted(() => {
   getList();
 });
 const getList = async () => {
-  const res: any = await getCommentApi({});
+  const res: any = await getCommentApi(state.params);
   if (res) {
-    state.list = res.data;
+    state.list = res.data.result;
+    state.total = res.data.total
   }
 };
 const delConfirm = async (id: any) => {
@@ -69,8 +85,8 @@ const delConfirm = async (id: any) => {
   });
 };
 
-const del = async (id: any) => {
-  const res = await delCommentApi({ id: id });
+const del = async (ids: any) => {
+  const res = await delCommentApi({ ids: ids});
   if (res) {
     ElMessage.success("删除成功");
     getList();
@@ -82,6 +98,21 @@ const approveComment = async (id: any) =>{
     getList();
   }
 }
+
+const handleSelectionChange = (val: any) => {
+  state.multipleSelection = val.map((item:any) =>{
+    return item.id
+  });
+};
+
+const handleSizeChange = (val: any) => {
+  state.params.pageSize = val;
+  getList();
+};
+const handleCurrentChange = (val: any) => {
+  state.params.pageNum = val;
+  getList();
+};
 </script>
 
 <style scoped lang="scss">

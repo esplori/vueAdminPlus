@@ -125,7 +125,7 @@ export async function sendMailApi(data: any) {
 export async function getCommentApi(data: any) {
   const url = `${contextPath}/admin/getAllComment`;
   const options = {};
-  return get(url, data, options);
+  return post(url, data, options);
 }
 // 删除评论
 export async function delCommentApi(data: any) {
