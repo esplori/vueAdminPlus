@@ -235,3 +235,9 @@ export async function approveCommentApi(data: any) {
   const options = { showLoading: true };
   return post(Url, data, options);
 }
+// 批量删除
+export async function batchDelApi(data: any) {
+  const Url = `${contextPath}/admin/batchDelPost`;
+  const options = { showLoading: true };
+  return post(Url, data, options);
+}
