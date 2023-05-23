@@ -1,6 +1,8 @@
 <template>
   <div class="recyclePost">
-    <searchHeader :title="'回收数据'"></searchHeader>
+    <searchHeader :title="'回收数据'">
+      <el-button @click="delMul" type="danger">批量删除</el-button>
+    </searchHeader>
     <el-table :data="state.list" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"> </el-table-column>
       <el-table-column label="标题">
@@ -35,13 +37,10 @@
         </template>
       </el-table-column>
     </el-table>
-    <div class="delMul" v-if="state.list.length">
-      <el-button @click="delMul" type="danger">批量删除</el-button>
-    </div>
     <div class="pagination-box" style="text-align: center; margin-top: 20px">
       <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
-        :current-page="state.params.page" :page-size="state.params.pageSize" :page-sizes="[10, 20, 30, 50]"
-        :pager-count="5" layout="total, prev, pager, next" :total="state.total">
+        :current-page="state.params.page" :page-size="state.params.pageSize" :page-sizes="[10, 20, 30, 50, 100, 200]"
+        :pager-count="5" layout="sizes, total, prev, pager, next" :total="state.total">
       </el-pagination>
     </div>
   </div>

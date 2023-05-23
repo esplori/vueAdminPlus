@@ -13,10 +13,12 @@
           <el-input v-model="state.params.tag" placeholder="输入关键字搜索" @change="tagChange"></el-input>
         </div>
         <span class="pdding"><el-button type="primary" @click="insert">新增文章</el-button></span>
+        <span class="pdding"><el-button type="danger" @click="batchdel(state.multipleSelection)">批量删除</el-button></span>
       </div>
     </searchHeader>
 
-    <el-table :data="state.list" @sort-change="sortCchange">
+    <el-table :data="state.list" @sort-change="sortCchange" @selection-change="handleSelectionChange">
+      <el-table-column type="selection" width="55"> </el-table-column>
       <el-table-column label="标题" show-overflow-tooltip>
         <template #default="scope">
           <span style="margin-right:10px;color:#056de8">{{scope.row.draft == '1'?'[ 草稿 ]':""}} </span>
@@ -45,7 +47,7 @@
     </el-table>
     <div class="pagination-box">
       <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
-        :current-page="state.params.page" :page-size="state.params.pageSize" :page-sizes="[10, 20, 30, 50, 100]"
+        :current-page="state.params.page" :page-size="state.params.pageSize" :page-sizes="[10, 20, 30, 50, 100, 200]"
         :pager-count="5" layout="sizes, total, prev, pager, next, jumper" :total="state.total">
       </el-pagination>
     </div>
@@ -75,6 +77,7 @@ import {
   getTopicListApi,
   addPostToTopicApi,
   getListByTagsApi,
+  batchDelApi
 } from "@/views/API/admin.js";
 import { reactive, onMounted, computed } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
@@ -101,6 +104,7 @@ const state = reactive({
   cateList: [{ name: "", id: "" }],
   dialogVisible: false,
   topicList: [{ name: "", id: "" }],
+  multipleSelection: []
 });
 onMounted(() => {
   getCate();
@@ -228,6 +232,18 @@ const submitTopic = async () => {
     state.dialogVisible = false;
   }
 };
+const handleSelectionChange = (val: any) => {
+  state.multipleSelection = val.map((item:any) =>{
+    return item.uid
+  });
+};
+const batchdel  = async (ids: any) =>{
+  const res = await batchDelApi({ ids: ids });
+  if (res) {
+    ElMessage.success("删除成功");
+    getList();
+  }
+}
 </script>
 
 <style scoped lang="scss">

@@ -125,7 +125,7 @@ export async function sendMailApi(data: any) {
 export async function getCommentApi(data: any) {
   const url = `${contextPath}/admin/getAllComment`;
   const options = {};
-  return get(url, data, options);
+  return post(url, data, options);
 }
 // 删除评论
 export async function delCommentApi(data: any) {
@@ -226,6 +226,18 @@ export async function getMenuByRoleApi(data: any) {
 // 更新密码
 export async function updatePwdApi(data: any) {
   const Url = `${contextPath}/admin/updatePwd`;
+  const options = { showLoading: true };
+  return post(Url, data, options);
+}
+// 审核评论
+export async function approveCommentApi(data: any) {
+  const Url = `${contextPath}/admin/approveComment`;
+  const options = { showLoading: true };
+  return post(Url, data, options);
+}
+// 批量删除
+export async function batchDelApi(data: any) {
+  const Url = `${contextPath}/admin/batchDelPost`;
   const options = { showLoading: true };
   return post(Url, data, options);
 }
