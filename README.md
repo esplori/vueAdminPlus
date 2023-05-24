@@ -1,3 +1,5 @@
+<div><a href="https://github.com/esplori/vueAdminPlus/blob/master/README.md">中文</a>  |  <a href="https://github.com/esplori/vueAdminPlus/blob/master/README.en.md">ENGLISH</a></div>
+
 <h1 align="center" style=" font-weight: bold;">vueAdminPlus</h1>
 <h5 align="center">基于vue3.0 + element-plus + typeScript开发的博客后台管理系统</h5>
 
