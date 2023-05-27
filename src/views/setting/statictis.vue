@@ -367,6 +367,7 @@ const initDayViews = () => {
       data: state.everyDayViews.map((item: any) => {
         return item.createDate;
       }),
+      boundaryGap: true,
       axisLabel: {
         interval: 5,
         rotate: 0, // 倾斜度 -90 至 90 默认为0
@@ -393,16 +394,30 @@ const initDayViews = () => {
     },
     series: [
       {
-        name: "今日访问IP数(UV)",
-        type: "line",
+        name: '今日访问IP数(UV)',
+        type: 'line',
+        stack: 'Total',
+        areaStyle: {
+          // color: "#f59695"
+        },
+        emphasis: {
+          focus: 'series'
+        },
         data: state.everyDayViews.map((item: any) => {
           return item.dayIp;
         }),
         smooth: true
       },
       {
-        name: "今日浏览量(PV)",
-        type: "line",
+        name: '今日浏览量(PV)',
+        type: 'line',
+        stack: 'Total',
+        areaStyle: {
+          // color: "#9fd3e8"
+        },
+        emphasis: {
+          focus: 'series'
+        },
         data: state.everyDayViews.map((item: any) => {
           return item.dayViews;
         }),
