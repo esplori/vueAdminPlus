@@ -64,7 +64,7 @@ body {
     /* -moz-osx-font-smoothing: grayscale; */
     font-size: 14px;
     font-family: "Microsoft YaHei", "PingFang SC", "微软雅黑", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    -webkit-text-size-adjust: 100%
+    -webkit-text-size-adjust: 100%;
 }
 
 ::-webkit-scrollbar {

@@ -2,7 +2,7 @@
   <div class="admin-home">
     <adminHeader :userInfoObj="state.userInfoObj"></adminHeader>
     <div class="content-container">
-      <div class="left-menu">
+      <div :class="['left-menu', state.hasMusicPlayer ? 'hasMusicPlayer' : '']">
         <el-scrollbar>
           <el-menu :unique-opened="false" style="height: 100%; overflow-y: auto" default-active="/home"
             class="el-menu-vertical" router>
@@ -212,6 +212,7 @@ const state = reactive({
   userInfoObj: {
     musicPlayerSwitch: "0"
   },
+  hasMusicPlayer: false
 });
 
 const us = userInfoStore()
@@ -219,6 +220,13 @@ const us = userInfoStore()
 const getUserInfo = async () => {
   const res: any = await getUserInfoApi({});
   state.userInfoObj = res.data;
+  // 开启播放器后调整左侧菜单高度，避免被播放器盖住
+  if (res.data.musicPlayerSwitch === '1') {
+    let leftMenu = document.querySelector(".left-menu")
+    if (leftMenu) {
+      state.hasMusicPlayer = true
+    }
+  }
   // 保存每日一句
   if (res.data.dailySentence) {
     us.userInfo.dailySentence = res.data.dailySentence
@@ -254,15 +262,19 @@ onMounted(() => {
     position: fixed;
     width: 210px;
     top: 70px;
-    height: calc(100% - 140px);
+    height: calc(100% - 80px);
     bottom: 120px;
     overflow-y: auto;
     border-right: 1px solid #f5f5f5;
+
+    &.hasMusicPlayer {
+      height: calc(100% - 140px);
+    }
   }
 
   .right-content {
     margin-left: 220px;
-    width:100%;
+    width: 100%;
     padding: 20px;
     padding-bottom: 60px;
     background: #fff;
