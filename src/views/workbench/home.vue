@@ -125,7 +125,7 @@
         <div>
           <el-radio-group v-model="state.tabPosition" style="margin-bottom: 30px" @change="tabChange">
             <el-radio-button label="toDay">今天</el-radio-button>
-            <el-radio-button label="yesterday">昨天</el-radio-button>
+            <el-radio-button label="yesterday">近两天</el-radio-button>
             <el-radio-button label="7day">最近7天</el-radio-button>
             <el-radio-button label="30day">最近30天</el-radio-button>
           </el-radio-group>
