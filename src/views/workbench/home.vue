@@ -1,9 +1,20 @@
 <template>
   <div class="home">
     <div class="card-item">
-      <el-alert :title="dailySentence" type="info" class="dailySentence" />
       <el-row :gutter="10" style="width: 100%;">
-        <el-col :span="12">
+        <el-col :span="8">
+          <el-card shadow="hover">
+            <div class="item-title">总访问量</div>
+            <div class="item-amount" ref="countupviews" id="countupviews">
+              {{ state.views }}
+            </div>
+            <div class="item-compare">
+              <span>今日新增 </span>
+              <span class="num"> {{ Math.abs(state.allViewsMom) }} </span>
+            </div>
+          </el-card>
+        </el-col>
+        <el-col :span="8">
           <el-card shadow="hover">
             <div class="item-title">今日浏览量(PV)</div>
             <div class="item-amount" ref="countupdayViews" id="countupdayViews">
@@ -22,7 +33,7 @@
             </div>
           </el-card>
         </el-col>
-        <el-col :span="12">
+        <el-col :span="8">
           <el-card shadow="hover">
             <div class="item-title">今日访问IP数(UV)</div>
             <div class="item-amount" ref="countupdayIp" id="countupdayIp">
@@ -44,7 +55,28 @@
         </el-col>
       </el-row>
       <el-row :gutter="10" style="width: 100%;margin-top: 10px;">
-        <el-col :span="12">
+        <el-col :span="8">
+          <el-card shadow="hover">
+            <div class="item-title">文章总数</div>
+            <div class="item-amount" ref="countuppages" id="countuppages">
+              {{ state.pages }}
+            </div>
+            <div class="item-compare">
+              <span>较昨日
+
+                <el-icon v-show="state.allpagesMom > 0" :size="16" color="#F56C6C">
+                  <CaretTop></CaretTop>
+                </el-icon>
+                <el-icon v-show="state.allpagesMom < 0" :size="16" color="#91cc74">
+                  <CaretBottom></CaretBottom>
+                </el-icon>
+
+              </span>
+              <span class="num"> {{ Math.abs(state.allpagesMom) }} </span>
+            </div>
+          </el-card>
+        </el-col>
+        <el-col :span="8">
           <el-card shadow="hover">
             <div class="item-title">今天访问来源</div>
             <div class="item-amount" ref="countupdayViews" id="countupdayViews">
@@ -63,7 +95,7 @@
             </div>
           </el-card>
         </el-col>
-        <el-col :span="12">
+        <el-col :span="8">
           <el-card shadow="hover">
             <div class="item-title">今天访问地址</div>
             <div class="item-amount" ref="countupdayIp" id="countupdayIp">
@@ -84,11 +116,20 @@
           </el-card>
         </el-col>
       </el-row>
-      <div class="date-picker-change">
-        <h3>数据总览</h3>
-      </div>
+
       <div class="dayViews">
         <div id="dayViews" style="width: 100%; height: 300px"></div>
+      </div>
+      <div class="date-picker-change">
+        <h3></h3>
+        <div>
+          <el-radio-group v-model="state.tabPosition" style="margin-bottom: 30px" @change="tabChange">
+            <el-radio-button label="toDay">今天</el-radio-button>
+            <el-radio-button label="yesterday">昨天</el-radio-button>
+            <el-radio-button label="7day">最近7天</el-radio-button>
+            <el-radio-button label="30day">最近30天</el-radio-button>
+          </el-radio-group>
+        </div>
       </div>
       <div class="type-data">
         <el-row>
@@ -124,41 +165,12 @@ import { getWebStatisticsApi } from "@/views/API/stats.js";
 import { CountUp } from "countup.js";
 
 // 引入 echarts 核心模块，核心模块提供了 echarts 使用必须要的接口。
-import * as echarts from 'echarts/core';
-// 引入柱状图图表，图表后缀都为 Chart
-import { PieChart, LineChart } from 'echarts/charts';
-// 引入提示框，标题，直角坐标系，数据集，内置数据转换器组件，组件后缀都为 Component
-import {
-  TitleComponent,
-  TooltipComponent,
-  GridComponent,
-  DatasetComponent,
-  TransformComponent,
-  LegendComponent
-} from 'echarts/components';
-// 标签自动布局、全局过渡动画等特性
-import { LabelLayout, UniversalTransition } from 'echarts/features';
-// 引入 Canvas 渲染器，注意引入 CanvasRenderer 或者 SVGRenderer 是必须的一步
-import { CanvasRenderer } from 'echarts/renderers';
+import * as echarts from 'echarts';
 
 import { reactive, computed, onMounted, nextTick } from "vue";
 import { CaretTop, CaretBottom } from "@element-plus/icons-vue";
 import { delHtmlTag } from "@/utils/common.js";
 import { userInfoStore } from '@/stores/userInfo'
-// 注册必须的组件
-echarts.use([
-  TitleComponent,
-  TooltipComponent,
-  GridComponent,
-  DatasetComponent,
-  TransformComponent,
-  PieChart,
-  LineChart,
-  LabelLayout,
-  UniversalTransition,
-  CanvasRenderer,
-  LegendComponent
-]);
 const state = reactive({
   views: 0,
   pages: 0,
@@ -243,7 +255,10 @@ const initDeviceType = () => {
     title: {
       text: "设备型号",
     },
-    tooltip: {},
+    tooltip: {
+      trigger: 'item',
+      formatter: '{a} <br/>{b} : {d}%'
+    },
     series: [
       {
         name: "设备型号",
@@ -265,7 +280,10 @@ const initBrowserType = () => {
     title: {
       text: "浏览器型号",
     },
-    tooltip: {},
+    tooltip: {
+      trigger: 'item',
+      formatter: '{a} <br/>{b} : {d}%'
+    },
     series: [
       {
         name: "浏览器型号",
@@ -286,7 +304,10 @@ const initDeiveRatio = () => {
     title: {
       text: "设备分辨率",
     },
-    tooltip: {},
+    tooltip: {
+      trigger: 'item',
+      formatter: '{a} <br/>{b} : {d}%'
+    },
     series: [
       {
         name: "设备分辨率",
@@ -327,6 +348,7 @@ const initDayViews = () => {
       data: state.everyDayViews.map((item: any) => {
         return item.createDate;
       }),
+      boundaryGap: true,
       axisLabel: {
         interval: 5,
         rotate: 0, // 倾斜度 -90 至 90 默认为0
@@ -353,16 +375,30 @@ const initDayViews = () => {
     },
     series: [
       {
-        name: "今日访问IP数(UV)",
-        type: "line",
+        name: '今日访问IP数(UV)',
+        type: 'line',
+        stack: 'Total',
+        areaStyle: {
+          // color: "#f59695"
+        },
+        emphasis: {
+          focus: 'series'
+        },
         data: state.everyDayViews.map((item: any) => {
           return item.dayIp;
         }),
         smooth: true
       },
       {
-        name: "今日浏览量(PV)",
-        type: "line",
+        name: '今日浏览量(PV)',
+        type: 'line',
+        stack: 'Total',
+        areaStyle: {
+          // color: "#9fd3e8"
+        },
+        emphasis: {
+          focus: 'series'
+        },
         data: state.everyDayViews.map((item: any) => {
           return item.dayViews;
         }),
@@ -376,11 +412,17 @@ const initDayViews = () => {
   });
   myChart.resize();
 };
-const getWebStatistics = async (type:string) => {
-  const res: any = await getWebStatisticsApi({type: type});
+const getWebStatistics = async (type: string) => {
+  const res: any = await getWebStatisticsApi({ type: type });
   if (res) {
+    if (!(userInfo.value.role && userInfo.value.role.includes("ROLE_admin"))) {
+      res.data.allViews = 0
+      res.data.allpages = 0
+      res.data.allViewsMom = 0
+    }
     state.views = res.data.allViews;
     state.pages = res.data.allpages;
+    debugger
     state.dayViews = res.data.dayViews;
     state.dayIp = res.data.dayIp;
     state.allViewsMom = parseFloat(res.data.allViewsMom);
@@ -412,17 +454,18 @@ const initCharts = () => {
     initDayViews();
   });
 };
-let tabChange =(type:string)=> {
+let tabChange = (type: string) => {
   getWebStatistics(type);
 }
 </script>
 
 <style scoped lang="scss">
 .home {
-  .dailySentence{
+  .dailySentence {
     border: 1px dashed #d8d0d0;
     margin-bottom: 20px;
   }
+
   .date-picker-change {
     padding: 20px 0;
     display: flex;
