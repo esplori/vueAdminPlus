@@ -155,6 +155,13 @@
             </div>
           </el-col>
         </el-row>
+        <el-row>
+          <el-col :span="24">
+            <div>
+              <div id="chindMap" style="max-width: 100%; height: 300px"></div>
+            </div>
+          </el-col>
+        </el-row>
       </div>
     </div>
   </div>
@@ -166,6 +173,7 @@ import { CountUp } from "countup.js";
 
 // 引入 echarts 核心模块，核心模块提供了 echarts 使用必须要的接口。
 import * as echarts from 'echarts';
+import "echarts-countries-js/echarts-countries-js/china"
 
 import { reactive, computed, onMounted, nextTick } from "vue";
 import { CaretTop, CaretBottom } from "@element-plus/icons-vue";
@@ -192,7 +200,8 @@ const state = reactive({
   referrerTableData: [],
   postViewTableData: [],
   totalWordsNum: 0,
-  tabPosition: "toDay"
+  tabPosition: "toDay",
+  mapData: []
 });
 
 const us = userInfoStore()
@@ -412,6 +421,70 @@ const initDayViews = () => {
   });
   myChart.resize();
 };
+
+const initChindMap = () => {
+  let dom = document.getElementById("chindMap")
+  if (!dom) { return false }
+  dom.removeAttribute('_echarts_instance_')
+  const myChart = echarts.init(dom);
+  myChart.setOption({
+    colorBy: 'series',
+    name: "city",
+    label: {
+      color: "red"
+    },
+    tooltip: {
+      trigger: 'item',
+      formatter: function (params: any) {
+        return `${params.name}: ${params.value || 0}`
+
+      }
+    },
+    visualMap: {
+      min: 0,
+      max: 200,
+      text: ['High', 'Low'],
+      realtime: false,
+      calculable: true,
+      inRange: {
+        color: ['lightskyblue', 'yellow', 'orangered']
+      }
+    },
+    series: [
+      {
+        type: "map",
+        map: "china",
+        data: state.mapData,
+        nameMap: {
+          '广东': "广东省",
+          '北京': "北京",
+          '台湾': "台湾省",
+          '陕西': "陕西省",
+          '浙江': "浙江省",
+          '湖北': "湖北省",
+          '香港': "香港",
+          '福建': "福建省",
+          '江西': "江西省",
+          '湖南': "湖南省",
+          '江苏': "江苏省",
+          '安徽': "安徽省",
+          '河南': "河南省",
+          '四川': "四川省",
+          '山西': "山西省",
+          '吉林': "吉林省",
+          '贵州': "贵州省",
+          '云南': "云南省",
+          '海南': "海南省",
+          '山东': "山东省",
+          '天津': "天津",
+          '辽宁': "辽宁省",
+          '黑龙江': "黑龙江省",
+          '甘肃': "甘肃省",
+        },
+      }
+    ]
+  })
+}
 const getWebStatistics = async (type: string) => {
   const res: any = await getWebStatisticsApi({ type: type });
   if (res) {
@@ -422,7 +495,7 @@ const getWebStatistics = async (type: string) => {
     }
     state.views = res.data.allViews;
     state.pages = res.data.allpages;
-    debugger
+    state.mapData = res.data.mapData;
     state.dayViews = res.data.dayViews;
     state.dayIp = res.data.dayIp;
     state.allViewsMom = parseFloat(res.data.allViewsMom);
@@ -452,6 +525,7 @@ const initCharts = () => {
     initBrowserType();
     initDeiveRatio();
     initDayViews();
+    initChindMap();
   });
 };
 let tabChange = (type: string) => {
