@@ -1,9 +1,15 @@
 <template>
   <div class="comments-list">
     <searchHeader :title="'评论管理'">
-      <el-button type="danger" @click="delConfirm(state.multipleSelection)">批量删除</el-button>
+      <el-button type="danger" @click="delConfirm(state.multipleSelection)"
+        >批量删除</el-button
+      >
     </searchHeader>
-    <el-table :data="state.list" style="width: 100%" @selection-change="handleSelectionChange">
+    <el-table
+      :data="state.list"
+      style="width: 100%"
+      @selection-change="handleSelectionChange"
+    >
       <el-table-column type="selection" width="55"> </el-table-column>
       <el-table-column label="用户">
         <template #default="scope">
@@ -12,7 +18,11 @@
       </el-table-column>
       <el-table-column label="文章">
         <template #default="scope">
-          <a :href="'http://www.dsiab.com/post/' + scope.row.postId" target="_blank">{{ scope.row.postId }}</a>
+          <a
+            :href="'http://www.dsiab.com/post/' + scope.row.postId"
+            target="_blank"
+            >{{ scope.row.postId }}</a
+          >
         </template>
       </el-table-column>
       <el-table-column label="内容" show-overflow-tooltip>
@@ -27,7 +37,7 @@
       </el-table-column>
       <el-table-column label="审核状态" show-overflow-tooltip>
         <template #default="scope">
-          {{ scope.row.approved =='Y'?'是':"否" }}
+          {{ scope.row.approved == "Y" ? "是" : "否" }}
         </template>
       </el-table-column>
       <el-table-column label="创建时间">
@@ -37,33 +47,49 @@
       </el-table-column>
       <el-table-column label="操作" width="180">
         <template #default="scope">
-          <el-button link @click="delConfirm([scope.row.id])" type="text">删除</el-button>
-          <el-button link @click="approveComment(scope.row.id)" type="text">通过</el-button>
+          <el-button link @click="delConfirm([scope.row.id])" type="text"
+            >删除</el-button
+          >
+          <el-button link @click="approveComment(scope.row.id)" type="text"
+            >通过</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
     <div class="pagination-box">
-      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
-        :current-page="state.params.pageNum" :page-size="state.params.pageSize" :page-sizes="[10, 20, 30, 50]"
-        :pager-count="5" layout="total, prev, pager, next" :total="state.total">
+      <el-pagination
+        background
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="state.params.pageNum"
+        :page-size="state.params.pageSize"
+        :page-sizes="[10, 20, 30, 50]"
+        :pager-count="5"
+        layout="total, prev, pager, next"
+        :total="state.total"
+      >
       </el-pagination>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { getCommentApi, delCommentApi, approveCommentApi } from "@/views/API/admin.js";
+import {
+  getCommentApi,
+  delCommentApi,
+  approveCommentApi,
+} from "@/views/API/admin.js";
 import { reactive, onMounted } from "vue";
 import { ElMessageBox, ElMessage } from "element-plus";
 import searchHeader from "../components/searchHeader.vue";
 const state = reactive({
   list: [],
   total: 0,
-  params:{
+  params: {
     pageNum: 1,
-    pageSize: 10
+    pageSize: 10,
   },
-  multipleSelection: []
+  multipleSelection: [],
 });
 onMounted(() => {
   getList();
@@ -72,7 +98,7 @@ const getList = async () => {
   const res: any = await getCommentApi(state.params);
   if (res) {
     state.list = res.data.result;
-    state.total = res.data.total
+    state.total = res.data.total;
   }
 };
 const delConfirm = async (id: any) => {
@@ -86,22 +112,22 @@ const delConfirm = async (id: any) => {
 };
 
 const del = async (ids: any) => {
-  const res = await delCommentApi({ ids: ids});
+  const res = await delCommentApi({ ids: ids });
   if (res) {
     ElMessage.success("删除成功");
     getList();
   }
 };
-const approveComment = async (id: any) =>{
+const approveComment = async (id: any) => {
   const res = await approveCommentApi({ id: id });
   if (res) {
     getList();
   }
-}
+};
 
 const handleSelectionChange = (val: any) => {
-  state.multipleSelection = val.map((item:any) =>{
-    return item.id
+  state.multipleSelection = val.map((item: any) => {
+    return item.id;
   });
 };
 

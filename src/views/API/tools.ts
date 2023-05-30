@@ -43,5 +43,3 @@ export async function delMusicItemApi(data: Object) {
   const options = {};
   return post(url, data, options);
 }
-
-

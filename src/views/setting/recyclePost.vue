@@ -7,8 +7,12 @@
       <el-table-column type="selection" width="55"> </el-table-column>
       <el-table-column label="标题">
         <template #default="scope">
-          <a style="color: #333" :href="'https://www.dsiab.com/post/' + scope.row.id" target="_blank">{{ scope.row.title
-          }}</a>
+          <a
+            style="color: #333"
+            :href="'https://www.dsiab.com/post/' + scope.row.id"
+            target="_blank"
+            >{{ scope.row.title }}</a
+          >
         </template>
       </el-table-column>
       <el-table-column label="分类" width="120px">
@@ -33,24 +37,31 @@
       </el-table-column>
       <el-table-column fixed="right" width="180" label="操作">
         <template #default="scope">
-          <el-button link @click="delConfirm(scope.row.id)" type="danger">删除</el-button>
+          <el-button link @click="delConfirm(scope.row.id)" type="danger"
+            >删除</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
     <div class="pagination-box" style="text-align: center; margin-top: 20px">
-      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
-        :current-page="state.params.page" :page-size="state.params.pageSize" :page-sizes="[10, 20, 30, 50, 100, 200]"
-        :pager-count="5" layout="sizes, total, prev, pager, next" :total="state.total">
+      <el-pagination
+        background
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="state.params.page"
+        :page-size="state.params.pageSize"
+        :page-sizes="[10, 20, 30, 50, 100, 200]"
+        :pager-count="5"
+        layout="sizes, total, prev, pager, next"
+        :total="state.total"
+      >
       </el-pagination>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import {
-  deletePostApi,
-  getPostListByCateApi
-} from "@/views/API/admin.js";
+import { deletePostApi, getPostListByCateApi } from "@/views/API/admin.js";
 import { reactive, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { ElMessageBox, ElMessage } from "element-plus";
@@ -133,8 +144,7 @@ const delMultiple = async (ids: any) => {
     ElMessage.success("删除成功");
     getList();
   }
-}
-
+};
 </script>
 
 <style scoped lang="scss">

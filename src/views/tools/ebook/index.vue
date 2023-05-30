@@ -1,7 +1,7 @@
 <template>
   <div class="ebook">
     <div v-for="item in state.data" class="item" @click="detail(item.filename)">
-      {{item.filename.split(".")[0]}}
+      {{ item.filename.split(".")[0] }}
     </div>
   </div>
 </template>
@@ -9,18 +9,16 @@
 <script lang="ts" setup>
 import { getBookListApi } from "../../API/tools";
 import { reactive, onMounted } from "vue";
-import { useRouter } from "vue-router"
-let router = useRouter()
-let state = reactive({
-  data: [
-    { filename: "" }
-  ],
+import { useRouter } from "vue-router";
+const router = useRouter();
+const state = reactive({
+  data: [{ filename: "" }],
   total: 0,
   params: {
     page: 1,
-    pageSize: 10
-  }
-})
+    pageSize: 10,
+  },
+});
 onMounted(() => {
   getBookList();
 });
@@ -36,10 +34,10 @@ const detail = (filename: any) => {
   router.push({
     path: "ebookDetail",
     query: {
-      filename: filename
-    }
-  })
-}
+      filename: filename,
+    },
+  });
+};
 </script>
 <style scoped lang="scss">
 .ebook {

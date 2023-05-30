@@ -12,13 +12,26 @@
       <el-table-column label="创建时间" prop="createDate"> </el-table-column>
       <el-table-column label="操作" width="180">
         <template #default="scope">
-          <el-button link @click="edit(scope.row)" type="primary">编辑</el-button>
-          <el-button link v-if="scope.$index !== state.list.length - 1" @click="delConfirm(scope.row.id)" type="danger">删除</el-button>
+          <el-button link @click="edit(scope.row)" type="primary"
+            >编辑</el-button
+          >
+          <el-button
+            link
+            v-if="scope.$index !== state.list.length - 1"
+            @click="delConfirm(scope.row.id)"
+            type="danger"
+            >删除</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
 
-    <el-dialog :title="state.title" v-model="state.dialogVisible" width="30%" @close="handleClose">
+    <el-dialog
+      :title="state.title"
+      v-model="state.dialogVisible"
+      width="30%"
+      @close="handleClose"
+    >
       <div>
         <el-input v-model="state.row.name" placeholder="请输入名称"></el-input>
       </div>
@@ -84,7 +97,6 @@ const del = async (id: any) => {
   }
 };
 
-
 const edit = async (row: any) => {
   state.title = "编辑";
   state.dialogVisible = true;
@@ -116,7 +128,7 @@ const handleClose = async () => {
 <style scoped lang="scss">
 .page-list {
   width: 100%;
-  .handler{
+  .handler {
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
     margin-bottom: 10px;

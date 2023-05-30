@@ -3,8 +3,14 @@
     <searchHeader :title="'菜单管理'"></searchHeader>
     <el-row>
       <el-col :span="12">
-        <el-tree node-key="menuId" default-expand-all :data="state.data" :expand-on-click-node="false"
-          :props="state.defaultProps" @node-click="handleNodeClick">
+        <el-tree
+          node-key="menuId"
+          default-expand-all
+          :data="state.data"
+          :expand-on-click-node="false"
+          :props="state.defaultProps"
+          @node-click="handleNodeClick"
+        >
         </el-tree>
       </el-col>
       <el-col :span="12">
@@ -16,13 +22,28 @@
             <el-input v-model="state.form.path"></el-input>
           </el-form-item>
           <el-form-item label="">
-            <el-button type="primary" @click="state.showAdd = true">新增</el-button>
-            <el-button type="primary" @click="updateMenu(state.form)">保存</el-button>
-            <el-button type="danger" @click="deleteMenuConfirm()">删除</el-button>
+            <el-button type="primary" @click="state.showAdd = true"
+              >新增</el-button
+            >
+            <el-button type="primary" @click="updateMenu(state.form)"
+              >保存</el-button
+            >
+            <el-button type="danger" @click="deleteMenuConfirm()"
+              >删除</el-button
+            >
           </el-form-item>
         </el-form>
         <div v-if="state.showAdd">
-          <div style="text-align: center;padding:10px;border-bottom: 1px solid #ddd;margin-bottom:10px;">新增菜单</div>
+          <div
+            style="
+              text-align: center;
+              padding: 10px;
+              border-bottom: 1px solid #ddd;
+              margin-bottom: 10px;
+            "
+          >
+            新增菜单
+          </div>
           <el-form :model="state.addForm">
             <el-form-item label="菜单名称">
               <el-input v-model="state.addForm.name"></el-input>
@@ -37,7 +58,6 @@
         </div>
       </el-col>
     </el-row>
-
   </div>
 </template>
 
@@ -46,29 +66,29 @@ import {
   insertMenuApi,
   getAllMenusApi,
   updateMenuApi,
-  deleteMenuApi
+  deleteMenuApi,
 } from "../API/auth";
 
 import { reactive, onMounted } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
 import searchHeader from "../components/searchHeader.vue";
 
-let state = reactive({
+const state = reactive({
   data: [],
   defaultProps: {
-    children: 'children',
-    label: 'name',
+    children: "children",
+    label: "name",
   },
   form: {
     name: "",
     path: "",
-    menuId: ""
+    menuId: "",
   },
   addForm: {
     name: "",
-    path: ""
+    path: "",
   },
-  showAdd: false
+  showAdd: false,
 });
 
 onMounted(() => {
@@ -77,39 +97,41 @@ onMounted(() => {
 const getMenuList = async () => {
   getAllMenusApi({}).then((res: any) => {
     // 添加默认菜单
-    let defaultMenu = [{ name: "javascript技术分享", children: res.data.result }]
+    const defaultMenu = [
+      { name: "javascript技术分享", children: res.data.result },
+    ];
     state.data = defaultMenu as any;
-    state.form = {
+    (state.form = {
       name: "",
       path: "",
-      menuId: ""
-    },
-      state.addForm = {
+      menuId: "",
+    }),
+      (state.addForm = {
         name: "",
-        path: ""
-      }
-  })
-}
+        path: "",
+      });
+  });
+};
 
 const handleNodeClick = (data: any) => {
-  state.form = JSON.parse(JSON.stringify(data))
+  state.form = JSON.parse(JSON.stringify(data));
 };
 const append = async (form: any) => {
-  let parms = { ...form }
+  let parms = { ...form };
   if (state.form.menuId) {
-    parms = Object.assign(parms, { parentId: state.form.menuId })
+    parms = Object.assign(parms, { parentId: state.form.menuId });
   }
   insertMenuApi({ ...parms }).then(() => {
-    ElMessage.success("新增成功")
+    ElMessage.success("新增成功");
     getMenuList();
-  })
+  });
 };
 const updateMenu = async (form: any) => {
   updateMenuApi({ ...form }).then((res: any) => {
-    ElMessage.success("保存成功")
+    ElMessage.success("保存成功");
     getMenuList();
-  })
-}
+  });
+};
 const deleteMenuConfirm = () => {
   ElMessageBox.confirm("此操作将删除该条数据, 是否继续?", "提示", {
     confirmButtonText: "确定",
@@ -118,18 +140,18 @@ const deleteMenuConfirm = () => {
   }).then(() => {
     deleteMenu(state.form);
   });
-}
+};
 const deleteMenu = (form: any) => {
   deleteMenuApi({ menuId: form.menuId }).then((res: any) => {
-    ElMessage.success("删除成功")
+    ElMessage.success("删除成功");
     getMenuList();
-  })
-}
+  });
+};
 </script>
 
 <style scoped lang="scss">
 .menu-manage {
-  .handler{
+  .handler {
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
     margin-bottom: 10px;

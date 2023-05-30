@@ -16,8 +16,12 @@
       </el-table-column>
       <el-table-column label="操作" width="250">
         <template #default="scope">
-          <el-button link @click="edit(scope.row)" type="primary">编辑</el-button>
-          <el-button link @click="manage(scope.row)" type="primary">管理</el-button>
+          <el-button link @click="edit(scope.row)" type="primary"
+            >编辑</el-button
+          >
+          <el-button link @click="manage(scope.row)" type="primary"
+            >管理</el-button
+          >
           <el-button
             link
             @click="delConfirm(scope.row.id)"
@@ -102,7 +106,10 @@ const edit = async (row: any) => {
 };
 
 const manage = async (row: any) => {
-  router.push({ path: "topicManage", query: { id: row.id,topicName: row.name} });
+  router.push({
+    path: "topicManage",
+    query: { id: row.id, topicName: row.name },
+  });
 };
 
 const submit = async (row: any) => {
@@ -124,7 +131,7 @@ const submit = async (row: any) => {
 <style scoped lang="scss">
 .page-list {
   width: 100%;
-  .handler{
+  .handler {
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
     margin-bottom: 10px;

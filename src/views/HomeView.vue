@@ -4,15 +4,30 @@
     <div class="content-container">
       <div :class="['left-menu', state.hasMusicPlayer ? 'hasMusicPlayer' : '']">
         <el-scrollbar>
-          <el-menu :unique-opened="false" style="height: 100%; overflow-y: auto" default-active="/home"
-            class="el-menu-vertical" router>
+          <el-menu
+            :unique-opened="false"
+            style="height: 100%; overflow-y: auto"
+            default-active="/home"
+            class="el-menu-vertical"
+            router
+          >
             <div v-for="(item, index) in state.menuList" :key="index">
-              <el-menu-item v-if="!(item.children && item.children.length)" :index="item.path">
+              <el-menu-item
+                v-if="!(item.children && item.children.length)"
+                :index="item.path"
+              >
                 <template #title>{{ item.name }}</template>
               </el-menu-item>
-              <el-sub-menu :index="item.path" v-if="item.children && item.children.length">
+              <el-sub-menu
+                :index="item.path"
+                v-if="item.children && item.children.length"
+              >
                 <template #title>{{ item.name }}</template>
-                <el-menu-item :index="it.path" v-for="(it, idx) in item.children" :key="idx">
+                <el-menu-item
+                  :index="it.path"
+                  v-for="(it, idx) in item.children"
+                  :key="idx"
+                >
                   <template #title>{{ it.name }}</template>
                 </el-menu-item>
               </el-sub-menu>
@@ -25,7 +40,9 @@
         <commonFooter></commonFooter>
       </div>
     </div>
-    <musicPlayer v-if="state.userInfoObj.musicPlayerSwitch === '1'"></musicPlayer>
+    <musicPlayer
+      v-if="state.userInfoObj.musicPlayerSwitch === '1'"
+    ></musicPlayer>
   </div>
 </template>
 <script setup lang="ts">
@@ -33,9 +50,9 @@ import { RouterView } from "vue-router";
 import { reactive, computed, onMounted } from "vue";
 import adminHeader from "./components/admin-header.vue";
 import commonFooter from "./components/footer.vue";
-import musicPlayer from "./components/musicPlayer.vue"
+import musicPlayer from "./components/musicPlayer.vue";
 import { getUserInfoApi, getMenusApi } from "@/views/API/admin.js";
-import { userInfoStore } from '@/stores/userInfo'
+import { userInfoStore } from "@/stores/userInfo";
 
 const state = reactive({
   menuList: [
@@ -210,36 +227,36 @@ const state = reactive({
   ],
   activeName: "/home",
   userInfoObj: {
-    musicPlayerSwitch: "0"
+    musicPlayerSwitch: "0",
   },
-  hasMusicPlayer: false
+  hasMusicPlayer: false,
 });
 
-const us = userInfoStore()
+const us = userInfoStore();
 
 const getUserInfo = async () => {
   const res: any = await getUserInfoApi({});
   state.userInfoObj = res.data;
   // 开启播放器后调整左侧菜单高度，避免被播放器盖住
-  if (res.data.musicPlayerSwitch === '1') {
-    let leftMenu = document.querySelector(".left-menu")
+  if (res.data.musicPlayerSwitch === "1") {
+    const leftMenu = document.querySelector(".left-menu");
     if (leftMenu) {
-      state.hasMusicPlayer = true
+      state.hasMusicPlayer = true;
     }
   }
   // 保存每日一句
   if (res.data.dailySentence) {
-    us.userInfo.dailySentence = res.data.dailySentence
+    us.userInfo.dailySentence = res.data.dailySentence;
   }
 };
 const getMenus = async () => {
   getMenusApi({}).then((res: any) => {
-    state.menuList = res.data.result
-  })
-}
+    state.menuList = res.data.result;
+  });
+};
 onMounted(() => {
   getUserInfo();
-  getMenus()
+  getMenus();
 });
 </script>
 <style lang="scss" scoped>

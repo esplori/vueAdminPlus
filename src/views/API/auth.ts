@@ -26,7 +26,5 @@ export async function deleteMenuApi(data: any) {
 }
 // 文件上传地址
 export function fileUploadApi() {
-  return `${contextPath}/account/upload`
+  return `${contextPath}/account/upload`;
 }
-
-

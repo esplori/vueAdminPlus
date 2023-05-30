@@ -17,12 +17,12 @@ onMounted(() => {
   getValidEmailEffective(id);
 });
 
-const getValidEmailEffective = async (id: String) => {
+const getValidEmailEffective = async (id: string) => {
   const res = await getValidEmailEffectiveApi({ id: id });
   if (res) {
     successMsg.value = "激活成功，即将跳转到登录页面";
     setTimeout(() => {
-      localStorage.clear()
+      localStorage.clear();
       router.push({ path: "/login" });
     }, 3000);
   }

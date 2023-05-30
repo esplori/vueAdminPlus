@@ -1,12 +1,21 @@
 <template>
   <div class="systemSetting">
     <searchHeader :title="'站点设置'"></searchHeader>
-    <el-form :model="state.form" label-width="150px" label-position="left" class="setting-form">
+    <el-form
+      :model="state.form"
+      label-width="150px"
+      label-position="left"
+      class="setting-form"
+    >
       <el-form-item label="站点名称:">
         <el-input v-model="state.form.siteName"></el-input>
       </el-form-item>
       <el-form-item label="站点描述:">
-        <el-input v-model="state.form.siteDesc" type="textarea" :rows="5"></el-input>
+        <el-input
+          v-model="state.form.siteDesc"
+          type="textarea"
+          :rows="5"
+        ></el-input>
       </el-form-item>
       <el-form-item label="站点地址:">
         <el-input v-model="state.form.siteUrl"> </el-input>
@@ -24,7 +33,8 @@
         <el-input v-model="state.form.bookUrl"> </el-input>
       </el-form-item>
       <el-form-item label="备案号:">
-        <el-input v-model="state.form.beianNo" type="textarea" :rows="5"> </el-input>
+        <el-input v-model="state.form.beianNo" type="textarea" :rows="5">
+        </el-input>
       </el-form-item>
       <el-form-item label="站长邮箱:">
         <el-input v-model="state.form.siteEmail"> </el-input>
@@ -36,10 +46,18 @@
         <el-button type="danger" @click="clearCache">清空</el-button>
       </el-form-item>
       <el-form-item label="启用轮播:" style="width: 100%">
-        <el-switch v-model="state.form.carouselEnable" active-value="Y" inactive-value="N">
+        <el-switch
+          v-model="state.form.carouselEnable"
+          active-value="Y"
+          inactive-value="N"
+        >
         </el-switch>
         <el-table :data="state.tableData" style="width: 100%">
-          <el-table-column type="index" label="序号" width="55px"></el-table-column>
+          <el-table-column
+            type="index"
+            label="序号"
+            width="55px"
+          ></el-table-column>
           <el-table-column label="轮播图片地址" width="180">
             <template #default="scope">
               <el-input v-model="scope.row.imgUrl"></el-input>
@@ -58,7 +76,8 @@
           <el-table-column prop="address" label="操作">
             <template #default="scope">
               <el-button link type="primary" @click="add">新增</el-button>
-              <el-button link type="danger" @click="del(scope.$index)">删除
+              <el-button link type="danger" @click="del(scope.$index)"
+                >删除
               </el-button>
             </template>
           </el-table-column>
@@ -92,7 +111,7 @@ const state = reactive({
     bakRealUrl: "",
     siteEmail: "",
     carouselEnable: "N",
-    bookUrl: ""
+    bookUrl: "",
   },
   tableData: [{ imgUrl: "", desc: "", url: "" }],
 });
@@ -143,9 +162,8 @@ const del = (index: number) => {
 
 <style scoped lang="scss">
 .systemSetting {
-
   .setting-form {
-    &>div {
+    & > div {
       width: 65%;
     }
   }

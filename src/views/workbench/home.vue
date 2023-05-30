@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="card-item">
-      <el-row :gutter="10" style="width: 100%;">
+      <el-row :gutter="10" style="width: 100%">
         <el-col :span="8">
           <el-card shadow="hover">
             <div class="item-title">总访问量</div>
@@ -21,11 +21,20 @@
               {{ state.dayViews }}
             </div>
             <div class="item-compare">
-              <span>较昨日
-                <el-icon v-show="state.dayViewsMom > 0" :size="16" color="#F56C6C">
+              <span
+                >较昨日
+                <el-icon
+                  v-show="state.dayViewsMom > 0"
+                  :size="16"
+                  color="#F56C6C"
+                >
                   <CaretTop></CaretTop>
                 </el-icon>
-                <el-icon v-show="state.dayViewsMom < 0" :size="16" color="#F56C6C">
+                <el-icon
+                  v-show="state.dayViewsMom < 0"
+                  :size="16"
+                  color="#F56C6C"
+                >
                   <CaretBottom></CaretBottom>
                 </el-icon>
               </span>
@@ -40,7 +49,8 @@
               {{ state.dayIp }}
             </div>
             <div class="item-compare">
-              <span>较昨日
+              <span
+                >较昨日
 
                 <el-icon v-show="state.dayIpMom > 0" :size="16" color="#F56C6C">
                   <CaretTop></CaretTop>
@@ -54,7 +64,7 @@
           </el-card>
         </el-col>
       </el-row>
-      <el-row :gutter="10" style="width: 100%;margin-top: 10px;">
+      <el-row :gutter="10" style="width: 100%; margin-top: 10px">
         <el-col :span="8">
           <el-card shadow="hover">
             <div class="item-title">文章总数</div>
@@ -62,15 +72,23 @@
               {{ state.pages }}
             </div>
             <div class="item-compare">
-              <span>较昨日
+              <span
+                >较昨日
 
-                <el-icon v-show="state.allpagesMom > 0" :size="16" color="#F56C6C">
+                <el-icon
+                  v-show="state.allpagesMom > 0"
+                  :size="16"
+                  color="#F56C6C"
+                >
                   <CaretTop></CaretTop>
                 </el-icon>
-                <el-icon v-show="state.allpagesMom < 0" :size="16" color="#91cc74">
+                <el-icon
+                  v-show="state.allpagesMom < 0"
+                  :size="16"
+                  color="#91cc74"
+                >
                   <CaretBottom></CaretBottom>
                 </el-icon>
-
               </span>
               <span class="num"> {{ Math.abs(state.allpagesMom) }} </span>
             </div>
@@ -83,11 +101,20 @@
               {{ state.referrerTableData }}
             </div>
             <div class="item-compare">
-              <span>较昨日
-                <el-icon v-show="state.dayViewsMom > 0" :size="16" color="#F56C6C">
+              <span
+                >较昨日
+                <el-icon
+                  v-show="state.dayViewsMom > 0"
+                  :size="16"
+                  color="#F56C6C"
+                >
                   <!-- <CaretTop></CaretTop> -->
                 </el-icon>
-                <el-icon v-show="state.dayViewsMom < 0" :size="16" color="#F56C6C">
+                <el-icon
+                  v-show="state.dayViewsMom < 0"
+                  :size="16"
+                  color="#F56C6C"
+                >
                   <!-- <CaretBottom></CaretBottom> -->
                 </el-icon>
               </span>
@@ -102,7 +129,8 @@
               {{ state.postViewTableData }}
             </div>
             <div class="item-compare">
-              <span>较昨日
+              <span
+                >较昨日
 
                 <el-icon v-show="state.dayIpMom > 0" :size="16" color="#F56C6C">
                   <!-- <CaretTop></CaretTop> -->
@@ -123,7 +151,11 @@
       <div class="date-picker-change">
         <h3></h3>
         <div>
-          <el-radio-group v-model="state.tabPosition" style="margin-bottom: 30px" @change="tabChange">
+          <el-radio-group
+            v-model="state.tabPosition"
+            style="margin-bottom: 30px"
+            @change="tabChange"
+          >
             <el-radio-button label="toDay">今天</el-radio-button>
             <el-radio-button label="yesterday">最近两天</el-radio-button>
             <el-radio-button label="7day">最近7天</el-radio-button>
@@ -143,7 +175,10 @@
         <el-row>
           <el-col :span="24">
             <div>
-              <div id="browserType" style="max-width: 100%; height: 300px"></div>
+              <div
+                id="browserType"
+                style="max-width: 100%; height: 300px"
+              ></div>
             </div>
           </el-col>
         </el-row>
@@ -172,13 +207,13 @@ import { getWebStatisticsApi } from "@/views/API/stats.js";
 import { CountUp } from "countup.js";
 
 // 引入 echarts 核心模块，核心模块提供了 echarts 使用必须要的接口。
-import * as echarts from 'echarts';
-import "echarts-countries-js/echarts-countries-js/china"
+import * as echarts from "echarts";
+import "echarts-countries-js/echarts-countries-js/china";
 
 import { reactive, computed, onMounted, nextTick } from "vue";
 import { CaretTop, CaretBottom } from "@element-plus/icons-vue";
 import { delHtmlTag } from "@/utils/common.js";
-import { userInfoStore } from '@/stores/userInfo'
+import { userInfoStore } from "@/stores/userInfo";
 const state = reactive({
   views: 0,
   pages: 0,
@@ -201,10 +236,10 @@ const state = reactive({
   postViewTableData: [],
   totalWordsNum: 0,
   tabPosition: "toDay",
-  mapData: []
+  mapData: [],
 });
 
-const us = userInfoStore()
+const us = userInfoStore();
 
 const userInfo = computed(() => {
   const usrinfo = localStorage.getItem("userInfo");
@@ -212,14 +247,14 @@ const userInfo = computed(() => {
     return JSON.parse(usrinfo);
   } else {
     return {
-      role: []
+      role: [],
     };
   }
 });
 const dailySentence = computed(() => {
   const dailySentence = us.userInfo.dailySentence;
   if (dailySentence) {
-    return delHtmlTag('每日一句：' + dailySentence)
+    return delHtmlTag("每日一句：" + dailySentence);
   }
 });
 onMounted(() => {
@@ -256,24 +291,26 @@ const initCountUp = () => {
 };
 
 const initDeviceType = () => {
-  let dom = document.getElementById("deviceType")
-  if (!dom) { return false }
-  dom.removeAttribute('_echarts_instance_')
+  const dom = document.getElementById("deviceType");
+  if (!dom) {
+    return false;
+  }
+  dom.removeAttribute("_echarts_instance_");
   const myChart = echarts.init(dom);
   myChart.setOption({
     title: {
       text: "设备型号",
     },
     tooltip: {
-      trigger: 'item',
-      formatter: '{a} <br/>{b} : {d}%'
+      trigger: "item",
+      formatter: "{a} <br/>{b} : {d}%",
     },
     series: [
       {
         name: "设备型号",
         type: "pie",
         data: state.deviceTypeY,
-        radius: ['40%', '60%'],
+        radius: ["40%", "60%"],
       },
     ],
   });
@@ -281,57 +318,63 @@ const initDeviceType = () => {
 };
 
 const initBrowserType = () => {
-  let dom = document.getElementById("browserType")
-  if (!dom) { return false }
-  dom.removeAttribute('_echarts_instance_')
+  const dom = document.getElementById("browserType");
+  if (!dom) {
+    return false;
+  }
+  dom.removeAttribute("_echarts_instance_");
   const myChart = echarts.init(dom);
   myChart.setOption({
     title: {
       text: "浏览器型号",
     },
     tooltip: {
-      trigger: 'item',
-      formatter: '{a} <br/>{b} : {d}%'
+      trigger: "item",
+      formatter: "{a} <br/>{b} : {d}%",
     },
     series: [
       {
         name: "浏览器型号",
         type: "pie",
         data: state.browserTypeY,
-        radius: ['40%', '60%'],
+        radius: ["40%", "60%"],
       },
     ],
   });
   myChart.resize();
 };
 const initDeiveRatio = () => {
-  let dom = document.getElementById("deiveRatio")
-  if (!dom) { return false }
-  dom.removeAttribute('_echarts_instance_')
+  const dom = document.getElementById("deiveRatio");
+  if (!dom) {
+    return false;
+  }
+  dom.removeAttribute("_echarts_instance_");
   const myChart = echarts.init(dom);
   myChart.setOption({
     title: {
       text: "设备分辨率",
     },
     tooltip: {
-      trigger: 'item',
-      formatter: '{a} <br/>{b} : {d}%'
+      trigger: "item",
+      formatter: "{a} <br/>{b} : {d}%",
     },
     series: [
       {
         name: "设备分辨率",
         type: "pie",
         data: state.deviceRatioY,
-        radius: ['40%', '60%'],
+        radius: ["40%", "60%"],
       },
     ],
   });
   myChart.resize();
 };
 const initDayViews = () => {
-  let dom = document.getElementById("dayViews")
-  if (!dom) { return false }
-  dom.removeAttribute('_echarts_instance_')
+  const dom = document.getElementById("dayViews");
+  if (!dom) {
+    return false;
+  }
+  dom.removeAttribute("_echarts_instance_");
   const myChart = echarts.init(dom);
   myChart.setOption({
     title: {
@@ -362,15 +405,15 @@ const initDayViews = () => {
         interval: 5,
         rotate: 0, // 倾斜度 -90 至 90 默认为0
         margin: 8,
-        formatter: function (value: any) {
+        formatter: function (value: string) {
           const str = value.slice(0, 10).slice(-5);
           return str;
         },
       },
       axisLine: {
         lineStyle: {
-          color: "#a0a6a8"
-        }
+          color: "#a0a6a8",
+        },
       },
     },
     yAxis: {
@@ -378,35 +421,35 @@ const initDayViews = () => {
       splitLine: {
         show: true,
         lineStyle: {
-          type: "dashed"
-        }
-      }
+          type: "dashed",
+        },
+      },
     },
     series: [
       {
-        name: '今日访问IP数(UV)',
-        type: 'line',
-        stack: 'Total',
+        name: "今日访问IP数(UV)",
+        type: "line",
+        stack: "Total",
         areaStyle: {
           // color: "#f59695"
         },
         emphasis: {
-          focus: 'series'
+          focus: "series",
         },
         data: state.everyDayViews.map((item: any) => {
           return item.dayIp;
         }),
-        smooth: true
+        smooth: true,
       },
       {
-        name: '今日浏览量(PV)',
-        type: 'line',
-        stack: 'Total',
+        name: "今日浏览量(PV)",
+        type: "line",
+        stack: "Total",
         areaStyle: {
           // color: "#9fd3e8"
         },
         emphasis: {
-          focus: 'series'
+          focus: "series",
         },
         data: state.everyDayViews.map((item: any) => {
           return item.dayViews;
@@ -415,7 +458,7 @@ const initDayViews = () => {
           show: true,
           position: "top",
         },
-        smooth: true
+        smooth: true,
       },
     ],
   });
@@ -423,32 +466,33 @@ const initDayViews = () => {
 };
 
 const initChindMap = () => {
-  let dom = document.getElementById("chindMap")
-  if (!dom) { return false }
-  dom.removeAttribute('_echarts_instance_')
+  const dom = document.getElementById("chindMap");
+  if (!dom) {
+    return false;
+  }
+  dom.removeAttribute("_echarts_instance_");
   const myChart = echarts.init(dom);
   myChart.setOption({
-    colorBy: 'series',
+    colorBy: "series",
     name: "city",
     label: {
-      color: "red"
+      color: "red",
     },
     tooltip: {
-      trigger: 'item',
+      trigger: "item",
       formatter: function (params: any) {
-        return `${params.name}: ${params.value || 0}`
-
-      }
+        return `${params.name}: ${params.value || 0}`;
+      },
     },
     visualMap: {
       min: 0,
       max: 200,
-      text: ['High', 'Low'],
+      text: ["High", "Low"],
       realtime: false,
       calculable: true,
       inRange: {
-        color: ['lightskyblue', 'yellow', 'orangered']
-      }
+        color: ["lightskyblue", "yellow", "orangered"],
+      },
     },
     series: [
       {
@@ -456,42 +500,42 @@ const initChindMap = () => {
         map: "china",
         data: state.mapData,
         nameMap: {
-          '广东': "广东省",
-          '北京': "北京",
-          '台湾': "台湾省",
-          '陕西': "陕西省",
-          '浙江': "浙江省",
-          '湖北': "湖北省",
-          '香港': "香港",
-          '福建': "福建省",
-          '江西': "江西省",
-          '湖南': "湖南省",
-          '江苏': "江苏省",
-          '安徽': "安徽省",
-          '河南': "河南省",
-          '四川': "四川省",
-          '山西': "山西省",
-          '吉林': "吉林省",
-          '贵州': "贵州省",
-          '云南': "云南省",
-          '海南': "海南省",
-          '山东': "山东省",
-          '天津': "天津",
-          '辽宁': "辽宁省",
-          '黑龙江': "黑龙江省",
-          '甘肃': "甘肃省",
+          广东: "广东省",
+          北京: "北京",
+          台湾: "台湾省",
+          陕西: "陕西省",
+          浙江: "浙江省",
+          湖北: "湖北省",
+          香港: "香港",
+          福建: "福建省",
+          江西: "江西省",
+          湖南: "湖南省",
+          江苏: "江苏省",
+          安徽: "安徽省",
+          河南: "河南省",
+          四川: "四川省",
+          山西: "山西省",
+          吉林: "吉林省",
+          贵州: "贵州省",
+          云南: "云南省",
+          海南: "海南省",
+          山东: "山东省",
+          天津: "天津",
+          辽宁: "辽宁省",
+          黑龙江: "黑龙江省",
+          甘肃: "甘肃省",
         },
-      }
-    ]
-  })
-}
+      },
+    ],
+  });
+};
 const getWebStatistics = async (type: string) => {
   const res: any = await getWebStatisticsApi({ type: type });
   if (res) {
     if (!(userInfo.value.role && userInfo.value.role.includes("ROLE_admin"))) {
-      res.data.allViews = 0
-      res.data.allpages = 0
-      res.data.allViewsMom = 0
+      res.data.allViews = 0;
+      res.data.allpages = 0;
+      res.data.allViewsMom = 0;
     }
     state.views = res.data.allViews;
     state.pages = res.data.allpages;
@@ -528,9 +572,9 @@ const initCharts = () => {
     initChindMap();
   });
 };
-let tabChange = (type: string) => {
+const tabChange = (type: string) => {
   getWebStatistics(type);
-}
+};
 </script>
 
 <style scoped lang="scss">

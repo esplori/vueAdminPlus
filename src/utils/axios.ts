@@ -120,7 +120,7 @@ function handleData(res: any, resolve: any, reject: any) {
   }
 }
 function handleAuthenticated(res: any) {
-  let ErrorMsg = ""
+  let ErrorMsg = "";
   switch (res.response.status) {
     case 401:
     case 403:
@@ -128,7 +128,7 @@ function handleAuthenticated(res: any) {
         location.href = "/#/login";
       }, 1500);
       ErrorMsg = "用户信息已失效，请重新登录";
-      localStorage.clear()
+      localStorage.clear();
       break;
     case 500:
       ErrorMsg = res.response.data.message || "网络错误,请稍后再试";
@@ -136,10 +136,9 @@ function handleAuthenticated(res: any) {
     default:
       ErrorMsg = "网络错误,请稍后再试";
   }
-  let existMsgError = document.querySelector(".el-message--error")
+  const existMsgError = document.querySelector(".el-message--error");
   if (!existMsgError) {
     // 如果家前已经有显示错误同时重复显示
     ElMessage.error(ErrorMsg);
   }
-
 }

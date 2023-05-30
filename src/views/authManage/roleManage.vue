@@ -6,12 +6,20 @@
       <el-table-column prop="roleId" label="角色id"> </el-table-column>
       <el-table-column fixed="right" width="180" label="操作">
         <template #default="scope">
-          <el-button link @click="edit(scope.row)" type="primary">编辑</el-button>
-          <el-button link @click="deleteMenuConfirm(scope.row)" type="danger">删除</el-button>
+          <el-button link @click="edit(scope.row)" type="primary"
+            >编辑</el-button
+          >
+          <el-button link @click="deleteMenuConfirm(scope.row)" type="danger"
+            >删除</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog title="角色修改" v-model="state.editObj.dialogVisible" width="50%">
+    <el-dialog
+      title="角色修改"
+      v-model="state.editObj.dialogVisible"
+      width="50%"
+    >
       <div>
         <el-form>
           <el-form-item label="角色名称：">
@@ -19,8 +27,17 @@
           </el-form-item>
           <el-form-item label="菜单权限：">
             <div class="tree-container">
-              <el-tree check-strictly node-key="menuId" v-model="state.checkedKeys" ref="treeRef" show-checkbox
-                default-expand-all :data="state.treeData" :expand-on-click-node="false" :props="state.defaultProps">
+              <el-tree
+                check-strictly
+                node-key="menuId"
+                v-model="state.checkedKeys"
+                ref="treeRef"
+                show-checkbox
+                default-expand-all
+                :data="state.treeData"
+                :expand-on-click-node="false"
+                :props="state.defaultProps"
+              >
               </el-tree>
             </div>
           </el-form-item>
@@ -28,7 +45,9 @@
       </div>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="state.editObj.dialogVisible = false">取 消</el-button>
+          <el-button @click="state.editObj.dialogVisible = false"
+            >取 消</el-button
+          >
           <el-button type="primary" @click="submit">确 定</el-button>
         </span>
       </template>
@@ -37,25 +56,29 @@
 </template>
 
 <script lang="ts" setup>
-import { getRoleListApi, updateRoleNameApi, getMenuByRoleApi } from "../API/admin";
+import {
+  getRoleListApi,
+  updateRoleNameApi,
+  getMenuByRoleApi,
+} from "../API/admin";
 import { getAllMenusApi } from "../API/auth";
 import { ref, onMounted, reactive } from "vue";
 import { ElMessageBox, ElMessage } from "element-plus";
 import searchHeader from "../components/searchHeader.vue";
 
-let state = reactive({
+const state = reactive({
   data: [],
   editObj: {
     dialogVisible: false,
     rolename: "",
-    roleId: 0
+    roleId: 0,
   },
   treeData: [],
   defaultProps: {
-    children: 'children',
-    label: 'name',
+    children: "children",
+    label: "name",
   },
-  checkedKeys: []
+  checkedKeys: [],
 });
 onMounted(() => {
   getRoleList();
@@ -70,21 +93,21 @@ const getRoleList = async () => {
 
 const getMenuByRole = async (roleId: number) => {
   const res: any = await getMenuByRoleApi({
-    roleId
+    roleId,
   });
   if (res) {
-    treeRef.value.setCheckedKeys(res.data.result)
+    treeRef.value.setCheckedKeys(res.data.result);
   }
 };
 
-let treeRef = ref()
+const treeRef = ref();
 
 const edit = (row: any) => {
   state.editObj.dialogVisible = true;
   state.editObj.rolename = row.roleName;
   state.editObj.roleId = row.id;
-  getMenuList()
-  getMenuByRole(state.editObj.roleId)
+  getMenuList();
+  getMenuByRole(state.editObj.roleId);
 };
 
 const deleteMenuConfirm = (row: any) => {
@@ -95,19 +118,19 @@ const deleteMenuConfirm = (row: any) => {
   }).then(() => {
     // deleteMenu(state.form);
   });
-}
+};
 
 const submit = async (row: any) => {
-  let checkedKeys = treeRef.value.getCheckedKeys()
+  const checkedKeys = treeRef.value.getCheckedKeys();
   updateRoleNameApi({
     roleName: state.editObj.rolename,
     id: state.editObj.roleId,
-    checkedKeys: checkedKeys
+    checkedKeys: checkedKeys,
   }).then((res: any) => {
     state.editObj.dialogVisible = false;
-    ElMessage.success("保存成功")
+    ElMessage.success("保存成功");
     getRoleList();
-  })
+  });
 };
 
 const getMenuList = async () => {
@@ -115,9 +138,8 @@ const getMenuList = async () => {
     // 添加默认菜单
     // let defaultMenu = [{ name: "javascript技术分享", children: res.data.result }]
     state.treeData = res.data.result;
-  })
-}
-
+  });
+};
 </script>
 
 <style scoped lang="scss">

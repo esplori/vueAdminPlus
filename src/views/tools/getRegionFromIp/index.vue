@@ -1,14 +1,14 @@
 <template>
   <div class="getRegionFromIp">
-    <el-form :model="state.form" label-width="140px" style="width: 400px;">
+    <el-form :model="state.form" label-width="140px" style="width: 400px">
       <el-form-item label="你的ip地址归属地：">
-        {{state.form.localIp}}:{{state.form.localIpRegion}}
+        {{ state.form.localIp }}:{{ state.form.localIpRegion }}
       </el-form-item>
       <el-form-item label="ip地址：">
         <el-input v-model="state.form.ip"></el-input>
       </el-form-item>
       <el-form-item label="ip归属地：">
-        {{state.form.inputIp}}
+        {{ state.form.inputIp }}
       </el-form-item>
     </el-form>
     <div style="text-align: center; padding: 20px">
@@ -21,25 +21,25 @@
 import { getRegionFromIpApi } from "../../API/tools";
 import { reactive, onMounted } from "vue";
 
-let state = reactive({
+const state = reactive({
   form: {
     inputIp: "",
     localIp: "",
     ip: "",
-    localIpRegion: ""
+    localIpRegion: "",
   },
 });
 
 const getRegionFromIp = async () => {
   const res: any = await getRegionFromIpApi({ ip: state.form.ip });
   if (res) {
-    let { inputIp, localIp, localIpRegion } = res.data;
-    state.form.inputIp = inputIp
-    state.form.localIp = localIp
-    state.form.localIpRegion = localIpRegion
+    const { inputIp, localIp, localIpRegion } = res.data;
+    state.form.inputIp = inputIp;
+    state.form.localIp = localIp;
+    state.form.localIpRegion = localIpRegion;
   }
 };
 onMounted(() => {
-  getRegionFromIp()
-})
+  getRegionFromIp();
+});
 </script>

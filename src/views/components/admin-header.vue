@@ -2,15 +2,16 @@
   <div class="admin-header">
     <div class="header-container">
       <div class="logo">
-        <a href="https://www.dsiab.com" target="_blank"><span class="logo_pic"></span> 管理中心</a>
+        <a href="https://www.dsiab.com" target="_blank"
+          ><span class="logo_pic"></span> 管理中心</a
+        >
       </div>
       <div class="user-info">
         <!-- <div class="userInfo"> -->
         <div v-if="state.userInfo" class="info-flex">
           <el-dropdown @command="handleCommand">
             <div class="el-dropdown-link">
-              {{
-                state.userInfo.username
+              {{ state.userInfo.username
               }}<el-icon class="el-icon--right">
                 <arrow-down />
               </el-icon>
@@ -37,12 +38,11 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-
 const state = reactive({
   userInfo: {
-    username: ""
-  }
-})
+    username: "",
+  },
+});
 
 const handleCommand = (command: string) => {
   switch (command) {
@@ -59,7 +59,7 @@ const toLogin = () => {
 const logout = async () => {
   const res = await logoutApi({});
   if (res) {
-    localStorage.removeItem("userInfo")
+    localStorage.removeItem("userInfo");
     toLogin();
   }
 };
@@ -128,7 +128,6 @@ watchEffect(() => {
       display: flex;
       align-items: center;
     }
-
   }
 
   .tips {

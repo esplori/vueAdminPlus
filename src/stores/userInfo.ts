@@ -4,9 +4,9 @@ export const userInfoStore = defineStore({
   id: "userInfo",
   state: () => ({
     userInfo: {
-      dailySentence: ''
+      dailySentence: "",
     },
-    music_list: []
+    music_list: [],
   }),
   getters: {
     // doubleCount: (state) => state.userInfo,

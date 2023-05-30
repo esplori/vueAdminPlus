@@ -1,13 +1,15 @@
 <template>
   <div class="ebook" v-loading="state.loading">
     <div class="title"></div>
-    <pre>{{state.currPageStr}}</pre>
+    <pre>{{ state.currPageStr }}</pre>
     <div class="pagination">
-      <span class="total">共:{{state.total}} 页</span>
-      <span>第{{state.params.page + 1}} 页</span>
+      <span class="total">共:{{ state.total }} 页</span>
+      <span>第{{ state.params.page + 1 }} 页</span>
       <span class="pre-next">
-        <span @click="prePage" v-if="state.params.page>0">上一页</span>
-        <span @click="nextPage" v-if="state.params.page <state.total">下一页</span>
+        <span @click="prePage" v-if="state.params.page > 0">上一页</span>
+        <span @click="nextPage" v-if="state.params.page < state.total"
+          >下一页</span
+        >
       </span>
       <!-- <span>跳转到 <el-input @keydown.enter.native="nextPage" v-model.number ="state.params.page" style="width:50px"></el-input> 页</span> -->
     </div>
@@ -16,25 +18,26 @@
 
 <script lang="ts" setup>
 import { onMounted, ref, reactive } from "vue";
-import { useRoute } from "vue-router"
+import { useRoute } from "vue-router";
 import contextPath from "@/utils/context-path.js";
-let route = useRoute()
-let state = reactive({
+const route = useRoute();
+const state = reactive({
   loading: false,
   params: {
     page: 0,
-    pageSize: 2000
+    pageSize: 2000,
   },
   total: 0,
   txtList: [],
   currPageStr: "",
   txtPre: "",
-})
+});
 const urlToBlob = () => {
-  let file_url =  contextPath +  '/tools/getBookDetail?filename=' + route.query.filename
+  const file_url =
+    contextPath + "/tools/getBookDetail?filename=" + route.query.filename;
   //可以是具体.txt也可以是接口返回的blob，或者web转换
-  let xhr = new XMLHttpRequest();
-  state.loading = true
+  const xhr = new XMLHttpRequest();
+  state.loading = true;
   xhr.open("get", file_url, true);
   let userinfo: any = localStorage.getItem("userInfo");
   if (userinfo) {
@@ -44,33 +47,39 @@ const urlToBlob = () => {
   xhr.responseType = "blob";
   xhr.onload = function () {
     if (this.status == 200) {
-      console.log(this.response)
-      const reader = new FileReader()
+      console.log(this.response);
+      const reader = new FileReader();
       reader.onload = function () {
-        state.txtPre = reader.result as any//获取的数据data
+        state.txtPre = reader.result as any; //获取的数据data
         // 显示第一页
-        state.currPageStr = state.txtPre.slice(0, 2000)
-        state.total = Math.ceil(state.txtPre.length / state.params.pageSize)
-      }
+        state.currPageStr = state.txtPre.slice(0, 2000);
+        state.total = Math.ceil(state.txtPre.length / state.params.pageSize);
+      };
       reader.readAsText(this.response, "utf8");
-      state.loading = false
+      state.loading = false;
     }
   };
   xhr.send();
-}
+};
 const nextPage = () => {
   if (state.params.page < state.total) {
-    state.currPageStr = state.txtPre.slice(state.params.pageSize * (++state.params.page), state.params.pageSize * (state.params.page) + state.params.pageSize)
+    state.currPageStr = state.txtPre.slice(
+      state.params.pageSize * ++state.params.page,
+      state.params.pageSize * state.params.page + state.params.pageSize
+    );
   }
-}
+};
 const prePage = () => {
   if (state.params.page <= state.total && state.params.page > 0) {
-    state.currPageStr = state.txtPre.slice(state.params.pageSize * (--state.params.page), state.params.pageSize * (state.params.page) + state.params.pageSize)
+    state.currPageStr = state.txtPre.slice(
+      state.params.pageSize * --state.params.page,
+      state.params.pageSize * state.params.page + state.params.pageSize
+    );
   }
-}
+};
 onMounted(() => {
-  urlToBlob()
-})
+  urlToBlob();
+});
 </script>
 <style scoped lang="scss">
 .ebook {
@@ -87,7 +96,7 @@ onMounted(() => {
   .pagination {
     text-align: center;
     padding-top: 20px;
-    .total{
+    .total {
       margin-right: 20px;
     }
     .pre-next {
@@ -105,7 +114,6 @@ onMounted(() => {
         }
       }
     }
-
   }
 }
 </style>

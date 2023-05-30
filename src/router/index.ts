@@ -23,7 +23,7 @@ const router = createRouter({
     },
     {
       path: "/post",
-      component: () => import("../views/postManage/post.vue")
+      component: () => import("../views/postManage/post.vue"),
     },
     {
       path: "/",
@@ -59,7 +59,7 @@ const router = createRouter({
               component: () =>
                 import("../views/navigationManage/navigationEdit.vue"),
             },
-          ]
+          ],
         },
         {
           path: "article",
@@ -84,7 +84,7 @@ const router = createRouter({
               path: "commentManage",
               component: () => import("../views/postManage/commentList.vue"),
             },
-          ]
+          ],
         },
         {
           path: "tools",
@@ -100,7 +100,8 @@ const router = createRouter({
             },
             {
               path: "getRegionFromIp",
-              component: () => import("../views/tools/getRegionFromIp/index.vue"),
+              component: () =>
+                import("../views/tools/getRegionFromIp/index.vue"),
             },
             {
               path: "qrcode",
@@ -140,7 +141,7 @@ const router = createRouter({
               path: "menuManage",
               component: () => import("../views/authManage/menuManage.vue"),
             },
-          ]
+          ],
         },
         {
           path: "user",
@@ -149,7 +150,7 @@ const router = createRouter({
               path: "userSetting",
               component: () => import("../views/setting/userSetting.vue"),
             },
-          ]
+          ],
         },
         {
           path: "promotion",
@@ -171,7 +172,7 @@ const router = createRouter({
               path: "promoteType",
               component: () => import("../views/promotion/promoteCate.vue"),
             },
-          ]
+          ],
         },
         {
           path: "system",
@@ -195,8 +196,8 @@ const router = createRouter({
             {
               path: "notice",
               component: () => import("../views/setting/notice.vue"),
-            }
-          ]
+            },
+          ],
         },
       ],
     },

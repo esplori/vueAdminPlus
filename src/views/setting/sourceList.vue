@@ -16,21 +16,33 @@
       <el-table-column prop="" label="名称">
         <template #default="scope">
           <div class="filename">
-            <div v-if="
-              state.typeConfig.music.includes(
-                scope.row.filename.split('.')[1]
-              )
-            ">
+            <div
+              v-if="
+                state.typeConfig.music.includes(
+                  scope.row.filename.split('.')[1]
+                )
+              "
+            >
               <span>{{ scope.row.filename }}</span>
-              <audio :src="state.sourceUrl + scope.row.filename" controls></audio>
+              <audio
+                :src="state.sourceUrl + scope.row.filename"
+                controls
+              ></audio>
             </div>
-            <div v-else-if="
-              state.typeConfig.image.includes(
-                scope.row.filename.split('.')[1]
-              )
-            ">
+            <div
+              v-else-if="
+                state.typeConfig.image.includes(
+                  scope.row.filename.split('.')[1]
+                )
+              "
+            >
               <span style="margin-right: 40px">{{ scope.row.filename }}</span>
-              <img loading="lazy" :src="state.sourceUrl + scope.row.filename" alt="" height="40px" />
+              <img
+                loading="lazy"
+                :src="state.sourceUrl + scope.row.filename"
+                alt=""
+                height="40px"
+              />
             </div>
             <div v-else>
               <span>{{ scope.row.filename }}</span>
@@ -41,19 +53,27 @@
       <el-table-column prop="" label="名称">
         <template #default="scope">
           <a target="_blank" :href="state.sourceUrl + scope.row.filename">{{
-          state.sourceUrl + scope.row.filename
+            state.sourceUrl + scope.row.filename
           }}</a>
         </template>
       </el-table-column>
       <el-table-column fixed="right" width="120" label="操作">
         <template #default="scope">
-          <el-button link @click="del(scope.row.filename)" type="danger">删除</el-button>
+          <el-button link @click="del(scope.row.filename)" type="danger"
+            >删除</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
 
     <el-dialog title="提示" v-model="state.dialogVisible" width="30%">
-      <el-upload class="upload-demo" drag :action="fileUploadApi()" multiple :headers="headers">
+      <el-upload
+        class="upload-demo"
+        drag
+        :action="fileUploadApi()"
+        multiple
+        :headers="headers"
+      >
         <i class="el-icon-upload"></i>
         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
         <template #tip>
@@ -63,7 +83,9 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="state.dialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="state.dialogVisible = false">确 定</el-button>
+          <el-button type="primary" @click="state.dialogVisible = false"
+            >确 定</el-button
+          >
         </span>
       </template>
     </el-dialog>
@@ -135,7 +157,7 @@ const del = async (filename: any) => {
 <style scoped lang="scss">
 .sourceList {
   width: 100%;
-  .handler{
+  .handler {
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
     margin-bottom: 10px;

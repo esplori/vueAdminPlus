@@ -1,42 +1,83 @@
 <template>
   <div class="_post">
     <div id="editor-toolbar">
-      <Toolbar style="z-index: 100;" :editor="editorRef" :defaultConfig="toolbarConfig" :mode="mode" />
+      <Toolbar
+        style="z-index: 100"
+        :editor="editorRef"
+        :defaultConfig="toolbarConfig"
+        :mode="mode"
+      />
     </div>
     <div id="content">
       <div id="editor-container">
         <div id="title-container">
-          <input v-model="state.form.title" placeholder="请输入标题...">
+          <input v-model="state.form.title" placeholder="请输入标题..." />
         </div>
         <div id="editor-text-area">
-          <Editor style="height: 500px; overflow-y: hidden;" v-model="valueHtml" :defaultConfig="editorConfig"
-            :mode="mode" @onCreated="handleCreated" @onChange="handleChange" />
+          <Editor
+            style="height: 500px; overflow-y: hidden"
+            v-model="valueHtml"
+            :defaultConfig="editorConfig"
+            :mode="mode"
+            @onCreated="handleCreated"
+            @onChange="handleChange"
+          />
         </div>
         <!-- 文章选项 -->
         <div class="post-info">
           <el-form label-width="85px" :model="state.form">
             <el-form-item label="创建时间：">
-              <el-date-picker type="datetime" style="width: 250px" popper-class="select-zindex"
-                v-model="state.form.createDate"></el-date-picker>
+              <el-date-picker
+                type="datetime"
+                style="width: 250px"
+                popper-class="select-zindex"
+                v-model="state.form.createDate"
+              ></el-date-picker>
             </el-form-item>
             <el-form-item label="分类：">
-              <el-select v-model="state.form.cate" popper-class="select-zindex" class="optionsWidth">
-                <el-option v-for="(item, index) in state.cateList" :key="index" :label="item.name" :value="item.id">
+              <el-select
+                v-model="state.form.cate"
+                popper-class="select-zindex"
+                class="optionsWidth"
+              >
+                <el-option
+                  v-for="(item, index) in state.cateList"
+                  :key="index"
+                  :label="item.name"
+                  :value="item.id"
+                >
                 </el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="浏览量：">
-              <el-input v-model="state.form.views" disabled class="optionsWidth"></el-input>
+              <el-input
+                v-model="state.form.views"
+                disabled
+                class="optionsWidth"
+              ></el-input>
             </el-form-item>
             <el-form-item label="关键字：">
-              <el-tag :key="tag" v-for="tag in state.dynamicTags" closable :disable-transitions="false"
-                @close="handleClose(tag)">
+              <el-tag
+                :key="tag"
+                v-for="tag in state.dynamicTags"
+                closable
+                :disable-transitions="false"
+                @close="handleClose(tag)"
+              >
                 {{ tag }}
               </el-tag>
-              <el-input class="input-new-tag" v-if="state.inputVisible" v-model="state.inputValue" ref="saveTagInput"
-                @keyup.enter="handleInputConfirm" @blur="handleInputConfirm">
+              <el-input
+                class="input-new-tag"
+                v-if="state.inputVisible"
+                v-model="state.inputValue"
+                ref="saveTagInput"
+                @keyup.enter="handleInputConfirm"
+                @blur="handleInputConfirm"
+              >
               </el-input>
-              <el-button v-else class="button-new-tag" @click="showInput">+ 新增</el-button>
+              <el-button v-else class="button-new-tag" @click="showInput"
+                >+ 新增</el-button
+              >
             </el-form-item>
           </el-form>
         </div>
@@ -44,25 +85,42 @@
     </div>
     <div class="submit-container">
       <div class="submit-bar">
-        <div class="draft-tip" v-if="state.loading!== null">
+        <div class="draft-tip" v-if="state.loading !== null">
           <span v-if="state.loading">
-            <el-icon class="is-loading" style="margin-right:5px">
+            <el-icon class="is-loading" style="margin-right: 5px">
               <Loading />
             </el-icon>
             <span>草稿保存中...</span>
           </span>
           <span v-else>草稿已保存</span>
         </div>
-        <div><span class="wordNum">字数：{{ state.form.wordsNum }}</span></div>
-        <div><el-button :loading="state.postLoading" @click="submit(false)" type="primary">发布</el-button></div>
+        <div>
+          <span class="wordNum">字数：{{ state.form.wordsNum }}</span>
+        </div>
+        <div>
+          <el-button
+            :loading="state.postLoading"
+            @click="submit(false)"
+            type="primary"
+            >发布</el-button
+          >
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
-import '@wangeditor/editor/dist/css/style.css' // 引入 css
-import { onBeforeUnmount, ref, shallowRef, onUnmounted, onMounted, reactive, computed } from 'vue'
-import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+import "@wangeditor/editor/dist/css/style.css"; // 引入 css
+import {
+  onBeforeUnmount,
+  ref,
+  shallowRef,
+  onUnmounted,
+  onMounted,
+  reactive,
+  computed,
+} from "vue";
+import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
 import { ElMessage } from "element-plus";
 import { getCurrDate } from "@/utils/common.js";
 import { useRouter, useRoute } from "vue-router";
@@ -74,18 +132,17 @@ import {
   getAdminCateValidApi,
 } from "@/views/API/admin.js";
 
-
 onMounted(() => {
-  autoSave()
-})
+  autoSave();
+});
 // 组件销毁时，也及时销毁编辑器
 onBeforeUnmount(() => {
-  window.clearInterval(state.autoSaveInterval)
-  const editor = editorRef.value
+  window.clearInterval(state.autoSaveInterval);
+  const editor = editorRef.value;
   if (editor) {
-    editor.destroy()
+    editor.destroy();
   }
-})
+});
 
 const router = useRouter();
 const route = useRoute();
@@ -108,7 +165,7 @@ const state = reactive({
   dynamicTags: [],
   autoSaveInterval: 0,
   loading: null,
-  postLoading: false
+  postLoading: false,
 });
 
 const id = route.query.id;
@@ -142,8 +199,8 @@ const getDetail = async (id: any) => {
     state.form = res.data.result;
     state.dynamicTags = state.form.keywords
       ? state.form.keywords.split(",")
-      : [] as any;
-    editorRef.value.setHtml(state.form.content)
+      : ([] as any);
+    editorRef.value.setHtml(state.form.content);
   }
 };
 
@@ -154,39 +211,39 @@ getCate(id);
 
 const editPage = async (isDraft: boolean) => {
   if (isDraft) {
-    state.loading = true as any
+    state.loading = true as any;
   } else {
-    state.postLoading = true
+    state.postLoading = true;
   }
   const res = await editPageApi({
     ...state.form,
     createDate: getCurrDate(state.form.createDate),
-    createBy: userInfo && userInfo.value.username,
+    createBy: userInfo.value && userInfo.value.username,
     keywords: state.dynamicTags.join(","),
-    draft: isDraft ? '1' : "0"
+    draft: isDraft ? "1" : "0",
   });
   if (res) {
     const { page, cate, pageSize } = route.query;
     if (!isDraft) {
-      state.postLoading = true
+      state.postLoading = true;
       ElMessage.success("发布成功");
       router.push({
         path: "/article/pageList",
         query: { page, cate, pageSize },
       });
     } else {
-      state.loading = false as any
+      state.loading = false as any;
     }
   }
 };
 
-const postPage = async (isDraft: boolean) => {  
+const postPage = async (isDraft: boolean) => {
   const res: any = await postPageApi({
     ...state.form,
-    createBy: userInfo && userInfo.value.username,
+    createBy: userInfo.value && userInfo.value.username,
     createDate: getCurrDate(state.form.createDate),
     keywords: state.dynamicTags.join(","),
-    draft: isDraft ? '1' : "0"
+    draft: isDraft ? "1" : "0",
   });
   if (res) {
     state.form.id = res.data;
@@ -194,68 +251,62 @@ const postPage = async (isDraft: boolean) => {
       ElMessage.success("发布成功");
       router.push({ path: "/article/pageList" });
     } else {
-
     }
   }
 };
 
-
-const mode = "default"
+const mode = "default";
 // 编辑器实例，必须用 shallowRef
-const editorRef = shallowRef()
+const editorRef = shallowRef();
 // 内容 HTML
-const valueHtml = ref('')
+const valueHtml = ref("");
 
 const toolbarConfig = {
   excludeKeys: [
-    'italic',
-    'fullScreen',
+    "italic",
+    "fullScreen",
     "through",
     "insertVideo",
     "insertTable",
-    "todo"
-  ]
-}
-const editorConfig = { placeholder: '请输入内容...', MENU_CONF: {} }
-
-
+    "todo",
+  ],
+};
+const editorConfig = { placeholder: "请输入内容...", MENU_CONF: {} };
 
 const handleCreated = (editor: any) => {
-  editorRef.value = editor // 记录 editor 实例，重要！
-}
+  editorRef.value = editor; // 记录 editor 实例，重要！
+};
 const handleChange = (editor: any) => {
-
-  let editorDom = document.getElementById("w-e-textarea-1")
+  const editorDom = document.getElementById("w-e-textarea-1");
   if (editorDom && editorDom.textContent) {
-    state.form.wordsNum = editorDom.textContent.length
+    state.form.wordsNum = editorDom.textContent.length;
   } else {
-    state.form.wordsNum = editor.getText().length
+    state.form.wordsNum = editor.getText().length;
   }
-  state.form.content = (editorRef.value.getHtml()) as any;
-}
+  state.form.content = editorRef.value.getHtml() as any;
+};
 
-editorConfig.MENU_CONF['uploadImage'] = {
-  server: '/manage-service/account/upload',
+editorConfig.MENU_CONF["uploadImage"] = {
+  server: "/manage-service/account/upload",
   // server: '/api/upload-img-10s', // test timeout
   // server: '/api/upload-img-failed', // test failed
   // server: '/api/xxx', // test 404
 
   timeout: 15 * 1000, // 5s
-  fieldName: 'file',
+  fieldName: "file",
   meta: {},
   metaWithUrl: true, // join params to url
-  headers: { Accept: 'application/json', Authorization: userInfo.value.token },
+  headers: { Accept: "application/json", Authorization: userInfo.value.token },
   maxFileSize: 10 * 1024 * 1024, // 10M
   base64LimitSize: 5 * 1024, // insert base64 format, if file's size less than 5kb
   customInsert(res: any, insertFn: any) {
     console.log(res);
     insertFn(res.data[0].url);
   },
-}
-
+};
 
 const submit = async (type: boolean) => {
-  state.form.content = (editorRef.value.getHtml()) as any;
+  state.form.content = editorRef.value.getHtml() as any;
   // 正常提交提示必填项
   if (!state.form.title) {
     ElMessage.warning("请输入标题");
@@ -294,18 +345,15 @@ const handleClose = async (tag: never) => {
   state.dynamicTags.splice(state.dynamicTags.indexOf(tag), 1);
 };
 
-
 const autoSave = () => {
   // 每15秒自动保存
   state.autoSaveInterval = setInterval(() => {
-    if (state.form.title && state.form.content &&  state.form.cate) {
-      submit(true)
+    if (state.form.title && state.form.content && state.form.cate) {
+      submit(true);
     }
-    console.log(state.autoSaveInterval)
-  }, 15000)
-
-}
-
+    console.log(state.autoSaveInterval);
+  }, 15000);
+};
 </script>
 
 <style scoped lang="scss">
@@ -317,7 +365,7 @@ const autoSave = () => {
 
   #editor-toolbar {
     width: 100%;
-    background-color: #FCFCFC;
+    background-color: #fcfcfc;
     margin: 0 auto;
   }
 
@@ -356,7 +404,7 @@ const autoSave = () => {
   }
 
   .post-info {
-    border-top: 1px solid #EBEBEB;
+    border-top: 1px solid #ebebeb;
     padding-top: 20px;
   }
 
@@ -365,7 +413,7 @@ const autoSave = () => {
   }
 
   .submit-container {
-    color: #8590A6;
+    color: #8590a6;
     width: 100%;
     position: fixed;
     bottom: 0;
@@ -373,7 +421,7 @@ const autoSave = () => {
     padding: 10px;
     text-align: center;
     background-color: #fff;
-    border-top: 1px solid #EBEBEB;
+    border-top: 1px solid #ebebeb;
     z-index: 300;
   }
 
@@ -404,6 +452,5 @@ const autoSave = () => {
     margin-right: 5px;
     height: 32px;
   }
-
 }
 </style>

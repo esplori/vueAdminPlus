@@ -11,12 +11,20 @@
         <el-input v-model="state.form.url" :rows="10"></el-input>
       </el-form-item>
       <el-form-item label="描述：">
-        <el-input type="textarea" v-model="state.form.content" :rows="5"></el-input>
+        <el-input
+          type="textarea"
+          v-model="state.form.content"
+          :rows="5"
+        ></el-input>
       </el-form-item>
       <el-form-item label="分类：">
         <el-select v-model="state.form.cate">
-          <el-option v-for="(item, index) in state.cateList" :key="index" :label="item.name"
-            :value="item.id"></el-option>
+          <el-option
+            v-for="(item, index) in state.cateList"
+            :key="index"
+            :label="item.name"
+            :value="item.id"
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -36,9 +44,9 @@ import { ref, reactive, onMounted, toRef } from "vue";
 import { ElMessage } from "element-plus";
 import { useRoute, useRouter } from "vue-router";
 import searchHeader from "../components/searchHeader.vue";
-let route = useRoute();
-let router = useRouter();
-let state = reactive({
+const route = useRoute();
+const router = useRouter();
+const state = reactive({
   form: {
     id: "",
     title: "",
@@ -47,14 +55,14 @@ let state = reactive({
     url: "",
   },
   cateList: [{ name: "", id: "" }],
-  navName: ''
+  navName: "",
 });
 
-state.navName = (route.query.name || "新增导航") as any
+state.navName = (route.query.name || "新增导航") as any;
 
 const goBack = () => {
-  history.go(-1)
-}
+  history.go(-1);
+};
 onMounted(() => {
   const id = route.query.id;
   if (id) {
@@ -99,7 +107,7 @@ const postPage = async () => {
 const getDetail = async (id: any) => {
   const res: any = await getDetailApi({ id: id });
   if (res) {
-    let { cate, content, id, title, url } = res.data.result;
+    const { cate, content, id, title, url } = res.data.result;
     state.form.id = id;
     state.form.cate = cate;
     state.form.content = content;

@@ -5,57 +5,116 @@
         <div class="pdding">
           <span>分类：</span>
           <el-select v-model="state.params.cate" @change="typeChange" clearable>
-            <el-option v-for="(item, index) in state.cateList" :key="index" :label="item.name" :value="item.id">
+            <el-option
+              v-for="(item, index) in state.cateList"
+              :key="index"
+              :label="item.name"
+              :value="item.id"
+            >
             </el-option>
           </el-select>
         </div>
         <div class="pdding">
-          <el-input v-model="state.params.tag" placeholder="输入关键字搜索" @change="tagChange"></el-input>
+          <el-input
+            v-model="state.params.tag"
+            placeholder="输入关键字搜索"
+            @change="tagChange"
+          ></el-input>
         </div>
-        <span class="pdding"><el-button type="primary" @click="insert">新增文章</el-button></span>
-        <span class="pdding"><el-button type="danger" @click="batchdel(state.multipleSelection)">批量删除</el-button></span>
+        <span class="pdding"
+          ><el-button type="primary" @click="insert">新增文章</el-button></span
+        >
+        <span class="pdding"
+          ><el-button type="danger" @click="batchdel(state.multipleSelection)"
+            >批量删除</el-button
+          ></span
+        >
       </div>
     </searchHeader>
 
-    <el-table :data="state.list" @sort-change="sortCchange" @selection-change="handleSelectionChange">
+    <el-table
+      :data="state.list"
+      @sort-change="sortCchange"
+      @selection-change="handleSelectionChange"
+    >
       <el-table-column type="selection" width="55"> </el-table-column>
       <el-table-column label="标题" show-overflow-tooltip>
         <template #default="scope">
-          <span style="margin-right:10px;color:#056de8">{{scope.row.draft == '1'?'[ 草稿 ]':""}} </span>
-          <a style="color: #333;" :href="
-            'https://www.dsiab.com/post/' + (scope.row.uid || scope.row.id)
-          " target="_blank">{{ scope.row.title }}</a>
+          <span style="margin-right: 10px; color: #056de8"
+            >{{ scope.row.draft == "1" ? "[ 草稿 ]" : "" }}
+          </span>
+          <a
+            style="color: #333"
+            :href="
+              'https://www.dsiab.com/post/' + (scope.row.uid || scope.row.id)
+            "
+            target="_blank"
+            >{{ scope.row.title }}</a
+          >
         </template>
       </el-table-column>
-      <el-table-column label="分类" prop="cateName" width="120px" > </el-table-column>
-      <el-table-column label="阅读" sortable="custom" prop="views" width="80px" >
+      <el-table-column label="分类" prop="cateName" width="120px">
       </el-table-column>
-      <el-table-column label="字数" sortable="custom" prop="wordsNum" width="80px" >
+      <el-table-column label="阅读" sortable="custom" prop="views" width="80px">
       </el-table-column>
-      <el-table-column label="创建时间" sortable="custom" prop="createDate" width="180px" >
+      <el-table-column
+        label="字数"
+        sortable="custom"
+        prop="wordsNum"
+        width="80px"
+      >
+      </el-table-column>
+      <el-table-column
+        label="创建时间"
+        sortable="custom"
+        prop="createDate"
+        width="180px"
+      >
       </el-table-column>
       <el-table-column fixed="right" width="160px" label="操作">
         <template #default="scope">
           <div class="operate">
-            <el-button link type="primary" @click="edit(scope.row.id)">编辑</el-button>
-            <el-button link @click="delConfirm(scope.row.id)" type="danger">删除</el-button>
-            <el-button link v-if="userInfo.includes('ROLE_admin')" @click="addToTopic(scope.row)" type="primary">加专题
+            <el-button link type="primary" @click="edit(scope.row.id)"
+              >编辑</el-button
+            >
+            <el-button link @click="delConfirm(scope.row.id)" type="danger"
+              >删除</el-button
+            >
+            <el-button
+              link
+              v-if="userInfo.includes('ROLE_admin')"
+              @click="addToTopic(scope.row)"
+              type="primary"
+              >加专题
             </el-button>
           </div>
         </template>
       </el-table-column>
     </el-table>
     <div class="pagination-box">
-      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
-        :current-page="state.params.page" :page-size="state.params.pageSize" :page-sizes="[10, 20, 30, 50, 100, 200]"
-        :pager-count="5" layout="sizes, total, prev, pager, next, jumper" :total="state.total">
+      <el-pagination
+        background
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="state.params.page"
+        :page-size="state.params.pageSize"
+        :page-sizes="[10, 20, 30, 50, 100, 200]"
+        :pager-count="5"
+        layout="sizes, total, prev, pager, next, jumper"
+        :total="state.total"
+      >
       </el-pagination>
     </div>
 
     <el-dialog title="添加到专题" v-model="state.dialogVisible" width="30%">
       <div>
         <el-select v-model="state.form.topicId">
-          <el-option v-for="(item, index) in state.topicList" :key="index" :label="item.name" :value="item.id">
+          <el-option
+            v-for="(item, index) in state.topicList"
+            :key="index"
+            :label="item.name"
+            :value="item.id"
+          >
           </el-option>
         </el-select>
       </div>
@@ -77,7 +136,7 @@ import {
   getTopicListApi,
   addPostToTopicApi,
   getListByTagsApi,
-  batchDelApi
+  batchDelApi,
 } from "@/views/API/admin.js";
 import { reactive, onMounted, computed } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
@@ -93,7 +152,7 @@ const state = reactive({
     pageSize: 10,
     order: "desc",
     orderBy: "createDate",
-    tag: ""
+    tag: "",
   },
   form: {
     postId: "",
@@ -104,7 +163,7 @@ const state = reactive({
   cateList: [{ name: "", id: "" }],
   dialogVisible: false,
   topicList: [{ name: "", id: "" }],
-  multipleSelection: []
+  multipleSelection: [],
 });
 onMounted(() => {
   getCate();
@@ -119,9 +178,8 @@ onMounted(() => {
 const insert = () => {
   // router.push({ path: "/post" });
   // 新开窗口
-  let rt = router.resolve({ path: "/post" })
-  window.open(rt.href, '_blank')
-
+  const rt = router.resolve({ path: "/post" });
+  window.open(rt.href, "_blank");
 };
 
 const userInfo = computed(() => {
@@ -204,8 +262,11 @@ const del = async (id: any) => {
 const edit = async (id: any) => {
   // router.push({ path: "/post", query: { id: id, ...state.params } });
   // 新开窗口
-  let rt = router.resolve({ path: "/post", query: { id: id, ...state.params } })
-  window.open(rt.href, '_blank')
+  const rt = router.resolve({
+    path: "/post",
+    query: { id: id, ...state.params },
+  });
+  window.open(rt.href, "_blank");
 };
 
 const handleSizeChange = async (val: any) => {
@@ -233,17 +294,17 @@ const submitTopic = async () => {
   }
 };
 const handleSelectionChange = (val: any) => {
-  state.multipleSelection = val.map((item:any) =>{
-    return item.uid
+  state.multipleSelection = val.map((item: any) => {
+    return item.uid;
   });
 };
-const batchdel  = async (ids: any) =>{
+const batchdel = async (ids: any) => {
   const res = await batchDelApi({ ids: ids });
   if (res) {
     ElMessage.success("删除成功");
     getList();
   }
-}
+};
 </script>
 
 <style scoped lang="scss">

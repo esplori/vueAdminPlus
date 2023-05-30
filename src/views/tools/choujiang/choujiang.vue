@@ -118,7 +118,7 @@ const startRoll = () => {
     if (state.times < state.cycle) {
       state.speed -= 10; // 加快转动速度
     } else if (state.times === state.cycle) {
-      const num = String(Math.random() * 10)
+      const num = String(Math.random() * 10);
       const index = parseInt(num, 0) || 0; // 随机获得一个中奖位置
       state.prize = index; // 中奖位置,可由后台返回
       if (state.prize > 7) {
@@ -126,7 +126,8 @@ const startRoll = () => {
       }
     } else if (
       state.times > state.cycle + 10 &&
-      ((state.prize === 0 && state.index === 7) || state.prize === state.index + 1)
+      ((state.prize === 0 && state.index === 7) ||
+        state.prize === state.index + 1)
     ) {
       state.speed += 110;
     } else {

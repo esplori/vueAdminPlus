@@ -16,13 +16,22 @@
       </el-table-column>
       <el-table-column label="操作" width="180">
         <template #default="scope">
-          <el-button link @click="edit(scope.row)" type="primary">编辑</el-button>
-          <el-button link @click="delConfirm(scope.row.id)" type="danger">删除</el-button>
+          <el-button link @click="edit(scope.row)" type="primary"
+            >编辑</el-button
+          >
+          <el-button link @click="delConfirm(scope.row.id)" type="danger"
+            >删除</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
 
-    <el-dialog :title="title" v-model="dialogVisible" width="30%" @close="handleClose">
+    <el-dialog
+      :title="title"
+      v-model="dialogVisible"
+      width="30%"
+      @close="handleClose"
+    >
       <div>
         <el-input v-model="row.name" placeholder="请输入名称"></el-input>
       </div>
@@ -47,10 +56,10 @@ import { ref, reactive, onMounted } from "vue";
 import { ElMessageBox, ElMessage } from "element-plus";
 import searchHeader from "../components/searchHeader.vue";
 
-let list = ref([]);
-let dialogVisible = ref(false);
-let title = ref("新增");
-let row = reactive({
+const list = ref([]);
+const dialogVisible = ref(false);
+const title = ref("新增");
+const row = reactive({
   id: "",
   name: "",
 });

@@ -24,7 +24,7 @@
 import { genereateQrcodeApi } from "../../API/tools";
 import { reactive } from "vue";
 
-let state = reactive({
+const state = reactive({
   form: {
     url: "https://www.dsiab.com",
     width: 300,
@@ -34,7 +34,7 @@ let state = reactive({
 });
 
 const genereateQrcode = async () => {
-  const res:any = await genereateQrcodeApi(state.form);
+  const res: any = await genereateQrcodeApi(state.form);
   if (res) {
     state.qrcodeUrl = res.data;
   }

@@ -3,15 +3,14 @@
     <div class="show-container" :class="{ shadow: showShadow }">
       <div class="left-pic">
         <div class="login-box">
-          <div class="logo"></div><span>技术分享</span>
+          <div class="logo"></div>
+          <span>技术分享</span>
         </div>
         <div class="slogan">『书写心得，分享感悟』</div>
         <div class="comment">
           <div>昨日之深渊，今日之浅谈。</div>
           <div>路虽远，行则将至。</div>
-          <div>
-            事虽难，做则可成。
-          </div>
+          <div>事虽难，做则可成。</div>
         </div>
       </div>
       <div class="login-container">
@@ -19,22 +18,44 @@
           <h2>注册</h2>
           <div>已有账号？<a href="/#/login" class="toRegTxt">去登录</a></div>
         </div>
-        <el-form size="default" :model="regform" :rules="rules" ref="formref" label-position="left">
+        <el-form
+          size="default"
+          :model="regform"
+          :rules="rules"
+          ref="formref"
+          label-position="left"
+        >
           <el-form-item prop="username">
-            <el-input @focus="shadow" @blur="hideShadow" v-model="regform.username" placeholder="请输入账号"></el-input>
+            <el-input
+              @focus="shadow"
+              @blur="hideShadow"
+              v-model="regform.username"
+              placeholder="请输入账号"
+            ></el-input>
           </el-form-item>
           <el-form-item prop="password">
-            <el-input @focus="shadow" @blur="hideShadow" v-model="regform.password" type="password"
-              placeholder="请输入密码"></el-input>
+            <el-input
+              @focus="shadow"
+              @blur="hideShadow"
+              v-model="regform.password"
+              type="password"
+              placeholder="请输入密码"
+            ></el-input>
           </el-form-item>
           <el-form-item prop="email">
-            <el-input @focus="shadow" @blur="hideShadow" v-model="regform.email" type="text"
-              placeholder="请输入正确邮箱,方便找回密码"></el-input>
+            <el-input
+              @focus="shadow"
+              @blur="hideShadow"
+              v-model="regform.email"
+              type="text"
+              placeholder="请输入正确邮箱,方便找回密码"
+            ></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button style="width: 100%" @click="valid" type="primary">立即注册</el-button>
+            <el-button style="width: 100%" @click="valid" type="primary"
+              >立即注册</el-button
+            >
           </el-form-item>
-
         </el-form>
       </div>
     </div>
@@ -49,12 +70,12 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-let form = reactive({
+const form = reactive({
   username: "",
   password: "",
 });
-let showShadow = ref(false);
-let regform = reactive({
+const showShadow = ref(false);
+const regform = reactive({
   username: "",
   password: "",
   email: "",
@@ -105,14 +126,14 @@ const register = async () => {
   if (res) {
     ElMessage.success("注册成功，即将跳转到登录页面");
     setTimeout(() => {
-      localStorage.clear()
+      localStorage.clear();
       router.push({ path: "/login" });
     }, 3000);
   }
 };
 const formref = ref();
 const valid = async () => {
-  let boolRes = await formref.value.validate();
+  const boolRes = await formref.value.validate();
   boolRes && register();
 };
 </script>
@@ -149,7 +170,7 @@ const valid = async () => {
       height: 334px;
       background: linear-gradient(0deg, #3a485a 0%, #607089 100%);
       // border-radius: 100% 0% 100% 0% / 0% 100% 0% 100%;
-      box-shadow: 0 0 2px rgba(255, 255, 255, .3);
+      box-shadow: 0 0 2px rgba(255, 255, 255, 0.3);
 
       .login-box {
         width: 100%;
@@ -166,13 +187,12 @@ const valid = async () => {
         }
       }
 
-
       .slogan {
         font-size: 1.2rem;
       }
 
       .comment {
-        font-size: .8rem;
+        font-size: 0.8rem;
       }
     }
 
@@ -185,8 +205,7 @@ const valid = async () => {
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
       border-radius: 100% 0% 100% 0% / 0% 100% 0% 100%;
       box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
-        10px 10px 20px rgba(0, 0, 0, 0.1),
-        1px 1px 1px rgba(0, 0, 0, 0.05),
+        10px 10px 20px rgba(0, 0, 0, 0.1), 1px 1px 1px rgba(0, 0, 0, 0.05),
         inset -10px -10px 15px rgba(255, 255, 255, 0.8);
       // animation: action 3s linear infinite alternate;
       // @keyframes action {

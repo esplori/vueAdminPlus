@@ -3,7 +3,7 @@ const contextPath = "/promote-service";
 
 export async function getTbkShopListApi(data: any) {
   const url = `${contextPath}/promote/getList`;
-  const options = {showLoading: true};
+  const options = { showLoading: true };
   return get(url, data, options);
 }
 export async function getTbkListApi(data: any) {

@@ -10,21 +10,21 @@
 import { reactive, onMounted, onBeforeUnmount } from "vue";
 const state = reactive({
   seconds: 5,
-  setIn: 0
-})
+  setIn: 0,
+});
 onMounted(() => {
   state.setIn = setInterval(() => {
     state.seconds = state.seconds - 1;
     if (state.seconds <= 0) {
-      state.seconds = 0
-      localStorage.clear()
+      state.seconds = 0;
+      localStorage.clear();
       location.href = "/#/login";
     }
   }, 1000);
-})
+});
 onBeforeUnmount(() => {
-  clearInterval(state.setIn)
-})
+  clearInterval(state.setIn);
+});
 </script>
 <style lang="scss" scoped>
 .not-found {

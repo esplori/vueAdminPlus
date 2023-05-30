@@ -10,8 +10,17 @@
           <el-input v-model.number="state.params.pageSize"></el-input>
         </el-form-item>
         <el-form-item label="分类:">
-          <el-select v-model="state.params.cate" placeholder="请选择" @change="optionChange">
-            <el-option v-for="(item, index) in state.options" :key="index" :label="item.name" :value="item.id">
+          <el-select
+            v-model="state.params.cate"
+            placeholder="请选择"
+            @change="optionChange"
+          >
+            <el-option
+              v-for="(item, index) in state.options"
+              :key="index"
+              :label="item.name"
+              :value="item.id"
+            >
             </el-option>
           </el-select>
         </el-form-item>
@@ -28,7 +37,7 @@
       </el-table-column>
       <el-table-column label="图片">
         <template #default="scope">
-          <img :src="scope.row.pict_url" alt=""  width="80" height="80" />
+          <img :src="scope.row.pict_url" alt="" width="80" height="80" />
         </template>
       </el-table-column>
     </el-table>
@@ -37,8 +46,8 @@
 
 <script lang="ts" setup>
 import { getCateApi, getTbkShopListApi } from "@/views/API/promotion.js";
-import { reactive, onMounted } from "vue"
-import { ElMessage } from "element-plus"
+import { reactive, onMounted } from "vue";
+import { ElMessage } from "element-plus";
 import searchHeader from "../components/searchHeader.vue";
 const state = reactive({
   list: [],
@@ -49,25 +58,25 @@ const state = reactive({
     cate: "",
   },
   options: [{ id: "", name: "" }],
-})
+});
 onMounted(() => {
   getCate();
-})
+});
 const optionChange = (val: any) => {
   const filterArr = state.options.filter((item: any) => {
     return item.id === val;
   });
   if (filterArr.length) {
-    let arr0 = filterArr[0] as any
+    const arr0 = filterArr[0] as any;
     state.params.keyWords = arr0.name;
   }
-}
+};
 const getCate = async () => {
   const res: any = await getCateApi({});
   if (res) {
     state.options = res.data;
   }
-}
+};
 
 const getList = async () => {
   if (!state.params.cate) {
@@ -78,7 +87,7 @@ const getList = async () => {
   if (res) {
     state.list = res.data.result;
   }
-}
+};
 </script>
 
 <style scoped lang="scss">

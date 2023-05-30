@@ -4,13 +4,13 @@ import contextPath from "@/utils/context-path.js";
 // 文章分页列表
 export async function getListByCateApi(data: any) {
   const url = `${contextPath}/admin/getList`;
-  const options = {showLoading: true};
+  const options = { showLoading: true };
   return post(url, data, options);
 }
 // 文章详情
 export async function getDetailByIdApi(data: any) {
   const Url = `${contextPath}/admin/getDetail`;
-  const options = {showLoading: true};
+  const options = { showLoading: true };
   return get(Url, data, options);
 }
 // 新增文章
