@@ -1,5 +1,7 @@
 <template>
   <div class="home">
+    <!-- 每日一句 -->
+    <el-alert :title="dailySentence" type="info" class="dailySentence" />
     <div class="card-item">
       <el-row :gutter="10" style="width: 100%">
         <el-col :span="8">
@@ -21,20 +23,11 @@
               {{ state.dayViews }}
             </div>
             <div class="item-compare">
-              <span
-                >较昨日
-                <el-icon
-                  v-show="state.dayViewsMom > 0"
-                  :size="16"
-                  color="#F56C6C"
-                >
+              <span>较昨日
+                <el-icon v-show="state.dayViewsMom > 0" :size="16" color="#F56C6C">
                   <CaretTop></CaretTop>
                 </el-icon>
-                <el-icon
-                  v-show="state.dayViewsMom < 0"
-                  :size="16"
-                  color="#F56C6C"
-                >
+                <el-icon v-show="state.dayViewsMom < 0" :size="16" color="#F56C6C">
                   <CaretBottom></CaretBottom>
                 </el-icon>
               </span>
@@ -49,8 +42,7 @@
               {{ state.dayIp }}
             </div>
             <div class="item-compare">
-              <span
-                >较昨日
+              <span>较昨日
 
                 <el-icon v-show="state.dayIpMom > 0" :size="16" color="#F56C6C">
                   <CaretTop></CaretTop>
@@ -72,21 +64,12 @@
               {{ state.pages }}
             </div>
             <div class="item-compare">
-              <span
-                >较昨日
+              <span>较昨日
 
-                <el-icon
-                  v-show="state.allpagesMom > 0"
-                  :size="16"
-                  color="#F56C6C"
-                >
+                <el-icon v-show="state.allpagesMom > 0" :size="16" color="#F56C6C">
                   <CaretTop></CaretTop>
                 </el-icon>
-                <el-icon
-                  v-show="state.allpagesMom < 0"
-                  :size="16"
-                  color="#91cc74"
-                >
+                <el-icon v-show="state.allpagesMom < 0" :size="16" color="#91cc74">
                   <CaretBottom></CaretBottom>
                 </el-icon>
               </span>
@@ -101,20 +84,11 @@
               {{ state.referrerTableData }}
             </div>
             <div class="item-compare">
-              <span
-                >较昨日
-                <el-icon
-                  v-show="state.dayViewsMom > 0"
-                  :size="16"
-                  color="#F56C6C"
-                >
+              <span>较昨日
+                <el-icon v-show="state.dayViewsMom > 0" :size="16" color="#F56C6C">
                   <!-- <CaretTop></CaretTop> -->
                 </el-icon>
-                <el-icon
-                  v-show="state.dayViewsMom < 0"
-                  :size="16"
-                  color="#F56C6C"
-                >
+                <el-icon v-show="state.dayViewsMom < 0" :size="16" color="#F56C6C">
                   <!-- <CaretBottom></CaretBottom> -->
                 </el-icon>
               </span>
@@ -129,8 +103,7 @@
               {{ state.postViewTableData }}
             </div>
             <div class="item-compare">
-              <span
-                >较昨日
+              <span>较昨日
 
                 <el-icon v-show="state.dayIpMom > 0" :size="16" color="#F56C6C">
                   <!-- <CaretTop></CaretTop> -->
@@ -151,11 +124,7 @@
       <div class="date-picker-change">
         <h3></h3>
         <div>
-          <el-radio-group
-            v-model="state.tabPosition"
-            style="margin-bottom: 30px"
-            @change="tabChange"
-          >
+          <el-radio-group v-model="state.tabPosition" style="margin-bottom: 30px" @change="tabChange">
             <el-radio-button label="toDay">今天</el-radio-button>
             <el-radio-button label="yesterday">最近两天</el-radio-button>
             <el-radio-button label="7day">最近7天</el-radio-button>
@@ -175,10 +144,7 @@
         <el-row>
           <el-col :span="24">
             <div>
-              <div
-                id="browserType"
-                style="max-width: 100%; height: 300px"
-              ></div>
+              <div id="browserType" style="max-width: 100%; height: 300px"></div>
             </div>
           </el-col>
         </el-row>
