@@ -133,12 +133,6 @@ export async function delCommentApi(data: any) {
   const options = { showLoading: true };
   return post(url, data, options);
 }
-// 生成关键字
-export async function generateKeywordsApi(data: any) {
-  const url = `${contextPath}/admin/generateKeywords`;
-  const options = { showLoading: true };
-  return post(url, data, options);
-}
 // 清除redis缓存
 export async function clearCacheApi(data: any) {
   const url = `${contextPath}/admin/clearCache`;
