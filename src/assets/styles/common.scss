@@ -62,8 +62,17 @@ pre {
     margin-top: 10px !important;
 }
 
-.pagination-box{
+.pagination-box {
     display: flex;
     justify-content: flex-end;
     margin-top: 20px
+}
+
+.select-by-cate {
+    display: flex;
+    justify-content: space-between;
+
+    .pdding {
+        margin-right: 20px;
+    }
 }

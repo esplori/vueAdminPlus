@@ -1,7 +1,17 @@
 <template>
   <div class="page-list">
     <searchHeader :title="'导航管理'">
-      <el-button type="primary" @click="insert">新增导航</el-button>
+      <div class="select-by-cate">
+        <div class="pdding">
+          <span>分类：</span>
+          <el-select v-model="state.params.cate" @change="typeChange" clearable>
+            <el-option v-for="(item, index) in state.cateList" :key="index" :label="item.name" :value="item.id">
+            </el-option>
+          </el-select>
+        </div>
+        <el-button type="primary" @click="insert">新增导航</el-button>
+      </div>
+
     </searchHeader>
     <el-table :data="state.list" style="width: 100%">
       <!-- <el-table-column type="index" width="55" label="序号"> </el-table-column> -->
@@ -18,33 +28,22 @@
       </el-table-column>
       <el-table-column label="操作" width="180">
         <template #default="scope">
-          <el-button link @click="edit(scope.row)" type="primary"
-            >编辑</el-button
-          >
-          <el-button link @click="delConfirm(scope.row.id)" type="danger"
-            >删除</el-button
-          >
+          <el-button link @click="edit(scope.row)" type="primary">编辑</el-button>
+          <el-button link @click="delConfirm(scope.row.id)" type="danger">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
     <div class="pagination-box">
-      <el-pagination
-        background
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="state.params.page"
-        :page-sizes="[10, 20, 30, 50]"
-        :page-size="state.params.pageSize"
-        layout="total, prev, pager, next"
-        :total="state.total"
-      >
+      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
+        :current-page="state.params.page" :page-sizes="[10, 20, 30, 50]" :page-size="state.params.pageSize"
+        layout="total, prev, pager, next" :total="state.total">
       </el-pagination>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { delApi, getListApi } from "@/views/API/navigation.js";
+import { delApi, getListApi, getNavCateApi } from "@/views/API/navigation.js";
 import { reactive, onMounted } from "vue";
 import { ElMessageBox, ElMessage } from "element-plus";
 import { useRouter } from "vue-router";
@@ -53,13 +52,16 @@ const router = useRouter();
 const state = reactive({
   list: [],
   params: {
+    cate: "",
     page: 1,
     pageSize: 10,
   },
+  cateList: [],
   total: 0,
 });
 onMounted(() => {
   getList();
+  getCateList()
 });
 
 const insert = () => {
@@ -104,6 +106,17 @@ const handleCurrentChange = async (val: any) => {
   state.params.page = val;
   getList();
 };
+
+const getCateList = async () => {
+  const res: any = await getNavCateApi({});
+  if (res) {
+    state.cateList = res.data;
+  }
+}
+
+const typeChange = async (val: string) => {
+  getList()
+}
 </script>
 
 <style scoped lang="scss">
