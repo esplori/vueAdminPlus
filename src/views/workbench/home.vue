@@ -406,11 +406,13 @@ const initDayViews = () => {
           return item.dayIp;
         }),
         smooth: true,
+        showSymbol: false
       },
       {
         name: "今日浏览量(PV)",
         type: "line",
         stack: "Total",
+        showSymbol: false,
         areaStyle: {
           // color: "#9fd3e8"
         },
