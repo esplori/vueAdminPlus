@@ -16,22 +16,18 @@
       </el-table-column>
       <el-table-column label="操作" width="180">
         <template #default="scope">
-          <el-button link @click="edit(scope.row)" type="primary"
-            >编辑</el-button
-          >
-          <el-button link @click="delConfirm(scope.row.id)" type="danger"
-            >删除</el-button
-          >
+          <el-button link @click="edit(scope.row)" type="primary">编辑</el-button>
+          <el-button link @click="delConfirm(scope.row.id)" type="danger">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-
-    <el-dialog
-      :title="title"
-      v-model="dialogVisible"
-      width="30%"
-      @close="handleClose"
-    >
+    <div class="pagination-box">
+      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
+        :current-page="state.params.pageNum" :page-sizes="[10, 20, 30, 50]" :page-size="state.params.pageSize"
+        layout="total, prev, pager, next" :total="state.total">
+      </el-pagination>
+    </div>
+    <el-dialog :title="title" v-model="dialogVisible" width="30%" @close="handleClose">
       <div>
         <el-input v-model="row.name" placeholder="请输入名称"></el-input>
       </div>
@@ -63,6 +59,13 @@ const row = reactive({
   id: "",
   name: "",
 });
+let state = reactive({
+  params: {
+    pageNum: 1,
+    pageSize: 10
+  },
+  total: 0
+})
 onMounted(() => {
   getList();
 });
@@ -72,9 +75,13 @@ const insertCate = () => {
 };
 
 const getList = async () => {
-  const res: any = await getNavCateApi({});
+  const res: any = await getNavCateApi({
+    pageNum: state.params.pageNum,
+    pageSize: state.params.pageSize
+  });
   if (res) {
-    list.value = res.data;
+    list.value = res.data.result;
+    state.total = res.data.total
   }
 };
 
@@ -127,6 +134,15 @@ const handleClose = async (row: any) => {
     id: "",
     name: "",
   };
+};
+const handleCurrentChange = async (val: any) => {
+  state.params.pageNum = val;
+  getList();
+};
+
+const handleSizeChange = async (val: any) => {
+  state.params.pageSize = val;
+  getList();
 };
 </script>
 
