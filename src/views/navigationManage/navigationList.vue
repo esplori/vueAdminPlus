@@ -108,9 +108,12 @@ const handleCurrentChange = async (val: any) => {
 };
 
 const getCateList = async () => {
-  const res: any = await getNavCateApi({});
+  const res: any = await getNavCateApi({
+    pageNum: 1,
+    pageSize: 50
+  });
   if (res) {
-    state.cateList = res.data;
+    state.cateList = res.data.result;
   }
 }
 
