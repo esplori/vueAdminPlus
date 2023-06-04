@@ -11,20 +11,11 @@
         <el-input v-model="state.form.url" :rows="10"></el-input>
       </el-form-item>
       <el-form-item label="描述：">
-        <el-input
-          type="textarea"
-          v-model="state.form.content"
-          :rows="5"
-        ></el-input>
+        <el-input type="textarea" v-model="state.form.content" :rows="5"></el-input>
       </el-form-item>
       <el-form-item label="分类：">
         <el-select v-model="state.form.cate">
-          <el-option
-            v-for="(item, index) in state.cateList"
-            :key="index"
-            :label="item.name"
-            :value="item.id"
-          ></el-option>
+          <el-option v-for="(item, index) in state.cateList" :key="index" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -71,9 +62,12 @@ onMounted(() => {
   getNavCateList();
 });
 const getNavCateList = async () => {
-  const res: any = await getNavCateApi({});
+  const res: any = await getNavCateApi({
+    pageNum: 1,
+    pageSize: 50
+  });
   if (res) {
-    state.cateList = res.data.map((item: any) => {
+    state.cateList = res.data.result.map((item: any) => {
       item.id = String(item.id);
       return item;
     });

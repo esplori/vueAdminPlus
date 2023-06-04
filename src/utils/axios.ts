@@ -126,7 +126,7 @@ function handleAuthenticated(res: any) {
     case 403:
       setTimeout(() => {
         location.href = "/#/login";
-      }, 1500);
+      }, 200);
       ErrorMsg = "用户信息已失效，请重新登录";
       localStorage.clear();
       break;
@@ -138,7 +138,7 @@ function handleAuthenticated(res: any) {
   }
   const existMsgError = document.querySelector(".el-message--error");
   if (!existMsgError) {
-    // 如果家前已经有显示错误同时重复显示
+    // 如果之前不存在错误提示才显示，存在则不显示，避免同时出现多个提示
     ElMessage.error(ErrorMsg);
   }
 }
