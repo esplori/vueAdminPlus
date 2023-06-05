@@ -54,7 +54,7 @@
     </div>
 
     <el-dialog title="添加到专题" v-model="state.dialogVisible" width="30%">
-      <div>
+      <div class="add-topic">
         <el-select v-model="state.form.topicId">
           <el-option v-for="(item, index) in state.topicList" :key="index" :label="item.name" :value="item.id">
           </el-option>
@@ -241,6 +241,10 @@ const handleSelectionChange = (val: any) => {
   });
 };
 const batchdel = async (ids: any) => {
+  if (!ids.length) {
+    ElMessage.warning("请至少勾选一条数据")
+    return false
+  }
   const res = await batchDelApi({ ids: ids });
   if (res) {
     ElMessage.success("删除成功");
@@ -266,6 +270,10 @@ const batchdel = async (ids: any) => {
       cursor: pointer;
       padding-right: 10px;
     }
+  }
+
+  .add-topic {
+    text-align: center;
   }
 }
 </style>

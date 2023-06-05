@@ -1,15 +1,9 @@
 <template>
   <div class="comments-list">
     <searchHeader :title="'评论管理'">
-      <el-button type="danger" @click="delConfirm(state.multipleSelection)"
-        >批量删除</el-button
-      >
+      <el-button type="danger" @click="delConfirm(state.multipleSelection)">批量删除</el-button>
     </searchHeader>
-    <el-table
-      :data="state.list"
-      style="width: 100%"
-      @selection-change="handleSelectionChange"
-    >
+    <el-table :data="state.list" style="width: 100%" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"> </el-table-column>
       <el-table-column label="用户">
         <template #default="scope">
@@ -18,11 +12,7 @@
       </el-table-column>
       <el-table-column label="文章">
         <template #default="scope">
-          <a
-            :href="'http://www.dsiab.com/post/' + scope.row.postId"
-            target="_blank"
-            >{{ scope.row.postId }}</a
-          >
+          <a :href="'http://www.dsiab.com/post/' + scope.row.postId" target="_blank">{{ scope.row.postId }}</a>
         </template>
       </el-table-column>
       <el-table-column label="内容" show-overflow-tooltip>
@@ -47,27 +37,15 @@
       </el-table-column>
       <el-table-column label="操作" width="180">
         <template #default="scope">
-          <el-button link @click="delConfirm([scope.row.id])" type="text"
-            >删除</el-button
-          >
-          <el-button link @click="approveComment(scope.row.id)" type="text"
-            >通过</el-button
-          >
+          <el-button link @click="delConfirm([scope.row.id])" type="text">删除</el-button>
+          <el-button link @click="approveComment(scope.row.id)" type="text">通过</el-button>
         </template>
       </el-table-column>
     </el-table>
     <div class="pagination-box">
-      <el-pagination
-        background
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="state.params.pageNum"
-        :page-size="state.params.pageSize"
-        :page-sizes="[10, 20, 30, 50]"
-        :pager-count="5"
-        layout="total, prev, pager, next"
-        :total="state.total"
-      >
+      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
+        :current-page="state.params.pageNum" :page-size="state.params.pageSize" :page-sizes="[10, 20, 30, 50]"
+        :pager-count="5" layout="total, prev, pager, next" :total="state.total">
       </el-pagination>
     </div>
   </div>
@@ -101,13 +79,17 @@ const getList = async () => {
     state.total = res.data.total;
   }
 };
-const delConfirm = async (id: any) => {
+const delConfirm = async (ids: any) => {
+  if (!ids.length) {
+    ElMessage.warning("请至少勾选一条数据")
+    return false
+  }
   ElMessageBox.confirm("此操作将删除该条数据, 是否继续?", "提示", {
     confirmButtonText: "确定",
     cancelButtonText: "取消",
     type: "warning",
   }).then(() => {
-    del(id);
+    del(ids);
   });
 };
 
