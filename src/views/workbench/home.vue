@@ -171,9 +171,8 @@
 <script lang="ts" setup>
 import { getWebStatisticsApi } from "@/views/API/stats.js";
 import { CountUp } from "countup.js";
-
-// 引入 echarts 核心模块，核心模块提供了 echarts 使用必须要的接口。
 import * as echarts from "echarts";
+// 单独引入中国地图
 import "echarts-countries-js/echarts-countries-js/china";
 
 import { reactive, computed, onMounted, nextTick } from "vue";
@@ -266,10 +265,12 @@ const initDeviceType = () => {
   myChart.setOption({
     title: {
       text: "设备型号",
+      left: 20,
+      top: 10
     },
     tooltip: {
       trigger: "item",
-      formatter: "{a} <br/>{b} : {d}%",
+      formatter: " {a} <br/>{b} : {c}({d}%)",
     },
     series: [
       {
@@ -293,10 +294,12 @@ const initBrowserType = () => {
   myChart.setOption({
     title: {
       text: "浏览器型号",
+      left: 20,
+      top: 10
     },
     tooltip: {
       trigger: "item",
-      formatter: "{a} <br/>{b} : {d}%",
+      formatter: " {a} <br/>{b} : {c}({d}%)",
     },
     series: [
       {
@@ -319,10 +322,12 @@ const initDeiveRatio = () => {
   myChart.setOption({
     title: {
       text: "设备分辨率",
+      left: 20,
+      top: 10
     },
     tooltip: {
       trigger: "item",
-      formatter: "{a} <br/>{b} : {d}%",
+      formatter: " {a} <br/>{b} : {c}({d}%)",
     },
     series: [
       {
@@ -345,6 +350,8 @@ const initDayViews = () => {
   myChart.setOption({
     title: {
       text: "最近30天访问量",
+      left: 20,
+      top: 10
     },
     tooltip: {
       trigger: "axis",
@@ -361,7 +368,9 @@ const initDayViews = () => {
         },
       },
     },
-    legend: {},
+    legend: {
+      top: 10
+    },
     xAxis: {
       data: state.everyDayViews.map((item: any) => {
         return item.createDate;
@@ -592,13 +601,24 @@ const tabChange = (type: string) => {
   }
 
   .dayViews {
-    padding: 20px;
+    padding: 20px 0 0 0;
   }
 
   .table-title {
     width: 100%;
     border-bottom: 1px solid #f5f5f5;
     padding: 5px 0;
+  }
+
+  #deviceType,
+  #browserType,
+  #deiveRatio,
+  #dayViews,
+  #chindMap {
+    box-sizing: border-box;
+    margin-top: 20px;
+    border-radius: 4px;
+    border: 1px solid rgb(228, 231, 237);
   }
 }
 </style>
