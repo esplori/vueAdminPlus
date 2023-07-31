@@ -10,20 +10,15 @@
       </el-button>
     </div>
     <div>
-      <ul
-        style="
+      <ul style="
           list-style: none;
           margin: 0;
           padding: 0;
           display: flex;
           flex-flow: row wrap;
-        "
-      >
-        <li
-          v-for="(v, i) in state.students"
-          :key="i"
-          :class="{ active: state.selectedStudentIndexs.includes(i as never) }"
-        >
+        ">
+        <li v-for="(v, i) in state.students" :key="i"
+          :class="{ active: state.selectedStudentIndexs.includes(i as never) }">
           {{ v }}
         </li>
       </ul>
@@ -131,33 +126,33 @@ const onBtnClick = () => {
       state.selectedStudentIndexs = state.studentIndexs
         .sort(() => 0.5 - Math.random())
         .slice(0, state.size);
-    }, 100) as any;
+    }, 300) as any;
   }
 };
 </script>
 
 <style scoped lang="scss">
 .dianming {
-  background: #000;
+  background: #fff;
   padding: 20px;
   display: flex;
   flex-flow: column;
   align-items: center;
-  color: #fff;
+  color: #333;
   height: 700px;
 
   li {
     margin: 10px;
     padding: 10px;
-    border: 1px solid white;
-    border-radius: 10px;
+    border: 1px solid gray;
+    border-radius: 5px;
   }
 
   .active {
-    background-color: white;
-    color: black;
+    background-color: #333;
+    color: #fff;
     /* 2D转换的属性名 */
-    transform: scale(1.3);
+    transform: scale(1.2);
     /* 过渡效果的属性名 */
     transition: transform 0.3s;
     /* 位移，属于transform的属性值 */
