@@ -39,7 +39,6 @@ export default defineConfig({
           "vue-router": ["vue-router"],
           vue: ["vue"],
           echarts: ["echarts"],
-          countupjs: ["countup.js"],
           wangeditor: ["@wangeditor/editor"],
           "@wangeditor-editorforvue": ["@wangeditor/editor-for-vue"],
           axios: ["axios"],
