@@ -56,7 +56,7 @@ const state = reactive({
     page: 1,
     pageSize: 10,
   },
-  cateList: [],
+  cateList: [{ name: "", id: "" }],
   total: 0,
 });
 onMounted(() => {

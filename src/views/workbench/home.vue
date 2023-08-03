@@ -268,9 +268,8 @@ onMounted(() => {
     initCharts();
   });
 });
-
-const initDeviceType = () => {
-  const dom = document.getElementById("deviceType");
+const initChart = (dom_id: string, data: Array<{ name: string, value: number }>) => {
+  const dom = document.getElementById(dom_id);
   if (!dom) {
     return false;
   }
@@ -290,7 +289,7 @@ const initDeviceType = () => {
       {
         name: "设备型号",
         type: "pie",
-        data: state.deviceTypeY,
+        data: data,
         radius: ["40%", "60%"],
       },
     ],
@@ -298,62 +297,6 @@ const initDeviceType = () => {
   myChart.resize();
 };
 
-const initBrowserType = () => {
-  const dom = document.getElementById("browserType");
-  if (!dom) {
-    return false;
-  }
-  dom.removeAttribute("_echarts_instance_");
-  const myChart = echarts.init(dom);
-  myChart.setOption({
-    title: {
-      text: "浏览器型号",
-      left: 20,
-      top: 10
-    },
-    tooltip: {
-      trigger: "item",
-      formatter: " {a} <br/>{b} : {c}({d}%)",
-    },
-    series: [
-      {
-        name: "浏览器型号",
-        type: "pie",
-        data: state.browserTypeY,
-        radius: ["40%", "60%"],
-      },
-    ],
-  });
-  myChart.resize();
-};
-const initDeiveRatio = () => {
-  const dom = document.getElementById("deiveRatio");
-  if (!dom) {
-    return false;
-  }
-  dom.removeAttribute("_echarts_instance_");
-  const myChart = echarts.init(dom);
-  myChart.setOption({
-    title: {
-      text: "设备分辨率",
-      left: 20,
-      top: 10
-    },
-    tooltip: {
-      trigger: "item",
-      formatter: " {a} <br/>{b} : {c}({d}%)",
-    },
-    series: [
-      {
-        name: "设备分辨率",
-        type: "pie",
-        data: state.deviceRatioY,
-        radius: ["40%", "60%"],
-      },
-    ],
-  });
-  myChart.resize();
-};
 const initDayViews = () => {
   const dom = document.getElementById("dayViews");
   if (!dom) {
@@ -369,12 +312,6 @@ const initDayViews = () => {
     },
     tooltip: {
       trigger: "axis",
-      // show: true,
-      // backgroundColor: "rgba(0,0,0,0.75)",
-      // borderColor: "rgba(0,0,0,0.75)",
-      // textStyle: {
-      //   color: "#ffffff",
-      // },
       axisPointer: {
         type: "shadow",
         shadowStyle: {
@@ -560,11 +497,11 @@ const getWebStatistics = async (type: string) => {
 };
 const initCharts = () => {
   nextTick(() => {
-    initDeviceType();
-    initBrowserType();
-    initDeiveRatio();
     initDayViews();
     initChindMap();
+    initChart("deviceType", state.deviceTypeY)
+    initChart("browserType", state.browserTypeY)
+    initChart("deiveRatio", state.deviceRatioY)
   });
 };
 const tabChange = (type: string) => {
@@ -594,10 +531,6 @@ const tabChange = (type: string) => {
     .el-col {
       text-align: center;
     }
-
-
-
-
 
 
     .type-data {
