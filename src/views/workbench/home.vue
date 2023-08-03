@@ -3,120 +3,161 @@
     <!-- 每日一句 -->
     <el-alert :title="dailySentence" type="info" class="dailySentence" />
     <div class="card-item">
-      <el-row :gutter="10" style="width: 100%">
-        <el-col :span="8">
-          <el-card shadow="hover">
-            <div class="item-title">总访问量</div>
-            <div class="item-amount" ref="countupviews" id="countupviews">
-              {{ state.views }}
+      <div class="statistic-card-list">
+        <el-row>
+          <el-col :span="4">
+            <div class="statistic-card">
+              <el-statistic :value="state.views">
+                <template #title>
+                  <div style="display: inline-flex; align-items: center">
+                    总访问量
+                  </div>
+                </template>
+              </el-statistic>
+              <div class="statistic-footer">
+                <div class="footer-item">
+                  <span>今日新增</span>
+                  <span class="red">
+                    {{ Math.abs(state.allViewsMom) }}
+                    <el-icon>
+                      <CaretTop />
+                    </el-icon>
+                  </span>
+                </div>
+              </div>
             </div>
-            <div class="item-compare">
-              <span>今日新增 </span>
-              <span class="num"> {{ Math.abs(state.allViewsMom) }} </span>
+          </el-col>
+          <el-col :span="4">
+            <div class="statistic-card">
+              <el-statistic :value="state.dayViews">
+                <template #title>
+                  <div style="display: inline-flex; align-items: center">
+                    今日浏览量(PV)
+                  </div>
+                </template>
+              </el-statistic>
+              <div class="statistic-footer">
+                <div class="footer-item">
+                  <span>今日新增</span>
+                  <span class="red" v-if="state.dayViewsMom >= 0">
+                    {{ Math.abs(state.dayViewsMom) }}
+                    <el-icon>
+                      <CaretTop />
+                    </el-icon>
+                  </span>
+                  <span class="green" v-else>
+                    {{ Math.abs(state.dayViewsMom) }}
+                    <el-icon>
+                      <CaretBottom />
+                    </el-icon>
+                  </span>
+                </div>
+              </div>
             </div>
-          </el-card>
-        </el-col>
-        <el-col :span="8">
-          <el-card shadow="hover">
-            <div class="item-title">今日浏览量(PV)</div>
-            <div class="item-amount" ref="countupdayViews" id="countupdayViews">
-              {{ state.dayViews }}
+          </el-col>
+          <el-col :span="4">
+            <div class="statistic-card">
+              <el-statistic :value="state.dayIp">
+                <template #title>
+                  <div style="display: inline-flex; align-items: center">
+                    今日访问IP数(UV)
+                  </div>
+                </template>
+              </el-statistic>
+              <div class="statistic-footer">
+                <div class="footer-item">
+                  <span>今日新增</span>
+                  <span class="red" v-if="state.dayIpMom >= 0">
+                    {{ Math.abs(state.dayIpMom) }}
+                    <el-icon>
+                      <CaretTop />
+                    </el-icon>
+                  </span>
+                  <span class="green" v-else>
+                    {{ Math.abs(state.dayIpMom) }}
+                    <el-icon>
+                      <CaretBottom />
+                    </el-icon>
+                  </span>
+                </div>
+              </div>
             </div>
-            <div class="item-compare">
-              <span>较昨日
-                <el-icon v-show="state.dayViewsMom > 0" :size="16" color="#F56C6C">
-                  <CaretTop></CaretTop>
-                </el-icon>
-                <el-icon v-show="state.dayViewsMom < 0" :size="16" color="#F56C6C">
-                  <CaretBottom></CaretBottom>
-                </el-icon>
-              </span>
-              <span class="num"> {{ Math.abs(state.dayViewsMom) }} </span>
+          </el-col>
+          <el-col :span="4">
+            <div class="statistic-card">
+              <el-statistic :value="state.pages">
+                <template #title>
+                  <div style="display: inline-flex; align-items: center">
+                    文章总数
+                  </div>
+                </template>
+              </el-statistic>
+              <div class="statistic-footer">
+                <div class="footer-item">
+                  <span>今日新增</span>
+                  <span class="red" v-if="state.allpagesMom >= 0">
+                    {{ Math.abs(state.allpagesMom) }}
+                    <el-icon>
+                      <CaretTop />
+                    </el-icon>
+                  </span>
+                  <span class="green" v-else>
+                    {{ Math.abs(state.allpagesMom) }}
+                    <el-icon>
+                      <CaretBottom />
+                    </el-icon>
+                  </span>
+                </div>
+              </div>
             </div>
-          </el-card>
-        </el-col>
-        <el-col :span="8">
-          <el-card shadow="hover">
-            <div class="item-title">今日访问IP数(UV)</div>
-            <div class="item-amount" ref="countupdayIp" id="countupdayIp">
-              {{ state.dayIp }}
+          </el-col>
+          <el-col :span="4">
+            <div class="statistic-card">
+              <el-statistic :value="state.referrerTableData">
+                <template #title>
+                  <div style="display: inline-flex; align-items: center">
+                    今天访问来源
+                  </div>
+                </template>
+              </el-statistic>
+              <div class="statistic-footer">
+                <div class="footer-item">
+                  <span>今日新增</span>
+                  <span class="red">
+                    {{ Math.abs(0) }}
+                    <el-icon>
+                      <CaretTop />
+                    </el-icon>
+                  </span>
+                </div>
+              </div>
             </div>
-            <div class="item-compare">
-              <span>较昨日
+          </el-col>
+          <el-col :span="4">
+            <div class="statistic-card">
+              <el-statistic :value="state.postViewTableData">
+                <template #title>
+                  <div style="display: inline-flex; align-items: center">
+                    今天访问地址
+                  </div>
+                </template>
+              </el-statistic>
+              <div class="statistic-footer">
+                <div class="footer-item">
+                  <span>今日新增</span>
+                  <span class="red">
+                    {{ Math.abs(0) }}
+                    <el-icon>
+                      <CaretTop />
+                    </el-icon>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </el-col>
+        </el-row>
+      </div>
 
-                <el-icon v-show="state.dayIpMom > 0" :size="16" color="#F56C6C">
-                  <CaretTop></CaretTop>
-                </el-icon>
-                <el-icon v-show="state.dayIpMom < 0" :size="16" color="#F56C6C">
-                  <CaretBottom></CaretBottom>
-                </el-icon>
-              </span>
-              <span class="num"> {{ Math.abs(state.dayIpMom) }} </span>
-            </div>
-          </el-card>
-        </el-col>
-      </el-row>
-      <el-row :gutter="10" style="width: 100%; margin-top: 10px">
-        <el-col :span="8">
-          <el-card shadow="hover">
-            <div class="item-title">文章总数</div>
-            <div class="item-amount" ref="countuppages" id="countuppages">
-              {{ state.pages }}
-            </div>
-            <div class="item-compare">
-              <span>较昨日
-
-                <el-icon v-show="state.allpagesMom > 0" :size="16" color="#F56C6C">
-                  <CaretTop></CaretTop>
-                </el-icon>
-                <el-icon v-show="state.allpagesMom < 0" :size="16" color="#91cc74">
-                  <CaretBottom></CaretBottom>
-                </el-icon>
-              </span>
-              <span class="num"> {{ Math.abs(state.allpagesMom) }} </span>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :span="8">
-          <el-card shadow="hover">
-            <div class="item-title">今天访问来源</div>
-            <div class="item-amount" ref="countupdayViews" id="countupdayViews">
-              {{ state.referrerTableData }}
-            </div>
-            <div class="item-compare">
-              <span>较昨日
-                <el-icon v-show="state.dayViewsMom > 0" :size="16" color="#F56C6C">
-                  <!-- <CaretTop></CaretTop> -->
-                </el-icon>
-                <el-icon v-show="state.dayViewsMom < 0" :size="16" color="#F56C6C">
-                  <!-- <CaretBottom></CaretBottom> -->
-                </el-icon>
-              </span>
-              <span class="num"> {{ Math.abs(0) }} </span>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :span="8">
-          <el-card shadow="hover">
-            <div class="item-title">今天访问地址</div>
-            <div class="item-amount" ref="countupdayIp" id="countupdayIp">
-              {{ state.postViewTableData }}
-            </div>
-            <div class="item-compare">
-              <span>较昨日
-
-                <el-icon v-show="state.dayIpMom > 0" :size="16" color="#F56C6C">
-                  <!-- <CaretTop></CaretTop> -->
-                </el-icon>
-                <el-icon v-show="state.dayIpMom < 0" :size="16" color="#F56C6C">
-                  <!-- <CaretBottom></CaretBottom> -->
-                </el-icon>
-              </span>
-              <span class="num"> {{ Math.abs(0) }} </span>
-            </div>
-          </el-card>
-        </el-col>
-      </el-row>
 
       <div class="dayViews">
         <div id="dayViews" style="width: 100%; height: 300px"></div>
@@ -170,7 +211,6 @@
 
 <script lang="ts" setup>
 import { getWebStatisticsApi } from "@/views/API/stats.js";
-import { CountUp } from "countup.js";
 import * as echarts from "echarts";
 // 单独引入中国地图
 import "echarts-countries-js/echarts-countries-js/china";
@@ -228,32 +268,6 @@ onMounted(() => {
     initCharts();
   });
 });
-const initCountUp = () => {
-  const cp = new CountUp("countupviews", state.views, state.options);
-  if (!cp.error) {
-    cp.start();
-  } else {
-    console.error(cp.error);
-  }
-  const cp2 = new CountUp("countuppages", state.pages, state.options);
-  if (!cp2.error) {
-    cp2.start();
-  } else {
-    console.error(cp2.error);
-  }
-  const cp3 = new CountUp("countupdayViews", state.dayViews, state.options);
-  if (!cp3.error) {
-    cp3.start();
-  } else {
-    console.error(cp3.error);
-  }
-  const cp4 = new CountUp("countupdayIp", state.dayIp, state.options);
-  if (!cp4.error) {
-    cp4.start();
-  } else {
-    console.error(cp4.error);
-  }
-};
 
 const initDeviceType = () => {
   const dom = document.getElementById("deviceType");
@@ -539,7 +553,6 @@ const getWebStatistics = async (type: string) => {
     });
     state.everyDayViews = res.data.everyDayViews;
     initCharts();
-    initCountUp();
     state.referrerTableData = res.data.referrer;
     state.postViewTableData = res.data.postView;
     state.totalWordsNum = res.data.totalWordsNum || 0;
@@ -573,27 +586,19 @@ const tabChange = (type: string) => {
   }
 
   .card-item {
-    .item-title {
-      text-align: center;
-      font-size: 16px;
-      padding: 5px;
+    .statistic-card-list {
+      border: 1px solid #ddd;
+      border-radius: 4px;
     }
 
-    .item-amount {
+    .el-col {
       text-align: center;
-      font-size: 24px;
-      font-weight: bold;
-      padding: 5px;
     }
 
-    .item-compare {
-      text-align: center;
-      font-size: 14px;
 
-      .num {
-        color: #f85149;
-      }
-    }
+
+
+
 
     .type-data {
       padding: 20px 0;
@@ -604,11 +609,6 @@ const tabChange = (type: string) => {
     padding: 20px 0 0 0;
   }
 
-  .table-title {
-    width: 100%;
-    border-bottom: 1px solid #f5f5f5;
-    padding: 5px 0;
-  }
 
   #deviceType,
   #browserType,
@@ -619,6 +619,41 @@ const tabChange = (type: string) => {
     margin-top: 20px;
     border-radius: 4px;
     border: 1px solid rgb(228, 231, 237);
+  }
+
+  .statistic-card {
+    height: 100%;
+    padding: 20px;
+    border-radius: 4px;
+  }
+
+  .statistic-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 12px;
+    margin-top: 12px;
+  }
+
+  .statistic-footer .footer-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .statistic-footer .footer-item span:last-child {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 4px;
+  }
+
+  .green {
+    color: var(--el-color-success);
+  }
+
+  .red {
+    color: var(--el-color-error);
   }
 }
 </style>
