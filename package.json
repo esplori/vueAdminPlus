@@ -14,7 +14,6 @@
         "@wangeditor/editor": "^5.1.23",
         "@wangeditor/editor-for-vue": "^5.1.12",
         "axios": "^0.27.2",
-        "countup.js": "^2.3.2",
         "echarts": "^5.4.2",
         "echarts-countries-js": "^1.0.5",
         "element-plus": "^2.2.29",
