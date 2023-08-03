@@ -465,11 +465,6 @@ const initChindMap = () => {
 const getWebStatistics = async (type: string) => {
   const res: any = await getWebStatisticsApi({ type: type });
   if (res) {
-    if (!(userInfo.value.role && userInfo.value.role.includes("ROLE_admin"))) {
-      res.data.allViews = 0;
-      res.data.allpages = 0;
-      res.data.allViewsMom = 0;
-    }
     state.views = res.data.allViews;
     state.pages = res.data.allpages;
     state.mapData = res.data.mapData;
