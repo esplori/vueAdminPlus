@@ -463,30 +463,48 @@ const initChindMap = () => {
   });
 };
 const getWebStatistics = async (type: string) => {
+  // 获取网站统计信息
   const res: any = await getWebStatisticsApi({ type: type });
   if (res) {
+    // 设置视图数据
     state.views = res.data.allViews;
+    // 设置页面数据
     state.pages = res.data.allpages;
+    // 设置地图数据
     state.mapData = res.data.mapData;
+    // 设置日视图数据
     state.dayViews = res.data.dayViews;
+    // 设置日IP数据
     state.dayIp = res.data.dayIp;
+    // 设置总视图数据
     state.allViewsMom = parseFloat(res.data.allViewsMom);
+    // 设置总页面数据
     state.allpagesMom = parseFloat(res.data.allpagesMom);
+    // 设置日视图数据
     state.dayViewsMom = parseFloat(res.data.dayViewsMom);
+    // 设置日IP数据
     state.dayIpMom = parseFloat(res.data.dayIpMom);
+    // 设置设备比例Y
     state.deviceRatioY = res.data.deviceRatio.map((item: any) => {
       return { name: item.screen, value: item.num };
     });
+    // 设置设备类型Y
     state.deviceTypeY = res.data.deviceType.map((item: any) => {
       return { name: item.os, value: item.num };
     });
+    // 设置浏览器类型Y
     state.browserTypeY = res.data.browserType.map((item: any) => {
       return { name: item.browse, value: item.num };
     });
+    // 设置每日视图数据
     state.everyDayViews = res.data.everyDayViews;
+    // 初始化图表
     initCharts();
+    // 设置引用数据
     state.referrerTableData = res.data.referrer;
+    // 设置发布视图数据
     state.postViewTableData = res.data.postView;
+    // 设置总字数
     state.totalWordsNum = res.data.totalWordsNum || 0;
   }
 };
