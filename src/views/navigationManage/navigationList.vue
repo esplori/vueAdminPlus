@@ -20,7 +20,7 @@
       </el-table-column>
       <el-table-column prop="url" label="地址" show-overflow-tooltip>
         <template #default="scope">
-          <a :href="scope.row.url">{{ scope.row.url }}</a>
+          <a class="primary-active-color" :href="scope.row.url">{{ scope.row.url }}</a>
         </template>
       </el-table-column>
       <el-table-column prop="cateName" label="分类"> </el-table-column>

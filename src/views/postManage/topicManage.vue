@@ -1,5 +1,5 @@
 <template>
-  <div class="comments-list">
+  <div>
     <searchHeader :title="state.topicName">
       <el-button type="primary" @click="goBack">返回</el-button>
     </searchHeader>
@@ -89,19 +89,3 @@ const goToPage = (postId: string) => {
   window.open("http://www.dsiab.com/post/" + postId);
 };
 </script>
-
-<style scoped lang="scss">
-.comments-list {
-  .topic-item {
-    cursor: pointer;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-  .handler {
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-  }
-}
-</style>

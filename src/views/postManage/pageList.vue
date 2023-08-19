@@ -18,23 +18,23 @@
     </searchHeader>
 
     <el-table :data="state.list" @sort-change="sortCchange" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55"> </el-table-column>
+      <el-table-column type="selection" width="30"> </el-table-column>
       <el-table-column label="标题" show-overflow-tooltip>
         <template #default="scope">
-          <span style="margin-right: 10px; color: #056de8">{{ scope.row.draft == "1" ? "[ 草稿 ]" : "" }}
-          </span>
           <a style="color: #333" :href="'https://www.dsiab.com/post/' + (scope.row.uid || scope.row.id)
             " target="_blank">{{ scope.row.title }}</a>
         </template>
       </el-table-column>
-      <el-table-column label="分类" prop="cateName" width="120px">
+      <el-table-column label="状态" prop="draft" sortable="draft" width="120px">
+        <template #default="scope">
+          <span :class="[scope.row.draft == '1' ? 'primary-active-color' : '']">{{ scope.row.draft == "1" ? "草稿" :
+            "已发布" }}</span>
+        </template>
       </el-table-column>
-      <el-table-column label="阅读" sortable="custom" prop="views" width="80px">
-      </el-table-column>
-      <el-table-column label="字数" sortable="custom" prop="wordsNum" width="80px">
-      </el-table-column>
-      <el-table-column label="创建时间" sortable="custom" prop="createDate" width="180px">
-      </el-table-column>
+      <el-table-column label="分类" prop="cateName" width="120px"></el-table-column>
+      <el-table-column label="阅读" sortable="custom" prop="views" width="80px"></el-table-column>
+      <el-table-column label="字数" sortable="custom" prop="wordsNum" width="80px"></el-table-column>
+      <el-table-column label="创建时间" sortable="custom" prop="createDate" width="180px"></el-table-column>
       <el-table-column fixed="right" width="160px" label="操作">
         <template #default="scope">
           <div class="operate">
@@ -256,12 +256,6 @@ const batchdel = async (ids: any) => {
 <style scoped lang="scss">
 .page-list {
   width: 100%;
-
-  .content-item {
-    font-size: 18px;
-    text-align: left;
-    padding: 5px;
-  }
 
   .operate {
     display: flex;

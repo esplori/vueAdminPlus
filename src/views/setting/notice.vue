@@ -72,23 +72,3 @@ const handleCurrentChange = (val: any) => {
   getList();
 };
 </script>
-
-<style scoped lang="scss">
-.notice {
-  width: 100%;
-
-  .select-by-cate {
-    margin-bottom: 20px;
-  }
-
-  .content-item {
-    font-size: 18px;
-    text-align: left;
-    padding: 5px;
-  }
-
-  .delMul {
-    padding: 10px 0;
-  }
-}
-</style>

@@ -80,15 +80,3 @@ const handleCurrentChange = async (val: any) => {
   getList();
 };
 </script>
-
-<style scoped lang="scss">
-.page-list {
-  width: 100%;
-
-  .content-item {
-    font-size: 18px;
-    text-align: left;
-    padding: 5px;
-  }
-}
-</style>

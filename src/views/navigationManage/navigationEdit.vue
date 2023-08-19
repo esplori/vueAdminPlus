@@ -1,5 +1,5 @@
 <template>
-  <div class="post">
+  <div class="navigation-edit">
     <searchHeader :title="state.navName">
       <el-button type="primary" @click="goBack">返回</el-button>
     </searchHeader>
@@ -110,9 +110,3 @@ const getDetail = async (id: any) => {
   }
 };
 </script>
-
-<style scoped lang="scss">
-.post {
-  width: 100%;
-}
-</style>
