@@ -5,150 +5,28 @@
     <div class="card-item">
       <div class="statistic-card-list">
         <el-row>
-          <el-col :span="4">
+          <el-col :span="4" v-for="(item, index) in state.momCardList" :key="index">
             <div class="statistic-card">
-              <el-statistic :value="state.views">
+              <el-statistic :value="item.value">
                 <template #title>
                   <div style="display: inline-flex; align-items: center">
-                    总访问量
+                    {{ item.name }}
                   </div>
                 </template>
               </el-statistic>
               <div class="statistic-footer">
                 <div class="footer-item">
-                  <span>今日新增</span>
-                  <span class="red">
-                    {{ Math.abs(state.allViewsMom) }}
-                    <el-icon>
-                      <CaretTop />
-                    </el-icon>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </el-col>
-          <el-col :span="4">
-            <div class="statistic-card">
-              <el-statistic :value="state.dayViews">
-                <template #title>
-                  <div style="display: inline-flex; align-items: center">
-                    今日浏览量(PV)
-                  </div>
-                </template>
-              </el-statistic>
-              <div class="statistic-footer">
-                <div class="footer-item">
-                  <span>今日新增</span>
-                  <span class="red" v-if="state.dayViewsMom >= 0">
-                    {{ Math.abs(state.dayViewsMom) }}
+                  <span>{{ item.momName }}</span>
+                  <span class="red" v-if="item.momNum >= 0">
+                    {{ Math.abs(item.momNum) }}
                     <el-icon>
                       <CaretTop />
                     </el-icon>
                   </span>
                   <span class="green" v-else>
-                    {{ Math.abs(state.dayViewsMom) }}
+                    {{ Math.abs(item.momNum) }}
                     <el-icon>
                       <CaretBottom />
-                    </el-icon>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </el-col>
-          <el-col :span="4">
-            <div class="statistic-card">
-              <el-statistic :value="state.dayIp">
-                <template #title>
-                  <div style="display: inline-flex; align-items: center">
-                    今日访问IP数(UV)
-                  </div>
-                </template>
-              </el-statistic>
-              <div class="statistic-footer">
-                <div class="footer-item">
-                  <span>今日新增</span>
-                  <span class="red" v-if="state.dayIpMom >= 0">
-                    {{ Math.abs(state.dayIpMom) }}
-                    <el-icon>
-                      <CaretTop />
-                    </el-icon>
-                  </span>
-                  <span class="green" v-else>
-                    {{ Math.abs(state.dayIpMom) }}
-                    <el-icon>
-                      <CaretBottom />
-                    </el-icon>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </el-col>
-          <el-col :span="4">
-            <div class="statistic-card">
-              <el-statistic :value="state.pages">
-                <template #title>
-                  <div style="display: inline-flex; align-items: center">
-                    文章总数
-                  </div>
-                </template>
-              </el-statistic>
-              <div class="statistic-footer">
-                <div class="footer-item">
-                  <span>今日新增</span>
-                  <span class="red" v-if="state.allpagesMom >= 0">
-                    {{ Math.abs(state.allpagesMom) }}
-                    <el-icon>
-                      <CaretTop />
-                    </el-icon>
-                  </span>
-                  <span class="green" v-else>
-                    {{ Math.abs(state.allpagesMom) }}
-                    <el-icon>
-                      <CaretBottom />
-                    </el-icon>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </el-col>
-          <el-col :span="4">
-            <div class="statistic-card">
-              <el-statistic :value="state.referrerTableData">
-                <template #title>
-                  <div style="display: inline-flex; align-items: center">
-                    今天访问来源
-                  </div>
-                </template>
-              </el-statistic>
-              <div class="statistic-footer">
-                <div class="footer-item">
-                  <span>今日新增</span>
-                  <span class="red">
-                    {{ Math.abs(0) }}
-                    <el-icon>
-                      <CaretTop />
-                    </el-icon>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </el-col>
-          <el-col :span="4">
-            <div class="statistic-card">
-              <el-statistic :value="state.postViewTableData">
-                <template #title>
-                  <div style="display: inline-flex; align-items: center">
-                    今天访问地址
-                  </div>
-                </template>
-              </el-statistic>
-              <div class="statistic-footer">
-                <div class="footer-item">
-                  <span>今日新增</span>
-                  <span class="red">
-                    {{ Math.abs(0) }}
-                    <el-icon>
-                      <CaretTop />
                     </el-icon>
                   </span>
                 </div>
@@ -171,33 +49,10 @@
         </el-radio-group>
       </div>
       <div class="type-data">
-        <el-row>
+        <el-row v-for="(item, index)  in state.chartsDomList" :key="index">
           <el-col :span="24">
             <div>
-              <div id="deviceType"></div>
-            </div>
-          </el-col>
-        </el-row>
-
-        <el-row>
-          <el-col :span="24">
-            <div>
-              <div id="browserType"></div>
-            </div>
-          </el-col>
-        </el-row>
-
-        <el-row>
-          <el-col :span="24">
-            <div>
-              <div id="deiveRatio"></div>
-            </div>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="24">
-            <div>
-              <div id="chindMap"></div>
+              <div :id="item.type"></div>
             </div>
           </el-col>
         </el-row>
@@ -240,6 +95,20 @@ const state = reactive({
   totalWordsNum: 0,
   tabPosition: "toDay",
   mapData: [],
+  chartsDomList: [
+    { type: "deviceType" },
+    { type: "browserType" },
+    { type: "deiveRatio" },
+    { type: "chindMap" },
+  ],
+  momCardList: [
+    { name: "总访问量", value: 6345, momNum: 234, trend: 'up', momName: "今日新增" },
+    { name: "今日浏览量", value: 6345, momNum: 234, trend: 'up', momName: "同比昨日" },
+    { name: "今日访问IP数(UV)", value: 6345, momNum: 234, trend: 'up', momName: "同比昨日" },
+    { name: "文章总数", value: 6345, momNum: 234, trend: 'up', momName: "今日新增" },
+    { name: "今日访问来源", value: 6345, momNum: 234, trend: 'up', momName: "同比昨日" },
+    { name: "今日访问地址", value: 6345, momNum: 234, trend: 'up', momName: "同比昨日" },
+  ]
 });
 
 const us = userInfoStore();
@@ -435,23 +304,29 @@ const getWebStatistics = async (type: string) => {
   const res: any = await getWebStatisticsApi({ type: type });
   if (res) {
     // 设置视图数据
-    state.views = res.data.allViews;
-    // 设置页面数据
-    state.pages = res.data.allpages;
+    state.momCardList[0].value = res.data.allViews;
+    // 设置文章数据
+    state.momCardList[3].value = res.data.allpages;
     // 设置地图数据
     state.mapData = res.data.mapData;
     // 设置日视图数据
-    state.dayViews = res.data.dayViews;
+    state.momCardList[1].value = res.data.dayViews;
     // 设置日IP数据
-    state.dayIp = res.data.dayIp;
+    state.momCardList[2].value = res.data.dayIp;
     // 设置总视图数据
-    state.allViewsMom = parseFloat(res.data.allViewsMom);
+    state.momCardList[0].momNum = parseFloat(res.data.allViewsMom);
     // 设置总页面数据
-    state.allpagesMom = parseFloat(res.data.allpagesMom);
+    state.momCardList[3].momNum = parseFloat(res.data.allpagesMom);
     // 设置日视图数据
-    state.dayViewsMom = parseFloat(res.data.dayViewsMom);
+    state.momCardList[1].momNum = parseFloat(res.data.dayViewsMom);
     // 设置日IP数据
-    state.dayIpMom = parseFloat(res.data.dayIpMom);
+    state.momCardList[2].momNum = parseFloat(res.data.dayIpMom);
+    // 设置引用数据
+    state.momCardList[4].value = res.data.referrer;
+    // 设置发布视图数据
+    state.momCardList[5].value = res.data.postView;
+    // 设置总字数
+    state.totalWordsNum = res.data.totalWordsNum || 0;
     // 设置设备比例Y
     state.deviceRatioY = res.data.deviceRatio.map((item: any) => {
       return { name: item.screen, value: item.num };
@@ -468,12 +343,7 @@ const getWebStatistics = async (type: string) => {
     state.everyDayViews = res.data.everyDayViews;
     // 初始化图表
     initCharts();
-    // 设置引用数据
-    state.referrerTableData = res.data.referrer;
-    // 设置发布视图数据
-    state.postViewTableData = res.data.postView;
-    // 设置总字数
-    state.totalWordsNum = res.data.totalWordsNum || 0;
+
   }
 };
 const initCharts = () => {
