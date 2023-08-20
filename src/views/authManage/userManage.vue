@@ -185,13 +185,3 @@ const handleCurrentChange = (val: any) => {
   getUserList();
 };
 </script>
-
-<style scoped lang="scss">
-.user-manage {
-  .handler {
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-  }
-}
-</style>

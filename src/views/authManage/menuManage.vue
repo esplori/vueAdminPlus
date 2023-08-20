@@ -148,13 +148,3 @@ const deleteMenu = (form: any) => {
   });
 };
 </script>
-
-<style scoped lang="scss">
-.menu-manage {
-  .handler {
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-  }
-}
-</style>
