@@ -163,21 +163,18 @@
         <div id="dayViews" style="width: 100%; height: 300px"></div>
       </div>
       <div class="date-picker-change">
-        <h3></h3>
-        <div>
-          <el-radio-group v-model="state.tabPosition" style="margin-bottom: 30px" @change="tabChange">
-            <el-radio-button label="toDay">今天</el-radio-button>
-            <el-radio-button label="yesterday">最近两天</el-radio-button>
-            <el-radio-button label="7day">最近7天</el-radio-button>
-            <el-radio-button label="30day">最近30天</el-radio-button>
-          </el-radio-group>
-        </div>
+        <el-radio-group v-model="state.tabPosition" style="margin-bottom: 30px" @change="tabChange">
+          <el-radio-button label="toDay">今天</el-radio-button>
+          <el-radio-button label="yesterday">最近两天</el-radio-button>
+          <el-radio-button label="7day">最近7天</el-radio-button>
+          <el-radio-button label="30day">最近30天</el-radio-button>
+        </el-radio-group>
       </div>
       <div class="type-data">
         <el-row>
           <el-col :span="24">
             <div>
-              <div id="deviceType" style="max-width: 100%; height: 300px"></div>
+              <div id="deviceType"></div>
             </div>
           </el-col>
         </el-row>
@@ -185,7 +182,7 @@
         <el-row>
           <el-col :span="24">
             <div>
-              <div id="browserType" style="max-width: 100%; height: 300px"></div>
+              <div id="browserType"></div>
             </div>
           </el-col>
         </el-row>
@@ -193,14 +190,14 @@
         <el-row>
           <el-col :span="24">
             <div>
-              <div id="deiveRatio" style="max-width: 100%; height: 300px"></div>
+              <div id="deiveRatio"></div>
             </div>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="24">
             <div>
-              <div id="chindMap" style="max-width: 100%; height: 300px"></div>
+              <div id="chindMap"></div>
             </div>
           </el-col>
         </el-row>
@@ -219,6 +216,7 @@ import { reactive, computed, onMounted, nextTick } from "vue";
 import { CaretTop, CaretBottom } from "@element-plus/icons-vue";
 import { delHtmlTag } from "@/utils/common.js";
 import { userInfoStore } from "@/stores/userInfo";
+import nameMapDict from "../API/nameMapDict.js";
 const state = reactive({
   views: 0,
   pages: 0,
@@ -427,37 +425,7 @@ const initChindMap = () => {
         type: "map",
         map: "china",
         data: state.mapData,
-        nameMap: {
-          "广东": "广东省",
-          "北京": "北京",
-          "台湾": "台湾省",
-          "陕西": "陕西省",
-          "浙江": "浙江省",
-          "湖北": "湖北省",
-          "香港": "香港",
-          "福建": "福建省",
-          "江西": "江西省",
-          "湖南": "湖南省",
-          "江苏": "江苏省",
-          "安徽": "安徽省",
-          "河南": "河南省",
-          "四川": "四川省",
-          "山西": "山西省",
-          "吉林": "吉林省",
-          "贵州": "贵州省",
-          "云南": "云南省",
-          "海南": "海南省",
-          "山东": "山东省",
-          "天津": "天津",
-          "辽宁": "辽宁省",
-          "黑龙江": "黑龙江省",
-          "甘肃": "甘肃省",
-          "河北": "河北省",
-          "西藏": "西藏",
-          "青海": "青海",
-          "内蒙古": "内蒙古",
-          "宁夏": "宁夏",
-        },
+        nameMap: nameMapDict
       },
     ],
   });
@@ -530,9 +498,8 @@ const tabChange = (type: string) => {
   }
 
   .date-picker-change {
-    padding: 20px 0;
-    display: flex;
-    justify-content: space-between;
+    text-align: right;
+    margin-top: 30px;
   }
 
   .card-item {
@@ -547,7 +514,7 @@ const tabChange = (type: string) => {
 
 
     .type-data {
-      padding: 20px 0;
+      padding: 0;
     }
   }
 
@@ -561,10 +528,12 @@ const tabChange = (type: string) => {
   #deiveRatio,
   #dayViews,
   #chindMap {
+    max-width: 100%;
+    height: 320px;
     box-sizing: border-box;
-    margin-top: 20px;
     border-radius: 4px;
     border: 1px solid rgb(228, 231, 237);
+    margin-bottom: 20px;
   }
 
   .statistic-card {
