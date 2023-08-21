@@ -69,9 +69,8 @@ import "echarts-countries-js/echarts-countries-js/china";
 
 import { reactive, computed, onMounted, nextTick } from "vue";
 import { CaretTop, CaretBottom } from "@element-plus/icons-vue";
-import { delHtmlTag } from "@/utils/common.js";
+import { delHtmlTag, mapOptions, commonOptions, dayViewsOptions } from "@/utils/common.js";
 import { userInfoStore } from "@/stores/userInfo";
-import nameMapDict from "../API/nameMapDict.js";
 const state = reactive({
   views: 0,
   pages: 0,
@@ -135,32 +134,14 @@ onMounted(() => {
     initCharts();
   });
 });
-const initChart = (dom_id: string, data: Array<{ name: string, value: number }>) => {
+const initChart = (dom_id: string, data: Array<{ name: string, value: number }>, title: string) => {
   const dom = document.getElementById(dom_id);
   if (!dom) {
     return false;
   }
   dom.removeAttribute("_echarts_instance_");
   const myChart = echarts.init(dom);
-  myChart.setOption({
-    title: {
-      text: "设备型号",
-      left: 20,
-      top: 10
-    },
-    tooltip: {
-      trigger: "item",
-      formatter: " {a} <br/>{b} : {c}({d}%)",
-    },
-    series: [
-      {
-        name: "设备型号",
-        type: "pie",
-        data: data,
-        radius: ["40%", "60%"],
-      },
-    ],
-  });
+  myChart.setOption(commonOptions(title, data));
   myChart.resize();
 };
 
@@ -171,92 +152,7 @@ const initDayViews = () => {
   }
   dom.removeAttribute("_echarts_instance_");
   const myChart = echarts.init(dom);
-  myChart.setOption({
-    title: {
-      text: "最近30天访问量",
-      left: 20,
-      top: 10
-    },
-    tooltip: {
-      trigger: "axis",
-      axisPointer: {
-        type: "shadow",
-        shadowStyle: {
-          color: "rgba(0,0,0,0.08)",
-        },
-      },
-    },
-    legend: {
-      top: 10
-    },
-    xAxis: {
-      data: state.everyDayViews.map((item: any) => {
-        return item.createDate;
-      }),
-      boundaryGap: true,
-      axisLabel: {
-        interval: 5,
-        rotate: 0, // 倾斜度 -90 至 90 默认为0
-        margin: 8,
-        formatter: function (value: string) {
-          const str = value.slice(0, 10).slice(-5);
-          return str;
-        },
-      },
-      axisLine: {
-        lineStyle: {
-          color: "#a0a6a8",
-        },
-      },
-    },
-    yAxis: {
-      splitNumber: 4,
-      splitLine: {
-        show: true,
-        lineStyle: {
-          type: "dashed",
-        },
-      },
-    },
-    series: [
-      {
-        name: "今日访问IP数(UV)",
-        type: "line",
-        stack: "Total",
-        areaStyle: {
-          // color: "#f59695"
-        },
-        emphasis: {
-          focus: "series",
-        },
-        data: state.everyDayViews.map((item: any) => {
-          return item.dayIp;
-        }),
-        smooth: true,
-        showSymbol: false
-      },
-      {
-        name: "今日浏览量(PV)",
-        type: "line",
-        stack: "Total",
-        showSymbol: false,
-        areaStyle: {
-          // color: "#9fd3e8"
-        },
-        emphasis: {
-          focus: "series",
-        },
-        data: state.everyDayViews.map((item: any) => {
-          return item.dayViews;
-        }),
-        label: {
-          show: true,
-          position: "top",
-        },
-        smooth: true,
-      },
-    ],
-  });
+  myChart.setOption(dayViewsOptions(state));
   myChart.resize();
 };
 
@@ -267,80 +163,51 @@ const initChindMap = () => {
   }
   dom.removeAttribute("_echarts_instance_");
   const myChart = echarts.init(dom);
-  myChart.setOption({
-    colorBy: "series",
-    name: "city",
-    label: {
-      color: "red",
-    },
-    tooltip: {
-      trigger: "item",
-      formatter: function (params: any) {
-        return `${params.name}: ${params.value || 0}`;
-      },
-    },
-    visualMap: {
-      min: 0,
-      max: 200,
-      text: ["High", "Low"],
-      realtime: false,
-      calculable: true,
-      inRange: {
-        color: ["lightskyblue", "yellow", "orangered"],
-      },
-    },
-    series: [
-      {
-        type: "map",
-        map: "china",
-        data: state.mapData,
-        nameMap: nameMapDict
-      },
-    ],
-  });
+  myChart.setOption(mapOptions(state));
 };
 const getWebStatistics = async (type: string) => {
   // 获取网站统计信息
   const res: any = await getWebStatisticsApi({ type: type });
   if (res) {
+    let { mapData, allViews, allpages, dayViews, dayIp, allViewsMom, allpagesMom, dayViewsMom, dayIpMom, referrer, postView, totalWordsNum, deviceRatio, deviceType, browserType, everyDayViews } = res.data;
     // 设置视图数据
-    state.momCardList[0].value = res.data.allViews;
+    state.momCardList[0].value = allViews;
     // 设置文章数据
-    state.momCardList[3].value = res.data.allpages;
+    state.momCardList[3].value = allpages;
     // 设置地图数据
-    state.mapData = res.data.mapData;
+    state.mapData = mapData;
     // 设置日视图数据
-    state.momCardList[1].value = res.data.dayViews;
+    state.momCardList[1].value = dayViews;
     // 设置日IP数据
-    state.momCardList[2].value = res.data.dayIp;
+    state.momCardList[2].value = dayIp;
     // 设置总视图数据
-    state.momCardList[0].momNum = parseFloat(res.data.allViewsMom);
+    state.momCardList[0].momNum = parseFloat(allViewsMom);
     // 设置总页面数据
-    state.momCardList[3].momNum = parseFloat(res.data.allpagesMom);
+    state.momCardList[3].momNum = parseFloat(allpagesMom);
     // 设置日视图数据
-    state.momCardList[1].momNum = parseFloat(res.data.dayViewsMom);
+    state.momCardList[1].momNum = parseFloat(dayViewsMom);
     // 设置日IP数据
-    state.momCardList[2].momNum = parseFloat(res.data.dayIpMom);
+    state.momCardList[2].momNum = parseFloat(dayIpMom);
     // 设置引用数据
-    state.momCardList[4].value = res.data.referrer;
+    state.momCardList[4].value = referrer;
     // 设置发布视图数据
-    state.momCardList[5].value = res.data.postView;
+    state.momCardList[5].value = postView;
     // 设置总字数
-    state.totalWordsNum = res.data.totalWordsNum || 0;
+    state.totalWordsNum = totalWordsNum || 0;
     // 设置设备比例Y
-    state.deviceRatioY = res.data.deviceRatio.map((item: any) => {
+    state.deviceRatioY = deviceRatio.map((item: any) => {
       return { name: item.screen, value: item.num };
     });
     // 设置设备类型Y
-    state.deviceTypeY = res.data.deviceType.map((item: any) => {
+    state.deviceTypeY = deviceType.map((item: any) => {
       return { name: item.os, value: item.num };
     });
     // 设置浏览器类型Y
-    state.browserTypeY = res.data.browserType.map((item: any) => {
+    state.browserTypeY = browserType.map((item: any) => {
       return { name: item.browse, value: item.num };
     });
     // 设置每日视图数据
-    state.everyDayViews = res.data.everyDayViews;
+    state.everyDayViews = everyDayViews;
     // 初始化图表
     initCharts();
 
@@ -350,9 +217,9 @@ const initCharts = () => {
   nextTick(() => {
     initDayViews();
     initChindMap();
-    initChart("deviceType", state.deviceTypeY)
-    initChart("browserType", state.browserTypeY)
-    initChart("deiveRatio", state.deviceRatioY)
+    initChart("deviceType", state.deviceTypeY, "设备型号")
+    initChart("browserType", state.browserTypeY, "浏览器型号")
+    initChart("deiveRatio", state.deviceRatioY, "分辨率型号")
   });
 };
 const tabChange = (type: string) => {
