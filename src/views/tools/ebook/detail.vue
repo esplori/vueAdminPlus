@@ -11,7 +11,6 @@
           >下一页</span
         >
       </span>
-      <!-- <span>跳转到 <el-input @keydown.enter.native="nextPage" v-model.number ="state.params.page" style="width:50px"></el-input> 页</span> -->
     </div>
   </div>
 </template>

@@ -19,7 +19,7 @@
       </div>
     </div>
     <div style="text-align: center;">
-      <el-button type="primary" @click="generateToImg">生成图片</el-button>
+      <el-button type="primary" @click="generateToImg">导出图片</el-button>
     </div>
     <img :src="state.imgurl" alt="">
   </div>

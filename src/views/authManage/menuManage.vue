@@ -52,7 +52,7 @@
               <el-input v-model="state.addForm.path"></el-input>
             </el-form-item>
             <el-form-item label="">
-              <el-button @click="append(state.addForm)">保存</el-button>
+              <el-button type="primary" @click="append(state.addForm)">保存</el-button>
             </el-form-item>
           </el-form>
         </div>

@@ -1,4 +1,5 @@
 <template>
+  <searchHeader :title="'电子书'"></searchHeader>
   <div class="ebook">
     <div v-for="item in state.data" class="item" @click="detail(item.filename)">
       {{ item.filename.split(".")[0] }}
@@ -10,6 +11,7 @@
 import { getBookListApi } from "../../API/tools";
 import { reactive, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import searchHeader from "../../components/searchHeader.vue";
 const router = useRouter();
 const state = reactive({
   data: [{ filename: "" }],

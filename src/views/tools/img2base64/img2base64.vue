@@ -1,5 +1,6 @@
 <template>
   <div id="img2base64">
+    <searchHeader :title="'图片转base64'"></searchHeader>
     <h2 style="padding: 20px 0">方案一：网络图片生成base64</h2>
     <div>
       <el-input v-model="state.url"></el-input>
@@ -26,6 +27,7 @@
 
 <script lang="ts" setup>
 import { reactive } from "vue";
+import searchHeader from "../../components/searchHeader.vue";
 
 const state = reactive({
   url: "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Ffile03.16sucai.com%2F2017%2F1100%2F16sucai_p567c138.JPG&refer=http%3A%2F%2Ffile03.16sucai.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1664888945&t=1d8aa77d380843401cd596f5573a8a84",

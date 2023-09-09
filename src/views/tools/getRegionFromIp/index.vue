@@ -1,8 +1,9 @@
 <template>
   <div class="getRegionFromIp">
-    <el-form :model="state.form" label-width="140px" style="width: 400px">
-      <el-form-item label="你的ip地址归属地：">
-        {{ state.form.localIp }}:{{ state.form.localIpRegion }}
+    <searchHeader :title="'ip归属地查询'"></searchHeader>
+    <el-form :model="state.form" label-width="140px" style="width: 50%">
+      <el-form-item label="您当前ip及归属地：">
+        {{ state.form.localIp }}({{ state.form.localIpRegion }})
       </el-form-item>
       <el-form-item label="ip地址：">
         <el-input v-model="state.form.ip"></el-input>
@@ -20,6 +21,7 @@
 <script lang="ts" setup>
 import { getRegionFromIpApi } from "../../API/tools";
 import { reactive, onMounted } from "vue";
+import searchHeader from "../../components/searchHeader.vue";
 
 const state = reactive({
   form: {
