@@ -17,6 +17,7 @@
         "echarts": "^5.4.2",
         "echarts-countries-js": "^1.0.5",
         "element-plus": "^2.2.29",
+        "html2canvas": "^1.4.1",
         "pinia": "^2.0.17",
         "vue": "^3.2.37",
         "vue-router": "^4.1.3"

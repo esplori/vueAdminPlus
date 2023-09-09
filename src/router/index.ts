@@ -124,6 +124,10 @@ const router = createRouter({
               path: "music",
               component: () => import("../views/tools/music/index.vue"),
             },
+            {
+              path: "wordBeautify",
+              component: () => import("../views/tools/wordBeautify/index.vue"),
+            },
           ],
         },
         {
