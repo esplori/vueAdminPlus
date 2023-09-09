@@ -211,5 +211,7 @@ const router = createRouter({
     },
   ],
 });
+// 动态添加路由
+// router.addRoute({ path: "/test", component: () => import("../test.vue")});
 
 export default router;
