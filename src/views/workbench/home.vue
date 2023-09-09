@@ -17,7 +17,7 @@
               <div class="statistic-footer">
                 <div class="footer-item">
                   <span>{{ item.momName }}</span>
-                  <span class="red" v-if="item.momNum >= 0">
+                  <span class="red" v-if="item.momNum > 0">
                     {{ Math.abs(item.momNum) }}
                     <el-icon>
                       <CaretTop />
@@ -25,7 +25,7 @@
                   </span>
                   <span class="green" v-else>
                     {{ Math.abs(item.momNum) }}
-                    <el-icon>
+                    <el-icon v-if="item.momNum !== 0">
                       <CaretBottom />
                     </el-icon>
                   </span>
@@ -66,10 +66,11 @@ import { getWebStatisticsApi } from "@/views/API/stats.js";
 import * as echarts from "echarts";
 // 单独引入中国地图
 import "echarts-countries-js/echarts-countries-js/china";
+import "echarts-countries-js/echarts-countries-js/world";
 
 import { reactive, computed, onMounted, nextTick } from "vue";
 import { CaretTop, CaretBottom } from "@element-plus/icons-vue";
-import { delHtmlTag, mapOptions, commonOptions, dayViewsOptions } from "@/utils/common.js";
+import { delHtmlTag, mapOptions, worldMapOptions, commonOptions, dayViewsOptions } from "@/utils/common.js";
 import { userInfoStore } from "@/stores/userInfo";
 const state = reactive({
   views: 0,
@@ -94,19 +95,21 @@ const state = reactive({
   totalWordsNum: 0,
   tabPosition: "toDay",
   mapData: [],
+  worldMapData: [],
   chartsDomList: [
     { type: "deviceType" },
     { type: "browserType" },
     { type: "deiveRatio" },
-    { type: "chindMap" },
+    { type: "chinaMap" },
+    { type: "worldMap" },
   ],
   momCardList: [
-    { name: "总访问量", value: 6345, momNum: 234, trend: 'up', momName: "今日新增" },
-    { name: "今日浏览量", value: 6345, momNum: 234, trend: 'up', momName: "同比昨日" },
-    { name: "今日访问IP数(UV)", value: 6345, momNum: 234, trend: 'up', momName: "同比昨日" },
-    { name: "文章总数", value: 6345, momNum: 234, trend: 'up', momName: "今日新增" },
-    { name: "今日访问来源", value: 6345, momNum: 234, trend: 'up', momName: "同比昨日" },
-    { name: "今日访问地址", value: 6345, momNum: 234, trend: 'up', momName: "同比昨日" },
+    { name: "总访问量", value: 0, momNum: 0, momName: "今日新增" },
+    { name: "今日浏览量", value: 0, momNum: 0, momName: "同比昨日" },
+    { name: "今日访问IP数(UV)", value: 0, momNum: 0, momName: "同比昨日" },
+    { name: "文章总数", value: 0, momNum: 0, momName: "今日新增" },
+    { name: "今日访问来源", value: 0, momNum: 0, momName: "同比昨日" },
+    { name: "今日访问地址", value: 0, momNum: 0, momName: "同比昨日" },
   ]
 });
 
@@ -156,26 +159,37 @@ const initDayViews = () => {
   myChart.resize();
 };
 
-const initChindMap = () => {
-  const dom = document.getElementById("chindMap");
+const initChinaMap = () => {
+  const dom = document.getElementById("chinaMap");
   if (!dom) {
     return false;
   }
   dom.removeAttribute("_echarts_instance_");
   const myChart = echarts.init(dom);
-  myChart.setOption(mapOptions(state));
+  myChart.setOption(mapOptions(state.mapData));
+};
+const initWorldMap = () => {
+  const dom = document.getElementById("worldMap");
+  if (!dom) {
+    return false;
+  }
+  dom.removeAttribute("_echarts_instance_");
+  const myChart = echarts.init(dom);
+  myChart.setOption(worldMapOptions(state.worldMapData));
 };
 const getWebStatistics = async (type: string) => {
   // 获取网站统计信息
   const res: any = await getWebStatisticsApi({ type: type });
   if (res) {
-    let { mapData, allViews, allpages, dayViews, dayIp, allViewsMom, allpagesMom, dayViewsMom, dayIpMom, referrer, postView, totalWordsNum, deviceRatio, deviceType, browserType, everyDayViews } = res.data;
+    let { mapData, worldMapData, allViews, allpages, dayViews, dayIp, allViewsMom, allpagesMom, dayViewsMom, dayIpMom, referrer, postView, totalWordsNum, deviceRatio, deviceType, browserType, everyDayViews } = res.data;
     // 设置视图数据
     state.momCardList[0].value = allViews;
     // 设置文章数据
     state.momCardList[3].value = allpages;
     // 设置地图数据
     state.mapData = mapData;
+    // 设置世界地图数据
+    state.worldMapData = worldMapData;
     // 设置日视图数据
     state.momCardList[1].value = dayViews;
     // 设置日IP数据
@@ -216,10 +230,11 @@ const getWebStatistics = async (type: string) => {
 const initCharts = () => {
   nextTick(() => {
     initDayViews();
-    initChindMap();
     initChart("deviceType", state.deviceTypeY, "设备型号")
     initChart("browserType", state.browserTypeY, "浏览器型号")
     initChart("deiveRatio", state.deviceRatioY, "分辨率型号")
+    initChinaMap();
+    initWorldMap();
   });
 };
 const tabChange = (type: string) => {
@@ -264,7 +279,8 @@ const tabChange = (type: string) => {
   #browserType,
   #deiveRatio,
   #dayViews,
-  #chindMap {
+  #chinaMap,
+  #worldMap {
     max-width: 100%;
     height: 320px;
     box-sizing: border-box;

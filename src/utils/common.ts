@@ -1,3 +1,4 @@
+import wordMapJson from "./wordMap.json"
 export function getCurrDate(val: any) {
   let currVal = val;
   if (!currVal) {
@@ -199,7 +200,7 @@ export function dayViewsOptions(state: any) {
     ],
   }
 }
-export function mapOptions(state: any) {
+export function mapOptions(list: Array<Object>) {
   return {
     colorBy: "series",
     name: "city",
@@ -226,8 +227,41 @@ export function mapOptions(state: any) {
       {
         type: "map",
         map: "china",
-        data: state.mapData,
+        data: list,
         nameMap: nameMapDict()
+      },
+    ],
+  };
+}
+export function worldMapOptions(list: Array<Object>) {
+  return {
+    colorBy: "series",
+    name: "city",
+    label: {
+      color: "red",
+    },
+    tooltip: {
+      trigger: "item",
+      formatter: function (params: any) {
+        return `${params.name}: ${params.value || 0}`;
+      },
+    },
+    visualMap: {
+      min: 0,
+      max: 200,
+      text: ["High", "Low"],
+      realtime: false,
+      calculable: true,
+      inRange: {
+        color: ["lightskyblue", "yellow", "orangered"],
+      },
+    },
+    series: [
+      {
+        type: "map",
+        map: "world",
+        data: list,
+        nameMap: wordMapJson
       },
     ],
   };
