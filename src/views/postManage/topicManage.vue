@@ -89,3 +89,11 @@ const goToPage = (postId: string) => {
   window.open("http://www.dsiab.com/post/" + postId);
 };
 </script>
+<style scoped lang="scss">
+.topic-item{
+  cursor: pointer;
+  &:hover{
+    text-decoration:underline;
+  }
+}
+</style>
