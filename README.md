@@ -56,20 +56,11 @@
 
 ### 关联项目
 
-- 博客首页: nuxtWebPlus (https://gitee.com/wilkwo/nuxt-web-plus.git) 
-- 博客前后台微服务: springCloudAdmin (https://gitee.com/wilkwo/spring-cloud-admin.git) 
-- 体验地址：https://www.dsiab.com
-
-
-### 体验地址
-
-
-- 地址：http://admin.dsiab.com
-
-- 体验账号、密码： test / test
-  
+- 官网：https: //www.dsiab.com
+- 博客首页开源项目: nuxtWebPlus (https://gitee.com/wilkwo/nuxt-web-plus.git)
+- 博客前后台微服务开源项目: springCloudAdmin (https://gitee.com/wilkwo/spring-cloud-admin.git)
+- 后台管理体验地址： https://admin.dsiab.com , 体验账号：test/test
 - 加qq群一起交流：514450699
-
 
 
 ### 演示截图
