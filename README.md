@@ -57,7 +57,7 @@
 ### 关联项目
 
 - 博客首页: nuxtWebPlus (https://gitee.com/wilkwo/nuxt-web-plus.git) 
-  
+- 博客前后台微服务: springCloudAdmin (https://gitee.com/wilkwo/spring-cloud-admin.git) 
 - 体验地址：https://www.dsiab.com
 
 
