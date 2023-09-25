@@ -331,7 +331,8 @@ const changeMusic = (type: any) => {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import '@/assets/styles/iconfont.css';
 .bottomControl {
   /* background-color: pink; */
   border-top: 1px solid #ddd;

@@ -43,7 +43,7 @@ const state = reactive({
 const generateToImg = () => {
   setTimeout(() => {
     // #capture 就是我们要获取截图对应的 DOM 元素选择器
-    Html2canvas(document.querySelector('.word-container'), {
+    Html2canvas(document.querySelector('.word-container') as any, {
       useCORS: true, // 【重要】开启跨域配置
       backgroundColor: null, // null或transparent可将canvas背景设置为透明，解决圆角问题
       // scale: window.devicePixelRatio < 3 ? window.devicePixelRatio : 2,
