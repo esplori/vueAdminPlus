@@ -30,6 +30,7 @@
               <el-date-picker
                 type="datetime"
                 style="width: 250px"
+                :disabled-date="disabledDate"
                 popper-class="select-zindex"
                 v-model="state.form.createDate"
               ></el-date-picker>
@@ -115,7 +116,6 @@ import {
   onBeforeUnmount,
   ref,
   shallowRef,
-  onUnmounted,
   onMounted,
   reactive,
   computed,
@@ -179,6 +179,11 @@ const userInfo = computed(() => {
   }
 });
 
+const disabledDate = (date: any)=>{
+  //  今天之后不能选择
+  return date > new Date();
+}
+
 const getCate = async (id: any) => {
   const res: any = await getAdminCateValidApi({});
   if (res) {
@@ -195,7 +200,6 @@ const getDetail = async (id: any) => {
   if (res) {
     // 日期兼容safari
     res.data.result.createDate = res.data.result.createDate.replace(/-/g, "/");
-    // this.$set(this, "form", res.data.result);
     state.form = res.data.result;
     state.dynamicTags = state.form.keywords
       ? state.form.keywords.split(",")
@@ -288,10 +292,6 @@ const handleChange = (editor: any) => {
 
 editorConfig.MENU_CONF["uploadImage"] = {
   server: "/manage-service/account/upload",
-  // server: '/api/upload-img-10s', // test timeout
-  // server: '/api/upload-img-failed', // test failed
-  // server: '/api/xxx', // test 404
-
   timeout: 15 * 1000, // 5s
   fieldName: "file",
   meta: {},

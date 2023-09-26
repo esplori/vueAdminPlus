@@ -1,4 +1,5 @@
 import wordMapJson from "./wordMap.json"
+import * as echarts from "echarts";
 export function getCurrDate(val: any) {
   let currVal = val;
   if (!currVal) {
@@ -131,6 +132,10 @@ export function dayViewsOptions(state: any) {
     legend: {
       top: 10
     },
+    grid:{
+      left: '5%',
+      right: '3%',
+    },
     xAxis: {
       data: state.everyDayViews.map((item: any) => {
         return item.createDate;
@@ -166,7 +171,16 @@ export function dayViewsOptions(state: any) {
         type: "line",
         stack: "Total",
         areaStyle: {
-          // color: "#f59695"
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            {
+              offset: 0,
+              color: 'rgba(58,77,233,0.8)'
+            },
+            {
+              offset: 1,
+              color: 'rgba(58,77,233,0.3)'
+            }
+          ])
         },
         emphasis: {
           focus: "series",
@@ -183,7 +197,16 @@ export function dayViewsOptions(state: any) {
         stack: "Total",
         showSymbol: false,
         areaStyle: {
-          // color: "#9fd3e8"
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            {
+              offset: 0,
+              color: 'rgba(103,194,54,1)'
+            },
+            {
+              offset: 1,
+              color: 'rgba(103,194,54,0.3)'
+            }
+          ])
         },
         emphasis: {
           focus: "series",
