@@ -109,6 +109,13 @@ export function commonOptions(title: string, data: Array<{ name: string, value: 
         type: "pie",
         data: data,
         radius: ["40%", "60%"],
+        emphasis: {
+          label: {
+            show: true,
+            fontSize: 18,
+            fontWeight: 'bold'
+          }
+        },
       },
     ],
   }
