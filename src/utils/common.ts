@@ -108,11 +108,11 @@ export function commonOptions(title: string, data: Array<{ name: string, value: 
         name: title,
         type: "pie",
         data: data,
-        radius: ["40%", "60%"],
+        radius: ["40%", "55%"],
         emphasis: {
           label: {
             show: true,
-            fontSize: 18,
+            fontSize: 12,
             fontWeight: 'bold'
           }
         },
@@ -232,6 +232,11 @@ export function dayViewsOptions(state: any) {
 }
 export function mapOptions(list: Array<Object>) {
   return {
+    title: {
+      text: "访问地域分布",
+      left: 20,
+      top: 10
+    },
     colorBy: "series",
     name: "city",
     label: {
@@ -265,6 +270,11 @@ export function mapOptions(list: Array<Object>) {
 }
 export function worldMapOptions(list: Array<Object>) {
   return {
+    title: {
+      text: "全球访问地域分布",
+      left: 20,
+      top: 10
+    },
     colorBy: "series",
     name: "city",
     label: {

@@ -49,13 +49,9 @@
         </el-radio-group>
       </div>
       <div class="type-data">
-        <el-row v-for="(item, index)  in state.chartsDomList" :key="index">
-          <el-col :span="24">
-            <div>
-              <div :id="item.type"></div>
-            </div>
-          </el-col>
-        </el-row>
+        <div class="chart-item" v-for="(item, index)  in state.chartsDomList" :key="index">
+          <div :id="item.type"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -267,6 +263,18 @@ const tabChange = (type: string) => {
 
     .type-data {
       padding: 0;
+      display: flex;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .chart-item {
+      width: 50%;
+
+      &:nth-child(odd) {
+        padding-right: 20px;
+      }
+
     }
   }
 
@@ -281,12 +289,18 @@ const tabChange = (type: string) => {
   #dayViews,
   #chinaMap,
   #worldMap {
-    max-width: 100%;
+    width: 100%;
     height: 320px;
     box-sizing: border-box;
     border-radius: 4px;
     border: 1px solid rgb(228, 231, 237);
     margin-bottom: 20px;
+
+    &:hover {
+      box-shadow: 0 0 1px 1px #ddd;
+      transition: all 1000ms;
+      transform: scale(1.005);
+    }
   }
 
   .statistic-card {
