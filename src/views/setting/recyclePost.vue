@@ -7,7 +7,7 @@
       <el-table-column type="selection" width="55"> </el-table-column>
       <el-table-column label="标题">
         <template #default="scope">
-          <a style="color: #333" :href="'https://www.dsiab.com/post/' + scope.row.id" target="_blank">{{ scope.row.title
+          <a style="color: #333" :href="'https://www.dsiab.com/post/' + scope.row.uid" target="_blank">{{ scope.row.title
           }}</a>
         </template>
       </el-table-column>
