@@ -108,7 +108,7 @@ export function commonOptions(title: string, data: Array<{ name: string, value: 
         name: title,
         type: "pie",
         data: data,
-        radius: ["40%", "55%"],
+        radius: ["40%", "50%"],
         emphasis: {
           label: {
             show: true,
