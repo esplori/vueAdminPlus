@@ -124,6 +124,9 @@ function handleAuthenticated(res: any) {
   switch (res.response.status) {
     case 401:
     case 403:
+      setTimeout(() =>{
+        location.reload()
+      },205)
       setTimeout(() => {
         location.href = "/#/login";
       }, 200);

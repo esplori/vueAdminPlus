@@ -8,8 +8,10 @@
 </template>
 <script lang="ts" setup>
 import { ref } from "vue";
+import { userInfoStore } from "@/stores/userInfo";
 const copyRight = ref("&copy");
 const currentDate = ref(new Date().getFullYear());
+const us = userInfoStore();
 const initWebStat = () => {
   let webStats = new webStatistics({
     baseUrl: "/manage-service", // 基础接口地址url
@@ -22,7 +24,7 @@ const initWebStat = () => {
     },
   });
   setTimeout(() => {
-    webStats.setUserId();
+    webStats.setUserId(us.userInfo.username);
   }, 1000);
 }
 initWebStat()
