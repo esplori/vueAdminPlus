@@ -101,6 +101,8 @@ const login = async function () {
   if (!valid) {
     return;
   }
+  // 用户名默认转为小写
+  form.username = form.username.toLowerCase()
   const res: any = await loginApi(form).then((res: any) => {
     localStorage.setItem("userInfo", JSON.stringify(res.data));
     router.push({ path: "/home" });
