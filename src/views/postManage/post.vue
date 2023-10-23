@@ -224,7 +224,7 @@ const editPage = async (isDraft: boolean) => {
     createDate: getCurrDate(state.form.createDate),
     createBy: userInfo.value && userInfo.value.username,
     keywords: state.dynamicTags.join(","),
-    draft: isDraft ? "1" : "0",
+    draft: isDraft ? 1 : 0,
   });
   if (res) {
     const { page, cate, pageSize } = route.query;
@@ -247,7 +247,7 @@ const postPage = async (isDraft: boolean) => {
     createBy: userInfo.value && userInfo.value.username,
     createDate: getCurrDate(state.form.createDate),
     keywords: state.dynamicTags.join(","),
-    draft: isDraft ? "1" : "0",
+    draft: isDraft ? 1 : 0,
   });
   if (res) {
     state.form.id = res.data;
