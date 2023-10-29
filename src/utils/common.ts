@@ -108,7 +108,7 @@ export function commonOptions(title: string, data: Array<{ name: string, value: 
         name: title,
         type: "pie",
         data: data,
-        radius: ["40%", "55%"],
+        radius: ["40%", "50%"],
         emphasis: {
           label: {
             show: true,
@@ -174,7 +174,7 @@ export function dayViewsOptions(state: any) {
     },
     series: [
       {
-        name: "今日访问IP数(UV)",
+        name: "独立访客数(UV)",
         type: "line",
         stack: "Total",
         areaStyle: {
@@ -199,7 +199,7 @@ export function dayViewsOptions(state: any) {
         showSymbol: false
       },
       {
-        name: "今日浏览量(PV)",
+        name: "访问量(PV)",
         type: "line",
         stack: "Total",
         showSymbol: false,

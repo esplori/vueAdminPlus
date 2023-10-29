@@ -71,6 +71,7 @@ import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import { loginApi } from "@/views/account/api";
 import { User, Lock } from "@element-plus/icons-vue";
+import { userInfoStore } from "@/stores/userInfo";
 const form = reactive({
   username: "",
   password: "",
@@ -87,6 +88,11 @@ const loginRules = reactive({
   password: [{ required: true, message: "请输入密码", trigger: "change" }],
 });
 const router = useRouter();
+// 清除当前用户的cookie
+const us = userInfoStore();
+const username = us.userInfo.username
+document.cookie = `${username}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+us.userInfo.username = ""
 
 // 获取refs
 const formref = ref();
@@ -95,6 +101,8 @@ const login = async function () {
   if (!valid) {
     return;
   }
+  // 用户名默认转为小写
+  form.username = form.username.toLowerCase()
   const res: any = await loginApi(form).then((res: any) => {
     localStorage.setItem("userInfo", JSON.stringify(res.data));
     router.push({ path: "/home" });

@@ -122,6 +122,8 @@ const register = async () => {
     ElMessage.error("请输入账号和密码");
     return;
   }
+  // 用户名默认转为小写
+  regform.username = regform.username.toLowerCase()
   const res = await registerApi(regform);
   if (res) {
     ElMessage.success("注册成功，即将跳转到登录页面");

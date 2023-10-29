@@ -108,6 +108,10 @@ const router = createRouter({
               component: () => import("../views/tools/qrcode/index.vue"),
             },
             {
+              path: "jsonFormat",
+              component: () => import("../views/tools/jsonformat/index.vue"),
+            },
+            {
               path: "dianming",
               component: () => import("../views/tools/dianming/dianming.vue"),
             },
@@ -127,6 +131,10 @@ const router = createRouter({
             {
               path: "wordBeautify",
               component: () => import("../views/tools/wordBeautify/index.vue"),
+            },
+            {
+              path: "games",
+              component: () => import("../views/tools/games/index.vue"),
             },
           ],
         },
