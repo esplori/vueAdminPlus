@@ -1,5 +1,5 @@
 <template>
-    <h2 class="page-title"></h2>
+    <searchHeader :title="'json格式化'"></searchHeader>
     <div class="tip-box">
         <el-alert v-show="state.showErrorMsg" :title="state.tipmsg" :type="state.alertType" />
     </div>
@@ -14,6 +14,7 @@
 <script setup lang="ts">
 import { reactive, onMounted, watchEffect } from "vue";
 import JsonViewer from "vue-json-viewer";
+import searchHeader from "../../components/searchHeader.vue";
 const state = reactive({
     originJsonData: '',
     testJsonData: '{"code":0,"msg":"查询成功","data":{"username":"test","password":"","role":"ROLE_author","nickname":"i am a test user","userdesc":"developer","avatar":"icom","token":null}}',
