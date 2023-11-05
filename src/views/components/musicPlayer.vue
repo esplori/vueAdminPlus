@@ -1,6 +1,6 @@
 <template>
   <div class="bottomControl">
-    <audio id="audioPlayer" :src="state.musicDetail.songUrl" @play="changeState(true)" @pause="changeState(false)"
+    <audio id="audioPlayer" preload="auto" :src="state.musicDetail.songUrl" @play="changeState(true)" @pause="changeState(false)"
       @ended="changeMusic('next')" @timeupdate="timeupdate"></audio>
     <div class="left">
       <div class="musicInfo">
@@ -63,7 +63,9 @@
     </div>
     <!-- 抽屉 -->
     <el-drawer v-model="state.drawer" :with-header="false" width="500">
-      <div class="drawerHeader">总{{ state.musicList.length }}首</div>
+      <div class="warmTip">
+        <el-alert :title="state.descTitle" type="info" />
+      </div>
       <el-table :data="state.musicList" stripe style="width: 100%" :show-header="false" @row-dblclick="clickRow"
         highlight-current-row lazy>
         <el-table-column type="index" width="50" />
@@ -117,7 +119,7 @@ const state = reactive({
   // 进度条的位置
   timeProgress: 0,
   // 音量
-  volume: 50,
+  volume: 80,
   // 是否静音
   isMuted: false,
   // 抽屉是否被打开过（如果没打开过，里面的数据是不会渲染的）
@@ -136,6 +138,7 @@ const state = reactive({
   pageSize: 10,
   total: 0,
   totolPage: 0,
+  descTitle: "双击可切换音乐(注意：该音乐仅可作为学习交流使用，不可用于商业用途)"
 });
 
 let audioPlayerRef: any;
@@ -297,6 +300,10 @@ const changeMusic = (type: any) => {
 
 <style scoped lang="scss">
 @import '@/assets/styles/iconfont.css';
+.warmTip{
+  margin-top: 60px;
+  margin-bottom: 20px;
+}
 
 .bottomControl {
   /* background-color: pink; */

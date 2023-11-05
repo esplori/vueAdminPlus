@@ -7,13 +7,13 @@
       </el-table-column>
       <el-table-column prop="email" label="邮箱" show-overflow-tooltip>
       </el-table-column>
-      <el-table-column prop="valid" label="是否有效">
+      <el-table-column prop="valid" label="是否有效" width="80px">
         <template #default="scope">
           <span v-show="scope.row.valid === '1'">是</span>
           <span style="color: red" v-show="scope.row.valid === '0'">否</span>
         </template>
       </el-table-column>
-      <el-table-column prop="createDate" label="创建时间"> </el-table-column>
+      <el-table-column prop="createDate" label="创建时间"  width="120px" show-overflow-tooltip> </el-table-column>
       <el-table-column fixed="right" width="180" label="操作">
         <template #default="scope">
           <el-button link @click="edit(scope.row)" type="primary"

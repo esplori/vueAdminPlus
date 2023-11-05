@@ -136,6 +136,10 @@ const router = createRouter({
               path: "games",
               component: () => import("../views/tools/games/index.vue"),
             },
+            {
+              path: "unlock-music",
+              component: () => import("../views/tools/unlock-music/index.vue"),
+            },
           ],
         },
         {

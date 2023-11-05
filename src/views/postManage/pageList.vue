@@ -19,7 +19,7 @@
 
     <el-table :data="state.list" @sort-change="sortCchange" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="30"> </el-table-column>
-      <el-table-column label="标题" show-overflow-tooltip>
+      <el-table-column label="标题" show-overflow-tooltip min-width="160px">
         <template #default="scope">
           <a style="color: #333" :href="'https://www.dsiab.com/post/' + (scope.row.uid || scope.row.id)
             " target="_blank">{{ scope.row.title }}</a>
@@ -35,7 +35,7 @@
       <el-table-column label="作者" prop="createBy" width="80px"></el-table-column>
       <el-table-column label="阅读" sortable="custom" prop="views" width="80px"></el-table-column>
       <el-table-column label="字数" sortable="custom" prop="wordsNum" width="80px"></el-table-column>
-      <el-table-column label="创建时间" sortable="custom" prop="createDate" width="180px"></el-table-column>
+      <el-table-column label="创建时间" sortable="custom" prop="createDate" width="120px" show-overflow-tooltip></el-table-column>
       <el-table-column fixed="right" width="160px" label="操作">
         <template #default="scope">
           <div class="operate">
