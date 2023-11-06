@@ -210,6 +210,10 @@ const router = createRouter({
               component: () => import("../views/setting/sourceList.vue"),
             },
             {
+              path: "scheduleList",
+              component: () => import("../views/setting/scheduleList.vue"),
+            },
+            {
               path: "notice",
               component: () => import("../views/setting/notice.vue"),
             },
