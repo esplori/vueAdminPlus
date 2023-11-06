@@ -50,13 +50,13 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="浏览量：">
+            <!-- <el-form-item label="浏览量：">
               <el-input
                 v-model="state.form.views"
                 disabled
                 class="optionsWidth"
               ></el-input>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item label="关键字：">
               <el-tag
                 :key="tag"
@@ -86,17 +86,17 @@
     </div>
     <div class="submit-container">
       <div class="submit-bar">
-        <div class="draft-tip" v-if="state.loading !== null">
+        <div class="draft-tip">
           <span v-if="state.loading">
             <el-icon class="is-loading" style="margin-right: 5px">
               <Loading />
             </el-icon>
             <span>草稿保存中...</span>
           </span>
-          <span v-else>草稿已保存</span>
+          <span v-else>草稿已于 {{getCurrDate("")}} 自动保存成功</span>
         </div>
         <div>
-          <span class="wordNum">字数：{{ state.form.wordsNum }}</span>
+          <span class="wordNum">文章字数：{{ state.form.wordsNum }}</span>
         </div>
         <div>
           <el-button
