@@ -20,7 +20,7 @@ export default defineConfig({
     proxy: {
       "/manage-service": {
         target: "https://admin.dsiab.com",
-        // target: "http://localhost:8083/",
+        // target: "http://localhost:8093/",
         changeOrigin: true,
         // rewrite: (path) => path.replace("manage-service", ""),
       },
