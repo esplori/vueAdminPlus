@@ -60,7 +60,7 @@
 <script lang="ts" setup>
 import { getWebStatisticsApi } from "@/views/API/stats.js";
 import * as echarts from "echarts";
-// 单独引入中国地图
+// 引入中国地图，世界地图
 import "echarts-countries-js/echarts-countries-js/china";
 import "echarts-countries-js/echarts-countries-js/world";
 
