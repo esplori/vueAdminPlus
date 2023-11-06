@@ -38,7 +38,7 @@
       <el-table-column label="操作" width="180">
         <template #default="scope">
           <el-button link @click="delConfirm([scope.row.id])" type="text">删除</el-button>
-          <el-button link @click="approveComment(scope.row.id)" type="text">通过</el-button>
+          <el-button link @click="approveComment(scope.row.id)" type="primary">{{scope.row.approved == "Y" ?'拒绝':"通过"}}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -96,13 +96,14 @@ const delConfirm = async (ids: any) => {
 const del = async (ids: any) => {
   const res = await delCommentApi({ ids: ids });
   if (res) {
-    ElMessage.success("删除成功");
+    
     getList();
   }
 };
 const approveComment = async (id: any) => {
   const res = await approveCommentApi({ id: id });
   if (res) {
+    ElMessage.success("操作成功");
     getList();
   }
 };
@@ -122,15 +123,3 @@ const handleCurrentChange = (val: any) => {
   getList();
 };
 </script>
-
-<style scoped lang="scss">
-.page-list {
-  width: 100%;
-
-  .content-item {
-    font-size: 18px;
-    text-align: left;
-    padding: 5px;
-  }
-}
-</style>

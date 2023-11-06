@@ -20,7 +20,7 @@ export default defineConfig({
     proxy: {
       "/manage-service": {
         target: "https://admin.dsiab.com",
-        // target: "http://localhost:8083/",
+        // target: "http://localhost:8093/",
         changeOrigin: true,
         // rewrite: (path) => path.replace("manage-service", ""),
       },
@@ -39,7 +39,6 @@ export default defineConfig({
           "vue-router": ["vue-router"],
           vue: ["vue"],
           echarts: ["echarts"],
-          countupjs: ["countup.js"],
           wangeditor: ["@wangeditor/editor"],
           "@wangeditor-editorforvue": ["@wangeditor/editor-for-vue"],
           axios: ["axios"],

@@ -235,3 +235,9 @@ export async function batchDelApi(data: any) {
   const options = { showLoading: true };
   return post(Url, data, options);
 }
+// 回收站恢复文章
+export async function recoveryPostApi(data: any) {
+  const Url = `${contextPath}/admin/recoveryPost`;
+  const options = { showLoading: true };
+  return post(Url, data, options);
+}

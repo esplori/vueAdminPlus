@@ -124,19 +124,3 @@ const handleClose = async () => {
   };
 };
 </script>
-
-<style scoped lang="scss">
-.page-list {
-  width: 100%;
-  .handler {
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-  }
-  .content-item {
-    font-size: 18px;
-    text-align: left;
-    padding: 5px;
-  }
-}
-</style>

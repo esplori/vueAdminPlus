@@ -15,18 +15,18 @@
     </searchHeader>
     <el-table :data="state.list" style="width: 100%">
       <!-- <el-table-column type="index" width="55" label="序号"> </el-table-column> -->
-      <el-table-column prop="title" label="标题"> </el-table-column>
+      <el-table-column prop="title" label="标题" show-overflow-tooltip> </el-table-column>
       <el-table-column prop="content" label="描述" show-overflow-tooltip>
       </el-table-column>
       <el-table-column prop="url" label="地址" show-overflow-tooltip>
         <template #default="scope">
-          <a :href="scope.row.url">{{ scope.row.url }}</a>
+          <a class="primary-active-color" :href="scope.row.url" target="_blank">{{ scope.row.url }}</a>
         </template>
       </el-table-column>
       <el-table-column prop="cateName" label="分类"> </el-table-column>
       <el-table-column prop="createDate" label="创建日期" show-overflow-tooltip>
       </el-table-column>
-      <el-table-column label="操作" width="180">
+      <el-table-column label="操作" >
         <template #default="scope">
           <el-button link @click="edit(scope.row)" type="primary">编辑</el-button>
           <el-button link @click="delConfirm(scope.row.id)" type="danger">删除</el-button>
@@ -56,7 +56,7 @@ const state = reactive({
     page: 1,
     pageSize: 10,
   },
-  cateList: [],
+  cateList: [{ name: "", id: "" }],
   total: 0,
 });
 onMounted(() => {
@@ -121,15 +121,3 @@ const typeChange = async (val: string) => {
   getList()
 }
 </script>
-
-<style scoped lang="scss">
-.page-list {
-  width: 100%;
-
-  .content-item {
-    font-size: 18px;
-    text-align: left;
-    padding: 5px;
-  }
-}
-</style>

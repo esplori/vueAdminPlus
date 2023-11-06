@@ -108,6 +108,10 @@ const router = createRouter({
               component: () => import("../views/tools/qrcode/index.vue"),
             },
             {
+              path: "jsonFormat",
+              component: () => import("../views/tools/jsonformat/index.vue"),
+            },
+            {
               path: "dianming",
               component: () => import("../views/tools/dianming/dianming.vue"),
             },
@@ -123,6 +127,18 @@ const router = createRouter({
             {
               path: "music",
               component: () => import("../views/tools/music/index.vue"),
+            },
+            {
+              path: "wordBeautify",
+              component: () => import("../views/tools/wordBeautify/index.vue"),
+            },
+            {
+              path: "games",
+              component: () => import("../views/tools/games/index.vue"),
+            },
+            {
+              path: "unlock-music",
+              component: () => import("../views/tools/unlock-music/index.vue"),
             },
           ],
         },
@@ -194,6 +210,10 @@ const router = createRouter({
               component: () => import("../views/setting/sourceList.vue"),
             },
             {
+              path: "scheduleList",
+              component: () => import("../views/setting/scheduleList.vue"),
+            },
+            {
               path: "notice",
               component: () => import("../views/setting/notice.vue"),
             },
@@ -207,5 +227,7 @@ const router = createRouter({
     },
   ],
 });
+// 动态添加路由
+// router.addRoute({ path: "/test", component: () => import("../test.vue")});
 
 export default router;

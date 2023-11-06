@@ -81,8 +81,8 @@ export function get(url: any, params: any, options: any) {
   return new Promise((resolve, reject) => {
     axios({
       method: "get",
-      // url: url, // 在使用别名方法时， url、method、data 这些属性都不必在配置中指定。
-      url: url + "?t=" + new Date().getTime(), // 在使用别名方法时， url、method、data 这些属性都不必在配置中指定。
+      url: url, // 在使用别名方法时， url、method、data 这些属性都不必在配置中指定。
+      // url: url + "?t=" + new Date().getTime(), // 在使用别名方法时， url、method、data 这些属性都不必在配置中指定。
       params: params, // params是要与请求一起发送的URL参数
     })
       .then((res) => {
@@ -124,6 +124,9 @@ function handleAuthenticated(res: any) {
   switch (res.response.status) {
     case 401:
     case 403:
+      setTimeout(() =>{
+        location.reload()
+      },205)
       setTimeout(() => {
         location.href = "/#/login";
       }, 200);

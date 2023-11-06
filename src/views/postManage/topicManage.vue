@@ -1,5 +1,5 @@
 <template>
-  <div class="comments-list">
+  <div>
     <searchHeader :title="state.topicName">
       <el-button type="primary" @click="goBack">返回</el-button>
     </searchHeader>
@@ -18,10 +18,10 @@
       </el-table-column>
       <el-table-column label="操作" width="180">
         <template #default="scope">
-          <el-button @click="edit(scope.row.postId)" type="primary"
+          <el-button link @click="edit(scope.row.postId)" type="primary"
             >编辑</el-button
           >
-          <el-button @click="delConfirm(scope.row.id)" type="danger"
+          <el-button link @click="delConfirm(scope.row.id)" type="danger"
             >删除</el-button
           >
         </template>
@@ -89,19 +89,11 @@ const goToPage = (postId: string) => {
   window.open("http://www.dsiab.com/post/" + postId);
 };
 </script>
-
 <style scoped lang="scss">
-.comments-list {
-  .topic-item {
-    cursor: pointer;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-  .handler {
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
+.topic-item{
+  cursor: pointer;
+  &:hover{
+    text-decoration:underline;
   }
 }
 </style>

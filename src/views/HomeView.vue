@@ -237,6 +237,8 @@ const us = userInfoStore();
 const getUserInfo = async () => {
   const res: any = await getUserInfoApi({});
   state.userInfoObj = res.data;
+  // 保存用户信息到pinia
+  us.userInfo = res.data || {}
   // 开启播放器后调整左侧菜单高度，避免被播放器盖住
   if (res.data.musicPlayerSwitch === "1") {
     const leftMenu = document.querySelector(".left-menu");

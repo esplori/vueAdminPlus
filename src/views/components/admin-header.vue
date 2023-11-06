@@ -53,6 +53,10 @@ const handleCommand = (command: string) => {
 };
 
 const toLogin = () => {
+  // 清楚已有缓存
+  setTimeout(() =>{
+    location.reload()
+  },5)
   router.push("/login");
 };
 
@@ -127,17 +131,6 @@ watchEffect(() => {
     .el-dropdown-link {
       display: flex;
       align-items: center;
-    }
-  }
-
-  .tips {
-    width: 100%;
-    padding: 0 20px 5px 20px;
-    border-bottom: 1px solid #f5f5f5;
-
-    .welcomeMsg {
-      // margin-left: 10px;
-      font-size: 12px;
     }
   }
 }

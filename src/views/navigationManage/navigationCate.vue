@@ -4,16 +4,8 @@
       <el-button type="primary" @click="insertCate">新增分类</el-button>
     </searchHeader>
     <el-table :data="list" style="width: 100%">
-      <el-table-column label="标题">
-        <template #default="scope">
-          {{ scope.row.name }}
-        </template>
-      </el-table-column>
-      <el-table-column label="创建时间">
-        <template #default="scope">
-          {{ scope.row.createDate }}
-        </template>
-      </el-table-column>
+      <el-table-column label="标题" prop="name"></el-table-column>
+      <el-table-column label="创建时间" prop="createDate"></el-table-column>
       <el-table-column label="操作" width="180">
         <template #default="scope">
           <el-button link @click="edit(scope.row)" type="primary">编辑</el-button>
@@ -145,15 +137,3 @@ const handleSizeChange = async (val: any) => {
   getList();
 };
 </script>
-
-<style scoped lang="scss">
-.page-list {
-  width: 100%;
-
-  .content-item {
-    font-size: 18px;
-    text-align: left;
-    padding: 5px;
-  }
-}
-</style>

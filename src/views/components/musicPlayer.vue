@@ -1,17 +1,11 @@
 <template>
   <div class="bottomControl">
-    <audio
-      id="audioPlayer"
-      :src="state.musicDetail.songUrl"
-      @play="changeState(true)"
-      @pause="changeState(false)"
-      @ended="changeMusic('next')"
-      @timeupdate="timeupdate"
-    ></audio>
+    <audio id="audioPlayer" preload="auto" :src="state.musicDetail.songUrl" @play="changeState(true)" @pause="changeState(false)"
+      @ended="changeMusic('next')" @timeupdate="timeupdate"></audio>
     <div class="left">
       <div class="musicInfo">
-        <div class="musicName">《{{ state.musicDetail.name }}》</div>
-        <div class="singer">
+        <div class="musicName overflow-name">《{{ state.musicDetail.name }}》</div>
+        <div class="singer overflow-name">
           {{ state.musicDetail.singerName }}
         </div>
       </div>
@@ -19,17 +13,13 @@
     <!-- 中间 -->
     <div class="center">
       <div class="buttons">
-        <span
-          @click="
-            state.playType = state.playType == 'order' ? 'random' : 'order'
-          "
-        >
+        <span @click="
+          state.playType = state.playType == 'order' ? 'random' : 'order'
+          ">
           <i class="iconfont icon-xunhuan" v-if="state.playType == 'order'"></i>
           <i class="iconfont icon-suiji1" v-else></i>
         </span>
-        <span @click="changeMusic('pre')"
-          ><i class="iconfont icon-shangyishou"></i
-        ></span>
+        <span @click="changeMusic('pre')"><i class="iconfont icon-shangyishou"></i></span>
         <span @click="changePlayState()">
           <i v-if="state.isPlay" class="iconfont icon-zantingtingzhi"></i>
           <i v-else class="iconfont icon-icon_play"></i>
@@ -38,10 +28,7 @@
           <i class="iconfont icon-xiayishou"></i>
         </span>
         <span>
-          <i
-            class="iconfont icon-xihuan"
-            :class="state.isUserLikeCurrentMusic ? 'like' : ''"
-          >
+          <i class="iconfont icon-xihuan" :class="state.isUserLikeCurrentMusic ? 'like' : ''">
           </i>
         </span>
       </div>
@@ -51,12 +38,8 @@
           handleMusicTime(state.currentTime)
         }}</span>
         <!-- :value 是单向的  要实现双向要v-model -->
-        <el-slider
-          class="progressSlider"
-          v-model="state.timeProgress"
-          :show-tooltip="false"
-          @change="changeProgress"
-        ></el-slider>
+        <el-slider class="progressSlider" v-model="state.timeProgress" :show-tooltip="false"
+          @change="changeProgress"></el-slider>
         <span class="totalTime">{{ handleMusicTime(state.duration) }}</span>
       </div>
     </div>
@@ -64,23 +47,14 @@
     <div class="right">
       <div class="volumeControl">
         <i class="iconfont icon-yinliang" @click="changeMutedState"></i>
-        <el-slider
-          class="volumeSlider"
-          v-model="state.volume"
-          @input="changeVolume"
-          :show-tooltip="false"
-        ></el-slider>
+        <el-slider class="volumeSlider" v-model="state.volume" @input="changeVolume" :show-tooltip="false"></el-slider>
       </div>
       <div class="playList" @click="openDrawer">
         <i class="iconfont icon-bofangliebiao"></i>
       </div>
-      <el-tooltip
-        placement="bottom"
-        effect="light"
-        popper-class="custom-tooltip"
-      >
+      <el-tooltip placement="bottom" effect="light" popper-class="custom-tooltip">
         <template #content>
-          <span> 可以在个人设置中关闭音乐播放器</span>
+          <span> 可在个人设置中关闭音乐播放器</span>
         </template>
         <el-icon>
           <Warning />
@@ -89,30 +63,19 @@
     </div>
     <!-- 抽屉 -->
     <el-drawer v-model="state.drawer" :with-header="false" width="500">
-      <div class="drawerHeader">总{{ state.musicList.length }}首</div>
-      <el-table
-        :data="state.musicList"
-        stripe
-        style="width: 100%"
-        :show-header="false"
-        @row-dblclick="clickRow"
-        highlight-current-row
-        lazy
-      >
+      <div class="warmTip">
+        <el-alert :title="state.descTitle" type="info" />
+      </div>
+      <el-table :data="state.musicList" stripe style="width: 100%" :show-header="false" @row-dblclick="clickRow"
+        highlight-current-row lazy>
         <el-table-column type="index" width="50" />
         <el-table-column prop="name" label="歌曲名称"> </el-table-column>
         <el-table-column prop="singerName" label="歌手"> </el-table-column>
       </el-table>
       <div class="pagination-box" style="text-align: center; margin-top: 20px">
-        <el-pagination
-          background
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page="state.pageNum"
-          :page-size="state.pageSize"
-          layout="total, prev, pager, next"
-          :total="state.total"
-        >
+        <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
+          :current-page="state.pageNum" :page-size="state.pageSize" layout="total, prev, pager, next"
+          :total="state.total">
         </el-pagination>
       </div>
     </el-drawer>
@@ -156,7 +119,7 @@ const state = reactive({
   // 进度条的位置
   timeProgress: 0,
   // 音量
-  volume: 30,
+  volume: 80,
   // 是否静音
   isMuted: false,
   // 抽屉是否被打开过（如果没打开过，里面的数据是不会渲染的）
@@ -175,6 +138,7 @@ const state = reactive({
   pageSize: 10,
   total: 0,
   totolPage: 0,
+  descTitle: "双击可切换音乐(注意：该音乐仅可作为学习交流使用，不可用于商业用途)"
 });
 
 let audioPlayerRef: any;
@@ -182,22 +146,22 @@ let audioPlayerRef: any;
 const us = userInfoStore();
 
 onMounted(() => {
-  audioPlayerRef = document.getElementById("audioPlayer") as any;
+
   getMusicList();
   // get music duration
-  const myVid = audioPlayerRef;
-
-  audioPlayerRef = myVid;
-
-  if (myVid != null) {
-    myVid.load();
-    myVid.oncanplay = function () {
-      state.durationNum = myVid.duration;
+});
+const initPlayer = () => {
+  audioPlayerRef = document.getElementById("audioPlayer") as any;
+  if (audioPlayerRef != null) {
+    audioPlayerRef.load();
+    audioPlayerRef.oncanplay = function () {
+      state.durationNum = audioPlayerRef.duration;
       state.duration = state.durationNum;
     };
+    // 音量取值范围在[0,1]
+    audioPlayerRef.volume = (state.volume / 100).toFixed(2)
   }
-});
-
+}
 const storeDataToPinia = (list: any) => {
   us.$patch((state) => {
     // 这里传入的state就是pinia的state
@@ -221,6 +185,7 @@ const getMusicList = async () => {
       state.musicDetail = state.musicList[0];
       // 同时保存一份数据到pinia,方便全局使用
       storeDataToPinia(state.musicList);
+      initPlayer()
     }
   }
 };
@@ -230,11 +195,16 @@ const changePlayState = () => {
 };
 // 播放音乐的函数
 const playMusic = () => {
-  audioPlayerRef.play();
+  // 添加延时，否则播放器不会播放
+  setTimeout(() => {
+    audioPlayerRef.play();
+  }, 500)
 };
 // 暂停音乐的函数
 const pauseMusic = () => {
-  audioPlayerRef.pause();
+  setTimeout(() => {
+    audioPlayerRef.pause();
+  }, 500)
 };
 
 // audio开始或暂停播放的回调  在vuex中改变状态
@@ -246,9 +216,6 @@ const changeState = (status: boolean) => {
 const timeupdate = () => {
   // 节流
   let time = audioPlayerRef.currentTime;
-  // 将当前播放时间保存到vuex  如果保存到vuex这步节流,会导致歌词不精准,误差最大有1s
-  // this.$store.commit("updateCurrentTime", time);
-
   time = Math.floor(time);
   if (time !== lastSecond) {
     // console.log(time);
@@ -256,7 +223,6 @@ const timeupdate = () => {
     state.currentTime = time;
     // 计算进度条的位置
     state.timeProgress = Math.floor((time / state.durationNum) * 100);
-    // console.log(this.timeProgress);
   }
 };
 // 拖动进度条的回调
@@ -304,6 +270,7 @@ const handleCurrentChange = (val: any) => {
 };
 const clickRow = (item: any) => {
   state.musicDetail = item;
+  initPlayer()
   playMusic();
 };
 const changeMusic = (type: any) => {
@@ -331,7 +298,13 @@ const changeMusic = (type: any) => {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import '@/assets/styles/iconfont.css';
+.warmTip{
+  margin-top: 60px;
+  margin-bottom: 20px;
+}
+
 .bottomControl {
   /* background-color: pink; */
   border-top: 1px solid #ddd;
@@ -396,7 +369,7 @@ const changeMusic = (type: any) => {
 }
 
 .volumeSlider {
-  width: 55px;
+  width: 100px;
 }
 
 .icon-bofangliebiao {
@@ -468,6 +441,13 @@ const changeMusic = (type: any) => {
 :deep(.el-slider__button) {
   width: 10px !important;
   height: 10px !important;
+}
+
+.overflow-name {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 200px;
 }
 </style>
 <style>

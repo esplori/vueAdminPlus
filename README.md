@@ -14,50 +14,53 @@
 
 - 主要技术栈: vuejs3.0 + vue-router + pinia + element-plus + typescript + scss
 
-- 使用到的插件： axios + wangeditor5 + echarts5 + countup.js
+- 使用到的插件： axios + wangeditor5 + echarts5
 
 - 启动项目可直接看到效果，默认调用是官网的后台管理接口，使用体验账号登录即可。
 
 ### 主要功能
 
 
-- 首页看板：访问数据统计
-- 文章管理：新增、删除、查询、修改文章
-- 评论管理：评论查询、删除
-- 分类管理：新增、删除分类
-- 专题管理：新增专题、编辑专题、删除专题
-- 导航管理：查询导航、分类管理、新增导航
-- 权限管理：用户管理、角色管理、菜单管理 
-- 个人设置：用户个人信息修改
-- 系统设置：站点设置、资源管理、回收站、发送邮件、系统通知
-- 常用工具：
-	- 在线电子书
-	- json格式化
+- 首页看板：
+	- 访问数据统计
+- 内容管理：
+	- 文章管理
+	- 评论管理
+	- 分类管理
+	- 专题管理
+- 导航管理：
+	- 导航管理
+	- 分类管理
+- 权限管理：
+	- 角色管理
+	- 用户管理
+	- 菜单管理
+- 个人设置：
+	- 个人资料
+- 系统设置：
+	- 站点设置
+	- 资源管理
+	- 回收站
+	- 发送邮件
+	- 系统通知
+- 小工具：
+	- 电子书
+	- ip 归属地查询
 	- 在线抽奖
 	- 在线点名
 	- 图片转base64
 	- 在线生成二维码
-	- ip 归属地查询
-	- 在线音乐
+	- 音乐管理
 	- 持续更新中...
 
 
 ### 关联项目
 
-- 博客首页: nuxtWebPlus (https://gitee.com/wilkwo/nuxt-web-plus.git) 
-  
-- 体验地址：https://www.dsiab.com
-
-
-### 体验地址
-
-
-- 地址：http://admin.dsiab.com
-
-- 体验账号、密码： test / test
-  
+- 官网：https: //www.dsiab.com
+- 博客首页开源项目: nuxtWebPlus (https://gitee.com/wilkwo/nuxt-web-plus.git)
+- 博客前后台微服务开源项目: springCloudAdmin (https://gitee.com/wilkwo/spring-cloud-admin.git)
+- 后台管理体验地址： https://admin.dsiab.com , 体验账号：test/test
 - 加qq群一起交流：514450699
-
 
 
 ### 演示截图

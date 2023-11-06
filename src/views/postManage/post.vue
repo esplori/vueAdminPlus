@@ -30,6 +30,7 @@
               <el-date-picker
                 type="datetime"
                 style="width: 250px"
+                :disabled-date="disabledDate"
                 popper-class="select-zindex"
                 v-model="state.form.createDate"
               ></el-date-picker>
@@ -49,13 +50,13 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="浏览量：">
+            <!-- <el-form-item label="浏览量：">
               <el-input
                 v-model="state.form.views"
                 disabled
                 class="optionsWidth"
               ></el-input>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item label="关键字：">
               <el-tag
                 :key="tag"
@@ -85,17 +86,17 @@
     </div>
     <div class="submit-container">
       <div class="submit-bar">
-        <div class="draft-tip" v-if="state.loading !== null">
+        <div class="draft-tip">
           <span v-if="state.loading">
             <el-icon class="is-loading" style="margin-right: 5px">
               <Loading />
             </el-icon>
             <span>草稿保存中...</span>
           </span>
-          <span v-else>草稿已保存</span>
+          <span v-else>草稿已于 {{getCurrDate("")}} 自动保存成功</span>
         </div>
         <div>
-          <span class="wordNum">字数：{{ state.form.wordsNum }}</span>
+          <span class="wordNum">文章字数：{{ state.form.wordsNum }}</span>
         </div>
         <div>
           <el-button
@@ -115,7 +116,6 @@ import {
   onBeforeUnmount,
   ref,
   shallowRef,
-  onUnmounted,
   onMounted,
   reactive,
   computed,
@@ -179,6 +179,11 @@ const userInfo = computed(() => {
   }
 });
 
+const disabledDate = (date: any)=>{
+  //  今天之后不能选择
+  return date > new Date();
+}
+
 const getCate = async (id: any) => {
   const res: any = await getAdminCateValidApi({});
   if (res) {
@@ -195,7 +200,6 @@ const getDetail = async (id: any) => {
   if (res) {
     // 日期兼容safari
     res.data.result.createDate = res.data.result.createDate.replace(/-/g, "/");
-    // this.$set(this, "form", res.data.result);
     state.form = res.data.result;
     state.dynamicTags = state.form.keywords
       ? state.form.keywords.split(",")
@@ -220,7 +224,7 @@ const editPage = async (isDraft: boolean) => {
     createDate: getCurrDate(state.form.createDate),
     createBy: userInfo.value && userInfo.value.username,
     keywords: state.dynamicTags.join(","),
-    draft: isDraft ? "1" : "0",
+    draft: isDraft ? 1 : 0,
   });
   if (res) {
     const { page, cate, pageSize } = route.query;
@@ -243,7 +247,7 @@ const postPage = async (isDraft: boolean) => {
     createBy: userInfo.value && userInfo.value.username,
     createDate: getCurrDate(state.form.createDate),
     keywords: state.dynamicTags.join(","),
-    draft: isDraft ? "1" : "0",
+    draft: isDraft ? 1 : 0,
   });
   if (res) {
     state.form.id = res.data;
@@ -288,10 +292,6 @@ const handleChange = (editor: any) => {
 
 editorConfig.MENU_CONF["uploadImage"] = {
   server: "/manage-service/account/upload",
-  // server: '/api/upload-img-10s', // test timeout
-  // server: '/api/upload-img-failed', // test failed
-  // server: '/api/xxx', // test 404
-
   timeout: 15 * 1000, // 5s
   fieldName: "file",
   meta: {},

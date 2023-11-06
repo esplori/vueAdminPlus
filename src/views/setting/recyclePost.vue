@@ -7,12 +7,8 @@
       <el-table-column type="selection" width="55"> </el-table-column>
       <el-table-column label="标题">
         <template #default="scope">
-          <a
-            style="color: #333"
-            :href="'https://www.dsiab.com/post/' + scope.row.id"
-            target="_blank"
-            >{{ scope.row.title }}</a
-          >
+          <a style="color: #333" :href="'https://www.dsiab.com/post/' + scope.row.uid" target="_blank">{{ scope.row.title
+          }}</a>
         </template>
       </el-table-column>
       <el-table-column label="分类" width="120px">
@@ -37,31 +33,22 @@
       </el-table-column>
       <el-table-column fixed="right" width="180" label="操作">
         <template #default="scope">
-          <el-button link @click="delConfirm(scope.row.id)" type="danger"
-            >删除</el-button
-          >
+          <el-button link @click="delConfirm(scope.row.id)" type="danger">删除</el-button>
+          <el-button link @click="recoveryPost(scope.row.uid)" type="primary">恢复</el-button>
         </template>
       </el-table-column>
     </el-table>
     <div class="pagination-box" style="text-align: center; margin-top: 20px">
-      <el-pagination
-        background
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="state.params.page"
-        :page-size="state.params.pageSize"
-        :page-sizes="[10, 20, 30, 50, 100, 200]"
-        :pager-count="5"
-        layout="sizes, total, prev, pager, next"
-        :total="state.total"
-      >
+      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
+        :current-page="state.params.page" :page-size="state.params.pageSize" :page-sizes="[10, 20, 30, 50, 100, 200]"
+        :pager-count="5" layout="sizes, total, prev, pager, next" :total="state.total">
       </el-pagination>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { deletePostApi, getPostListByCateApi } from "@/views/API/admin.js";
+import { deletePostApi, getPostListByCateApi, recoveryPostApi } from "@/views/API/admin.js";
 import { reactive, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { ElMessageBox, ElMessage } from "element-plus";
@@ -109,6 +96,13 @@ const delConfirm = async (id: any) => {
     delMultiple([id]);
   });
 };
+const recoveryPost = async (id: any) => {
+  const res = await recoveryPostApi({ uid: id });
+  if (res) {
+    ElMessage.success("恢复成功");
+    getList();
+  }
+}
 
 const handleSizeChange = (val: any) => {
   state.params.pageSize = val;
@@ -150,16 +144,6 @@ const delMultiple = async (ids: any) => {
 <style scoped lang="scss">
 .recyclePost {
   width: 100%;
-
-  .select-by-cate {
-    margin-bottom: 20px;
-  }
-
-  .content-item {
-    font-size: 18px;
-    text-align: left;
-    padding: 5px;
-  }
 
   .delMul {
     padding: 10px 0;

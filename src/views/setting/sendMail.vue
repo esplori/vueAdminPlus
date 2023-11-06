@@ -1,5 +1,5 @@
 <template>
-  <div class="mail">
+  <div>
     <searchHeader :title="'邮件发送'"></searchHeader>
     <el-form
       ref="mailForm"
@@ -58,9 +58,3 @@ const sendMail = async () => {
   }
 };
 </script>
-
-<style scoped lang="scss">
-.mail {
-  width: 100%;
-}
-</style>
