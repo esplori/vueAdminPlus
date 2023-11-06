@@ -18,10 +18,10 @@
       </el-table-column>
       <el-table-column label="操作" width="180">
         <template #default="scope">
-          <el-button @click="edit(scope.row.postId)" type="primary"
+          <el-button link @click="edit(scope.row.postId)" type="primary"
             >编辑</el-button
           >
-          <el-button @click="delConfirm(scope.row.id)" type="danger"
+          <el-button link @click="delConfirm(scope.row.id)" type="danger"
             >删除</el-button
           >
         </template>

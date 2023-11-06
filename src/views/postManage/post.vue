@@ -50,13 +50,13 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="浏览量：">
+            <!-- <el-form-item label="浏览量：">
               <el-input
                 v-model="state.form.views"
                 disabled
                 class="optionsWidth"
               ></el-input>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item label="关键字：">
               <el-tag
                 :key="tag"

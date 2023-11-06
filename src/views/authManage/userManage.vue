@@ -5,9 +5,9 @@
       <el-table-column prop="username" label="用户名"> </el-table-column>
       <el-table-column prop="role" label="角色Id" show-overflow-tooltip>
       </el-table-column>
-      <el-table-column prop="email" label="邮箱" show-overflow-tooltip>
-      </el-table-column>
-      <el-table-column prop="valid" label="是否有效" width="80px">
+      <el-table-column prop="email" label="邮箱" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="memberPoints" label="积分"></el-table-column>
+      <el-table-column prop="valid" label="是否激活" width="80px">
         <template #default="scope">
           <span v-show="scope.row.valid === '1'">是</span>
           <span style="color: red" v-show="scope.row.valid === '0'">否</span>

@@ -32,7 +32,7 @@
         </template>
       </el-table-column>
       <el-table-column label="分类" prop="cateName" width="120px"></el-table-column>
-      <el-table-column label="作者" prop="createBy" width="80px"></el-table-column>
+      <el-table-column label="作者" sortable="createBy" prop="createBy" width="80px"></el-table-column>
       <el-table-column label="阅读" sortable="custom" prop="views" width="80px"></el-table-column>
       <el-table-column label="字数" sortable="custom" prop="wordsNum" width="80px"></el-table-column>
       <el-table-column label="创建时间" sortable="custom" prop="createDate" width="120px" show-overflow-tooltip></el-table-column>
