@@ -103,7 +103,7 @@ const state = reactive({
     { name: "总访问量", value: 0, momNum: 0, momName: "今日新增" },
     { name: "今日浏览量", value: 0, momNum: 0, momName: "同比昨日" },
     { name: "今日访问IP数(UV)", value: 0, momNum: 0, momName: "同比昨日" },
-    { name: "文章总数", value: 0, momNum: 0, momName: "今日新增" },
+    { name: "文章总数", value: 0, momNum: 0, momName: "同比昨日" },
     { name: "今日访问来源", value: 0, momNum: 0, momName: "同比昨日" },
     { name: "今日访问地址", value: 0, momNum: 0, momName: "同比昨日" },
   ]
@@ -177,7 +177,7 @@ const getWebStatistics = async (type: string) => {
   // 获取网站统计信息
   const res: any = await getWebStatisticsApi({ type: type });
   if (res) {
-    let { mapData, worldMapData, allViews, allpages, dayViews, dayIp, allViewsMom, allpagesMom, dayViewsMom, dayIpMom, referrer, postView, totalWordsNum, deviceRatio, deviceType, browserType, everyDayViews } = res.data;
+    let { mapData, worldMapData, allViews, allpages, dayViews, dayIp, allViewsMom, allpagesMom, dayViewsMom, dayIpMom, referrer, viewAddress, totalWordsNum, deviceRatio, deviceType, browserType, everyDayViews,twoDayagoNumDaysAddress,twoDayagoNumDaysReferrer } = res.data;
     // 设置视图数据
     state.momCardList[0].value = allViews;
     // 设置文章数据
@@ -200,8 +200,12 @@ const getWebStatistics = async (type: string) => {
     state.momCardList[2].momNum = parseFloat(dayIpMom);
     // 设置引用数据
     state.momCardList[4].value = referrer;
+
+    state.momCardList[4].momNum = twoDayagoNumDaysReferrer;
     // 设置发布视图数据
-    state.momCardList[5].value = postView;
+    state.momCardList[5].value = viewAddress;
+
+    state.momCardList[5].momNum = twoDayagoNumDaysAddress;
     // 设置总字数
     state.totalWordsNum = totalWordsNum || 0;
     // 设置设备比例Y
