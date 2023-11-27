@@ -185,7 +185,10 @@ const disabledDate = (date: any)=>{
 }
 
 const getCate = async (id: any) => {
-  const res: any = await getAdminCateValidApi({});
+  const res: any = await getAdminCateValidApi({
+    pageNum: 1,
+    pageSize:100,
+  });
   if (res) {
     state.cateList = res.data.result || [];
     if (!id) {

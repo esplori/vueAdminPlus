@@ -20,7 +20,7 @@
     </el-table>
     <div class="pagination-box">
       <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
-        :current-page="state.pageNum" :page-size="state.pageSize" :page-sizes="[10, 20, 30, 50]" :pager-count="5"
+        :current-page="state.pageNum" :page-size="state.pageSize" :page-sizes="[10, 20, 30, 50]"
         layout="total, prev, pager, next" :total="state.total">
       </el-pagination>
     </div>
