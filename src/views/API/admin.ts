@@ -57,7 +57,7 @@ export async function insertCateApi(data: any) {
 }
 // 删除文件
 export async function delFileApi(data: any) {
-  const url = `${contextPath}/admin/delFile`;
+  const url = `${contextPath}/system/delFile`;
   const options = { showLoading: true };
   return post(url, data, options);
 }
@@ -75,7 +75,7 @@ export async function getUserInfoApi(data: any) {
 }
 // 查询所有上传文件
 export async function getSourceListApi(data: any) {
-  const url = `${contextPath}/admin/getSourceList`;
+  const url = `${contextPath}/system/getSourceList`;
   const options = {};
   return get(url, data, options);
 }
@@ -117,7 +117,7 @@ export async function updateSiteInfoApi(data: any) {
 }
 // 发送邮件
 export async function sendMailApi(data: any) {
-  const url = `${contextPath}/admin/sendMail`;
+  const url = `${contextPath}/system/sendMail`;
   const options = { showLoading: true };
   return post(url, data, options);
 }
