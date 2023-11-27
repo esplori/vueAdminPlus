@@ -189,7 +189,7 @@ export async function getPostListByCateApi(data: any) {
 }
 // 删除文章
 export async function deletePostApi(data: any) {
-  const Url = `${contextPath}/admin/deletePost`;
+  const Url = `${contextPath}/system/deletePost`;
   const options = { showLoading: true };
   return post(Url, data, options);
 }
@@ -237,7 +237,7 @@ export async function batchDelApi(data: any) {
 }
 // 回收站恢复文章
 export async function recoveryPostApi(data: any) {
-  const Url = `${contextPath}/admin/recoveryPost`;
+  const Url = `${contextPath}/system/recoveryPost`;
   const options = { showLoading: true };
   return post(Url, data, options);
 }
