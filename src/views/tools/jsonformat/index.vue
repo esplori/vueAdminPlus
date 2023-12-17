@@ -38,7 +38,7 @@ const handler = () => {
         state.alertType = "error"
     }
 };
-const inputChange = (val) => {
+const inputChange = (val:String) => {
     if (!val) {
         state.tipmsg = '请输入json格式数据'
     }
