@@ -26,7 +26,7 @@
       <el-table-column prop="cateName" label="分类"> </el-table-column>
       <el-table-column prop="createDate" label="创建日期" show-overflow-tooltip>
       </el-table-column>
-      <el-table-column label="操作" >
+      <el-table-column label="操作">
         <template #default="scope">
           <el-button link @click="edit(scope.row)" type="primary">编辑</el-button>
           <el-button link @click="delConfirm(scope.row.id)" type="danger">删除</el-button>
@@ -56,7 +56,7 @@ const state = reactive({
     page: 1,
     pageSize: 10,
   },
-  cateList: [{ name: "", id: "" }],
+  cateList: [],
   total: 0,
 });
 onMounted(() => {
@@ -117,7 +117,7 @@ const getCateList = async () => {
   }
 }
 
-const typeChange = async (val: string) => {
+const typeChange = async () => {
   getList()
 }
 </script>

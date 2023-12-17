@@ -3,14 +3,8 @@
     <searchHeader :title="'菜单管理'"></searchHeader>
     <el-row>
       <el-col :span="12">
-        <el-tree
-          node-key="menuId"
-          default-expand-all
-          :data="state.data"
-          :expand-on-click-node="false"
-          :props="state.defaultProps"
-          @node-click="handleNodeClick"
-        >
+        <el-tree node-key="menuId" default-expand-all :data="state.data" :expand-on-click-node="false"
+          :props="state.defaultProps" @node-click="handleNodeClick">
         </el-tree>
       </el-col>
       <el-col :span="12">
@@ -22,26 +16,18 @@
             <el-input v-model="state.form.path"></el-input>
           </el-form-item>
           <el-form-item label="">
-            <el-button type="primary" @click="state.showAdd = true"
-              >新增</el-button
-            >
-            <el-button type="primary" @click="updateMenu(state.form)"
-              >保存</el-button
-            >
-            <el-button type="danger" @click="deleteMenuConfirm()"
-              >删除</el-button
-            >
+            <el-button type="primary" @click="state.showAdd = true">新增</el-button>
+            <el-button type="primary" @click="updateMenu(state.form)">保存</el-button>
+            <el-button type="danger" @click="deleteMenuConfirm()">删除</el-button>
           </el-form-item>
         </el-form>
         <div v-if="state.showAdd">
-          <div
-            style="
+          <div style="
               text-align: center;
               padding: 10px;
               border-bottom: 1px solid #ddd;
               margin-bottom: 10px;
-            "
-          >
+            ">
             新增菜单
           </div>
           <el-form :model="state.addForm">
@@ -101,15 +87,15 @@ const getMenuList = async () => {
       { name: "javascript技术分享", children: res.data.result },
     ];
     state.data = defaultMenu as any;
-    (state.form = {
+    state.form = {
       name: "",
       path: "",
       menuId: "",
-    }),
-      (state.addForm = {
-        name: "",
-        path: "",
-      });
+    }
+    state.addForm = {
+      name: "",
+      path: "",
+    }
   });
 };
 

@@ -177,7 +177,7 @@ const getWebStatistics = async (type: string) => {
   // 获取网站统计信息
   const res: any = await getWebStatisticsApi({ type: type });
   if (res) {
-    let { mapData, worldMapData, allViews, allpages, dayViews, dayIp, allViewsMom, allpagesMom, dayViewsMom, dayIpMom, referrer, viewAddress, totalWordsNum, deviceRatio, deviceType, browserType, everyDayViews,twoDayagoNumDaysAddress,twoDayagoNumDaysReferrer } = res.data;
+    let { mapData, worldMapData, allViews, allpages, dayViews, dayIp, allViewsMom, allpagesMom, dayViewsMom, dayIpMom, referrer, viewAddress, totalWordsNum, deviceRatio, deviceType, browserType, everyDayViews, twoDayagoNumDaysAddress, twoDayagoNumDaysReferrer } = res.data;
     // 设置视图数据
     state.momCardList[0].value = allViews;
     // 设置文章数据
