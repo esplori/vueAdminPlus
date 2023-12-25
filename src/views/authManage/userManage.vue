@@ -13,49 +13,25 @@
           <span style="color: red" v-show="scope.row.valid === '0'">否</span>
         </template>
       </el-table-column>
-      <el-table-column prop="createDate" label="创建时间"  width="120px" show-overflow-tooltip> </el-table-column>
+      <el-table-column prop="createDate" label="创建时间" width="120px" show-overflow-tooltip> </el-table-column>
       <el-table-column fixed="right" width="180" label="操作">
         <template #default="scope">
-          <el-button link @click="edit(scope.row)" type="primary"
-            >编辑</el-button
-          >
+          <el-button link @click="edit(scope.row)" type="primary">编辑</el-button>
           <!-- 不允许删除管理员 -->
-          <el-button
-            @click="delConfirm(scope.row.id, scope.row.username)"
-            type="danger"
-            link
-            :disabled="scope.row.role.indexOf('admin') !== -1"
-            >删除</el-button
-          >
+          <el-button @click="delConfirm(scope.row.id, scope.row.username)" type="danger" link
+            :disabled="scope.row.role.indexOf('admin') !== -1">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
     <div class="pagination-box">
-      <el-pagination
-        background
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="state.params.page"
-        :page-size="state.params.pageSize"
-        :page-sizes="[10, 20, 30, 50]"
-        :pager-count="5"
-        layout="total, prev, pager, next"
-        :total="state.total"
-      >
+      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
+        :current-page="state.params.page" :page-size="state.params.pageSize" :page-sizes="[10, 20, 30, 50]"
+        :pager-count="5" layout="total, prev, pager, next" :total="state.total">
       </el-pagination>
     </div>
-    <el-dialog
-      :title="state.editObj.currUsername + '角色修改'"
-      v-model="state.editObj.dialogVisible"
-      width="30%"
-    >
+    <el-dialog :title="state.editObj.currUsername + '角色修改'" v-model="state.editObj.dialogVisible" width="30%">
       <div>
-        <el-table
-          :data="state.Roledata"
-          ref="RoleTable"
-          row-key="id"
-          @selection-change="handleSelectionChange"
-        >
+        <el-table :data="state.Roledata" ref="RoleTable" row-key="id" @selection-change="handleSelectionChange">
           <el-table-column type="selection" width="55"> </el-table-column>
           <el-table-column prop="roleName" label="角色"> </el-table-column>
           <el-table-column prop="roleId" label="角色ID"> </el-table-column>
@@ -63,9 +39,7 @@
       </div>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="state.editObj.dialogVisible = false"
-            >取 消</el-button
-          >
+          <el-button @click="state.editObj.dialogVisible = false">取 消</el-button>
           <el-button type="primary" @click="submit">确 定</el-button>
         </span>
       </template>

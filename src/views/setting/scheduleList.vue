@@ -57,10 +57,10 @@ const getList = async () => {
 };
 
 
-const edit = (row: object) => {
+const edit = (row: {isEdit:Boolean}) => {
   row.isEdit = true
 }
-const save = async (row: object) => {
+const save = async (row: {isEdit:Boolean}) => {
   const res: any = await saveScheduleApi(row);
   if (res) {
     ElMessage.success("保存成功")

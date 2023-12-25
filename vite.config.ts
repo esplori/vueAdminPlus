@@ -37,11 +37,11 @@ export default defineConfig({
       output: {
         manualChunks: {
           "vue-router": ["vue-router"],
-          vue: ["vue"],
-          echarts: ["echarts"],
-          wangeditor: ["@wangeditor/editor"],
+          'vue': ["vue"],
+          'echarts': ["echarts"],
+          'wangeditor': ["@wangeditor/editor"],
           "@wangeditor-editorforvue": ["@wangeditor/editor-for-vue"],
-          axios: ["axios"],
+          'axios': ["axios"],
           "element-plus": ["element-plus"],
         },
         entryFileNames: "assets/js/[name]-[hash].js",

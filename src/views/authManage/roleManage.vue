@@ -6,20 +6,12 @@
       <el-table-column prop="roleId" label="角色id"> </el-table-column>
       <el-table-column fixed="right" width="180" label="操作">
         <template #default="scope">
-          <el-button link @click="edit(scope.row)" type="primary"
-            >编辑</el-button
-          >
-          <el-button link @click="deleteMenuConfirm(scope.row)" type="danger"
-            >删除</el-button
-          >
+          <el-button link @click="edit(scope.row)" type="primary">编辑</el-button>
+          <el-button link @click="deleteMenuConfirm(scope.row)" type="danger">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog
-      title="角色修改"
-      v-model="state.editObj.dialogVisible"
-      width="50%"
-    >
+    <el-dialog title="角色修改" v-model="state.editObj.dialogVisible" width="50%">
       <div>
         <el-form>
           <el-form-item label="角色名称：">
@@ -27,17 +19,8 @@
           </el-form-item>
           <el-form-item label="菜单权限：">
             <div class="tree-container">
-              <el-tree
-                check-strictly
-                node-key="menuId"
-                v-model="state.checkedKeys"
-                ref="treeRef"
-                show-checkbox
-                default-expand-all
-                :data="state.treeData"
-                :expand-on-click-node="false"
-                :props="state.defaultProps"
-              >
+              <el-tree check-strictly node-key="menuId" v-model="state.checkedKeys" ref="treeRef" show-checkbox
+                default-expand-all :data="state.treeData" :expand-on-click-node="false" :props="state.defaultProps">
               </el-tree>
             </div>
           </el-form-item>
@@ -45,9 +28,7 @@
       </div>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="state.editObj.dialogVisible = false"
-            >取 消</el-button
-          >
+          <el-button @click="state.editObj.dialogVisible = false">取 消</el-button>
           <el-button type="primary" @click="submit">确 定</el-button>
         </span>
       </template>
