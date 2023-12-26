@@ -9,14 +9,14 @@
             <div class="statistic-card">
               <el-statistic :value="item.value">
                 <template #title>
-                  <div style="display: inline-flex; align-items: center">
+                  <div class="statistic-title">
                     {{ item.name }}
                   </div>
                 </template>
               </el-statistic>
               <div class="statistic-footer">
                 <div class="footer-item">
-                  <span>{{ item.momName }}</span>
+                  <span class="name">{{ item.momName }}</span>
                   <span class="red" v-if="item.momNum > 0">
                     {{ Math.abs(item.momNum) }}
                     <el-icon>
@@ -101,11 +101,11 @@ const state = reactive({
   ],
   momCardList: [
     { name: "总访问量", value: 0, momNum: 0, momName: "今日新增" },
-    { name: "今日浏览量", value: 0, momNum: 0, momName: "同比昨日" },
-    { name: "今日访问IP数(UV)", value: 0, momNum: 0, momName: "同比昨日" },
+    { name: "浏览量", value: 0, momNum: 0, momName: "同比昨日" },
+    { name: "访问IP数(UV)", value: 0, momNum: 0, momName: "同比昨日" },
     { name: "文章总数", value: 0, momNum: 0, momName: "同比昨日" },
-    { name: "今日访问来源", value: 0, momNum: 0, momName: "同比昨日" },
-    { name: "今日访问地址", value: 0, momNum: 0, momName: "同比昨日" },
+    { name: "访问来源", value: 0, momNum: 0, momName: "同比昨日" },
+    { name: "访问地址", value: 0, momNum: 0, momName: "同比昨日" },
   ]
 });
 
@@ -228,14 +228,12 @@ const getWebStatistics = async (type: string) => {
   }
 };
 const initCharts = () => {
-  nextTick(() => {
-    initDayViews();
-    initChart("deviceType", state.deviceTypeY, "设备型号")
-    initChart("browserType", state.browserTypeY, "浏览器型号")
-    initChart("deiveRatio", state.deviceRatioY, "分辨率型号")
-    initChinaMap();
-    initWorldMap();
-  });
+  initDayViews();
+  initChart("deviceType", state.deviceTypeY, "设备型号")
+  initChart("browserType", state.browserTypeY, "浏览器型号")
+  initChart("deiveRatio", state.deviceRatioY, "分辨率型号")
+  initChinaMap();
+  initWorldMap();
 };
 const tabChange = (type: string) => {
   getWebStatistics(type);
@@ -311,6 +309,12 @@ const tabChange = (type: string) => {
     height: 100%;
     padding: 20px;
     border-radius: 4px;
+
+    .statistic-title {
+      display: inline-flex;
+      align-items: center;
+      font-size: 16px;
+    }
   }
 
   .statistic-footer {
@@ -326,6 +330,10 @@ const tabChange = (type: string) => {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    .name {
+      color: var(--el-text-color-regular);
+    }
   }
 
   .statistic-footer .footer-item span:last-child {
