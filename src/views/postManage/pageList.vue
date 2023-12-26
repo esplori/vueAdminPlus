@@ -10,7 +10,7 @@
           </el-select>
         </div>
         <div class="pdding">
-          <el-input v-model="state.params.tag" placeholder="输入关键字搜索" @change="tagChange"></el-input>
+          <el-input v-model="state.params.tag" placeholder="输入关键字搜索" @change="tagChange" clearable></el-input>
         </div>
         <span class="pdding"><el-button type="primary" @click="insert">新增文章</el-button></span>
         <span class="pdding"><el-button type="danger" @click="batchdel(state.multipleSelection)">批量删除</el-button></span>
