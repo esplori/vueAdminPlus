@@ -158,11 +158,10 @@ onMounted(() => {
     getDetail(id);
   } else if (did && dindex) {
     // 从草稿过来时从本地缓存获取对应内容
-    getDraftFromLocalstorage(did, dindex);
     setTimeout(() => {
       // 加延时，等编辑器加载完成在渲染
       getDraftFromLocalstorage(did, dindex);
-    }, 500)
+    }, 1000)
   }
   getCate(id);
   if (!did) {
@@ -392,7 +391,7 @@ const autoSave = () => {
       submit(true);
     }
     console.log(state.autoSaveInterval);
-  }, 20000);
+  }, 5000);
 };
 const handleDraft = () => {
   state.draft.dialogVisible = true;
