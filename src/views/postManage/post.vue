@@ -391,7 +391,7 @@ const autoSave = () => {
       submit(true);
     }
     console.log(state.autoSaveInterval);
-  }, 5000);
+  }, 20000);
 };
 const handleDraft = () => {
   state.draft.dialogVisible = true;
