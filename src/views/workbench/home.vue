@@ -50,6 +50,7 @@
       </div>
       <div class="type-data">
         <div class="chart-item" v-for="(item, index)  in state.chartsDomList" :key="index">
+          <div class="chart-name">{{ item.name }}</div>
           <div :id="item.type"></div>
         </div>
       </div>
@@ -93,11 +94,11 @@ const state = reactive({
   mapData: [],
   worldMapData: [],
   chartsDomList: [
-    { type: "deviceType" },
-    { type: "browserType" },
-    { type: "deiveRatio" },
-    { type: "chinaMap" },
-    { type: "worldMap" },
+    { type: "deviceType", name: "设备型号分布" },
+    { type: "browserType", name: "浏览器型号分布" },
+    { type: "deiveRatio", name: "分辨率分布" },
+    { type: "chinaMap", name: "访问地域分布" },
+    { type: "worldMap", name: "全球访问地域分布" },
   ],
   momCardList: [
     { name: "总访问量", value: 0, momNum: 0, momName: "今日新增" },
@@ -229,9 +230,9 @@ const getWebStatistics = async (type: string) => {
 };
 const initCharts = () => {
   initDayViews();
-  initChart("deviceType", state.deviceTypeY, "设备型号")
-  initChart("browserType", state.browserTypeY, "浏览器型号")
-  initChart("deiveRatio", state.deviceRatioY, "分辨率型号")
+  initChart("deviceType", state.deviceTypeY, "")
+  initChart("browserType", state.browserTypeY, "")
+  initChart("deiveRatio", state.deviceRatioY, "")
   initChinaMap();
   initWorldMap();
 };
@@ -273,6 +274,16 @@ const tabChange = (type: string) => {
     .chart-item {
       width: 50%;
 
+      .chart-name {
+        font-size: medium;
+        font-weight: bold;
+        padding: 10px;
+        border-top: 1px solid rgb(228, 231, 237);
+        border-left: 1px solid rgb(228, 231, 237);
+        border-right: 1px solid rgb(228, 231, 237);
+        background-color: #fafafa
+      }
+
       &:nth-child(odd) {
         padding-right: 20px;
       }
@@ -294,15 +305,15 @@ const tabChange = (type: string) => {
     width: 100%;
     height: 320px;
     box-sizing: border-box;
-    border-radius: 4px;
+    // border-radius: 4px;
     border: 1px solid rgb(228, 231, 237);
     margin-bottom: 20px;
 
-    &:hover {
-      box-shadow: 0 0 1px 1px #ddd;
-      transition: all 1000ms;
-      transform: scale(1.005);
-    }
+    // &:hover {
+    //   box-shadow: 0 0 1px 1px #ddd;
+    //   transition: all 1000ms;
+    //   transform: scale(1.005);
+    // }
   }
 
   .statistic-card {
