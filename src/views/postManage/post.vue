@@ -12,7 +12,6 @@
           <Editor style="height: 500px; overflow-y: hidden" v-model="valueHtml" :defaultConfig="editorConfig" :mode="mode"
             @onCreated="handleCreated" @onChange="handleChange" />
           <div class="draft-btn" @click="handleDraft">
-            <!-- <el-button :icon="Edit"></el-button> -->
             <span>草稿</span>
             <span>记录</span>
           </div>
@@ -93,7 +92,6 @@
 </template>
 <script lang="ts" setup>
 import "@wangeditor/editor/dist/css/style.css"; // 引入 css
-import { Edit } from "@element-plus/icons-vue";
 import {
   onBeforeUnmount,
   ref,
@@ -324,7 +322,6 @@ editorConfig.MENU_CONF["uploadImage"] = {
 };
 const saveToLocalStorage = () => {
   // 手动添加时间戳
-  state.form.createDate = getCurrDate(new Date());
   state.form.dateStamp = String(new Date().getTime());
   let tempPostList = localStorage.getItem("tempPostList") as any;
   if (tempPostList) {
