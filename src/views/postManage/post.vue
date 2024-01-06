@@ -11,7 +11,8 @@
         <div id="editor-text-area">
           <Editor style="height: 500px; overflow-y: hidden" v-model="valueHtml" :defaultConfig="editorConfig" :mode="mode"
             @onCreated="handleCreated" @onChange="handleChange" />
-          <div class="draft-btn" @click="handleDraft">
+            <!-- 从草稿记录过来的记录给不再显示草稿记录按钮 -->
+          <div class="draft-btn" @click="handleDraft" v-if="!did">
             <span>草稿</span>
             <span>记录</span>
           </div>
@@ -117,7 +118,9 @@ import {
 const router = useRouter();
 const route = useRoute();
 const id = route.query.id;
+// 草稿id
 const did = route.query.did as string;
+// 草稿记录序号
 const dindex = route.query.dindex as string;
 const mode = "default";
 // 编辑器实例，必须用 shallowRef
