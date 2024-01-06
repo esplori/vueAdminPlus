@@ -233,7 +233,7 @@ export function dayViewsOptions(state: any) {
 export function mapOptions(list: Array<Object>) {
   return {
     title: {
-      text: "访问地域分布",
+      // text: "访问地域分布",
       left: 20,
       top: 10
     },
@@ -271,7 +271,7 @@ export function mapOptions(list: Array<Object>) {
 export function worldMapOptions(list: Array<Object>) {
   return {
     title: {
-      text: "全球访问地域分布",
+      // text: "全球访问地域分布",
       left: 20,
       top: 10
     },
