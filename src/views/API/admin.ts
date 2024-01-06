@@ -241,3 +241,7 @@ export async function recoveryPostApi(data: any) {
   const options = { showLoading: true };
   return post(Url, data, options);
 }
+// 备份数据库
+export function exportPostUrl() {
+  return `${contextPath}/admin/exportPost`;;
+}

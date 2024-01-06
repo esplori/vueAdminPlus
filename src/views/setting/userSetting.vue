@@ -1,30 +1,18 @@
 <template>
   <div class="user-setting">
     <searchHeader :title="'个人资料'"></searchHeader>
-    <el-form
-      :model="state.form"
-      label-width="120px"
-      label-position="left"
-      style="width: 50%"
-    >
+    <el-form :model="state.form" label-width="120px" label-position="left" style="width: 50%">
       <el-form-item label="昵称:">
         <el-input v-model="state.form.nickname"></el-input>
       </el-form-item>
       <el-form-item label="个性签名:">
-        <el-input
-          v-model="state.form.userdesc"
-          type="textarea"
-          :rows="5"
-        ></el-input>
+        <el-input v-model="state.form.userdesc" type="textarea" :rows="5"></el-input>
       </el-form-item>
       <el-form-item label="邮箱:">
         <el-input v-model="state.form.email"> </el-input>
       </el-form-item>
       <el-form-item label="密码:">
-        <span class="editPwd"
-          ><span>已设置</span
-          ><span class="update-pwd" @click="updatePwd">修改密码</span></span
-        >
+        <span class="editPwd"><span>已设置</span><span class="update-pwd" @click="updatePwd">修改密码</span></span>
       </el-form-item>
       <el-form-item label="开启音乐:">
         <el-radio-group v-model="state.form.musicPlayerSwitch" class="ml-4">
@@ -34,6 +22,9 @@
       </el-form-item>
       <el-form-item label="积分:">
         <div>{{ state.form.memberPoints || 0 }}</div>
+      </el-form-item>
+      <el-form-item label="数据导出:">
+        <div><el-button type="primary" @click="exportData">导出</el-button></div>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submit">保存</el-button>
@@ -69,7 +60,9 @@ import {
   updateUserInfoApi,
   getUserInfoApi,
   updatePwdApi,
+  exportPostUrl
 } from "@/views/API/admin.js";
+import { downloadRequestApi } from "@/utils/axios.ts";
 import { reactive, onMounted } from "vue";
 import { ElMessage } from "element-plus";
 import { useRouter } from "vue-router";
@@ -121,6 +114,10 @@ const submitPwd = async () => {
       router.push("/login");
     });
   }
+};
+const exportData = async () => {
+  let url = exportPostUrl()
+  downloadRequestApi(url,'','')
 };
 </script>
 
