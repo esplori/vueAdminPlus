@@ -42,6 +42,10 @@ const router = createRouter({
           component: () => import("../views/workbench/home.vue"),
         },
         {
+          path: "/sd",
+          component: () => import("../views/sd/index.vue"),
+        },
+        {
           path: "navigation",
           children: [
             {
