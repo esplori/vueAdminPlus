@@ -26,6 +26,10 @@ const router = createRouter({
       component: () => import("../views/postManage/post.vue"),
     },
     {
+      path: "/sd",
+      component: () => import("../views/sd/index.vue"),
+    },
+    {
       path: "/",
       name: "mainLayout",
       // route level code-splitting
@@ -40,10 +44,6 @@ const router = createRouter({
         {
           path: "home",
           component: () => import("../views/workbench/home.vue"),
-        },
-        {
-          path: "/sd",
-          component: () => import("../views/sd/index.vue"),
         },
         {
           path: "navigation",
