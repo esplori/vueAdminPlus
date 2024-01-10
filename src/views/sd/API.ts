@@ -7,3 +7,7 @@ export async function getListApi(data: any) {
   const options = { showLoading: true };
   return post(url, data, options);
 }
+export function sdUploadApi() {
+  const url = `${contextPath}/account/sdUpload`
+  return url;
+}

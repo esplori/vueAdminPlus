@@ -1,41 +1,68 @@
 <template>
     <div class="sd-list">
-        <searchHeader :title="'作品灵感'"></searchHeader>
+        <searchHeader :title="'作品灵感'">
+            <div class="select-by-cate">
+
+                <div class="pdding">
+                    <el-input v-model="state.params.tag" placeholder="输入关键字搜索" @change="tagChange" clearable></el-input>
+                </div>
+                <span class="pdding"><el-button type="primary" @click="insert">发布</el-button></span>
+            </div>
+        </searchHeader>
         <div id="masonryBox">
             <div v-for="(item, index) in state.list" class="masonry-item">
                 <!-- <div :style="item.style">{{ index }}</div> -->
-                <img :src="item.url" alt=""
-                    style="max-width: 300px;height: 100%;border-radius: 10px;">
+                <img :src="item.url" alt="" style="max-width: 300px;height: 100%;border-radius: 10px;">
             </div>
             <div style="clear:both"></div>
         </div>
+        <el-dialog title="提示" v-model="state.dialogVisible" width="30%">
+            <el-upload class="upload-demo" drag :action="sdUploadApi()" multiple :headers="headers">
+                <i class="el-icon-upload"></i>
+                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                <template #tip>
+                    <div class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                </template>
+            </el-upload>
+            <template #footer>
+                <span class="dialog-footer">
+                    <el-button @click="state.dialogVisible = false">取 消</el-button>
+                    <el-button type="primary" @click="state.dialogVisible = false">确 定</el-button>
+                </span>
+            </template>
+        </el-dialog>
     </div>
 </template>
   
 <script lang="ts" setup>
-import { getListApi } from "./API";
-import { reactive, onMounted, nextTick } from "vue";
+import { getListApi,sdUploadApi } from "./API";
+import { reactive, onMounted, nextTick, computed } from "vue";
 import searchHeader from "../components/searchHeader.vue";
 const state = reactive({
+    dialogVisible: false,
     list: [],
     params: {
         page: 1,
         pageSize: 10,
+        tag: ""
     },
     total: 0,
 });
 onMounted(() => {
-    // generateData()
     getList()
 
 });
-// const generateData = () => {
-//     for (let index = 0; index < 50; index++) {
-//         state.list.push({
-//             style: `height:${Math.random() * 200 + 50 + Math.random() * 200}px;background-color:rgba(${Math.random() * 230}, ${Math.random() * 230},${Math.random() * 230},0.5)`
-//         })
-//     }
-// }
+const headers = computed(() => {
+    let userinfo = localStorage.getItem("userInfo") as any;
+    if (userinfo) {
+        userinfo = JSON.parse(userinfo);
+        return { Authorization: userinfo.token };
+    }
+    return { Authorization: "" };
+});
+const insert = () => {
+    state.dialogVisible = true
+}
 
 const addScrollEvent = () => {
     // let iddom = document.getElementsByClassName('content-container')[0];

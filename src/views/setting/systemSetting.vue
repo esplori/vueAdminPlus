@@ -20,6 +20,9 @@
       <el-form-item label="文件备份实际路径:">
         <el-input v-model="state.form.bakRealUrl"> </el-input>
       </el-form-item>
+      <el-form-item label="sd上传文件实际路径:">
+        <el-input v-model="state.form.sdRealUrl"> </el-input>
+      </el-form-item>
       <el-form-item label="book实际路径:">
         <el-input v-model="state.form.bookUrl"> </el-input>
       </el-form-item>
@@ -90,6 +93,7 @@ const state = reactive({
     siteEmail: "",
     carouselEnable: "N",
     bookUrl: "",
+    sdRealUrl:""
   },
   tableData: [{ imgUrl: "", desc: "", url: "" }],
 });
