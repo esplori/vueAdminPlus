@@ -2,7 +2,6 @@
     <div class="sd-list">
         <searchHeader :title="'作品灵感'">
             <div class="select-by-cate">
-
                 <div class="pdding">
                     <el-input v-model="state.params.tag" placeholder="输入关键字搜索" @change="tagChange" clearable></el-input>
                 </div>
@@ -12,7 +11,7 @@
         <div id="masonryBox">
             <div v-for="(item, index) in state.list" class="masonry-item">
                 <!-- <div :style="item.style">{{ index }}</div> -->
-                <img :src="item.url" alt="" style="max-width: 300px;height: 100%;border-radius: 10px;">
+                <img loading="lazy" :src="item.url" alt="" style="max-width: 300px;height: 100%;border-radius: 10px;">
             </div>
             <div style="clear:both"></div>
         </div>
@@ -27,7 +26,7 @@
             <template #footer>
                 <span class="dialog-footer">
                     <el-button @click="state.dialogVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="state.dialogVisible = false">确 定</el-button>
+                    <el-button type="primary" @click="getList">确 定</el-button>
                 </span>
             </template>
         </el-dialog>
@@ -35,20 +34,22 @@
 </template>
   
 <script lang="ts" setup>
-import { getListApi,sdUploadApi } from "./API";
+import { getListApi, sdUploadApi } from "./API";
 import { reactive, onMounted, nextTick, computed } from "vue";
 import searchHeader from "../components/searchHeader.vue";
 const state = reactive({
     dialogVisible: false,
     list: [],
     params: {
-        page: 1,
+        pageNum: 1,
         pageSize: 10,
         tag: ""
     },
     total: 0,
 });
 onMounted(() => {
+    addScrollEvent()
+    addResizeEvent()
     getList()
 
 });
@@ -65,19 +66,14 @@ const insert = () => {
 }
 
 const addScrollEvent = () => {
-    // let iddom = document.getElementsByClassName('content-container')[0];
     let iddom = document.documentElement;
     window.addEventListener('scroll', function () {
-        debugger
-        var scrollHeight = parseFloat(iddom.scrollHeight);
-        var scrollTop = parseInt(iddom.scrollTop);
-        var height = parseFloat(iddom.offsetHeight);
-        console.log(scrollTop, scrollHeight, height);
-
-        if ((scrollTop + height) >= scrollHeight - 1) {
-            // 到底了
-            // generateData()
-            getList();
+        let clientHeight = iddom.clientHeight || document.body.clientHeight;
+        let docHeight = iddom.scrollHeight;
+        let scrollTop = parseInt(iddom.scrollTop);
+        if (docHeight - clientHeight == scrollTop) {
+            console.log("到底了");
+            handleCurrentChange(++state.params.pageNum)
         }
     })
 
@@ -85,22 +81,22 @@ const addScrollEvent = () => {
 const getList = async () => {
     const res: any = await getListApi(state.params);
     if (res) {
-        state.list = state.list.concat(res.data);
-        state.total = res.data.length;
+        if (state.params.pageNum == 1) {
+            state.list = res.data.result;
+        } else {
+            // 不是第一页就合并
+            state.list = state.list.concat(res.data.result);
+        }
+        state.total = res.data.total;
         nextTick(() => {
             imgLocation('masonryBox', 'masonry-item')
-            addScrollEvent()
         })
     }
 };
 
-const handleSizeChange = (val: any) => {
-    state.params.pageSize = val;
-    getList();
-};
-
 const handleCurrentChange = (val: any) => {
-    state.params.page = val;
+    // 滚动分页
+    state.params.pageNum = val;
     getList();
 };
 const getChildElement = (parent, content) => {
@@ -122,7 +118,6 @@ const imgLocation = (parent, content) => {
     var cparent = document.getElementById(parent)
     // cparent 下的所有的第一层的子容器 box
     var ccontent = getChildElement(cparent, content)  //[装了20个div]
-    debugger
     //找从谁开始是需要被摆放位置的
     var winWidth = document.documentElement.clientWidth //获取视窗的宽度
     // var winWidth = 934 //获取视窗的宽度
@@ -151,6 +146,23 @@ const imgLocation = (parent, content) => {
     console.log("BoxHeightArr", BoxHeightArr);
 
 }
+const addResizeEvent = () => {
+    // 监听窗口大小变化
+    window.addEventListener('resize', function () {
+        var cparent = document.getElementById("masonryBox")
+        var ccontent = getChildElement(cparent, 'masonry-item')
+        if (ccontent) {
+            ccontent.forEach((item: any) => {
+                item.style.position = 'static'
+                item.style.top = 0
+                item.style.left = 0
+            })
+        }
+        nextTick(() => {
+            imgLocation('masonryBox', 'masonry-item')
+        })
+    })
+}
 </script>
 
 <style scope>
@@ -169,6 +181,10 @@ const imgLocation = (parent, content) => {
     /* img {
         width: 100%;
     } */
+}
+
+.sd-list {
+    padding: 20px;
 }
 </style>
   
