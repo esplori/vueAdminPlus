@@ -11,7 +11,7 @@
         <div id="masonryBox">
             <div v-for="(item, index) in state.list" class="masonry-item">
                 <!-- <div :style="item.style">{{ index }}</div> -->
-                <img loading="lazy" :src="item.url" alt="" style="max-width: 300px;height: 100%;border-radius: 10px;">
+                <img loading="lazy" :src="item.url" alt="" :style="'width:' +  item.fit_width + 'px;height: ' + item.fit_height + 'px;border-radius: 10px;'">
             </div>
             <div style="clear:both"></div>
         </div>
@@ -26,7 +26,7 @@
             <template #footer>
                 <span class="dialog-footer">
                     <el-button @click="state.dialogVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="getList">确 定</el-button>
+                    <el-button type="primary" @click="refresh">确 定</el-button>
                 </span>
             </template>
         </el-dialog>
@@ -63,6 +63,11 @@ const headers = computed(() => {
 });
 const insert = () => {
     state.dialogVisible = true
+}
+const refresh = () =>{
+    state.params.pageNum = 1
+    getList()
+    state.dialogVisible = false
 }
 
 const addScrollEvent = () => {
