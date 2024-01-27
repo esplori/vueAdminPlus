@@ -42,7 +42,7 @@ const state = reactive({
     list: [],
     params: {
         pageNum: 1,
-        pageSize: 10,
+        pageSize: 30,
         tag: ""
     },
     total: 0,
