@@ -62,7 +62,7 @@ import {
   updatePwdApi,
   exportPostUrl
 } from "@/views/API/admin.js";
-import { downloadRequestApi } from "@/utils/axios.ts";
+import { downloadRequestApi } from "@/utils/axios";
 import { reactive, onMounted } from "vue";
 import { ElMessage } from "element-plus";
 import { useRouter } from "vue-router";

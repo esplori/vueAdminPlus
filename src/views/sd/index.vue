@@ -11,7 +11,8 @@
         <div id="masonryBox">
             <div v-for="(item, index) in state.list" class="masonry-item">
                 <!-- <div :style="item.style">{{ index }}</div> -->
-                <img loading="lazy" :src="item.url" alt="" :style="'width:' +  item.fit_width + 'px;height: ' + item.fit_height + 'px;border-radius: 10px;'">
+                <img loading="lazy" :src="item.url" alt=""
+                    :style="'width:' + item.fit_width + 'px;height: ' + item.fit_height + 'px;border-radius: 10px;'">
             </div>
             <div style="clear:both"></div>
         </div>
@@ -37,9 +38,21 @@
 import { getListApi, sdUploadApi } from "./API";
 import { reactive, onMounted, nextTick, computed } from "vue";
 import searchHeader from "../components/searchHeader.vue";
-const state = reactive({
+type stateType = {
+    dialogVisible: boolean,
+    list: [
+        { url: string, fit_width: string, fit_height: string }
+    ],
+    params: {
+        pageNum: number,
+        pageSize: number,
+        tag: string
+    },
+    total: number
+}
+const state: stateType = reactive({
     dialogVisible: false,
-    list: [],
+    list: [{ url: "", fit_width: "", fit_height: "" }],
     params: {
         pageNum: 1,
         pageSize: 30,
@@ -64,7 +77,7 @@ const headers = computed(() => {
 const insert = () => {
     state.dialogVisible = true
 }
-const refresh = () =>{
+const refresh = () => {
     state.params.pageNum = 1
     getList()
     state.dialogVisible = false
@@ -75,7 +88,7 @@ const addScrollEvent = () => {
     window.addEventListener('scroll', function () {
         let clientHeight = iddom.clientHeight || document.body.clientHeight;
         let docHeight = iddom.scrollHeight;
-        let scrollTop = parseInt(iddom.scrollTop);
+        let scrollTop = parseInt(iddom.scrollTop as any);
         if (docHeight - clientHeight == scrollTop) {
             console.log("到底了");
             handleCurrentChange(++state.params.pageNum)
@@ -90,7 +103,7 @@ const getList = async () => {
             state.list = res.data.result;
         } else {
             // 不是第一页就合并
-            state.list = state.list.concat(res.data.result);
+            state.list = state.list.concat(res.data.result) as any;
         }
         state.total = res.data.total;
         nextTick(() => {
@@ -104,7 +117,7 @@ const handleCurrentChange = (val: any) => {
     state.params.pageNum = val;
     getList();
 };
-const getChildElement = (parent, content) => {
+const getChildElement = (parent: any, content: string) => {
     var contentArr = []
     var allContent = parent.getElementsByTagName('div') //[xxxx数组]
     //遍历allContent 把中其类名为 content 的容器都存到contentArr数组中
@@ -119,7 +132,7 @@ const getChildElement = (parent, content) => {
 
 
 //获取到所有要摆放的图片
-const imgLocation = (parent, content) => {
+const imgLocation = (parent: string, content: string) => {
     var cparent = document.getElementById(parent)
     // cparent 下的所有的第一层的子容器 box
     var ccontent = getChildElement(cparent, content)  //[装了20个div]
@@ -168,6 +181,7 @@ const addResizeEvent = () => {
         })
     })
 }
+const tagChange = () => { }
 </script>
 
 <style scope>

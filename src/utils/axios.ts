@@ -126,7 +126,7 @@ export function downloadRequestApi(url: any, param: any, options: any) {
         let filename = decodeURIComponent(res.headers['content-disposition'].split("fileName=")[1])
         let fileReader = new FileReader();
         fileReader.readAsDataURL(res.data);
-        fileReader.onload = e => {
+        fileReader.onload = (e: any) => {
           let a = document.createElement('a');
           a.download = filename;
           a.href = e.target.result;
