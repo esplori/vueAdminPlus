@@ -36,7 +36,8 @@
   
 <script lang="ts" setup>
 import { getListApi, sdUploadApi } from "./API";
-import { reactive, onMounted, nextTick, computed } from "vue";
+import { reactive, onMounted, nextTick, computed, onBeforeUnmount } from "vue";
+import { debounce } from "lodash"
 import searchHeader from "../components/searchHeader.vue";
 type stateType = {
     dialogVisible: boolean,
@@ -82,18 +83,21 @@ const refresh = () => {
     getList()
     state.dialogVisible = false
 }
-
-const addScrollEvent = () => {
+const scrollEvent = () => {
     let iddom = document.documentElement;
-    window.addEventListener('scroll', function () {
-        let clientHeight = iddom.clientHeight || document.body.clientHeight;
-        let docHeight = iddom.scrollHeight;
-        let scrollTop = parseInt(iddom.scrollTop as any);
-        if (docHeight - clientHeight == scrollTop) {
-            console.log("到底了");
-            handleCurrentChange(++state.params.pageNum)
-        }
-    })
+    let clientHeight = iddom.clientHeight || document.body.clientHeight;
+    let docHeight = iddom.scrollHeight;
+    let scrollTop = parseInt(iddom.scrollTop as any);
+    console.log(docHeight - clientHeight, scrollTop);
+    let reduceNum = docHeight - clientHeight
+    // 有时候可以值会相差1
+    if (reduceNum == scrollTop || reduceNum == (scrollTop + 1)) {
+        console.log("到底了");
+        handleCurrentChange(++state.params.pageNum)
+    }
+}
+const addScrollEvent = () => {
+    window.addEventListener('scroll', scrollEvent)
 
 }
 const getList = async () => {
@@ -111,12 +115,12 @@ const getList = async () => {
         })
     }
 };
-
-const handleCurrentChange = (val: any) => {
+// debounce 使用方法跟正常函数有一些差异
+const handleCurrentChange = debounce(function (val: any) {
     // 滚动分页
     state.params.pageNum = val;
     getList();
-};
+}, 1000);
 const getChildElement = (parent: any, content: string) => {
     var contentArr = []
     var allContent = parent.getElementsByTagName('div') //[xxxx数组]
@@ -182,6 +186,10 @@ const addResizeEvent = () => {
     })
 }
 const tagChange = () => { }
+
+onBeforeUnmount(() => {
+    window.removeEventListener('scroll', scrollEvent)
+})
 </script>
 
 <style scope>
