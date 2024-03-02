@@ -73,6 +73,8 @@ const state: stateType = reactive({
     srcList:[]
 });
 onMounted(() => {
+    let masonryBox = document.getElementById("masonryBox") as any
+    masonryBox.style.height = document.documentElement.clientHeight - 110 + "px"
     addScrollEvent()
     addResizeEvent()
     getList()
@@ -95,20 +97,20 @@ const refresh = () => {
     state.dialogVisible = false
 }
 const scrollEvent = () => {
-    let iddom = document.documentElement;
-    let clientHeight = iddom.clientHeight || document.body.clientHeight;
+    let iddom = document.getElementById("masonryBox") as any
+    let clientHeight = iddom.clientHeight;
     let docHeight = iddom.scrollHeight;
-    let scrollTop = parseInt(iddom.scrollTop as any);
-    console.log(docHeight - clientHeight, scrollTop);
-    let reduceNum = docHeight - clientHeight
-    // 有时候可以值会相差1
-    if (reduceNum == scrollTop || reduceNum == (scrollTop + 1)) {
+    let scrollTop = iddom.scrollTop;
+    console.log(docHeight ,clientHeight, scrollTop);
+    // 有时候可以值会相差0.7，通过math.ceil 解决
+    if (clientHeight + Math.ceil(scrollTop) == docHeight) {
         console.log("到底了");
         handleCurrentChange(++state.params.pageNum)
     }
 }
 const addScrollEvent = () => {
-    window.addEventListener('scroll', scrollEvent)
+    let masonryBox = document.getElementById("masonryBox") as any
+    masonryBox.addEventListener('scroll', scrollEvent)
 
 }
 const getList = async () => {
@@ -207,7 +209,7 @@ onBeforeUnmount(() => {
 #masonryBox {
     position: relative;
     width: 100%;
-    height: 1000px
+    overflow: auto;
 }
 
 .masonry-item {
