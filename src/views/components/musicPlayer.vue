@@ -129,7 +129,7 @@ const state = reactive({
   pageSize: 10,
   total: 0,
   totolPage: 0,
-  descTitle: "双击可切换音乐(注意：该音乐仅可作为学习交流使用，不可用于商业用途)"
+  descTitle: "双击可切换音乐（注意：仅作为学习交流使用，不可用于商业用途，引用如有问题，可以联系作者删除）"
 });
 
 let audioPlayerRef: any;
@@ -152,7 +152,7 @@ const initPlayer = () => {
     // 音量取值范围在[0,1]
     audioPlayerRef.volume = (state.volume / 100).toFixed(2)
     // 默认打开播放器
-    changePlayState()
+    // changePlayState()
   }
 }
 const storeDataToPinia = (list: any) => {
