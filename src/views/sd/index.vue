@@ -11,8 +11,18 @@
         <div id="masonryBox">
             <div v-for="(item, index) in state.list" class="masonry-item">
                 <!-- <div :style="item.style">{{ index }}</div> -->
-                <img loading="lazy" :src="item.url" alt=""
-                    :style="'width:' + item.fit_width + 'px;height: ' + item.fit_height + 'px;border-radius: 10px;'">
+                <el-image
+                :style="'width:' + item.fit_width + 'px;height: ' + item.fit_height + 'px;border-radius: 10px;'"
+                :src="item.url"
+                :zoom-rate="1.2"
+                :max-scale="7"
+                :min-scale="0.2"
+                lazy
+                :preview-src-list="[item.url]"
+                hide-on-click-modal
+                :initial-index="0"
+                fit="cover"
+                />
             </div>
             <div style="clear:both"></div>
         </div>
@@ -60,6 +70,7 @@ const state: stateType = reactive({
         tag: ""
     },
     total: 0,
+    srcList:[]
 });
 onMounted(() => {
     addScrollEvent()
