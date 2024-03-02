@@ -15,7 +15,7 @@
 
 - Main technology stack: Vuejs3.0 + Vue-router + Pinia + Element-Plus + TypeScript + SCSS
 
-- Plugins used： axios + wangeditor5 + echarts5 + countup.js
+- Plugins used： axios + wangeditor5 + echarts5
 
 - The effect can be seen directly when starting the project, and the default call is the background management interface of the official website, and you can log in with the experience account.
 
@@ -44,7 +44,7 @@
 ### Experience address
 
 
-- Address: http://admin.dsiab.com
+- Address: https://admin.dsiab.com
 
 - Experience account, password: test / test
   

@@ -425,6 +425,7 @@ const handleDraft = () => {
     padding: 20px 50px 50px 50px;
     border: 1px solid #e8e8e8;
     box-shadow: 0 2px 10px rgb(0 0 0 / 12%);
+    font-size: 1.2rem;
   }
 
   #title-container {

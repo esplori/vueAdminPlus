@@ -25,10 +25,10 @@ export default defineConfig({
         // rewrite: (path) => path.replace("manage-service", ""),
       },
       "/promote-service": {
-        target: "https://admin.dsiab.com",
-        // target: 'http://localhost:8083/',
+        // target: "https://admin.dsiab.com",
+        target: 'http://localhost:8095/',
         changeOrigin: true,
-        // rewrite: path => path.replace('manage-service', '')
+        rewrite: path => path.replace('promote-service', '')
       },
     },
   },
