@@ -11,3 +11,8 @@ export function sdUploadApi() {
   const url = `${contextPath}/account/sdUpload`
   return url;
 }
+export async function getDetailUpdateViewApi(data: any) {
+  const url = `${contextPath}/sd/getDetailUpdateView`;
+  const options = { showLoading: true };
+  return post(url, data, options);
+}
