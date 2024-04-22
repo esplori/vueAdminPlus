@@ -23,9 +23,9 @@ const initWebStat = () => {
       id: "visitorId",
     },
   });
-  setTimeout(() => {
-    webStats.setUserId(us.userInfo.username);
-  }, 1000);
+  // setTimeout(() => {
+  //   webStats.setUserId(us.userInfo.username);
+  // }, 1000);
 }
 initWebStat()
 </script>
