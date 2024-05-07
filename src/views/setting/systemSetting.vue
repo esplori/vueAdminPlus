@@ -73,12 +73,12 @@
           <el-table-column type="index" label="序号" width="55px"></el-table-column>
           <el-table-column label="菜单名称">
             <template #default="scope">
-              <el-input v-model="scope.row.imgUrl"></el-input>
+              <el-input v-model="scope.row.menuName"></el-input>
             </template>
           </el-table-column>
           <el-table-column prop="url" label="菜单地址" >
             <template #default="scope">
-              <el-input v-model="scope.row.desc"></el-input>
+              <el-input v-model="scope.row.menuUrl"></el-input>
             </template>
           </el-table-column>
           <el-table-column prop="address" label="启用" width="80px">
