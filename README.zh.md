@@ -84,7 +84,7 @@
 ``` bash
 
 #下载代码
-gitee: git clone https://gitee.com/wilkwo/vue-admin-plus.git
+gitee: git clone https://github.com/esplori/vueAdminPlus.git
 # 安装依赖
 npm install
 # 启动应用 

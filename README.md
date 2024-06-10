@@ -8,12 +8,6 @@
 <h5 align="center">blog background management system developed based on vue 3.0 + element-plus + typeScript</h5>
 
 
-<p align="center" style="padding:10px">
-	<a href="https://gitee.com/wilkwo/vue-admin-plus.git"><img src="https://gitee.com/wilkwo/vueAdmin/badge/star.svg?theme=dark"></a>
-	<a href="https://gitee.com/wilkwo/vue-admin-plus.git"><img src="https://gitee.com/wilkwo/vueAdmin/badge/fork.svg?theme=dark"></a>
-</p>
-
-
 ### Project Introduction
 
 - Main technology stack: Vuejs3.0 + Vue-router + Pinia + Element-Plus + TypeScript + SCSS
@@ -69,7 +63,7 @@
 ``` bash
 
 #Download the code
-gitee: git clone https://gitee.com/wilkwo/vue-admin-plus.git
+gitee: git clone https://github.com/esplori/vueAdminPlus.git
 # Install dependencies
 npm install
 # Launch the app 
