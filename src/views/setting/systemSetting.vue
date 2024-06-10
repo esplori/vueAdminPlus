@@ -20,6 +20,9 @@
       <el-form-item label="文件备份实际路径:">
         <el-input v-model="state.form.bakRealUrl"> </el-input>
       </el-form-item>
+      <el-form-item label="sd上传文件实际路径:">
+        <el-input v-model="state.form.sdRealUrl"> </el-input>
+      </el-form-item>
       <el-form-item label="book实际路径:">
         <el-input v-model="state.form.bookUrl"> </el-input>
       </el-form-item>
@@ -36,7 +39,7 @@
       <el-form-item label="启用轮播:" style="width: 100%">
         <el-switch v-model="state.form.carouselEnable" active-value="Y" inactive-value="N">
         </el-switch>
-        <el-table :data="state.tableData" style="width: 100%">
+        <el-table :data="state.tableData" style="width: 100%" border>
           <el-table-column type="index" label="序号" width="55px"></el-table-column>
           <el-table-column label="轮播图片地址" width="180">
             <template #default="scope">
@@ -53,14 +56,46 @@
               <el-input v-model="scope.row.url"></el-input>
             </template>
           </el-table-column>
-          <el-table-column prop="address" label="操作">
+          <el-table-column prop="address" label="操作" width="80px">
             <template #default="scope">
-              <el-button link type="primary" @click="add">新增</el-button>
-              <el-button link type="danger" @click="del(scope.$index)">删除
+              <el-button link type="danger" @click="delCarouselItem(scope.$index)">删除
               </el-button>
             </template>
           </el-table-column>
         </el-table>
+        <div class="btn-box">
+          <el-button type="primary" style="width:100%" @click="addCarouselItem">新增</el-button>
+        </div>
+      </el-form-item>
+      <el-form-item label="首页菜单:" style="width: 100%">
+
+        <el-table :data="state.menuList" style="width: 100%" border>
+          <el-table-column type="index" label="序号" width="55px"></el-table-column>
+          <el-table-column label="菜单名称">
+            <template #default="scope">
+              <el-input v-model="scope.row.menuName"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column prop="url" label="菜单地址" >
+            <template #default="scope">
+              <el-input v-model="scope.row.menuUrl"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column prop="address" label="启用" width="80px">
+            <template #default="scope">
+              <el-switch v-model="scope.row.enabled" active-value="Y" inactive-value="N">
+              </el-switch>
+            </template>
+          </el-table-column>
+          <el-table-column prop="address" label="操作" width="80px">
+            <template #default="scope">
+              <el-button link type="danger" @click="delMenuItem(scope.$index)">删除</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+        <div class="btn-box">
+          <el-button type="primary" style="width:100%" @click="addMenuItem">新增</el-button>
+        </div>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submit">保存</el-button>
@@ -90,8 +125,10 @@ const state = reactive({
     siteEmail: "",
     carouselEnable: "N",
     bookUrl: "",
+    sdRealUrl: ""
   },
   tableData: [{ imgUrl: "", desc: "", url: "" }],
+  menuList:[{ menuName: "", menuUrl: "", enabled: "Y" }]
 });
 onMounted(() => {
   getSiteInfo();
@@ -107,6 +144,7 @@ const submit = async () => {
   const res = await updateSiteInfoApi(
     Object.assign({}, state.form, {
       carouselUrl: JSON.stringify(state.tableData),
+      menuList: JSON.stringify(state.menuList)
     })
   );
 
@@ -120,15 +158,23 @@ const getSiteInfo = async () => {
   if (res) {
     state.form = res.data;
     state.tableData = JSON.parse(res.data.carouselUrl);
+    state.menuList = JSON.parse(res.data.menuList);
   }
 };
 
-const add = () => {
+const addCarouselItem = () => {
   state.tableData.push({ imgUrl: "", desc: "", url: "" });
 };
 
-const del = (index: number) => {
+const delCarouselItem = (index: number) => {
   state.tableData.splice(index, 1);
+};
+const addMenuItem = () => {
+  state.menuList.push({ menuName: "", menuUrl: "", enabled: "Y" });
+};
+
+const delMenuItem = (index: number) => {
+  state.menuList.splice(index, 1);
 };
 </script>
 
@@ -138,6 +184,11 @@ const del = (index: number) => {
     &>div {
       width: 65%;
     }
+  }
+
+  .btn-box {
+    width: 100%;
+    margin: 10px 0;
   }
 }
 </style>

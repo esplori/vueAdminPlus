@@ -57,7 +57,7 @@ export async function insertCateApi(data: any) {
 }
 // 删除文件
 export async function delFileApi(data: any) {
-  const url = `${contextPath}/admin/delFile`;
+  const url = `${contextPath}/system/delFile`;
   const options = { showLoading: true };
   return post(url, data, options);
 }
@@ -75,7 +75,7 @@ export async function getUserInfoApi(data: any) {
 }
 // 查询所有上传文件
 export async function getSourceListApi(data: any) {
-  const url = `${contextPath}/admin/getSourceList`;
+  const url = `${contextPath}/system/getSourceList`;
   const options = {};
   return get(url, data, options);
 }
@@ -105,7 +105,7 @@ export async function deleUserApi(data: any) {
 }
 // 查询站点信息
 export async function getSiteInfoApi(data: any) {
-  const url = `${contextPath}/admin/getSiteInfo`;
+  const url = `${contextPath}/system/getSiteInfo`;
   const options = {};
   return post(url, data, options);
 }
@@ -117,7 +117,7 @@ export async function updateSiteInfoApi(data: any) {
 }
 // 发送邮件
 export async function sendMailApi(data: any) {
-  const url = `${contextPath}/admin/sendMail`;
+  const url = `${contextPath}/system/sendMail`;
   const options = { showLoading: true };
   return post(url, data, options);
 }
@@ -135,7 +135,7 @@ export async function delCommentApi(data: any) {
 }
 // 清除redis缓存
 export async function clearCacheApi(data: any) {
-  const url = `${contextPath}/admin/clearCache`;
+  const url = `${contextPath}/system/clearCache`;
   const options = { showLoading: true };
   return post(url, data, options);
 }
@@ -183,13 +183,13 @@ export async function deleteTopicDetailApi(data: any) {
 }
 // 查询回收站所有文章
 export async function getPostListByCateApi(data: any) {
-  const url = `${contextPath}/admin/getRecycleList`;
+  const url = `${contextPath}/system/getRecycleList`;
   const options = {};
   return post(url, data, options);
 }
 // 删除文章
 export async function deletePostApi(data: any) {
-  const Url = `${contextPath}/admin/deletePost`;
+  const Url = `${contextPath}/system/deletePost`;
   const options = { showLoading: true };
   return post(Url, data, options);
 }
@@ -219,7 +219,7 @@ export async function getMenuByRoleApi(data: any) {
 }
 // 更新密码
 export async function updatePwdApi(data: any) {
-  const Url = `${contextPath}/admin/updatePwd`;
+  const Url = `${contextPath}/system/updatePwd`;
   const options = { showLoading: true };
   return post(Url, data, options);
 }
@@ -237,7 +237,11 @@ export async function batchDelApi(data: any) {
 }
 // 回收站恢复文章
 export async function recoveryPostApi(data: any) {
-  const Url = `${contextPath}/admin/recoveryPost`;
+  const Url = `${contextPath}/system/recoveryPost`;
   const options = { showLoading: true };
   return post(Url, data, options);
+}
+// 备份数据库
+export function exportPostUrl() {
+  return `${contextPath}/admin/exportPost`;;
 }

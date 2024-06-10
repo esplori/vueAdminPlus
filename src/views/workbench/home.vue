@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <!-- 每日一句 -->
-    <el-alert :title="dailySentence" type="info" class="dailySentence" />
+    <el-alert :title="dailySentence" class="dailySentence" />
     <div class="card-item">
       <div class="statistic-card-list">
         <el-row>
@@ -9,14 +9,14 @@
             <div class="statistic-card">
               <el-statistic :value="item.value">
                 <template #title>
-                  <div style="display: inline-flex; align-items: center">
+                  <div class="statistic-title">
                     {{ item.name }}
                   </div>
                 </template>
               </el-statistic>
               <div class="statistic-footer">
                 <div class="footer-item">
-                  <span>{{ item.momName }}</span>
+                  <span class="name">{{ item.momName }}</span>
                   <span class="red" v-if="item.momNum > 0">
                     {{ Math.abs(item.momNum) }}
                     <el-icon>
@@ -38,10 +38,11 @@
 
 
       <div class="dayViews">
+        <div class="chart-name">最近30天访问量</div>
         <div id="dayViews" style="width: 100%; height: 300px"></div>
       </div>
       <div class="date-picker-change">
-        <el-radio-group v-model="state.tabPosition" style="margin-bottom: 30px" @change="tabChange">
+        <el-radio-group v-model="state.tabPosition" @change="tabChange" size="large">
           <el-radio-button label="toDay">今天</el-radio-button>
           <el-radio-button label="yesterday">最近两天</el-radio-button>
           <el-radio-button label="7day">最近7天</el-radio-button>
@@ -50,6 +51,7 @@
       </div>
       <div class="type-data">
         <div class="chart-item" v-for="(item, index)  in state.chartsDomList" :key="index">
+          <div class="chart-name">{{ item.name }}</div>
           <div :id="item.type"></div>
         </div>
       </div>
@@ -60,7 +62,7 @@
 <script lang="ts" setup>
 import { getWebStatisticsApi } from "@/views/API/stats.js";
 import * as echarts from "echarts";
-// 单独引入中国地图
+// 引入中国地图，世界地图
 import "echarts-countries-js/echarts-countries-js/china";
 import "echarts-countries-js/echarts-countries-js/world";
 
@@ -93,19 +95,19 @@ const state = reactive({
   mapData: [],
   worldMapData: [],
   chartsDomList: [
-    { type: "deviceType" },
-    { type: "browserType" },
-    { type: "deiveRatio" },
-    { type: "chinaMap" },
-    { type: "worldMap" },
+    { type: "deviceType", name: "设备型号分布" },
+    { type: "browserType", name: "浏览器型号分布" },
+    { type: "deiveRatio", name: "分辨率分布" },
+    { type: "chinaMap", name: "访问地域分布" },
+    { type: "worldMap", name: "全球访问地域分布" },
   ],
   momCardList: [
     { name: "总访问量", value: 0, momNum: 0, momName: "今日新增" },
-    { name: "今日浏览量", value: 0, momNum: 0, momName: "同比昨日" },
-    { name: "今日访问IP数(UV)", value: 0, momNum: 0, momName: "同比昨日" },
-    { name: "文章总数", value: 0, momNum: 0, momName: "今日新增" },
-    { name: "今日访问来源", value: 0, momNum: 0, momName: "同比昨日" },
-    { name: "今日访问地址", value: 0, momNum: 0, momName: "同比昨日" },
+    { name: "浏览量", value: 0, momNum: 0, momName: "同比昨日" },
+    { name: "访问IP数(UV)", value: 0, momNum: 0, momName: "同比昨日" },
+    { name: "文章总数", value: 0, momNum: 0, momName: "同比昨日" },
+    { name: "访问来源", value: 0, momNum: 0, momName: "同比昨日" },
+    { name: "访问地址", value: 0, momNum: 0, momName: "同比昨日" },
   ]
 });
 
@@ -177,7 +179,7 @@ const getWebStatistics = async (type: string) => {
   // 获取网站统计信息
   const res: any = await getWebStatisticsApi({ type: type });
   if (res) {
-    let { mapData, worldMapData, allViews, allpages, dayViews, dayIp, allViewsMom, allpagesMom, dayViewsMom, dayIpMom, referrer, postView, totalWordsNum, deviceRatio, deviceType, browserType, everyDayViews } = res.data;
+    let { mapData, worldMapData, allViews, allpages, dayViews, dayIp, allViewsMom, allpagesMom, dayViewsMom, dayIpMom, referrer, viewAddress, totalWordsNum, deviceRatio, deviceType, browserType, everyDayViews, twoDayagoNumDaysAddress, twoDayagoNumDaysReferrer } = res.data;
     // 设置视图数据
     state.momCardList[0].value = allViews;
     // 设置文章数据
@@ -200,8 +202,12 @@ const getWebStatistics = async (type: string) => {
     state.momCardList[2].momNum = parseFloat(dayIpMom);
     // 设置引用数据
     state.momCardList[4].value = referrer;
+
+    state.momCardList[4].momNum = twoDayagoNumDaysReferrer;
     // 设置发布视图数据
-    state.momCardList[5].value = postView;
+    state.momCardList[5].value = viewAddress;
+
+    state.momCardList[5].momNum = twoDayagoNumDaysAddress;
     // 设置总字数
     state.totalWordsNum = totalWordsNum || 0;
     // 设置设备比例Y
@@ -224,14 +230,12 @@ const getWebStatistics = async (type: string) => {
   }
 };
 const initCharts = () => {
-  nextTick(() => {
-    initDayViews();
-    initChart("deviceType", state.deviceTypeY, "设备型号")
-    initChart("browserType", state.browserTypeY, "浏览器型号")
-    initChart("deiveRatio", state.deviceRatioY, "分辨率型号")
-    initChinaMap();
-    initWorldMap();
-  });
+  initDayViews();
+  initChart("deviceType", state.deviceTypeY, "")
+  initChart("browserType", state.browserTypeY, "")
+  initChart("deiveRatio", state.deviceRatioY, "")
+  initChinaMap();
+  initWorldMap();
 };
 const tabChange = (type: string) => {
   getWebStatistics(type);
@@ -240,20 +244,31 @@ const tabChange = (type: string) => {
 
 <style scoped lang="scss">
 .home {
-  .dailySentence {
+  ::v-deep(.dailySentence) {
     border: 1px dashed #d8d0d0;
     margin-bottom: 20px;
+    color: #303133;
+    background-image: linear-gradient(90deg, #fefefe, #b9ecd0);
+
+    .el-alert__title {
+      font-size: 16px;
+      opacity: 0.8;
+    }
   }
 
   .date-picker-change {
-    text-align: right;
-    margin-top: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
   }
 
   .card-item {
     .statistic-card-list {
       border: 1px solid #ddd;
       border-radius: 4px;
+      background-image: linear-gradient(90deg, rgb(255 255 255), rgb(209 204 239))
     }
 
     .el-col {
@@ -271,6 +286,16 @@ const tabChange = (type: string) => {
     .chart-item {
       width: 50%;
 
+      .chart-name {
+        font-size: medium;
+        font-weight: bold;
+        padding: 10px;
+        border-top: 1px solid rgb(228, 231, 237);
+        border-left: 1px solid rgb(228, 231, 237);
+        border-right: 1px solid rgb(228, 231, 237);
+        background-image: linear-gradient(90deg, rgb(255 255 255), rgb(209 204 239))
+      }
+
       &:nth-child(odd) {
         padding-right: 20px;
       }
@@ -280,6 +305,16 @@ const tabChange = (type: string) => {
 
   .dayViews {
     padding: 20px 0 0 0;
+
+    .chart-name {
+      font-size: medium;
+      font-weight: bold;
+      padding: 10px;
+      border-top: 1px solid rgb(228, 231, 237);
+      border-left: 1px solid rgb(228, 231, 237);
+      border-right: 1px solid rgb(228, 231, 237);
+      background-image: linear-gradient(90deg, rgb(255 255 255), rgb(209 204 239))
+    }
   }
 
 
@@ -292,21 +327,27 @@ const tabChange = (type: string) => {
     width: 100%;
     height: 320px;
     box-sizing: border-box;
-    border-radius: 4px;
+    // border-radius: 4px;
     border: 1px solid rgb(228, 231, 237);
     margin-bottom: 20px;
 
-    &:hover {
-      box-shadow: 0 0 1px 1px #ddd;
-      transition: all 1000ms;
-      transform: scale(1.005);
-    }
+    // &:hover {
+    //   box-shadow: 0 0 1px 1px #ddd;
+    //   transition: all 1000ms;
+    //   transform: scale(1.005);
+    // }
   }
 
   .statistic-card {
     height: 100%;
     padding: 20px;
     border-radius: 4px;
+
+    .statistic-title {
+      display: inline-flex;
+      align-items: center;
+      font-size: 16px;
+    }
   }
 
   .statistic-footer {
@@ -322,6 +363,10 @@ const tabChange = (type: string) => {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    .name {
+      color: var(--el-text-color-regular);
+    }
   }
 
   .statistic-footer .footer-item span:last-child {

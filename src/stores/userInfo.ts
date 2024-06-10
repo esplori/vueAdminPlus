@@ -5,7 +5,8 @@ export const userInfoStore = defineStore({
   state: () => ({
     userInfo: {
       dailySentence: "",
-      username: ""
+      username: "",
+      token:""
     },
     music_list: [],
   }),

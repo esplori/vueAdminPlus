@@ -109,6 +109,38 @@ export function post(url: any, param: any, options: any) {
       .catch(() => console.log("promise catch err")); // 捕获异常
   });
 }
+// 文件下载
+export function downloadRequestApi(url: any, param: any, options: any) {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: "post",
+      url: url,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      responseType: 'blob',
+      data: param, // data是要作为请求主体发送的数据,仅适用于请求方法“PUT”，“POST”和“PATCH”
+    })
+      .then((res) => {
+        console.log(res);
+        let filename = decodeURIComponent(res.headers['content-disposition'].split("fileName=")[1])
+        let fileReader = new FileReader();
+        fileReader.readAsDataURL(res.data);
+        fileReader.onload = (e: any) => {
+          let a = document.createElement('a');
+          a.download = filename;
+          a.href = e.target.result;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        }
+      })
+      .catch((e) => {
+        // 捕获异常
+        console.log("promise catch err")
+      });
+  });
+}
 
 function handleData(res: any, resolve: any, reject: any) {
   tryHideFullScreenLoading();
@@ -124,9 +156,9 @@ function handleAuthenticated(res: any) {
   switch (res.response.status) {
     case 401:
     case 403:
-      setTimeout(() =>{
+      setTimeout(() => {
         location.reload()
-      },205)
+      }, 205)
       setTimeout(() => {
         location.href = "/#/login";
       }, 200);

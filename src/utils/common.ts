@@ -123,7 +123,7 @@ export function commonOptions(title: string, data: Array<{ name: string, value: 
 export function dayViewsOptions(state: any) {
   return {
     title: {
-      text: "最近30天访问量",
+      text: "",
       left: 20,
       top: 10
     },
@@ -181,11 +181,11 @@ export function dayViewsOptions(state: any) {
           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
             {
               offset: 0,
-              color: 'rgba(58,77,233,0.8)'
+              color: 'rgba(58,77,233,1)'
             },
             {
               offset: 1,
-              color: 'rgba(58,77,233,0.3)'
+              color: 'rgba(58,77,233,0)'
             }
           ])
         },
@@ -211,7 +211,7 @@ export function dayViewsOptions(state: any) {
             },
             {
               offset: 1,
-              color: 'rgba(103,194,54,0.3)'
+              color: 'rgba(103,194,54,0)'
             }
           ])
         },
@@ -233,7 +233,7 @@ export function dayViewsOptions(state: any) {
 export function mapOptions(list: Array<Object>) {
   return {
     title: {
-      text: "访问地域分布",
+      // text: "访问地域分布",
       left: 20,
       top: 10
     },
@@ -271,7 +271,7 @@ export function mapOptions(list: Array<Object>) {
 export function worldMapOptions(list: Array<Object>) {
   return {
     title: {
-      text: "全球访问地域分布",
+      // text: "全球访问地域分布",
       left: 20,
       top: 10
     },

@@ -1,95 +1,100 @@
-<div><a href="https://github.com/esplori/vueAdminPlus/blob/master/README.md">中文</a>  |  <a href="https://github.com/esplori/vueAdminPlus/blob/master/README.en.md">ENGLISH</a></div>
+
+<div>
+	<a href="https://github.com/esplori/vueAdminPlus/blob/master/README.md">ENGLISH</a> |
+	<a href="https://github.com/esplori/vueAdminPlus/blob/master/README.zh.md">中文</a>  
+</div>
 
 <h1 align="center" style=" font-weight: bold;">vueAdminPlus</h1>
-<h5 align="center">基于vue3.0 + element-plus + typeScript开发的博客后台管理系统</h5>
+<h5 align="center">blog background management system developed based on vue 3.0 + element-plus + typeScript</h5>
 
 
-<p align="center" style="padding:10px">
-	<a href="https://gitee.com/wilkwo/vue-admin-plus.git"><img src="https://gitee.com/wilkwo/vueAdmin/badge/star.svg?theme=dark"></a>
-	<a href="https://gitee.com/wilkwo/vue-admin-plus.git"><img src="https://gitee.com/wilkwo/vueAdmin/badge/fork.svg?theme=dark"></a>
-</p>
+### Project Introduction
+
+- Main technology stack: Vuejs3.0 + Vue-router + Pinia + Element-Plus + TypeScript + SCSS
+
+- Plugins used： axios + wangeditor5 + echarts5
+
+- The effect can be seen directly when starting the project, and the default call is the background management interface of the official website, and you can log in with the experience account.
 
 
-### 项目介绍
-
-- 主要技术栈: vuejs3.0 + vue-router + pinia + element-plus + typescript + scss
-
-- 使用到的插件： axios + wangeditor5 + echarts5
-
-- 启动项目可直接看到效果，默认调用是官网的后台管理接口，使用体验账号登录即可。
-
-### 主要功能
+### Key features
 
 
-- 首页看板：
-	- 访问数据统计
-- 内容管理：
-	- 文章管理
-	- 评论管理
-	- 分类管理
-	- 专题管理
-- 导航管理：
-	- 导航管理
-	- 分类管理
-- 权限管理：
-	- 角色管理
-	- 用户管理
-	- 菜单管理
-- 个人设置：
-	- 个人资料
-- 系统设置：
-	- 站点设置
-	- 资源管理
-	- 回收站
-	- 发送邮件
-	- 系统通知
-- 小工具：
-	- 电子书
-	- ip 归属地查询
-	- 在线抽奖
-	- 在线点名
-	- 图片转base64
-	- 在线生成二维码
-	- 音乐管理
-	- 持续更新中...
+- Dashboard:
+	- Visitor Data Statistics
+- Content Management:
+	- Article Management
+	- Comment Management
+	- Category Management
+	- Topic Management
+- Navigation Management:
+	- Navigation Management
+	- Category Management
+- Permission Management:
+	- Role Management
+	- User Management
+	- Menu Management
+- Personal Settings:
+	- Profile
+- System Settings:
+	- Site Settings
+	- Resource Management
+	- Recycle Bin
+	- Send Emails
+	- System Notifications
+- Utilities:
+	- E-Books
+	- IP Location Lookup
+	- Online Lottery
+	- Online Roll Call
+	- Image to Base64
+	- Online QR Code Generator
+	- Text Beautification
+	- JSON Formatting
+	- Mini Games
+	- Music Decryption
+	- AI Painting (Stable Diffusion)
+	- More Features Coming Soon...
 
 
-### 关联项目
-
-- 官网：https: //www.dsiab.com
-- 博客首页开源项目: nuxtWebPlus (https://gitee.com/wilkwo/nuxt-web-plus.git)
-- 博客前后台微服务开源项目: springCloudAdmin (https://gitee.com/wilkwo/spring-cloud-admin.git)
-- 后台管理体验地址： https://admin.dsiab.com , 体验账号：test/test
-- 加qq群一起交流：514450699
+### Experience address
 
 
-### 演示截图
+- Address: https://admin.dsiab.com
+
+- Experience account, password: test / test
+  
+- Add QQ group to communicate together: 514450699
+
+
+
+### Demo screenshots
 
 
 <img src="./src/assets/images/screenshot.png" alt="赞赏" width="500px" />
 
 
 
-### 运行项目
+### Run the project
 
 
 
 ``` bash
 
-#下载代码
-gitee: git clone https://gitee.com/wilkwo/vue-admin-plus.git
-# 安装依赖
+#Download the code
+gitee: git clone https://github.com/esplori/vueAdminPlus.git
+# Install dependencies
 npm install
-# 启动应用 
+# Launch the app 
 npm run dev
-# 生成应用
+# Build the app
 npm run build
 
 ```
 
-### 感谢赞赏  
+### Thanks for the appreciation
 
 
- 创作不易，你的赞赏和认可是持续更新的动力~
+It is not easy to create, and your appreciation and recognition are the driving force for continuous renewal~
 
 <img src="./src/assets/images/zanshan.jpeg" alt="赞赏" width="200px" />

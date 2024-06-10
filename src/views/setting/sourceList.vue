@@ -36,12 +36,12 @@
                 )
               "
             >
-              <span style="margin-right: 40px">{{ scope.row.filename }}</span>
+              <!-- <span style="margin-right: 40px">{{ scope.row.filename }}</span> -->
               <img
+                style="width: 80px;"
                 loading="lazy"
                 :src="state.sourceUrl + scope.row.filename"
                 alt=""
-                height="40px"
               />
             </div>
             <div v-else>

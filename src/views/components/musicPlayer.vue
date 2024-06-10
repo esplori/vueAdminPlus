@@ -100,16 +100,7 @@ const state = reactive({
     songUrl: "",
     index: 0,
   },
-  musicList: [
-    {
-      singerName: "林志炫",
-      name: "明天会更好",
-      id: 1,
-      index: 0,
-      songUrl:
-        "http://m7.music.126.net/20230328000405/19e9a25803fb1535ec3141804cae9282/ymusic/1358/d103/c9bf/b209db455243dcce97d23d5990ace62a.mp3",
-    },
-  ],
+  musicList: [],
   currentMusicIndex: 0,
   drawer: false,
   // 音乐总时长
@@ -119,7 +110,7 @@ const state = reactive({
   // 进度条的位置
   timeProgress: 0,
   // 音量
-  volume: 80,
+  volume: 60,
   // 是否静音
   isMuted: false,
   // 抽屉是否被打开过（如果没打开过，里面的数据是不会渲染的）
@@ -138,7 +129,7 @@ const state = reactive({
   pageSize: 10,
   total: 0,
   totolPage: 0,
-  descTitle: "双击可切换音乐(注意：该音乐仅可作为学习交流使用，不可用于商业用途)"
+  descTitle: "双击可切换音乐（注意：仅作为学习交流使用，不可用于商业用途，引用如有问题，可以联系作者删除）"
 });
 
 let audioPlayerRef: any;
@@ -160,6 +151,8 @@ const initPlayer = () => {
     };
     // 音量取值范围在[0,1]
     audioPlayerRef.volume = (state.volume / 100).toFixed(2)
+    // 默认打开播放器
+    // changePlayState()
   }
 }
 const storeDataToPinia = (list: any) => {

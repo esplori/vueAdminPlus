@@ -10,7 +10,7 @@
           </el-select>
         </div>
         <div class="pdding">
-          <el-input v-model="state.params.tag" placeholder="输入关键字搜索" @change="tagChange"></el-input>
+          <el-input v-model="state.params.tag" placeholder="输入关键字搜索" @change="tagChange" clearable></el-input>
         </div>
         <span class="pdding"><el-button type="primary" @click="insert">新增文章</el-button></span>
         <span class="pdding"><el-button type="danger" @click="batchdel(state.multipleSelection)">批量删除</el-button></span>
@@ -39,7 +39,7 @@
       <el-table-column fixed="right" width="160px" label="操作">
         <template #default="scope">
           <div class="operate">
-            <el-button link type="primary" @click="edit(scope.row.id)">编辑</el-button>
+            <el-button link type="primary" @click="edit(scope.row.uid)">编辑</el-button>
             <el-button link @click="delConfirm(scope.row.id)" type="danger">删除</el-button>
             <el-button link v-if="userInfo.includes('ROLE_admin')" @click="addToTopic(scope.row)" type="primary">加专题
             </el-button>
@@ -102,6 +102,8 @@ const state = reactive({
     name: "",
     topicId: "",
   },
+  pageNum: 1,
+  pageSize:100,
   total: 0,
   cateList: [{ name: "", id: "" }],
   dialogVisible: false,
@@ -170,7 +172,10 @@ const getList = async () => {
 };
 
 const getCate = async () => {
-  const res: any = await getAdminCateValidApi({});
+  const res: any = await getAdminCateValidApi({
+    pageNum: state.pageNum,
+    pageSize: state.pageSize
+  });
   if (res) {
     state.cateList = res.data.result;
   }
