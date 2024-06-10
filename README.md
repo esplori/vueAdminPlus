@@ -20,22 +20,41 @@
 ### Key features
 
 
-- Home dashboard: Access statistics
-- Article management: add, delete, query, and modify articles
-- Comment management: comment query and deletion
-- Category management: Add or delete categories
-- Navigation management: query navigation, classification management, and new navigation
-- User Management: Add, delete, and modify users
-- Personal settings: Modify the user's personal information
-- System settings: site settings, resource management, online compilation, recycle bin
-- Common tools:
-	- JSON formatting
-	- Online sweepstakes
-	- Online roll call
-	- Image to base64
-	- Generate QR codes online
-	- IP attribution query
-	- Constantly updated...
+- Dashboard:
+	- Visitor Data Statistics
+- Content Management:
+	- Article Management
+	- Comment Management
+	- Category Management
+	- Topic Management
+- Navigation Management:
+	- Navigation Management
+	- Category Management
+- Permission Management:
+	- Role Management
+	- User Management
+	- Menu Management
+- Personal Settings:
+	- Profile
+- System Settings:
+	- Site Settings
+	- Resource Management
+	- Recycle Bin
+	- Send Emails
+	- System Notifications
+- Utilities:
+	- E-Books
+	- IP Location Lookup
+	- Online Lottery
+	- Online Roll Call
+	- Image to Base64
+	- Online QR Code Generator
+	- Text Beautification
+	- JSON Formatting
+	- Mini Games
+	- Music Decryption
+	- AI Painting (Stable Diffusion)
+	- More Features Coming Soon...
 
 
 ### Experience address
