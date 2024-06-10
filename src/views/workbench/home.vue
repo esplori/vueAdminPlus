@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <!-- 每日一句 -->
-    <el-alert :title="dailySentence" type="info" class="dailySentence" />
+    <el-alert :title="dailySentence" class="dailySentence" />
     <div class="card-item">
       <div class="statistic-card-list">
         <el-row>
@@ -38,10 +38,11 @@
 
 
       <div class="dayViews">
+        <div class="chart-name">最近30天访问量</div>
         <div id="dayViews" style="width: 100%; height: 300px"></div>
       </div>
       <div class="date-picker-change">
-        <el-radio-group v-model="state.tabPosition" style="margin-bottom: 30px" @change="tabChange">
+        <el-radio-group v-model="state.tabPosition" @change="tabChange" size="large">
           <el-radio-button label="toDay">今天</el-radio-button>
           <el-radio-button label="yesterday">最近两天</el-radio-button>
           <el-radio-button label="7day">最近7天</el-radio-button>
@@ -243,20 +244,31 @@ const tabChange = (type: string) => {
 
 <style scoped lang="scss">
 .home {
-  .dailySentence {
+  ::v-deep(.dailySentence) {
     border: 1px dashed #d8d0d0;
     margin-bottom: 20px;
+    color: #303133;
+    background-image: linear-gradient(90deg, #fefefe, #b9ecd0);
+
+    .el-alert__title {
+      font-size: 16px;
+      opacity: 0.8;
+    }
   }
 
   .date-picker-change {
-    text-align: right;
-    margin-top: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
   }
 
   .card-item {
     .statistic-card-list {
       border: 1px solid #ddd;
       border-radius: 4px;
+      background-image: linear-gradient(90deg, rgb(255 255 255), rgb(209 204 239))
     }
 
     .el-col {
@@ -281,7 +293,7 @@ const tabChange = (type: string) => {
         border-top: 1px solid rgb(228, 231, 237);
         border-left: 1px solid rgb(228, 231, 237);
         border-right: 1px solid rgb(228, 231, 237);
-        background-color: #fafafa
+        background-image: linear-gradient(90deg, rgb(255 255 255), rgb(209 204 239))
       }
 
       &:nth-child(odd) {
@@ -293,6 +305,16 @@ const tabChange = (type: string) => {
 
   .dayViews {
     padding: 20px 0 0 0;
+
+    .chart-name {
+      font-size: medium;
+      font-weight: bold;
+      padding: 10px;
+      border-top: 1px solid rgb(228, 231, 237);
+      border-left: 1px solid rgb(228, 231, 237);
+      border-right: 1px solid rgb(228, 231, 237);
+      background-image: linear-gradient(90deg, rgb(255 255 255), rgb(209 204 239))
+    }
   }
 
 
