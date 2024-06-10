@@ -56,7 +56,7 @@ const state = reactive({
   title: "新增",
   row: {
     id: "",
-    name: "",
+    name: null,
   },
   pageNum: 1,
   pageSize: 10,
@@ -111,6 +111,10 @@ const submit = async (row: any) => {
       getList();
     }
   } else {
+    if (!row.name) {
+      ElMessage.error("请输入名称");
+      return
+    }
     const res = await insertCateApi(row);
     if (res) {
       getList();

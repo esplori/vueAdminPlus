@@ -24,16 +24,16 @@ pre {
 
 /* 富文本编辑器跟loading的z-index有冲突 */
 
-.el-loading-mask {
-    z-index: 3000 !important;
-}
+// .el-loading-mask {
+//     z-index: 3000 !important;
+// }
 
 
 /* message 的z-index不够，会显示在编辑器下面 */
 
-.el-message {
-    z-index: 2000 !important;
-}
+// .el-message {
+//     z-index: 20000 !important;
+// }
 
 
 /* 改变编辑器默认300px的高度 */
