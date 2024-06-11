@@ -1,19 +1,19 @@
 <template>
   <div class="user-manage">
     <searchHeader :title="'用户管理'"></searchHeader>
-    <el-table :data="state.data">
-      <el-table-column prop="username" label="用户名"> </el-table-column>
+    <el-table :data="state.data" @sort-change="sortCchange">
+      <el-table-column prop="username" label="用户名" sortable="username"> </el-table-column>
       <el-table-column prop="role" label="角色Id" show-overflow-tooltip>
       </el-table-column>
       <el-table-column prop="email" label="邮箱" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="memberPoints" label="积分"></el-table-column>
-      <el-table-column prop="valid" label="是否激活" width="80px">
+      <el-table-column prop="memberPoints" label="积分" sortable="memberPoints"></el-table-column>
+      <el-table-column prop="valid" label="是否激活" width="120px" sortable="valid">
         <template #default="scope">
           <span v-show="scope.row.valid === '1'">是</span>
           <span style="color: red" v-show="scope.row.valid === '0'">否</span>
         </template>
       </el-table-column>
-      <el-table-column prop="createDate" label="创建时间" width="120px" show-overflow-tooltip> </el-table-column>
+      <el-table-column prop="createDate" label="创建时间" width="120px" show-overflow-tooltip sortable="createDate"> </el-table-column>
       <el-table-column fixed="right" width="180" label="操作">
         <template #default="scope">
           <el-button link @click="edit(scope.row)" type="primary">编辑</el-button>
@@ -63,8 +63,10 @@ const state = reactive({
   data: [],
   Roledata: [],
   params: {
-    page: 1,
+    pageNo: 1,
     pageSize: 10,
+    order:"",
+    orderBy:""
   },
   total: 0,
   editObj: {
@@ -79,7 +81,7 @@ onMounted(() => {
 });
 
 const getUserList = async () => {
-  const res: any = await getUserListApi({ pageNo: state.params.page });
+  const res: any = await getUserListApi(state.params);
   if (res) {
     state.data = res.data.result;
     state.total = res.data.total;
@@ -155,7 +157,15 @@ const handleSizeChange = (val: any) => {
 };
 
 const handleCurrentChange = (val: any) => {
-  state.params.page = val;
+  state.params.pageNo = val;
+  getUserList();
+};
+
+const sortCchange = (column: any) => {
+  state.params.pageNo = 1;
+  // 需要转换成sql对应的排序字段
+  state.params.order = column.order === "ascending" ? "asc" : "desc";
+  state.params.orderBy = column.prop;
   getUserList();
 };
 </script>
