@@ -65,8 +65,8 @@ const state = reactive({
   params: {
     pageNo: 1,
     pageSize: 10,
-    order:"",
-    orderBy:""
+    order:"desc",
+    orderBy:"createDate"
   },
   total: 0,
   editObj: {
@@ -100,11 +100,8 @@ const delConfirm = (id: string, username: string) => {
     cancelButtonText: "取消",
     type: "warning",
   }).then(() => {
-    del(id, username);
+    delUser(id, username);
   });
-};
-const del = (id: string, username: string) => {
-  delUser(id, username);
 };
 
 const delUser = async (id: string, username: string) => {
