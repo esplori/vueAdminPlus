@@ -30,6 +30,10 @@ const router = createRouter({
       component: () => import("../views/sd/index.vue"),
     },
     {
+      path: "/ai",
+      component: () => import("../views/tools/ai/index.vue"),
+    },
+    {
       path: "/",
       name: "mainLayout",
       // route level code-splitting
@@ -94,10 +98,6 @@ const router = createRouter({
           path: "tools",
           component: () => import("../views/tools/index.vue"),
           children: [
-            {
-              path: "ai",
-              component: () => import("../views/tools/ai/index.vue"),
-            },
             {
               path: "ebook",
               component: () => import("../views/tools/ebook/index.vue"),
