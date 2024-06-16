@@ -95,6 +95,10 @@ const router = createRouter({
           component: () => import("../views/tools/index.vue"),
           children: [
             {
+              path: "ai",
+              component: () => import("../views/tools/ai/index.vue"),
+            },
+            {
               path: "ebook",
               component: () => import("../views/tools/ebook/index.vue"),
             },

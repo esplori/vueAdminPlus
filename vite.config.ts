@@ -41,6 +41,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: path => path.replace('promote-service', '')
       },
+      "/si": {
+        target: 'http://localhost:7860/',
+        changeOrigin: true,
+        rewrite: path => path.replace('si', '')
+      },
     },
   },
   // 构建配置
