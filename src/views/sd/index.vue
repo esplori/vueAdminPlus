@@ -10,19 +10,13 @@
         </searchHeader>
         <div id="masonryBox">
             <div v-for="(item, index) in state.list" class="masonry-item">
-                <!-- <div :style="item.style">{{ index }}</div> -->
                 <el-image
-                :style="'width:' + item.fit_width + 'px;height: ' + item.fit_height + 'px;border-radius: 10px;'"
-                :src="item.url"
-                :zoom-rate="1.2"
-                :max-scale="7"
-                :min-scale="0.2"
-                lazy
-                :preview-src-list="[item.url]"
-                hide-on-click-modal
-                :initial-index="0"
-                fit="cover"
-                />
+                    :style="'width:' + item.fit_width + 'px;height: ' + item.fit_height + 'px;border-radius: 10px;'"
+                    :src="item.url" :zoom-rate="1.2" :max-scale="7" :min-scale="0.2" lazy :preview-src-list="[item.url]"
+                    hide-on-click-modal :initial-index="0" @click="updateView(item.id)" fit="cover" />
+                <div class="el-icon-view-bottom"><el-icon>
+                        <View />
+                    </el-icon><span class="imgs-views">{{ item.views }}</span></div>
             </div>
             <div style="clear:both"></div>
         </div>
@@ -43,12 +37,13 @@
         </el-dialog>
     </div>
 </template>
-  
+
 <script lang="ts" setup>
-import { getListApi, sdUploadApi } from "./API";
+import { getListApi, sdUploadApi, getDetailUpdateViewApi } from "./API";
 import { reactive, onMounted, nextTick, computed, onBeforeUnmount } from "vue";
 import { debounce } from "lodash"
 import searchHeader from "../components/searchHeader.vue";
+import { View } from "@element-plus/icons-vue";
 type stateType = {
     dialogVisible: boolean,
     list: [
@@ -70,7 +65,7 @@ const state: stateType = reactive({
         tag: ""
     },
     total: 0,
-    srcList:[]
+    srcList: []
 });
 onMounted(() => {
     let masonryBox = document.getElementById("masonryBox") as any
@@ -101,7 +96,7 @@ const scrollEvent = () => {
     let clientHeight = iddom.clientHeight;
     let docHeight = iddom.scrollHeight;
     let scrollTop = iddom.scrollTop;
-    console.log(docHeight ,clientHeight, scrollTop);
+    console.log(docHeight, clientHeight, scrollTop);
     // 有时候可以值会相差0.7，通过math.ceil 解决
     if (clientHeight + Math.ceil(scrollTop) == docHeight) {
         console.log("到底了");
@@ -203,6 +198,9 @@ const tagChange = () => { }
 onBeforeUnmount(() => {
     window.removeEventListener('scroll', scrollEvent)
 })
+const updateView = async (id: string) => {
+    const res: any = await getDetailUpdateViewApi({ id });
+}
 </script>
 
 <style scope>
@@ -217,14 +215,32 @@ onBeforeUnmount(() => {
     padding: 5px;
     /* border: 1px solid #ccc; */
     float: left;
+    position: relative;
 
     /* img {
         width: 100%;
     } */
+    .el-icon-view-bottom {
+        position: absolute;
+        bottom: 11px;
+        /* right: 20px; */
+        width: 96%;
+        height: 40px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 10px;
+        /* background-color: rgba(0, 0, 0, 0.5); */
+        background-image: linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
+
+        .imgs-views {
+            margin-left: 5px;
+        }
+    }
 }
 
 .sd-list {
     padding: 20px;
 }
 </style>
-  

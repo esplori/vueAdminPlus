@@ -30,6 +30,10 @@ const router = createRouter({
       component: () => import("../views/sd/index.vue"),
     },
     {
+      path: "/ai",
+      component: () => import("../views/tools/ai/index.vue"),
+    },
+    {
       path: "/",
       name: "mainLayout",
       // route level code-splitting
