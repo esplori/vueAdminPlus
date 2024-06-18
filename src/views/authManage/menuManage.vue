@@ -28,6 +28,9 @@
           <el-form-item label="菜单地址">
             <el-input v-model="state.form.path"></el-input>
           </el-form-item>
+          <el-form-item label="菜单排序">
+            <el-input-number v-model="state.form.sortIndex" :min="0" :max="100" />
+          </el-form-item>
           <el-form-item label="">
             <el-button type="primary" @click="updateMenu(state.form)">保存</el-button>
           </el-form-item>
@@ -78,6 +81,7 @@ const state = reactive({
     name: "",
     path: "",
     menuId: "",
+    sortIndex: null
   },
   addForm: {
     name: "",
