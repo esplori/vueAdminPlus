@@ -42,7 +42,7 @@ export default defineConfig({
         rewrite: path => path.replace('promote-service', '')
       },
       "/si": {
-        target: 'http://localhost:7860/',
+        target: 'http://localhost:7860',
         changeOrigin: true,
         rewrite: path => path.replace('si', '')
       },
