@@ -1,8 +1,11 @@
 <template>
   <div class="sd-setting">
     <el-row :gutter="20">
-      <el-col :span="24">
+      <el-col :span="12">
         <el-form :model="state.form" label-width="150px" label-position="left" class="setting-form">
+          <el-form-item label="模型:">
+            <el-input v-model="state.form.sd_model_name"  disabled></el-input>
+          </el-form-item>
           <el-form-item label="提示词:">
             <el-input v-model="state.form.prompt" type="textarea" :rows="3"></el-input>
           </el-form-item>
@@ -18,13 +21,14 @@
         </el-form>
         <el-button style="width:100%" size="medium" @click="generate" type="primary">生成</el-button>
       </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="24">
+      <el-col :span="12">
         <div id="img-container" v-loading="state.loading">
           <img :src="state.imgeFormat + item" alt="" style="width:512px;" v-for="(item) in state.images" />
         </div>
       </el-col>
+    </el-row>
+    <el-row>
+      
     </el-row>
   </div>
 
@@ -40,6 +44,7 @@ const state = reactive({
     negative_prompt: "AS-YoungV2-neg,BadDream,badhandv4,BadNegAnatomyV1-neg,EasyNegative,FastNegativeV2,",
     enable_hr: false,
     steps: 20,
+    sd_model_name:"majicMIX realistic_v7"
   },
   imgeFormat: "data:image/png;base64,"
 })
@@ -47,7 +52,6 @@ const generate = () => {
   state.loading = true
   axios.post("/si/sdapi/v1/txt2img", {
     "sampler_name": "Euler a",
-    "sd_model_name": "majicMIX realistic_v7",
     "sd_vae_name": "vae-ft-mse-840000-ema-pruned.safetensors",
     "seed": -1,
     "subseed": -1,
@@ -70,6 +74,7 @@ const generate = () => {
     "clip_skip": 2,
     "hr_scale": 2,
     "hr_upscaler": "Latent",
+    "save_images":true,
     ...state.form,
   }).then((res) => {
     if (res) {
