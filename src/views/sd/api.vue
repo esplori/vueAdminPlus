@@ -2,9 +2,15 @@
   <div class="sd-setting">
     <el-row :gutter="20">
       <el-col :span="12">
-        <el-form :model="state.form" label-width="150px" label-position="left" class="setting-form">
+        <el-form :model="state.form" label-width="120px" label-position="left" class="setting-form">
           <el-form-item label="模型:">
-            <el-input v-model="state.form.sd_model_name"  disabled></el-input>
+            <el-input v-model="state.form.sd_model_name" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="外挂 VAE 模型:">
+            <el-input v-model="state.form.sd_vae_name" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="采样方法:">
+            <el-input v-model="state.form.sampler_name" disabled></el-input>
           </el-form-item>
           <el-form-item label="提示词:">
             <el-input v-model="state.form.prompt" type="textarea" :rows="3"></el-input>
@@ -18,17 +24,23 @@
           <el-form-item label="开启高清修复:">
             <el-switch v-model="state.form.enable_hr" />
           </el-form-item>
+          <el-form-item label="随机种子:">
+            <el-input v-model="state.form.seed"></el-input>
+          </el-form-item>
+          <el-form-item label="本次种子:">
+            将本次生成的种子复制到随机种子输入框，可用于微调当前图片
+            <el-input v-model="state.form.currnetSeed" disabled></el-input>
+          </el-form-item>
         </el-form>
         <el-button style="width:100%" size="medium" @click="generate" type="primary">生成</el-button>
       </el-col>
       <el-col :span="12">
         <div id="img-container" v-loading="state.loading">
-          <img :src="state.imgeFormat + item" alt="" style="width:512px;" v-for="(item) in state.images" />
+          <el-image style="width:512px;" :src="state.imgeFormat + state.url" :zoom-rate="1.2" :max-scale="7"
+            :min-scale="0.2" :preview-src-list="state.srcList" :initial-index="0" fit="cover" />
+          <!-- <img :src="state.imgeFormat + item" alt="" style="width:512px;" v-for="(item) in state.images" /> -->
         </div>
       </el-col>
-    </el-row>
-    <el-row>
-      
     </el-row>
   </div>
 
@@ -44,16 +56,20 @@ const state = reactive({
     negative_prompt: "AS-YoungV2-neg,BadDream,badhandv4,BadNegAnatomyV1-neg,EasyNegative,FastNegativeV2,",
     enable_hr: false,
     steps: 20,
-    sd_model_name:"majicMIX realistic_v7"
+    sd_model_name: "majicMIX realistic_v7",
+    sd_vae_name: "vae-ft-mse-840000-ema-pruned.safetensors",
+    seed: -1,
+    sampler_name:"Euler a",
+    currnetSeed:""
   },
-  imgeFormat: "data:image/png;base64,"
+  imgeFormat: "data:image/png;base64,",
+  url: "",
+  srcList: [],
+  info: ""
 })
 const generate = () => {
   state.loading = true
   axios.post("/si/sdapi/v1/txt2img", {
-    "sampler_name": "Euler a",
-    "sd_vae_name": "vae-ft-mse-840000-ema-pruned.safetensors",
-    "seed": -1,
     "subseed": -1,
     "cfg_scale": 7,
     "batch_size": 1,
@@ -74,11 +90,14 @@ const generate = () => {
     "clip_skip": 2,
     "hr_scale": 2,
     "hr_upscaler": "Latent",
-    "save_images":true,
+    "save_images": true,
     ...state.form,
   }).then((res) => {
     if (res) {
-      state.images = res.data.images
+      // state.images = res.data.images
+      state.srcList = res.data.images.map(item => state.imgeFormat + item)
+      state.url = res.data.images[0]
+      state.form.currnetSeed = JSON.parse(res.data.info).seed
       console.log(state.images)
       state.loading = false
     }
