@@ -1,5 +1,6 @@
 <template>
   <div class="sd-setting">
+    
     <el-row :gutter="20">
       <el-col :span="12">
         <el-form :model="state.form" label-width="120px" label-position="left" class="setting-form">
@@ -13,10 +14,11 @@
             <el-input v-model="state.form.sampler_name" disabled></el-input>
           </el-form-item>
           <el-form-item label="提示词:">
-            <el-input v-model="state.form.prompt" type="textarea" :rows="3"></el-input>
+            尽情发挥想象吧～
+            <el-input v-model="state.form.prompt" type="textarea" :rows="5"></el-input>
           </el-form-item>
           <el-form-item label="反向词:">
-            <el-input v-model="state.form.negative_prompt" type="textarea" :rows="3"></el-input>
+            <el-input v-model="state.form.negative_prompt" type="textarea" :rows="5"></el-input>
           </el-form-item>
           <el-form-item label="迭代步数:">
             <el-slider v-model="state.form.steps" max="30" /> <span>{{ state.form.steps }}</span>
@@ -42,6 +44,12 @@
         </div>
       </el-col>
     </el-row>
+    <div style="margin-top: 20px;">
+      <h4>功能持续更新中,欢迎体验...</h4>
+      <div>合作联系、问题反馈：</div>
+      <div>联系qq：2381773226</div>
+      <div>qq群交流：514450699</div>
+    </div>
   </div>
 
 </template>
