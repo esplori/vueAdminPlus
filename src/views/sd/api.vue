@@ -34,7 +34,7 @@
             <el-input v-model="state.form.currnetSeed" disabled></el-input>
           </el-form-item>
         </el-form>
-        <el-button style="width:100%" size="medium" @click="generate" type="primary">生成</el-button>
+        <el-button style="width:100%" size="medium" @click="generate" type="primary">生成（每次消耗10积分）</el-button>
       </el-col>
       <el-col :span="12">
         <div id="img-container" v-loading="state.loading">
