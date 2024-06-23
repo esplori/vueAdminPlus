@@ -105,7 +105,7 @@ const login = async function () {
   form.username = form.username.toLowerCase()
   const res: any = await loginApi(form).then((res: any) => {
     localStorage.setItem("userInfo", JSON.stringify(res.data));
-    router.push({ path: "/home" });
+    router.push({ path: "/" });
   });
 };
 </script>

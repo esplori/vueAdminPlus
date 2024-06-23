@@ -14,6 +14,10 @@ const router = createRouter({
       component: () => import("../views/sd/api.vue"),
     },
     {
+      path: "/login",
+      component: () => import("../views/account/login.vue"),
+    },
+    {
       path: "/:pathMatch(.*)", // 404页面
       component: () => import("@/views/components/404.vue"),
     },

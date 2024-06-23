@@ -160,7 +160,7 @@ function handleAuthenticated(res: any) {
         location.reload()
       }, 205)
       setTimeout(() => {
-        location.href = "/#/login";
+        location.href = "/login";
       }, 200);
       ErrorMsg = "用户信息已失效，请重新登录";
       localStorage.clear();

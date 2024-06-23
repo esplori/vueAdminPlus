@@ -56,6 +56,7 @@
 <script setup lang="ts">
 import { reactive } from "vue";
 import axios from "axios";
+import { post } from "@/utils/axios"
 const state = reactive({
   images: [],
   loading: false,
@@ -67,8 +68,8 @@ const state = reactive({
     sd_model_name: "majicMIX realistic_v7",
     sd_vae_name: "vae-ft-mse-840000-ema-pruned.safetensors",
     seed: -1,
-    sampler_name:"Euler a",
-    currnetSeed:""
+    sampler_name: "Euler a",
+    currnetSeed: ""
   },
   imgeFormat: "data:image/png;base64,",
   url: "",
@@ -77,39 +78,42 @@ const state = reactive({
 })
 const generate = () => {
   state.loading = true
-  axios.post("/si/sdapi/v1/txt2img", {
-    "subseed": -1,
-    "cfg_scale": 7,
-    "batch_size": 1,
-    "width": 512,
-    "height": 512,
-    "seed_resize_from_w": -1,
-    "seed_resize_from_h": -1,
-    "denoising_strength": 0.7,
-    "alwayson_scripts": {
-      "ADetailer": {
-        "args": [
-          {
-            "ad_model": "face_yolov8n.pt",
-          }
-        ]
+  post("/manage-service/sd/generateSdPic",{},{}).then((res) => {
+    axios.post("/si/sdapi/v1/txt2img", {
+      "subseed": -1,
+      "cfg_scale": 7,
+      "batch_size": 1,
+      "width": 512,
+      "height": 512,
+      "seed_resize_from_w": -1,
+      "seed_resize_from_h": -1,
+      "denoising_strength": 0.7,
+      "alwayson_scripts": {
+        "ADetailer": {
+          "args": [
+            {
+              "ad_model": "face_yolov8n.pt",
+            }
+          ]
+        }
+      },
+      "clip_skip": 2,
+      "hr_scale": 2,
+      "hr_upscaler": "Latent",
+      "save_images": true,
+      ...state.form,
+    }).then((res) => {
+      if (res) {
+        // state.images = res.data.images
+        state.srcList = res.data.images.map(item => state.imgeFormat + item)
+        state.url = res.data.images[0]
+        state.form.currnetSeed = JSON.parse(res.data.info).seed
+        console.log(state.images)
+        state.loading = false
       }
-    },
-    "clip_skip": 2,
-    "hr_scale": 2,
-    "hr_upscaler": "Latent",
-    "save_images": true,
-    ...state.form,
-  }).then((res) => {
-    if (res) {
-      // state.images = res.data.images
-      state.srcList = res.data.images.map(item => state.imgeFormat + item)
-      state.url = res.data.images[0]
-      state.form.currnetSeed = JSON.parse(res.data.info).seed
-      console.log(state.images)
-      state.loading = false
-    }
+    })
   })
+
 }
 
 </script>
