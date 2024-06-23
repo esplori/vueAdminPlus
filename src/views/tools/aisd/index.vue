@@ -5,10 +5,9 @@
 </template>
 
 <script>
-import { useRouter } from "vue-router";
-const router = useRouter();
+
 setTimeout(() => {
-  window.open("http://qw.dsiab.com/chat/share?shareId=ozvf9ai2r0juxiv0tyw6onal")
+  window.open("http://sd.dsiab.com");
   location.reload()
 }, 200);
 router.push({path:"/home"})

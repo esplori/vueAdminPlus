@@ -30,8 +30,8 @@ const router = createRouter({
       component: () => import("../views/sd/index.vue"),
     },
     {
-      path: "/sapi",
-      component: () => import("../views/sd/api.vue"),
+      path: "/aisd",
+      component: () => import("../views/tools/aisd/index.vue"),
     },
     {
       path: "/ai",
