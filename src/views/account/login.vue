@@ -16,7 +16,7 @@
       <div class="login-container">
         <div class="toReg">
           <h2>登录</h2>
-          <div>没有账号？<a href="/#/reg" class="toRegTxt">去注册</a></div>
+          <div>没有账号？<a href="https://admin.dsiab.com/#/reg" class="toRegTxt">去注册</a></div>
         </div>
         <el-form
           size="default"
