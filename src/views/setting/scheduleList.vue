@@ -15,10 +15,11 @@
           <el-input v-else v-model="scope.row.cron_date"></el-input>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="100px">
+      <el-table-column label="操作" width="140px">
         <template #default="scope">
           <el-button type="primary" v-if="!scope.row.isEdit" link @click="edit(scope.row)">编辑</el-button>
-          <el-button type="primary" v-else link @click="save(scope.row)">保存</el-button>
+          <el-button type="primary" v-if="scope.row.isEdit" link @click="save(scope.row)">保存</el-button>
+          <el-button type="primary" v-if="scope.row.isEdit" link @click="cancleEvent(scope.row)">取消</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -59,6 +60,9 @@ const getList = async () => {
 
 const edit = (row: {isEdit:Boolean}) => {
   row.isEdit = true
+}
+const cancleEvent = (row: {isEdit:Boolean}) => {
+  row.isEdit = false
 }
 const save = async (row: {isEdit:Boolean}) => {
   const res: any = await saveScheduleApi(row);
