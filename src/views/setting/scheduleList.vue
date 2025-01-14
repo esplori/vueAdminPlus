@@ -2,17 +2,23 @@
   <div class="schedule-list">
     <searchHeader :title="'定时任务'"></searchHeader>
     <el-table :data="state.list">
-      <el-table-column label="任务ID" prop="id" width="100px"></el-table-column>
-      <el-table-column label="任务名称" >
+      <el-table-column label="序号" prop="id" width="100px"></el-table-column>
+      <el-table-column label="任务编码">
         <template #default="scope">
-          <span v-if="!scope.row.isEdit">{{ scope.row.cron_name }}</span>
-          <el-input v-else v-model="scope.row.cron_name"></el-input>
+          <span v-if="!scope.row.isEdit">{{ scope.row.cron_code }}</span>
+          <el-input v-else v-model="scope.row.cron_code"></el-input>
         </template>
       </el-table-column>
       <el-table-column label="定时任务（cron）表达式">
         <template #default="scope">
           <span v-if="!scope.row.isEdit">{{ scope.row.cron_date }}</span>
           <el-input v-else v-model="scope.row.cron_date"></el-input>
+        </template>
+      </el-table-column>
+      <el-table-column label="任务名称" show-overflow-tooltip>
+        <template #default="scope">
+          <span v-if="!scope.row.isEdit">{{ scope.row.cron_name }}</span>
+          <el-input v-else v-model="scope.row.cron_name"></el-input>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="140px">
@@ -58,13 +64,13 @@ const getList = async () => {
 };
 
 
-const edit = (row: {isEdit:Boolean}) => {
+const edit = (row: { isEdit: Boolean }) => {
   row.isEdit = true
 }
-const cancleEvent = (row: {isEdit:Boolean}) => {
+const cancleEvent = (row: { isEdit: Boolean }) => {
   row.isEdit = false
 }
-const save = async (row: {isEdit:Boolean}) => {
+const save = async (row: { isEdit: Boolean }) => {
   const res: any = await saveScheduleApi(row);
   if (res) {
     ElMessage.success("保存成功")
