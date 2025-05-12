@@ -25,7 +25,7 @@ VMdPreview.use(vuepressTheme);
 const app = createApp(App);
 
 // 使用Element Plus UI库，并配置默认的尺寸和语言
-app.use(ElementPlus, { size: "default", locale: zhCn });
+app.use(ElementPlus, {locale: zhCn });
 // 使用Pinia进行状态管理
 app.use(createPinia());
 // 使用Vue Router进行路由管理

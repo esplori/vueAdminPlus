@@ -254,7 +254,7 @@ onMounted(() => {
     margin: 10px auto;
     display: flex;
     justify-content: space-between;
-    overflow-x: hidden;
+    // overflow-x: hidden;
   }
 
   .left-menu {

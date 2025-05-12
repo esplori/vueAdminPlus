@@ -17,8 +17,9 @@
       </div>
     </searchHeader>
 
-    <el-table :data="state.list" @sort-change="sortCchange" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="30"> </el-table-column>
+    <el-table style="width: 100%;" :data="state.list" @sort-change="sortCchange"
+      @selection-change="handleSelectionChange" v-loading="state.loading">
+      <el-table-column type="selection" width="50"> </el-table-column>
       <el-table-column label="标题" show-overflow-tooltip min-width="160px">
         <template #default="scope">
           <a style="color: #333" :href="'https://www.dsiab.com/post/' + (scope.row.uid || scope.row.id)
@@ -32,10 +33,11 @@
         </template>
       </el-table-column>
       <el-table-column label="分类" prop="cateName" width="120px"></el-table-column>
-      <el-table-column label="作者" sortable="createBy" prop="createBy" width="80px"></el-table-column>
-      <el-table-column label="阅读" sortable="custom" prop="views" width="80px"></el-table-column>
-      <el-table-column label="字数" sortable="custom" prop="wordsNum" width="80px"></el-table-column>
-      <el-table-column label="创建时间" sortable="custom" prop="createDate" width="120px" show-overflow-tooltip></el-table-column>
+      <el-table-column label="作者" sortable="createBy" prop="createBy"></el-table-column>
+      <el-table-column label="阅读" sortable="custom" prop="views"></el-table-column>
+      <el-table-column label="字数" sortable="custom" prop="wordsNum"></el-table-column>
+      <el-table-column label="创建时间" sortable="custom" prop="createDate" width="160px"
+        show-overflow-tooltip></el-table-column>
       <el-table-column fixed="right" width="160px" label="操作">
         <template #default="scope">
           <div class="operate">
@@ -103,12 +105,13 @@ const state = reactive({
     topicId: "",
   },
   pageNum: 1,
-  pageSize:100,
+  pageSize: 100,
   total: 0,
   cateList: [{ name: "", id: "" }],
   dialogVisible: false,
   topicList: [{ name: "", id: "" }],
   multipleSelection: [],
+  loading: false
 });
 onMounted(() => {
   getCate();
@@ -182,11 +185,13 @@ const getCate = async () => {
 };
 
 const getListByCate = async () => {
+  state.loading = true;
   const res: any = await getListByCateApi(state.params);
   if (res) {
     state.list = res.data.result;
     state.total = res.data.total;
   }
+  state.loading = false
 };
 
 const delConfirm = async (id: any) => {

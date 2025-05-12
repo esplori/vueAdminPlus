@@ -76,7 +76,7 @@ axios.interceptors.response.use(
 // get请求
 export function get(url: any, params: any, options: any) {
   if (options.showLoading) {
-    showFullScreenLoading();
+    // showFullScreenLoading();
   }
   return new Promise((resolve, reject) => {
     axios({
@@ -95,7 +95,7 @@ export function get(url: any, params: any, options: any) {
 // post请求
 export function post(url: any, param: any, options: any) {
   if (options.showLoading) {
-    showFullScreenLoading();
+    // showFullScreenLoading();
   }
   return new Promise((resolve, reject) => {
     axios({

@@ -25,7 +25,7 @@
         <template #default="scope">
           <el-button type="primary" v-if="!scope.row.isEdit" link @click="edit(scope.row)">编辑</el-button>
           <el-button type="primary" v-if="scope.row.isEdit" link @click="save(scope.row)">保存</el-button>
-          <el-button type="primary" v-if="scope.row.isEdit" link @click="cancleEvent(scope.row)">取消</el-button>
+          <el-button type="danger" v-if="scope.row.isEdit" link @click="cancleEvent(scope.row)">取消</el-button>
         </template>
       </el-table-column>
     </el-table>
