@@ -9,10 +9,10 @@ const router = createRouter({
   // hash 模式
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
-    {
-      path: "/test",
-      component: () => import("../views/test.vue"),
-    },
+    // {
+    //   path: "/test",
+    //   component: () => import("../views/test.vue"),
+    // },
     {
       path: "/login",
       component: () => import("../views/account/login.vue"),
