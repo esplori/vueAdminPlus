@@ -205,7 +205,7 @@ const updateView = async (id: string) => {
 }
 </script>
 
-<style scope>
+<style scope lang="scss">
 #masonryBox {
     position: relative;
     /* max-width: 1200px; */
