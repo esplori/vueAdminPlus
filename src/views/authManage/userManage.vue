@@ -2,7 +2,7 @@
   <div class="user-manage">
     <searchHeader :title="'用户管理'"></searchHeader>
     <el-table :data="state.data" @sort-change="sortCchange">
-      <el-table-column prop="username" label="用户名" sortable="username"> </el-table-column>
+      <el-table-column prop="username" label="用户名" sortable="username" width="160" show-overflow-tooltip> </el-table-column>
       <el-table-column prop="role" label="角色Id" show-overflow-tooltip>
       </el-table-column>
       <el-table-column prop="email" label="邮箱" show-overflow-tooltip></el-table-column>

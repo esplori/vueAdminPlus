@@ -5,10 +5,13 @@
 </template>
 
 <script>
-
+import { useRouter } from "vue-router";
+const router = useRouter();
 setTimeout(() => {
-  location.href = "http://test.dsiab.com:8080/chat/share?shareId=ozvf9ai2r0juxiv0tyw6onal"
-}, 1000);
+  window.open("http://qw.dsiab.com/chat/share?shareId=ozvf9ai2r0juxiv0tyw6onal")
+  location.reload()
+}, 200);
+router.push({path:"/home"})
 
 </script>
 <style scoped lang="scss">

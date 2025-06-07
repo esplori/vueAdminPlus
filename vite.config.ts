@@ -46,6 +46,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: path => path.replace('si', '')
       },
+      "/api": {
+        target: 'http://locahost/',
+        changeOrigin: true,
+        rewrite: path => path.replace('api', '')
+      },
     },
   },
   // 构建配置

@@ -248,7 +248,7 @@ const tabChange = (type: string) => {
     border: 1px dashed #d8d0d0;
     margin-bottom: 20px;
     color: #303133;
-    background-image: linear-gradient(90deg, rgba(103,194,54,0), rgba(103,194,54,0.1));
+    // background-image: linear-gradient(90deg, rgba(103,194,54,0), rgba(103,194,54,0.1));
 
     .el-alert__title {
       font-size: 16px;
@@ -268,7 +268,7 @@ const tabChange = (type: string) => {
     .statistic-card-list {
       border: 1px solid #ddd;
       border-radius: 4px;
-      background-image: linear-gradient(90deg, rgba(58,77,233,0), rgba(58,77,233,0.05))
+      // background-image: linear-gradient(90deg, rgba(58,77,233,0), rgba(58,77,233,0.05))
     }
 
     .el-col {
@@ -288,12 +288,12 @@ const tabChange = (type: string) => {
 
       .chart-name {
         font-size: medium;
-        font-weight: bold;
+        // font-weight: bold;
         padding: 10px;
         border-top: 1px solid rgb(228, 231, 237);
         border-left: 1px solid rgb(228, 231, 237);
         border-right: 1px solid rgb(228, 231, 237);
-        background-image: linear-gradient(to top , rgba(58,77,233,0), rgba(58,77,233,0.1))
+        // background-image: linear-gradient(to top , rgba(58,77,233,0), rgba(58,77,233,0.1))
       }
 
       &:nth-child(odd) {
@@ -308,12 +308,12 @@ const tabChange = (type: string) => {
 
     .chart-name {
       font-size: medium;
-      font-weight: bold;
+      // font-weight: bold;
       padding: 10px;
       border-top: 1px solid rgb(228, 231, 237);
       border-left: 1px solid rgb(228, 231, 237);
       border-right: 1px solid rgb(228, 231, 237);
-      background-image: linear-gradient(90deg, rgb(255 255 255), rgb(209 204 239))
+      // background-image: linear-gradient(90deg, rgb(255 255 255), rgb(209 204 239))
     }
   }
 

@@ -39,7 +39,7 @@
       <el-form-item label="启用轮播:" style="width: 100%">
         <el-switch v-model="state.form.carouselEnable" active-value="Y" inactive-value="N">
         </el-switch>
-        <el-table :data="state.tableData" style="width: 100%" border>
+        <el-table :data="state.tableData" style="width: 100%">
           <el-table-column type="index" label="序号" width="55px"></el-table-column>
           <el-table-column label="轮播图片地址" width="180">
             <template #default="scope">
@@ -69,14 +69,14 @@
       </el-form-item>
       <el-form-item label="首页菜单:" style="width: 100%">
 
-        <el-table :data="state.menuList" style="width: 100%" border>
+        <el-table :data="state.menuList" style="width: 100%">
           <el-table-column type="index" label="序号" width="55px"></el-table-column>
           <el-table-column label="菜单名称">
             <template #default="scope">
               <el-input v-model="scope.row.menuName"></el-input>
             </template>
           </el-table-column>
-          <el-table-column prop="url" label="菜单地址" >
+          <el-table-column prop="url" label="菜单地址">
             <template #default="scope">
               <el-input v-model="scope.row.menuUrl"></el-input>
             </template>
@@ -98,7 +98,7 @@
         </div>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submit">保存</el-button>
+          <el-button type="primary" @click="submit">保存</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -128,7 +128,7 @@ const state = reactive({
     sdRealUrl: ""
   },
   tableData: [{ imgUrl: "", desc: "", url: "" }],
-  menuList:[{ menuName: "", menuUrl: "", enabled: "Y" }]
+  menuList: [{ menuName: "", menuUrl: "", enabled: "Y" }]
 });
 onMounted(() => {
   getSiteInfo();

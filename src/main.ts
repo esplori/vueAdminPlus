@@ -13,15 +13,25 @@ import zhCn from "element-plus/es/locale/lang/zh-cn";
 // 引入项目自定义样式
 import "./assets/styles/index.scss";
 
+
+import VMdPreview from '@kangc/v-md-editor/lib/preview';
+import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js';
+import '@kangc/v-md-editor/lib/style/base-editor.css';
+import '@kangc/v-md-editor/lib/theme/style/vuepress.css';
+
+VMdPreview.use(vuepressTheme);
+
 // 创建Vue应用实例
 const app = createApp(App);
 
 // 使用Element Plus UI库，并配置默认的尺寸和语言
-app.use(ElementPlus, { size: "default", locale: zhCn });
+app.use(ElementPlus, {locale: zhCn });
 // 使用Pinia进行状态管理
 app.use(createPinia());
 // 使用Vue Router进行路由管理
 app.use(router);
+
+app.use(VMdPreview)
 
 // 将应用实例挂载到HTML元素上
 app.mount("#app");
