@@ -1,6 +1,6 @@
 import {
   createRouter,
-  createWebHistory,
+  // createWebHistory,
   createWebHashHistory,
 } from "vue-router";
 
@@ -9,10 +9,6 @@ const router = createRouter({
   // hash 模式
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
-    // {
-    //   path: "/test",
-    //   component: () => import("../views/test.vue"),
-    // },
     {
       path: "/login",
       component: () => import("../views/account/login.vue"),
@@ -106,14 +102,14 @@ const router = createRouter({
           path: "tools",
           component: () => import("../views/tools/index.vue"),
           children: [
-            {
-              path: "ebook",
-              component: () => import("../views/tools/ebook/index.vue"),
-            },
-            {
-              path: "ebookDetail",
-              component: () => import("../views/tools/ebook/detail.vue"),
-            },
+            // {
+            //   path: "ebook",
+            //   component: () => import("../views/tools/ebook/index.vue"),
+            // },
+            // {
+            //   path: "ebookDetail",
+            //   component: () => import("../views/tools/ebook/detail.vue"),
+            // },
             {
               path: "getRegionFromIp",
               component: () =>
@@ -127,27 +123,27 @@ const router = createRouter({
               path: "jsonFormat",
               component: () => import("../views/tools/jsonformat/index.vue"),
             },
-            {
-              path: "dianming",
-              component: () => import("../views/tools/dianming/dianming.vue"),
-            },
-            {
-              path: "img2base64",
-              component: () =>
-                import("../views/tools/img2base64/img2base64.vue"),
-            },
-            {
-              path: "choujiang",
-              component: () => import("../views/tools/choujiang/choujiang.vue"),
-            },
+            // {
+            //   path: "dianming",
+            //   component: () => import("../views/tools/dianming/dianming.vue"),
+            // },
+            // {
+            //   path: "img2base64",
+            //   component: () =>
+            //     import("../views/tools/img2base64/img2base64.vue"),
+            // },
+            // {
+            //   path: "choujiang",
+            //   component: () => import("../views/tools/choujiang/choujiang.vue"),
+            // },
             {
               path: "music",
               component: () => import("../views/tools/music/index.vue"),
             },
-            {
-              path: "wordBeautify",
-              component: () => import("../views/tools/wordBeautify/index.vue"),
-            },
+            // {
+            //   path: "wordBeautify",
+            //   component: () => import("../views/tools/wordBeautify/index.vue"),
+            // },
             {
               path: "games",
               component: () => import("../views/tools/games/index.vue"),
@@ -155,6 +151,10 @@ const router = createRouter({
             {
               path: "unlock-music",
               component: () => import("../views/tools/unlock-music/index.vue"),
+            },
+            {
+              path: "chat",
+              component: () => import("../views/tools/chat/index.vue"),
             },
           ],
         },

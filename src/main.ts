@@ -14,12 +14,12 @@ import zhCn from "element-plus/es/locale/lang/zh-cn";
 import "./assets/styles/index.scss";
 
 
-// import VMdPreview from '@kangc/v-md-editor/lib/preview';
-// import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js';
-// import '@kangc/v-md-editor/lib/style/base-editor.css';
-// import '@kangc/v-md-editor/lib/theme/style/vuepress.css';
+import VMdPreview from '@kangc/v-md-editor/lib/preview';
+import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js';
+import '@kangc/v-md-editor/lib/style/base-editor.css';
+import '@kangc/v-md-editor/lib/theme/style/vuepress.css';
 
-// VMdPreview.use(vuepressTheme);
+VMdPreview.use(vuepressTheme);
 
 // 创建Vue应用实例
 const app = createApp(App);
@@ -31,7 +31,7 @@ app.use(createPinia());
 // 使用Vue Router进行路由管理
 app.use(router);
 
-// app.use(VMdPreview)
+app.use(VMdPreview)
 
 // 将应用实例挂载到HTML元素上
 app.mount("#app");
