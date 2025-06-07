@@ -8,8 +8,8 @@
 
 
 <p align="center" style="padding:10px">
-	<a href="https://gitee.com/wilkwo/vue-admin-plus.git"><img src="https://gitee.com/wilkwo/vueAdmin/badge/star.svg?theme=dark"></a>
-	<a href="https://gitee.com/wilkwo/vue-admin-plus.git"><img src="https://gitee.com/wilkwo/vueAdmin/badge/fork.svg?theme=dark"></a>
+	<a href="https://gitee.com/wilkwo/vue-admin-plus.git"><img src="https://gitee.com/wilkwo/vue-admin-plus/badge/star.svg?theme=dark"></a>
+	<a href="https://gitee.com/wilkwo/vue-admin-plus.git"><img src="https://gitee.com/wilkwo/vue-admin-plus/badge/fork.svg?theme=dark"></a>
 </p>
 
 
