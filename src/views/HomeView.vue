@@ -250,7 +250,7 @@ onMounted(() => {
 
   .content-container {
     position: relative;
-    width: 1200px;
+    width: 1440px;
     margin: 10px auto;
     display: flex;
     justify-content: space-between;

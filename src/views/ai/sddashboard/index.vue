@@ -11,7 +11,7 @@
         <div id="masonryBox">
             <div v-for="(item, index) in state.list" class="masonry-item">
                 <el-image
-                    :style="'width:' + item.fit_width + 'px;height: ' + item.fit_height + 'px;border-radius: 10px;'"
+                    :style="'max-width:' + item.fit_width  + 'px;height: ' + item.fit_height + 'px;border-radius: 10px;'"
                     :src="item.url" :zoom-rate="1.2" :max-scale="7" :min-scale="0.2" lazy :preview-src-list="[item.url]"
                     hide-on-click-modal :initial-index="0" @click="updateView(item.id)" fit="cover" />
                 <div class="el-icon-view-bottom"><el-icon>
@@ -42,7 +42,7 @@
 import { getListApi, sdUploadApi, getDetailUpdateViewApi } from "./API";
 import { reactive, onMounted, nextTick, computed, onBeforeUnmount } from "vue";
 import { debounce } from "lodash"
-import searchHeader from "../components/searchHeader.vue";
+import searchHeader from "@/views/components/searchHeader.vue";
 import { View } from "@element-plus/icons-vue";
 type stateType = {
     dialogVisible: boolean,
@@ -147,9 +147,11 @@ const getChildElement = (parent: any, content: string) => {
 const imgLocation = (parent: string, content: string) => {
     var cparent = document.getElementById(parent)
     // cparent 下的所有的第一层的子容器 box
-    var ccontent = getChildElement(cparent, content)  //[装了20个div]
+    var ccontent = getChildElement(cparent, content)
     //找从谁开始是需要被摆放位置的
-    var winWidth = document.documentElement.clientWidth //获取视窗的宽度
+
+    // var winWidth = document.documentElement.clientWidth //获取视窗的宽度
+    var winWidth = document.querySelector(".sd-list")?.clientWidth as any
     // var winWidth = 934 //获取视窗的宽度
     var imgWidth = ccontent[0].offsetWidth              //获取图片盒子的宽度
     var num = Math.floor(winWidth / imgWidth)           //向下取整
@@ -206,24 +208,21 @@ const updateView = async (id: string) => {
 <style scope>
 #masonryBox {
     position: relative;
-    width: 100%;
-    overflow: auto;
+    /* max-width: 1200px; */
+    margin: 0 auto;
+    overflow-x: auto;
 }
 
 .masonry-item {
-    width: 312px;
+    max-width: 274px;
     padding: 5px;
     /* border: 1px solid #ccc; */
     float: left;
     position: relative;
-
-    /* img {
-        width: 100%;
-    } */
     .el-icon-view-bottom {
         position: absolute;
         bottom: 11px;
-        /* right: 20px; */
+        border-radius: 10px;
         width: 96%;
         height: 40px;
         color: #fff;

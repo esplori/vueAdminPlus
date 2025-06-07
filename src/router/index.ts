@@ -26,18 +26,6 @@ const router = createRouter({
       component: () => import("../views/postManage/post.vue"),
     },
     {
-      path: "/sd",
-      component: () => import("../views/sd/index.vue"),
-    },
-    {
-      path: "/aisd",
-      component: () => import("../views/tools/aisd/index.vue"),
-    },
-    {
-      path: "/ai",
-      component: () => import("../views/tools/ai/index.vue"),
-    },
-    {
       path: "/",
       name: "mainLayout",
       // route level code-splitting
@@ -99,6 +87,23 @@ const router = createRouter({
           ],
         },
         {
+          path: "ai",
+          children: [
+            {
+              path: "chat",
+              component: () => import("../views/ai/chat/index.vue"),
+            },
+            {
+              path: "sddashboard",
+              component: () => import("../views/ai/sddashboard/index.vue"),
+            },
+            {
+              path: "chatiframe",
+              component: () => import("../views/ai/chatiframe/index.vue"),
+            },
+          ]
+        },
+        {
           path: "tools",
           component: () => import("../views/tools/index.vue"),
           children: [
@@ -152,10 +157,7 @@ const router = createRouter({
               path: "unlock-music",
               component: () => import("../views/tools/unlock-music/index.vue"),
             },
-            {
-              path: "chat",
-              component: () => import("../views/tools/chat/index.vue"),
-            },
+
           ],
         },
         {
