@@ -56,7 +56,7 @@
       </el-pagination>
     </div>
 
-    <el-dialog title="添加到专题" v-model="state.dialogVisible" width="30%">
+    <el-dialog title="添加到专题" v-model="state.dialogVisible" width="400">
       <div class="add-topic">
         <el-select v-model="state.form.topicId">
           <el-option v-for="(item, index) in state.topicList" :key="index" :label="item.name" :value="item.id">
