@@ -52,9 +52,6 @@ const handleCommand = (command: string) => {
 
 const toLogin = () => {
   // 清楚已有缓存
-  setTimeout(() =>{
-    location.reload()
-  },5)
   router.push("/login");
 };
 

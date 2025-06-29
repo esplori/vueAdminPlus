@@ -38,7 +38,7 @@
       >
       </el-pagination>
     </div>
-    <el-dialog :title="state.title" v-model="state.dialogVisible" width="40%">
+    <el-dialog :title="state.title" v-model="state.dialogVisible" width="600">
       <div>
         <el-form :model="state.row" label-width="80px">
           <el-form-item label="歌曲名：">
