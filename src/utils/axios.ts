@@ -162,7 +162,7 @@ function handleAuthenticated(res: any) {
       setTimeout(() => {
         location.href = "/#/login";
       }, 200);
-      ErrorMsg = "用户信息已失效，请重新登录";
+      // ErrorMsg = "用户信息已失效，请重新登录";
       localStorage.clear();
       break;
     case 500:
@@ -171,9 +171,10 @@ function handleAuthenticated(res: any) {
     default:
       ErrorMsg = "网络错误,请稍后再试";
   }
+  debugger
   const existMsgError = document.querySelector(".el-message--error");
   if (!existMsgError) {
     // 如果之前不存在错误提示才显示，存在则不显示，避免同时出现多个提示
-    ElMessage.error(ErrorMsg);
+    ErrorMsg && ElMessage.error(ErrorMsg);
   }
 }
