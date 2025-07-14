@@ -7,7 +7,6 @@
         >
       </div>
       <div class="user-info">
-        <!-- <div class="userInfo"> -->
         <div v-if="state.userInfo" class="info-flex">
           <el-dropdown @command="handleCommand">
             <div class="el-dropdown-link">
@@ -24,7 +23,6 @@
           </el-dropdown>
         </div>
         <span v-else @click="toLogin" class="login-in">登录</span>
-        <!-- </div> -->
       </div>
     </div>
   </div>
@@ -54,9 +52,6 @@ const handleCommand = (command: string) => {
 
 const toLogin = () => {
   // 清楚已有缓存
-  setTimeout(() =>{
-    location.reload()
-  },5)
   router.push("/login");
 };
 
@@ -94,7 +89,7 @@ watchEffect(() => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 1200px;
+    width: 1440px;
     margin: 0 auto;
     padding: 5px 0;
 

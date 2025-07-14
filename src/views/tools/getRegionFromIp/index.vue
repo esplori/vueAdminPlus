@@ -9,7 +9,7 @@
         <el-input v-model="state.form.ip"></el-input>
       </el-form-item>
       <el-form-item label="ip归属地：">
-        {{ state.form.inputIp }}
+        <el-input v-model="state.form.inputIp" disabled></el-input>
       </el-form-item>
     </el-form>
     <div style="text-align: center; padding: 20px">

@@ -97,6 +97,14 @@
           <el-button type="primary" style="width:100%" @click="addMenuItem">新增</el-button>
         </div>
       </el-form-item>
+      <el-form-item label="广告开关"> 
+        <el-switch v-model="state.form.ad_switch" active-value="Y" inactive-value="N">
+        </el-switch>
+      </el-form-item>
+      <el-form-item label="评论开关"> 
+        <el-switch v-model="state.form.post_comment_switch" active-value="Y" inactive-value="N">
+        </el-switch>
+      </el-form-item>
       <el-form-item>
           <el-button type="primary" @click="submit">保存</el-button>
       </el-form-item>

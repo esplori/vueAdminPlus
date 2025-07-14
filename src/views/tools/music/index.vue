@@ -17,7 +17,7 @@
       </el-table-column>
       <el-table-column label="操作">
         <template #default="scope">
-          <el-button link @click="edit(scope.row)">编辑</el-button>
+          <el-button link @click="edit(scope.row)" type="primary">编辑</el-button>
           <el-button link type="danger" @click="delConfirm(scope.row.id)"
             >删除</el-button
           >
@@ -38,7 +38,7 @@
       >
       </el-pagination>
     </div>
-    <el-dialog :title="state.title" v-model="state.dialogVisible" width="40%">
+    <el-dialog :title="state.title" v-model="state.dialogVisible" width="600">
       <div>
         <el-form :model="state.row" label-width="80px">
           <el-form-item label="歌曲名：">
