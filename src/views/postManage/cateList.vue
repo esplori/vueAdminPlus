@@ -4,7 +4,7 @@
       <el-button type="primary" @click="insertCate">新增分类</el-button>
     </searchHeader>
     <el-table :data="state.list" style="width: 100%">
-      <el-table-column label="序号" type="index" width="80px"> </el-table-column>
+      <el-table-column label="序号" prop="sortIndex" width="80px"> </el-table-column>
       <el-table-column label="标题">
         <template #default="scope">
           {{ scope.row.name }}
@@ -27,7 +27,14 @@
 
     <el-dialog :title="state.title" v-model="state.dialogVisible" width="30%" @close="handleClose">
       <div>
-        <el-input v-model="state.row.name" placeholder="请输入名称"></el-input>
+        <el-form :model="state.row">
+          <el-form-item label="名称">
+            <el-input v-model="state.row.name" placeholder="请输入名称"></el-input>
+          </el-form-item>
+          <el-form-item label="序号">
+            <el-input v-model.number="state.row.sortIndex" placeholder="请输入序号"></el-input>
+          </el-form-item>
+        </el-form>
       </div>
       <template #footer>
         <span class="dialog-footer">
@@ -57,6 +64,7 @@ const state = reactive({
   row: {
     id: "",
     name: null,
+    sortIndex: null
   },
   pageNum: 1,
   pageSize: 10,
