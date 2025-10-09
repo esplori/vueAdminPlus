@@ -6,7 +6,8 @@ export const userInfoStore = defineStore({
     userInfo: {
       dailySentence: "",
       username: "",
-      token:""
+      token:"",
+      aliAiToken:""
     },
     music_list: [],
   }),

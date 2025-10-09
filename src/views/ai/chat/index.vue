@@ -15,8 +15,9 @@
         <div v-for="(msg, index) in messages" :key="index"
           :class="{ 'user-message': msg.user === 'user', 'bot-message': msg.user === 'bot' }">
           <div class="loading-text" v-if="msg.user == 'bot' && isNotLoading">思考中...</div>
-          <v-md-preview
-            :text="msg.content"></v-md-preview>
+          <div v-html="md.render(msg.content)"></div>
+          <!-- <v-md-preview
+            :text="msg.content"></v-md-preview> -->
         </div>
       </div>
       <div class="input-box">
@@ -37,6 +38,8 @@
 
 <script>
 import { fetchEventSource } from '@microsoft/fetch-event-source'
+import MarkdownIt from 'markdown-it'
+import { userInfoStore } from "@/stores/userInfo";
 export default {
   components: {
     // MarkdownRenderer
@@ -51,10 +54,21 @@ export default {
       modelList: [
         { "name": "通义千问", "value": "tyqw" },
         { "name": "Dify", "value": "dify" },
-      ]
+      ],
+      md:null,
     };
   },
   created() {
+  },
+  computed: {
+    aliAiToken() {
+      const us = userInfoStore();
+      return us.userInfo.aliAiToken
+    }
+  },
+  mounted() {
+    // 创建 markdown-it 实例
+    this.md = new MarkdownIt()
   },
   methods: {
     sendMessage() {
@@ -77,7 +91,7 @@ export default {
       this.messages.push({ user: 'bot', content: '' });
       const url = 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions'; // 替换为你的 API 地址
       const headers = {
-        'Authorization': 'Bearer sk-13a004027ac14d97b75affcba4067ca2', // 替换为你自己的 API Key
+        'Authorization': this.aliAiToken, // 替换为你自己的 API Key
         'Content-Type': 'application/json'
       };
       const requestBody = JSON.stringify({

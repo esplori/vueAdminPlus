@@ -233,6 +233,11 @@ const getUserInfo = async () => {
   if (res.data.dailySentence) {
     us.userInfo.dailySentence = res.data.dailySentence;
   }
+  
+  // 保存阿里大模型token
+  if (res.data.aliAiToken) {
+    us.userInfo.aliAiToken = res.data.aliAiToken;
+  }
 };
 const getMenus = async () => {
   getMenusApi({}).then((res: any) => {

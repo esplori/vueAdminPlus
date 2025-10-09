@@ -33,6 +33,9 @@
       <el-form-item label="站长邮箱:">
         <el-input v-model="state.form.siteEmail"> </el-input>
       </el-form-item>
+      <el-form-item label="阿里大模型secret:">
+        <el-input v-model="state.form.ali_model_token"> </el-input>
+      </el-form-item>
       <el-form-item label="清空redis缓存:">
         <el-button type="danger" @click="clearCache">清空</el-button>
       </el-form-item>
@@ -133,7 +136,10 @@ const state = reactive({
     siteEmail: "",
     carouselEnable: "N",
     bookUrl: "",
-    sdRealUrl: ""
+    sdRealUrl: "",
+    ad_switch:"",
+    post_comment_switch:"",
+    ali_model_token:""
   },
   tableData: [{ imgUrl: "", desc: "", url: "" }],
   menuList: [{ menuName: "", menuUrl: "", enabled: "Y" }]
