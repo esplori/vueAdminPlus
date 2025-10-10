@@ -4,7 +4,7 @@
 </div>
 
 <h1 align="center" style=" font-weight: bold;">vueAdminPlus</h1>
-<h5 align="center">基于vue3.0 + element-plus + typeScript开发的博客后台管理系统</h5>
+<h5 align="center">基于vue3.x + element-plus + typeScript开发的博客后台管理系统</h5>
 
 
 <p align="center" style="padding:10px">
@@ -15,7 +15,7 @@
 
 ### 项目介绍
 
-- 主要技术栈: vuejs3.0 + vue-router + pinia + element-plus + typescript + scss
+- 主要技术栈: vuejs3.x + vue-router + pinia + element-plus + typescript + scss
 
 - 使用到的插件： axios + wangeditor5 + echarts5
 
