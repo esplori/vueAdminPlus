@@ -6,8 +6,8 @@
     </div>
     <div class="model-list">
       <span>模型选择：</span>
-      <el-select v-model="type">
-        <el-option v-for="(item, index) in modelList" :key="index" :label="item.name" :value="item.value"></el-option>
+      <el-select v-model="type" @change="modelChange">
+        <el-option v-for="(item, index) in modelList" :key="index" :label="item.modelName" :value="item.modelCode"></el-option>
       </el-select>
     </div>
     <el-scrollbar height="85vh">
@@ -40,6 +40,7 @@
 import { fetchEventSource } from '@microsoft/fetch-event-source'
 import MarkdownIt from 'markdown-it'
 import { userInfoStore } from "@/stores/userInfo";
+import { getListApi } from "./API";
 export default {
   components: {
     // MarkdownRenderer
@@ -50,27 +51,35 @@ export default {
       messages: [],
       content: '',
       isNotLoading: true,
-      type: "tyqw",
-      modelList: [
-        { "name": "通义千问", "value": "tyqw" },
-        { "name": "Dify", "value": "dify" },
-      ],
+      type: "qwen-plus",
+      modelList: [],
       md:null,
+      curretnModel:{}
     };
   },
   created() {
-  },
-  computed: {
-    aliAiToken() {
-      const us = userInfoStore();
-      return us.userInfo.aliAiToken
-    }
+    this.getModelList()
   },
   mounted() {
     // 创建 markdown-it 实例
     this.md = new MarkdownIt()
   },
   methods: {
+    modelChange(val){
+      this.curretnModel = this.modelList.find(item => item.modelCode == this.type)
+      console.log(this.curretnModel);
+      
+    },
+    async getModelList(){
+      const res = await getListApi();
+      let listString = res.data
+      this.modelList = JSON.parse(listString)
+      if (this.modelList.length) {
+        this.curretnModel = this.modelList[0]
+        console.log(this.modelList[0]);
+        
+      }
+    },
     sendMessage() {
       if (this.input.trim()) {
         this.messages.push({ user: 'user', content: this.input });
@@ -79,7 +88,7 @@ export default {
         });
         if (this.type == 'dify') {
           this.fetchDataDify();
-        } else if (this.type == 'tyqw') {
+        } else if (this.type == 'qwen-plus') {
           this.fetchDataQwen()
         }
 
@@ -89,14 +98,14 @@ export default {
     async fetchDataQwen() {
 
       this.messages.push({ user: 'bot', content: '' });
-      const url = 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions'; // 替换为你的 API 地址
+      
       const headers = {
-        'Authorization': this.aliAiToken, // 替换为你自己的 API Key
+        'Authorization': this.curretnModel.token, // 替换为你自己的 API Key
         'Content-Type': 'application/json'
       };
       const requestBody = JSON.stringify({
         stream: true,
-        model: "qwen-plus",
+        model: this.curretnModel.modelCode,
         "messages": [
           {
             "role": "system",
@@ -112,7 +121,7 @@ export default {
 
       let _this = this
 
-      await fetchEventSource(url, {
+      await fetchEventSource(this.curretnModel.url, {
         method: 'POST',
         headers: headers,
         body: requestBody,

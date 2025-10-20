@@ -33,11 +33,16 @@
       <el-form-item label="站长邮箱:">
         <el-input v-model="state.form.siteEmail"> </el-input>
       </el-form-item>
-      <el-form-item label="阿里大模型secret:">
-        <el-input v-model="state.form.ali_model_token"> </el-input>
-      </el-form-item>
       <el-form-item label="清空redis缓存:">
         <el-button type="danger" @click="clearCache">清空</el-button>
+      </el-form-item>
+      <el-form-item label="广告开关"> 
+        <el-switch v-model="state.form.ad_switch" active-value="Y" inactive-value="N">
+        </el-switch>
+      </el-form-item>
+      <el-form-item label="评论开关"> 
+        <el-switch v-model="state.form.post_comment_switch" active-value="Y" inactive-value="N">
+        </el-switch>
       </el-form-item>
       <el-form-item label="启用轮播:" style="width: 100%">
         <el-switch v-model="state.form.carouselEnable" active-value="Y" inactive-value="N">
@@ -100,14 +105,47 @@
           <el-button type="primary" style="width:100%" @click="addMenuItem">新增</el-button>
         </div>
       </el-form-item>
-      <el-form-item label="广告开关"> 
-        <el-switch v-model="state.form.ad_switch" active-value="Y" inactive-value="N">
-        </el-switch>
+      <el-form-item label="模型设置:" style="width: 100%">
+
+        <el-table :data="state.modelList" style="width: 100%">
+          <el-table-column type="index" label="序号" width="55px"></el-table-column>
+          <el-table-column label="模型名称">
+            <template #default="scope">
+              <el-input v-model="scope.row.modelName"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column prop="url" label="模型编码">
+            <template #default="scope">
+              <el-input v-model="scope.row.modelCode"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column prop="url" label="接口地址">
+            <template #default="scope">
+              <el-input v-model="scope.row.url"></el-input>
+            </template>
+          </el-table-column>
+           <el-table-column prop="token" label="token">
+            <template #default="scope">
+              <el-input v-model="scope.row.token"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column prop="address" label="启用" width="80px">
+            <template #default="scope">
+              <el-switch v-model="scope.row.enabled" active-value="Y" inactive-value="N">
+              </el-switch>
+            </template>
+          </el-table-column>
+          <el-table-column prop="address" label="操作" width="80px">
+            <template #default="scope">
+              <el-button link type="danger" @click="delMenuItem(scope.$index)">删除</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+        <div class="btn-box">
+          <el-button type="primary" style="width:100%" @click="addModelItem">新增</el-button>
+        </div>
       </el-form-item>
-      <el-form-item label="评论开关"> 
-        <el-switch v-model="state.form.post_comment_switch" active-value="Y" inactive-value="N">
-        </el-switch>
-      </el-form-item>
+      
       <el-form-item>
           <el-button type="primary" @click="submit">保存</el-button>
       </el-form-item>
@@ -142,7 +180,8 @@ const state = reactive({
     ali_model_token:""
   },
   tableData: [{ imgUrl: "", desc: "", url: "" }],
-  menuList: [{ menuName: "", menuUrl: "", enabled: "Y" }]
+  menuList: [{ menuName: "", menuUrl: "", enabled: "Y" }],
+  modelList: [{ modelName: "",modelCode:"", url: "",token:"", enabled: "Y" }],
 });
 onMounted(() => {
   getSiteInfo();
@@ -158,7 +197,8 @@ const submit = async () => {
   const res = await updateSiteInfoApi(
     Object.assign({}, state.form, {
       carouselUrl: JSON.stringify(state.tableData),
-      menuList: JSON.stringify(state.menuList)
+      menuList: JSON.stringify(state.menuList),
+      modelList: JSON.stringify(state.modelList),
     })
   );
 
@@ -173,6 +213,7 @@ const getSiteInfo = async () => {
     state.form = res.data;
     state.tableData = JSON.parse(res.data.carouselUrl);
     state.menuList = JSON.parse(res.data.menuList);
+    state.modelList = JSON.parse(res.data.model_list);
   }
 };
 
@@ -185,6 +226,9 @@ const delCarouselItem = (index: number) => {
 };
 const addMenuItem = () => {
   state.menuList.push({ menuName: "", menuUrl: "", enabled: "Y" });
+};
+const addModelItem = () => {
+  state.modelList.push({ modelName: "",modelCode:"", url: "",token:"", enabled: "Y" });
 };
 
 const delMenuItem = (index: number) => {
