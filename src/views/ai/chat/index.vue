@@ -100,7 +100,7 @@ export default {
       this.messages.push({ user: 'bot', content: '' });
       
       const headers = {
-        'Authorization': this.curretnModel.token, // 替换为你自己的 API Key
+        'Authorization': 'Bearer ' +  this.curretnModel.token, // 替换为你自己的 API Key
         'Content-Type': 'application/json'
       };
       const requestBody = JSON.stringify({

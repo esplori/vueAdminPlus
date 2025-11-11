@@ -129,6 +129,11 @@
               <el-input v-model="scope.row.token"></el-input>
             </template>
           </el-table-column>
+          <el-table-column prop="question" label="问题">
+            <template #default="scope">
+              <el-input v-model="scope.row.question"></el-input>
+            </template>
+          </el-table-column>
           <el-table-column prop="address" label="启用" width="80px">
             <template #default="scope">
               <el-switch v-model="scope.row.enabled" active-value="Y" inactive-value="N">
@@ -137,7 +142,7 @@
           </el-table-column>
           <el-table-column prop="address" label="操作" width="80px">
             <template #default="scope">
-              <el-button link type="danger" @click="delMenuItem(scope.$index)">删除</el-button>
+              <el-button link type="danger" @click="delModelItem(scope.$index)">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -233,6 +238,10 @@ const addModelItem = () => {
 
 const delMenuItem = (index: number) => {
   state.menuList.splice(index, 1);
+};
+
+const delModelItem = (index: number) => {
+  state.modelList.splice(index, 1);
 };
 </script>
 

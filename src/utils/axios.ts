@@ -171,7 +171,6 @@ function handleAuthenticated(res: any) {
     default:
       ErrorMsg = "网络错误,请稍后再试";
   }
-  debugger
   const existMsgError = document.querySelector(".el-message--error");
   if (!existMsgError) {
     // 如果之前不存在错误提示才显示，存在则不显示，避免同时出现多个提示
