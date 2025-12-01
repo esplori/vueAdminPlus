@@ -21,7 +21,7 @@
           <div class="input-underline" :class="{ active: showShadow }"></div>
         </el-form-item>
         <el-form-item>
-          <el-button @click="login" type="primary" :loading="loading" class="login-btn" ref="loginBtn">
+          <el-button data-umami-event="login button" @click="login" type="primary" :loading="loading" class="login-btn" ref="loginBtn">
             {{ loading ? '登录中...' : '登录' }}
           </el-button>
         </el-form-item>

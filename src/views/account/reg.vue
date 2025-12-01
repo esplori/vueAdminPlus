@@ -52,7 +52,7 @@
             ></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button style="width: 100%" @click="valid" type="primary"
+            <el-button data-umami-event="register button" style="width: 100%" @click="valid" type="primary"
               >立即注册</el-button
             >
           </el-form-item>
