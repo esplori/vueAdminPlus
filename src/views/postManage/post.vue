@@ -311,7 +311,7 @@ const handleChange = (editor: any) => {
 
 editorConfig.MENU_CONF["uploadImage"] = {
   server: "/manage-service/account/upload",
-  timeout: 15 * 1000, // 5s
+  timeout: 60 * 1000, // 60s
   fieldName: "file",
   meta: {},
   metaWithUrl: true, // join params to url
