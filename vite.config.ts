@@ -29,28 +29,28 @@ export default defineConfig({
     // 配置代理以转发请求
     proxy: {
       // 配置对/manage-service路径的请求进行代理
-      "/manage-service": {
+      "/api": {
         target: "https://admin.dsiab.com",
         // target: "http://localhost:8093/",
         changeOrigin: true,
         // rewrite: (path) => path.replace("manage-service", ""),
       },
       // 配置对/promote-service路径的请求进行代理
-      "/promote-service": {
-        target: 'http://localhost:8095/',
-        changeOrigin: true,
-        rewrite: path => path.replace('promote-service', '')
-      },
-      "/si": {
-        target: 'http://localhost:7860/',
-        changeOrigin: true,
-        rewrite: path => path.replace('si', '')
-      },
-      "/api": {
-        target: 'http://locahost/',
-        changeOrigin: true,
-        rewrite: path => path.replace('api', '')
-      },
+      // "/promote-service": {
+      //   target: 'http://localhost:8095/',
+      //   changeOrigin: true,
+      //   rewrite: path => path.replace('promote-service', '')
+      // },
+      // "/si": {
+      //   target: 'http://localhost:7860/',
+      //   changeOrigin: true,
+      //   rewrite: path => path.replace('si', '')
+      // },
+      // "/api": {
+      //   target: 'http://locahost/',
+      //   changeOrigin: true,
+      //   rewrite: path => path.replace('api', '')
+      // },
     },
   },
   // 构建配置
