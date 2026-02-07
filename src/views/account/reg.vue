@@ -1,63 +1,31 @@
 <template>
   <div class="login">
-    <div class="show-container" :class="{ shadow: showShadow }">
-      <div class="left-pic">
-        <div class="login-box">
-          <div class="logo"></div>
-          <span>技术分享</span>
-        </div>
-        <div class="slogan">『书写心得，分享感悟』</div>
-        <div class="comment">
-          <div>昨日之深渊，今日之浅谈。</div>
-          <div>路虽远，行则将至。</div>
-          <div>事虽难，做则可成。</div>
-        </div>
+    <div class="particles"></div>
+    <div class="login-container">
+      <div class="toReg">
+        <h2>注册</h2>
+        <div>已有账号？<a href="/#/login" class="toRegTxt">去登录</a></div>
       </div>
-      <div class="login-container">
-        <div class="toReg">
-          <h2>注册</h2>
-          <div>已有账号？<a href="/#/login" class="toRegTxt">去登录</a></div>
-        </div>
-        <el-form
-          size="default"
-          :model="regform"
-          :rules="rules"
-          ref="formref"
-          label-position="left"
-        >
-          <el-form-item prop="username">
-            <el-input
-              @focus="shadow"
-              @blur="hideShadow"
-              v-model="regform.username"
-              placeholder="请输入账号"
-            ></el-input>
-          </el-form-item>
-          <el-form-item prop="password">
-            <el-input
-              @focus="shadow"
-              @blur="hideShadow"
-              v-model="regform.password"
-              type="password"
-              placeholder="请输入密码"
-            ></el-input>
-          </el-form-item>
-          <el-form-item prop="email">
-            <el-input
-              @focus="shadow"
-              @blur="hideShadow"
-              v-model="regform.email"
-              type="text"
-              placeholder="请输入正确邮箱,方便找回密码"
-            ></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button data-umami-event="register button" style="width: 100%" @click="valid" type="primary"
-              >立即注册</el-button
-            >
-          </el-form-item>
-        </el-form>
-      </div>
+      <el-form size="default" :model="regform" :rules="rules" ref="formref" label-position="left">
+        <el-form-item prop="username" class="animated-input">
+          <el-input @focus="shadow" @blur="hideShadow" v-model="regform.username" placeholder="请输入账号"
+            class="animated-input"></el-input>
+          <div class="input-underline" :class="{ active: showShadow }"></div>
+        </el-form-item>
+        <el-form-item prop="password" class="animated-input">
+          <el-input @focus="shadow" @blur="hideShadow" v-model="regform.password" type="password" placeholder="请输入密码"
+            class="animated-input"></el-input>
+          <div class="input-underline" :class="{ active: showShadow }"></div>
+        </el-form-item>
+        <el-form-item prop="email" class="animated-input">
+          <el-input @focus="shadow" @blur="hideShadow" v-model="regform.email" type="text" placeholder="请输入正确邮箱"
+            class="animated-input"></el-input>
+          <div class="input-underline" :class="{ active: showShadow }"></div>
+        </el-form-item>
+        <el-form-item>
+          <el-button class="login-btn" data-umami-event="register button" @click="valid" type="primary">立即注册</el-button>
+        </el-form-item>
+      </el-form>
     </div>
   </div>
 </template>
@@ -143,101 +111,125 @@ const valid = async () => {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .login {
-  // background: url("../../assets/images/bg.jpg") no-repeat;
-  background: url("../../assets/images/bg.svg") no-repeat;
-  background-size: cover;
+  background: linear-gradient(135deg, #f8f9ff 0%, #e8f0fe 25%, #e0e9ff 50%, #d6e4ff 75%, #c9dbff 100%);
+  background-size: 300% 300%;
+  animation: gradientBG 18s ease infinite;
   min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
 
-  .show-container {
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    height: 100%;
+    background: radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.5) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.4) 0%, transparent 50%);
+    animation: float 25s infinite linear alternate;
+    z-index: 0;
+  }
+}
 
-    .toReg {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 20px;
-      align-items: center;
-    }
-    .left-pic {
-      display: flex;
-      justify-content: space-around;
-      align-items: flex-start;
-      flex-direction: column;
-      padding: 20px 30px 80px 30px;
-      color: #fff;
-      width: 280px;
-      height: 334px;
-      background: linear-gradient(0deg, #3a485a 0%, #607089 100%);
-      // border-radius: 100% 0% 100% 0% / 0% 100% 0% 100%;
-      box-shadow: 0 0 2px rgba(255, 255, 255, 0.3);
+.login-container {
+  width: 480px;
+  padding: 40px 50px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  z-index: 2;
 
-      .login-box {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        font-size: 1rem;
-        .logo {
-          font-size: 1rem;
-          background: url("@/assets/images/logo_white.png") no-repeat;
-          width: 80px;
-          height: 40px;
-          background-size: cover;
-        }
-      }
+  .toReg {
+    text-align: center;
+    margin-bottom: 30px;
 
-      .slogan {
-        font-size: 1.2rem;
-      }
-
-      .comment {
-        font-size: 0.8rem;
-      }
+    h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 8px;
     }
 
-    .login-container {
-      border-radius: 3px;
-      width: 380px;
-      margin-top: 0;
-      background: rgba(255, 255, 255, 1);
-      padding: 40px 60px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-      border-radius: 100% 0% 100% 0% / 0% 100% 0% 100%;
-      box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.2),
-        10px 10px 20px rgba(0, 0, 0, 0.1), 1px 1px 1px rgba(0, 0, 0, 0.05),
-        inset -10px -10px 15px rgba(255, 255, 255, 0.8);
-      // animation: action 3s linear infinite alternate;
-      // @keyframes action {
-      //   50%{
-      //     border-radius:  95% 5% 97% 3% / 4% 96% 4% 96%          ;
-      //   }
-      //   100%{
-      //     border-radius:  98% 2% 97% 3% / 2% 96% 4% 98%     ;
-      //   }
+    div {
+      color: #64748b;
+      font-size: 0.9rem;
+    }
 
-      // }
-      .reg {
-        cursor: pointer;
-        font-size: 12px;
+    a {
+      color: #4f46e5;
+      font-weight: 600;
+      text-decoration: none;
+      &:hover {
         text-decoration: underline;
       }
     }
   }
+}
 
-  .shadow {
-    background: rgba(0, 0, 0, 0.6);
-    transition: all 0.5s;
-  }
+.animated-input {
+  position: relative;
+  margin-bottom: 24px;
 
-  .toLogin {
-    color: #409eff;
-  }
+  &:deep(.el-input__wrapper) {
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    box-shadow: none;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    transition: all 0.3s;
 
-  .toRegTxt {
-    color: #005980;
+    &.is-focus {
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+    }
   }
+}
+
+.input-underline {
+  height: 2px;
+  background: linear-gradient(to right, #4f46e5, #818cf8);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  transition: width 0.4s;
+  &.active {
+    width: 100%;
+  }
+}
+
+.login-btn {
+  width: 100%;
+  height: 52px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+  border: none;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+  transition: all 0.3s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+  }
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(30px, 30px) rotate(3deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
 }
 </style>

@@ -91,7 +91,7 @@ const login = async function () {
   loading.value = true;
   try {
     form.username = form.username.toLowerCase();
-    const res = await loginApi(form);
+    const res: any = await loginApi(form);
     localStorage.setItem("userInfo", JSON.stringify(res.data));
     router.push({ path: "/home" });
   } catch (error) {
@@ -255,117 +255,110 @@ const login = async function () {
         transform: translateX(-50%);
         width: 60px;
         height: 3px;
-        background: linear-gradient(to right, #667eea, #764ba2);
-        border-radius: 3px;
-        animation: underlineScale 2s infinite;
-      }
-    }
-
-    div {
-      color: #666;
-      font-size: 0.9rem;
-    }
-
-    a {
-      color: #667eea;
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 0.2s;
-      position: relative;
-
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: -2px;
-        left: 0;
-        width: 0;
-        height: 1px;
-        background: #764ba2;
-        transition: width 0.3s;
-      }
-
-      &:hover {
-        color: #764ba2;
-
-        &::after {
-          width: 100%;
-        }
-      }
+        background: linear-gradient(to right, #4f46e5, #818cf8);
+      border-radius: 3px;
+      animation: underlineScale 2s infinite;
     }
   }
 
-  .el-form {
-    margin-top: 30px;
+  div {
+    color: #64748b;
+    font-size: 0.9rem;
+  }
 
-    .animated-input {
-      position: relative;
-      margin-bottom: 20px;
+  a {
+    color: #4f46e5;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+    position: relative;
 
-      &:deep(.el-input__wrapper) {
-        padding: 12px 16px;
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 10px;
-        box-shadow: none;
-        border: 1px solid rgba(0, 0, 0, 0.08);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-        &:hover {
-          background: white;
-          border-color: rgba(102, 126, 234, 0.3);
-        }
-
-        &.is-focus {
-          background: white;
-          border-color: #667eea;
-          box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
-          transform: translateY(-1px);
-        }
-      }
-
-      &:deep(.el-input__prefix) {
-        margin-right: 10px;
-        color: #667eea;
-        transition: all 0.3s;
-      }
-    }
-
-    .input-underline {
-      height: 2px;
-      background: linear-gradient(to right, #667eea, #764ba2);
+    &::after {
+      content: '';
       position: absolute;
-      bottom: 0;
+      bottom: -2px;
       left: 0;
       width: 0;
-      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      height: 1px;
+      background: #818cf8;
+      transition: width 0.3s;
+    }
 
-      &.active {
+    &:hover {
+      color: #818cf8;
+
+      &::after {
         width: 100%;
       }
     }
+  }
+}
 
-    .login-btn {
+.el-form {
+  margin-top: 30px;
+
+  .animated-input {
+    position: relative;
+    margin-bottom: 24px;
+
+    &:deep(.el-input__wrapper) {
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.8);
       border-radius: 12px;
-      height: 52px;
-      font-size: 1.05rem;
-      font-weight: 600;
-      letter-spacing: 0.8px;
-      background: linear-gradient(135deg,
-          #6a8cff 0%, // 明亮的科技蓝
-          #4a6cff 100% // 稍深的科技蓝
-        );
-      border: none;
-      color: white;
-      transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-      will-change: transform, box-shadow;
+      box-shadow: none;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-      // 3D悬浮效果
-      box-shadow:
-        0 4px 12px rgba(74, 108, 255, 0.25),
-        0 2px 4px rgba(74, 108, 255, 0.15),
-        inset 0 1px 1px rgba(255, 255, 255, 0.2);
+      &:hover {
+        background: white;
+        border-color: rgba(79, 70, 229, 0.3);
+      }
+
+      &.is-focus {
+        background: white;
+        border-color: #4f46e5;
+        box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+        transform: translateY(-1px);
+      }
+    }
+
+    &:deep(.el-input__prefix) {
+      margin-right: 12px;
+      color: #4f46e5;
+      transition: all 0.3s;
+    }
+  }
+
+  .input-underline {
+    height: 2px;
+    background: linear-gradient(to right, #4f46e5, #818cf8);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &.active {
+      width: 100%;
+    }
+  }
+
+  .login-btn {
+    border-radius: 12px;
+    height: 52px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+    border: none;
+    color: white;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    width: 100%;
+
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
 
       // 金属质感边框
       &::after {
@@ -400,10 +393,7 @@ const login = async function () {
 
       &:hover {
         transform: translateY(-3px) scale(1.02);
-        box-shadow:
-          0 8px 24px rgba(74, 108, 255, 0.35),
-          0 4px 8px rgba(74, 108, 255, 0.2),
-          inset 0 1px 1px rgba(255, 255, 255, 0.25);
+        box-shadow: 0 8px 24px rgba(79, 70, 229, 0.3);
 
         // 悬停时暂停流光
         &::before {
@@ -413,17 +403,13 @@ const login = async function () {
 
       &:active {
         transform: translateY(1px) scale(0.98);
-        box-shadow:
-          0 2px 6px rgba(74, 108, 255, 0.3),
-          inset 0 1px 1px rgba(255, 255, 255, 0.1);
+        box-shadow: 0 2px 6px rgba(79, 70, 229, 0.3);
         transition-duration: 0.1s;
       }
 
       // 加载状态
       &.is-loading {
-        background: linear-gradient(135deg,
-            rgba(106, 140, 255, 0.8) 0%,
-            rgba(74, 108, 255, 0.8) 100%);
+        background: linear-gradient(135deg, rgba(79, 70, 229, 0.8) 0%, rgba(99, 102, 241, 0.8) 100%);
 
         &::before {
           animation: none;

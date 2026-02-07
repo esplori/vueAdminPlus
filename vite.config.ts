@@ -29,7 +29,7 @@ export default defineConfig({
     // 配置代理以转发请求
     proxy: {
       // 配置对/manage-service路径的请求进行代理
-      "/api": {
+      "/manage-service": {
         target: "https://admin.dsiab.com",
         // target: "http://localhost:8093/",
         changeOrigin: true,
